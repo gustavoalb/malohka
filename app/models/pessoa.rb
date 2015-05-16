@@ -7,7 +7,6 @@ class Pessoa < ActiveRecord::Base
 
   has_attached_file :foto,
     :path => ":rails_root/public/system/:attachment/:id/:basename_:style.:extension",
-    :path => ":rails_root/public/system/:attachment/:id/:basename_:style.:extension",
     :url => "/system/:attachment/:id/:basename_:style.:extension",
   :styles => {
     :thumb    => ['100x100#',  :jpg, :quality => 70],
