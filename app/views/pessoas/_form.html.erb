@@ -1,0 +1,33 @@
+<%= simple_form_for @pessoa, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.error_notification %>
+  <div class="col-sm-12 col-md-12, row, well">
+    <div class="col-sm-5 col-md-7, thumbnail, center">
+      <div align="CENTER">
+        <%= image_tag(@pessoa.foto.url(:medium)) %><%= f.input :foto, as: :file, label: 'Atualizar foto' %>
+      </div>
+      <div>
+        <p><strong>Nascimento:</strong> <%= @pessoa.nascimento.strftime("%d/%m/%Y") unless @pessoa.nascimento.nil?%></p>
+        <p><strong>E-mail:</strong> <%= @pessoa.email %></p>
+        <p><strong>Endereço:</strong> <%= @pessoa.cpf %></p>
+      </div>
+    </div>
+    <div class="col-sm-4 col-md-7">
+      <%= f.input :nome %>
+      <%= f.input :cpf %>
+      <%= f.input :rg %>
+      <div class="container">
+        <div class="form-group">
+          <label class="row">Nascimento</label>
+          <div class="form-inline">
+            <div class='input-group date' id='datetimepicker10'>
+              <%= f.input :nascimento, as: :string, label: false %> &nbsp;<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                pessoas_path, :class => 'btn btn-default' %>
+<% end %>

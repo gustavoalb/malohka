@@ -1,0 +1,17 @@
+<%= simple_nested_form_for(@solicitacao) do |f| %>
+  <%= f.error_notification %>
+  <div class="form-inputs">
+    <%= f.input :solicitante_id %>
+    <%#= f.input :solcitavel %>
+    <%= f.input :finalizado %>
+    <%#= f.simple_fields_for @iestudantil do |s| %>
+      <%#= s.check_box :impresso %>
+      <%# end -%>
+      <%= f.simple_fields_for @solicitavel do |s| %>
+        <%= s.input :impresso %>
+      <% end -%>
+    </div>
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
+  <% end %>

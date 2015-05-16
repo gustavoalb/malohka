@@ -1,0 +1,23 @@
+class CreateEventos < ActiveRecord::Migration
+  def change
+    create_table :eventos do |t|
+      t.string :nome
+      t.integer :tipo_evento
+      t.datetime :inicio
+      t.string :termino
+      t.datetime :
+      t.string :coordenacao
+      t.integer :departamento_id
+      t.string :contato
+      t.integer :tipo_publico
+      t.string :participantes
+      t.string :equipamentos
+      t.string :observacoes
+      t.boolean :deferido
+      t.string :justificativa
+      t.boolean :ativo
+
+      t.timestamps
+    end
+  end
+end

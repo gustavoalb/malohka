@@ -1,0 +1,9 @@
+<%= f.simple_fields_for @pessoa do |p| %>
+  <%= p.input :nome, label: 'Nome da pessoa' %>
+<% end -%>
+<%= f.input :matricula %>
+<%= f.input :curso,:collection=>Curso.all.collect{|n|[n.nome,n.nome]},:prompt=>"Selecione o curso", label: 'Curso' %>
+<%#= f.input :curso_id,:collection=>Curso.all.collect{|n|[n.nome,n.id]},:prompt=>"Selecione o curso", label: 'Curso em cursos' %>
+<%#= f.input :endereco %>
+<%= f.input :ano_ingresso,:as=>:string,input_html: { maxlength: 4 } %>
+<%= f.input :turma_id,:collection=>Turma.all.collect{|n|[n.nome,n.id]},:prompt=>"Selecione a turma" %>

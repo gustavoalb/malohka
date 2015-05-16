@@ -1,0 +1,1 @@
+json.extract! @evento, :id, :nome, :tipo_evento, :inicio, :termino, :coordenacao, :departamento_id, :contato, :tipo_publico, :participantes, :equipamentos, :observacoes, :deferido, :justificativa, :ativo, :created_at, :updated_at

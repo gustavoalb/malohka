@@ -1,0 +1,15 @@
+<h1>Solicitações</h1>
+<%= simple_form_for @solicitacao,url: solicitacoes_url(tipo:'ie'), remote: true do |f| %>
+  <%= f.error_notification %>
+  <div class="form-inputs">oi
+    <%= f.input :solicitante_id, collection: @pessoa.alunos.collect{|a|[a.matricula,a.id]},:prompt=>"Selecione o curso" %>
+  </div>
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+<div id="listagem_de_solicitacoes">
+  <%= tabela_solicitacoes (@solicitacoes) %>
+</div>
+<br>
+<%= link_to 'Solicitar Carteirinha', solicitar_ie_solicitacoes_path(aluno_id:current_usuario.id) %>

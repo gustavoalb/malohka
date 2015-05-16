@@ -1,0 +1,8 @@
+<p>
+<!--<= tag.input :name, label: "Tag Name"%>-->
+  <%= p.input :inicio %>
+  <%= p.input :termino %>
+  <!--<= builder.input :pesquisa_id, input_html: {value: @pesquisa.id}, as: :hidden%>-->
+  <%= p.check_box :_destroy %>
+  <%= p.label :_destroy, "Remover período?" %>
+</p>

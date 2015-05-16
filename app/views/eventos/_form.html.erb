@@ -1,0 +1,16 @@
+<%= simple_form_for(@evento) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :nome %>
+  </div>
+
+
+  <%= f.simple_fields_for :periodos do |builder|%>
+    <%= render 'periodos', :p => builder %>
+  <% end %>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

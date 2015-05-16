@@ -1,0 +1,1 @@
+<%= f.input :turma_id,:collection=>Turma.all.collect{|n|[n.nome,n.id]},:prompt=>"Selecione a turma" %>

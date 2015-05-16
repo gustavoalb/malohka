@@ -1,0 +1,5 @@
+<%- model_class = Solicitacao -%>
+<div class="page-header">
+  <h1>Nova Solicitação - <%= tipo_solicitavel(@solicitacao.solicitavel_type) %></h1>
+</div>
+<%= render :partial => 'form' %>

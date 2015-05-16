@@ -1,0 +1,86 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @evento.nome %>
+</p>
+
+<p>
+  <strong>Tipo evento:</strong>
+  <%= @evento.tipoevento %>
+</p>
+
+<ol>  
+  <% for periodo in @evento.periodos %>  
+  <li><%= h periodo.comeco %></li>  
+  <% end %>  
+</ol> 
+
+<ol>
+  <% for ocasiao in @evento.ocasioes %>
+  <li><%= h ocasiao.inicio %></li>
+  <ul>
+    <!--< for resposta in ocasiao.respostas %>
+      <li><= h resposta.conteudo %></li>
+    < end %>-->
+  </ul>
+  <% end %>
+</ol>
+
+<p>
+  <strong>Termino:</strong>
+  <%= @evento.termino %>
+</p>
+
+<p>
+  <strong>Coordenacao:</strong>
+  <%= @evento.coordenacao %>
+</p>
+
+<p>
+  <strong>Departamento:</strong>
+  <%= @evento.departamento_id %>
+</p>
+
+<p>
+  <strong>Contato:</strong>
+  <%= @evento.contato %>
+</p>
+
+<p>
+  <strong>Tipo publico:</strong>
+  <%= @evento.tipopublico %>
+</p>
+
+<p>
+  <strong>Participantes:</strong>
+  <%= @evento.participantes %>
+</p>
+
+<p>
+  <strong>Equipamentos:</strong>
+  <%= @evento.equipamentos %>
+</p>
+
+<p>
+  <strong>Observacoes:</strong>
+  <%= @evento.observacoes %>
+</p>
+
+<p>
+  <strong>Deferido:</strong>
+  <%= @evento.deferido %>
+</p>
+
+<p>
+  <strong>Justificativa:</strong>
+  <%= @evento.justificativa %>
+</p>
+
+<p>
+  <strong>Ativo:</strong>
+  <%= @evento.ativo %>
+</p>
+
+<%= link_to 'Edit', edit_evento_path(@evento) %> |
+<%= link_to 'Back', eventos_path %>

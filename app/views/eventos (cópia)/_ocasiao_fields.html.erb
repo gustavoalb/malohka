@@ -1,0 +1,19 @@
+<p>
+  <= f.label :inicio, "kunda" %><br />  
+  <= f.input :inicio, :rows => 3 %><br />
+  <= f.check_box :_destroy %>
+  <= f.label :_destroy, "Remover período" %>
+</p>
+
+
+    <p>  
+      <= f.label :inicio, "dsdsd" %><br />  
+      <= f.text_area :inicio, :rows => 3 %><br />  
+      <= f.check_box :_destroy %>  
+      <= f.label :_destroy, "Remove Question" %>  
+    </p>  
+<p>wdwdwd</p>
+           <%= f.simple_fields_for :ocasioes do |p| %>
+        <%= p.input :inicio, :as => :datetime_picker %>
+        <% end %>
+        <p>dwdwd</p>

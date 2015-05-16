@@ -1,0 +1,6 @@
+<%= form_for noticia, remote: true do |f| %>
+  <%= f.check_box :publicado %>
+  <%= f.submit "update" %>
+  <%= f.label :publicado, noticia.publicado %> <%= noticia.titulo %>
+  <%= link_to "(remove)", noticia, method: :delete, data: {confirm: "Está certo disso?", remote: true } %>
+<% end %>

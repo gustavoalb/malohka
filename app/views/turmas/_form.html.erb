@@ -1,0 +1,12 @@
+<%= simple_form_for @turma, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :nome %>
+  <%= f.input :codigo %>
+  <%= f.input :turno,:collection=>Turma.turnos.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o Turno" %>
+  <% if @turma.curso==nil %>
+  <% else %>
+    <%= f.input :curso_id,:collection=>Curso.all.collect{|n|[n.nome,n.id]},:prompt=>"Selecione o Curso" %>
+  <% end %>
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                turmas_path, :class => 'btn btn-default' %>
+<% end %>

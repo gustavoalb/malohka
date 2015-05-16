@@ -1,0 +1,117 @@
+<%# if can? :create, Noticia %>
+  <p><%#= link_to "Nova Notícia", new_noticia_path %></p>
+<%# end %>
+<div class="container, row">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel, well">
+        <ul id="myTab1" class="nav nav-tabs nav-justified">
+          <li class="active"><a href="#destaque" data-toggle="tab">Em destaque</a></li>oi
+<li><%= link_to t( '.new', :default=>t("helpers.links.Nova notícia")), new_noticia_path, :class => 'btn btn-primary' %></li>
+
+        </ul>
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade active in" id="destaque">
+            <%- model_class = Noticia -%>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th><%= model_class.human_attribute_name(:capa) %></th>
+                  <th><%= model_class.human_attribute_name(:titulo) %></th>
+                  <th><%= model_class.human_attribute_name(:resumo) %></th>
+                  <th><%= model_class.human_attribute_name("publicação") %></th>
+                  <th><%= model_class.human_attribute_name("criação") %></th>
+                  <th><%= model_class.human_attribute_name("criação longo") %></th>
+                  <th><% if can? :update, :destroy, @destaque %><%=t '.actions', :default => t("helpers.ações") %></th><% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <% @destaques.each do |destaque| %>
+                <tr>
+                  <td><%= image_tag(destaque.capa(:thumb)) %></td>
+                  <td><%= destaque.titulo %></td>
+                  <td><%= truncate(destaque.resumo, :length => 160) %></td>
+                  <td><%= destaque.created_at.strftime("%d/%m/%y") %></td>
+                  <td><%= destaque.created_at.strftime("%d/%m/%y %H %M ") %></td>
+                  <td><%= destaque.created_at %></td>
+                  <td>  
+                    <% if can? :update, @destaque %>
+                    <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_noticia_path(destaque), :class => 'btn btn-default btn-xs' %><% end -%>
+                    <% if can? :destroy, @destaque %>
+                    <%= link_to t('.destroy', :default => t("helpers.links.destroy")), noticia_path(destaque), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger' %> <% end %>
+                  </td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+            </div>
+              <div class="tab-pane fade" id="outrasnot">
+                <%- model_class = Noticia -%>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th><%= model_class.human_attribute_name(:capa) %></th>
+                      <th><%= model_class.human_attribute_name(:titulo) %></th>
+                      <th><%= model_class.human_attribute_name(:resumo) %></th>
+                      <th><%= model_class.human_attribute_name("publicação") %></th>
+                      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @antigas.each do |antiga| %>
+                    <tr>
+                      <td><%= image_tag(antiga.capa(:thumb)) %></td>
+                      <td><%= antiga.titulo %></td>
+                      <td><%= truncate(antiga.resumo, :length => 160) %></td>
+                      <td><%= antiga.created_at.strftime("%d/%m/%y") %></td>
+                      <td>
+                        <% if can? :update, @destaque %>
+                        <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_noticia_path(antiga), :class => 'btn btn-default btn-xs' %><% end %>
+                        <% if can? :update, @destaque %>
+                        <%= link_to t('.destroy', :default => t("helpers.links.destroy")), noticia_path(antiga), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger' %><% end %>
+                      </td>
+                    </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+              <div class="tab-pane fade" id="todas">
+                <%- model_class = Noticia -%>
+                <h2><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %> anteriores</h2>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th><%= model_class.human_attribute_name(:capa) %></th>
+                      <th><%= model_class.human_attribute_name(:titulo) %></th>
+                      <th><%= model_class.human_attribute_name(:resumo) %></th>
+                      <th><%= model_class.human_attribute_name("publicação") %></th>
+                      <th><%= model_class.human_attribute_name(:destaque) %></th>
+                      <th><%= model_class.human_attribute_name(:pauta) %></th>
+                      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @noticias.each do |noticia| %>
+                    <tr>
+                      <td><%= image_tag(noticia.capa(:thumb)) %></td>
+                      <td><%= noticia.titulo %></td>
+                      <td><%= truncate(noticia.resumo, :length => 160) %></td>
+                      <td><%= noticia.created_at.strftime("%d/%m/%y") %></td>
+                      <td><%= noticia.destaque %></td>
+                      <td><%= noticia.pauta %></td>
+                      <td>
+                        <% if can? :update, @destaque %>
+                        <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_noticia_path(noticia), :class => 'btn btn-default btn-xs' %><% end %>
+                        <% if can? :update, @destaque %>
+                        <%= link_to t('.destroy', :default => t("helpers.links.destroy")), noticia_path(noticia), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger' %><% end %>
+                      </td>
+                    </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

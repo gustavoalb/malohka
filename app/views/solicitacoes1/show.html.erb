@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Solicitante:</strong>
+  <%= @solicitacao.solicitante_id %>
+</p>
+<p>
+  <strong>Tipo objeto:</strong>
+  <%#= @solicitacao.tipo_objeto_id %>
+</p>
+<p>
+  <strong>Tipo objeto type:</strong>
+  <%#= @solicitacao.tipo_objeto_type %>
+</p>
+<p>
+  <strong>Finalizado:</strong>
+  <%= @solicitacao.finalizado %>
+</p>
+<%= link_to 'Edit', edit_solicitacao_path(@solicitacao) %> |
+<%= link_to 'Back', solicitacoes_path %>

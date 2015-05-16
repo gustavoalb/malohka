@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @evento.nome %>
+</p>
+<ol>  
+  <% for periodo in @evento.periodos %>  
+  <li><%= h periodo.inicio.strftime("%d/%m/%Y às %H:%m") %></li>  
+  <li><%= h periodo.termino.strftime("%d/%m/%Y às %H:%m") %></li>  
+  <% end %>  
+</ol>
+
+<%= link_to 'Edit', edit_evento_path(@evento) %> |
+<%= link_to 'Back', eventos_path %>

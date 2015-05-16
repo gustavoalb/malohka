@@ -1,0 +1,39 @@
+<%= simple_nested_form_for(@evento) do |f| %>
+  <%= f.error_notification %>
+
+
+  <= f.simple_fields_for :ocasioes do |builder|%>
+    <= render 'ocasioes', :f => builder %>
+  < end %>
+
+  <div class="form-inputs">
+    <%= f.input :nome %>
+    <%= f.input :tipoevento,:collection=>Evento.tipoeventos.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o tipo" %>
+    <!--<= f.input :inicio, :as => :datetime_picker %> é essse-->
+
+  <%= f.simple_fields_for :periodos do |builder|%>
+  <p>  
+    <%= builder.input :comeco %><br />  
+  </p>  
+  <% end %>  
+
+    <%= f.input :coordenacao %>
+    <%= f.input :departamento_id %>
+    <%= f.input :contato %>
+    <%= f.input :tipopublico %>
+    <%= f.input :participantes %>
+    <%= f.input :equipamentos %>
+    <%= f.input :observacoes %>
+    <%= f.hidden_field :deferido, :value => "false" %>
+    <%= f.input :justificativa %>
+    <%= f.hidden_field :ativo, :value => "false" %>
+  </div>
+<!--<div class='row datetimerange'>
+    <= f.input :inicio , as: :datetime_picker, wrapper: :ranged_datetime %>
+    <= f.input :termino, as: :datetime_picker, wrapper: :ranged_datetime %>
+</div>-->
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

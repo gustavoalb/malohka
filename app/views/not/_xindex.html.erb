@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="well">
+    <%= link_to "New Product", new_noticia_path, remote: true, class: "btn btn-primary" %>
+  </div>
+  <div class="new-product"></div>
+  
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Publicado</th>
+      </tr>
+    </thead>
+    <tbody class="product-index">
+      <%= render "pindex" %>
+    </tbody>
+  </table>
+</div>
+<div id="product-modal" class="modal hide fade"></div>

@@ -1,0 +1,6 @@
+<p class="fields">
+  <%= f.label :conteudo, "Question" %><br />
+  <%= f.text_area :conteudo, :rows => 3 %><br />
+  <%= f.hidden_field :_destroy %>
+  <%= link_to_function "remove", "remove_fields(this)" %>
+</p>

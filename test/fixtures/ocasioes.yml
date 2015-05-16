@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  evento_id: 1
+  inicio: 2015-02-19 15:47:55
+  termino: 2015-02-19 15:47:55
+
+two:
+  evento_id: 1
+  inicio: 2015-02-19 15:47:55
+  termino: 2015-02-19 15:47:55

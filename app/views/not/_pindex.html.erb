@@ -1,0 +1,8 @@
+<% @noticias.each do |noticia| %>
+  <tr>
+    <td><%= noticia.titulo %></td>
+    <td><%= noticia.publicado %></td>
+    <td><%= link_to "Edit", edit_noticia_path(noticia), remote: true, class: "btn" %></td>
+    <td><%= link_to "Delete", noticia_delete_path(noticia), remote: true, class: "btn btn-danger" %></td>
+  </tr>
+<% end %>

@@ -1,0 +1,68 @@
+<!--<div id="calendar">
+    <h2 id="month">  
+    <= link_to "<", :month => (@date.beginning_of_month-1).strftime("%Y-%m-01") %>  
+    <= h @date.strftime("%B / %Y") %>  
+    <= link_to ">", :month => (@date.end_of_month+1).strftime("%Y-%m-01") %>  
+  </h2>
+  <= calendar_for @eventos, :year => @date.year, :month => @date.month do |calendar| %>
+    <= calendar.head('Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado')%>
+    < calendar.day(:day_method => :inicio) do |date, eventos| %>
+      <= date.day %>
+      <ul>
+        < for evento in eventos %>  
+        <li><= link_to h(evento.nome), evento %></li>
+        < end %>
+      </ul>  
+    < end %>
+  < end %>
+</div>  -->
+
+
+<h1>Listing eventos</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Tipo evento</th>
+      <th>Termino</th>
+      <!--<th>Coordenacao</th>
+      <th>Departamento</th>
+      <th>Contato</th>
+      <th>Tipo publico</th>
+      <th>Participantes</th>
+      <th>Equipamentos</th>
+      <th>Observacoes</th>-->
+      <th>Deferido</th>
+      <!--<th>Justificativa</th>-->
+      <th>Ativo</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @eventos.each do |evento| %>
+      <tr>
+        <td><%= evento.nome %></td>
+        <td><%= evento.tipoevento %></td>
+        <td><%= evento.termino %></td>
+        <!--<td><%= evento.coordenacao %></td>
+        <td><%= evento.departamento_id %></td>
+        <td><%= evento.contato %></td>
+        <td><%= evento.tipopublico %></td>
+        <td><%= evento.participantes %></td>
+        <td><%= evento.equipamentos %></td>
+        <td><%= evento.observacoes %></td>-->
+        <td><%= evento.deferido %></td>
+        <!--<td><%= evento.justificativa %></td>-->
+        <td><%= evento.ativo %></td>
+        <td><%= link_to 'Show', evento %></td>
+        <td><%= link_to 'Edit', edit_evento_path(evento) %></td>
+        <td><%= link_to 'Destroy', evento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Evento', new_evento_path %>

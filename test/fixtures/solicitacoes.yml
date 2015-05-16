@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  solicitante_id: 1
+  tipo_objeto_id: 1
+  tipo_objeto_type: MyString
+  finalizado: false
+
+two:
+  solicitante_id: 1
+  tipo_objeto_id: 1
+  tipo_objeto_type: MyString
+  finalizado: false

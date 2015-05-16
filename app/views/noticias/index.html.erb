@@ -1,0 +1,9 @@
+<%- model_class = Noticia -%>
+<div class="page-header" align='center'>
+  <h1>Notícias</h1>
+</div>
+<% if can? :update, Noticia %>
+  <%= render "admin" %>
+<% else %>
+  <%= render 'leitura' %>
+<% end %>

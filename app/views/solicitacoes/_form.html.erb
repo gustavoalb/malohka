@@ -1,0 +1,32 @@
+<%= simple_form_for @solicitacao, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="col-sm-12 col-md-12, row, well">
+    <div class="col-sm-5 col-md-7,  center">
+      <br>
+      <p><strong>Status do Processo:&nbsp;</strong><%= @solicitacao.status %></p>
+      <% if can? :manage, @solicitacao %>
+        <p><strong>Id do Solicitante:&nbsp;</strong><%= @solicitacao.solicitante_id %></p>
+      <% end -%>
+      <p><strong>Aluno:&nbsp;</strong><%= @solicitacao.solicitavel.aluno.pessoa.nome %></p>
+      <p><strong>Matrícula:&nbsp;</strong><%= @solicitacao.solicitavel.aluno.matricula %></p>
+      <p><strong>Tipo de Solicitação:&nbsp;</strong><%= tipo_solicitavel(@solicitacao.solicitavel_type) %></p>
+      <p><strong>Entregue?&nbsp;</strong><%#= sim_nao(@solicitacao.entregue) %></p>
+      <p><strong>Finalizado?&nbsp;</strong><%= sim_nao(@solicitacao.finalizado) %></p>
+    </div>
+    <div class="col-sm-4 col-md-7">
+      <form>
+        <fieldset disabled>
+          <div class="form-group">
+            <%= f.input :solicitante_id %>
+            <button type="button" class="btn btn-primary btn-lg btn-block">Gerar Identidade Estudantil</button>
+            <%= f.input :finalizado, label: 'Registar impressão?' %>
+            <%= f.input :finalizado, label: 'Registar entrega?' %>
+            <%= f.input :finalizado, label: 'Finalizar Processo?' %>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                solicitacoes_path, :class => 'btn btn-default' %>
+<% end %>

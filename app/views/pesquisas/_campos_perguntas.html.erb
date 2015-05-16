@@ -1,0 +1,11 @@
+<p class="campos">
+<!--<= tag.input :name, label: "Tag Name"%>-->
+  <%= f.input :conteudo %>
+  <!--<= builder.input :pesquisa_id, input_html: {value: @pesquisa.id}, as: :hidden%>-->
+  <%= f.check_box :_destroy %>
+  <%= f.label :_destroy, "Remover pergunta?" %>
+  <%= link_to_function "Remover pergunta?", "remove_campos(this)" %>
+</p>
+<%= f.simple_fields_for :respostas do |builder|%>
+  <%= render 'campos_respostas', :f => builder %>
+<% end %>

@@ -1,0 +1,5 @@
+class CreatePeriodos < ActiveRecord::Migration
+  def change
+    remove_column :periodos, :fim, :string
+  end
+end
