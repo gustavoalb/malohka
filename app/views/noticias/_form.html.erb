@@ -4,41 +4,45 @@
     <div class="col-sm-12 col-md-12">
       <table class="table table-striped">
         <thead>
-          <tr>
-            <% if can? :manage, @noticia %>
-              <th>Publicado?</th>
-            <% end %>
-            <th>Em destaque?</th>
-            <th>Em pauta?</th>
+          <th>Forma de divulgação</th>
+          <% if can? :manage, Noticia %>
+            <th>Publicado?</th>
             <th>Data de publicação</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <% if can? :manage, @noticia %>
-              <td><%= sim_nao(@noticia.publicado) %></td>
-            <% end %>
-            <td><%= sim_nao(@noticia.destaque) %><%=f.input :status,collection:[["Em Destaque","em_destaque"],["Em Pauta","em_pauta"]]%></td>
-            <td><%= sim_nao(@noticia.pauta) %></td>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="form-inline">
+              <div>
+                &nbsp;&nbsp;&nbsp;&nbsp;<%=f.input :status,collection:[["Em Destaque","em_destaque"],["Em Pauta","em_pauta"]], label: false %>
+              </div>
+            </div>
+          </td>
+          <% if can? :manage, Noticia %>
             <td>
-              <!-- <div class="container"> -->
+              <%#= f.input :publicado %>
+              <%= best_in_place @noticia, :publicado, as: :checkbox, collection: {false: "Não", true: "Sim"} %>
+            </td>
+            <td>
               <div class="form-group">
                 <div class="form-inline">
                   <div class='input-group date' id='datetimepicker12'>
-                    <%= f.input :publicado_em, input_html:{value: f.object.publicado_em.to_s_br},as: :string, label: false %> &nbsp;<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= f.input :publicado_em, input_html:{value: f.object.publicado_em.to_s_br},as: :string, label: false %> &nbsp;<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                   </div>
                 </div>
               </div>
-              <!-- </div> -->
             </td>
-          </tr>
-        </tbody>
-      </table>
-      <%= f.input :titulo, label: 'Título' %>
-      <%= f.input :conteudo, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} } %>
-    </div>
+          <% end %>
+        </tr>
+      </tbody>
+    </table>
+    <%= f.input :titulo, label: 'Título' %>
+    <%= f.input :conteudo, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} } %>
   </div>
-  <%= f.button :submit, :class => 'btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+</div>
+<%= f.button :submit, :class => 'btn-primary' %>
+<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 noticias_path, :class => 'btn btn-default' %>
 <% end %>

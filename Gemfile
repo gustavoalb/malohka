@@ -65,5 +65,11 @@ gem 'state_machines-activerecord'
 # para edição in line
 gem 'best_in_place', '~> 3.0.1'
 
+#para pesquisa
+gem 'dependent-fields-rails'
+
+#para pesquisa
+gem 'ransack'
+
 #webcam
 gem "jpeg_camera", "~> 1.3.2"

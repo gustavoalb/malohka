@@ -80,9 +80,9 @@
               | <%= link_to "Sair", destroy_usuario_session_path, method: :delete, :class => 'navbar-link'  %>
             <% else %>
               <% if can? :manage, :all %>
-                <%= link_to "Sign up", new_usuario_registration_path, :class => 'navbar-link'  %> |
+                <%= link_to "Registrar", new_usuario_registration_path, :class => 'navbar-link'  %> |
               <% end %>
-              <%= link_to "Login", new_usuario_session_path, :class => 'navbar-link'  %>
+              <%= link_to "Entrar", new_usuario_session_path, :class => 'navbar-link'  %>
             <% end %>
           </div>
         </div>
@@ -120,9 +120,9 @@
                       </h4>
                     </div>
                     <div id="accordionOne" class="panel-collapse collapse">
-                      <div class="panel-body"><%#= link_to "Institucional", ops_path %></div>
-                      <div class="panel-body"><%#= link_to "Organograma", organograma_path %></div>
-                      <div class="panel-body"><%#= link_to "Como chegar", como_chegar_path %></div>
+                      <div class="panel-body"><%= link_to "Institucional", root_path %></div>
+                      <div class="panel-body"><%= link_to "Organograma", root_path %></div>
+                      <div class="panel-body"><%= link_to "Como chegar", root_path %></div>
                     </div>
                     <div class="panel-heading">
                       <h4 class="panel-title">
@@ -130,10 +130,10 @@
                       </h4>
                     </div>
                     <div id="accordionTwo" class="panel-collapse collapse">
-                      <div class="panel-body"><%#= link_to "Sobre o GTE", sobre_o_gte_path %></div>
-                      <div class="panel-body"><%#= link_to "Linhas de Pesquisa", linhas_de_pesquisa_path %></div>
-                      <div class="panel-body"><%#= link_to "Pesquisadores", pesquisadores_path %></div>
-                      <div class="panel-body"><%#= link_to "Projetos", projetos_path %></div>
+                      <div class="panel-body"><%= link_to "Sobre o GTE", root_path %></div>
+                      <div class="panel-body"><%= link_to "Linhas de Pesquisa", root_path %></div>
+                      <div class="panel-body"><%= link_to "Pesquisadores", root_path %></div>
+                      <div class="panel-body"><%= link_to "Projetos", root_path %></div>
                     </div>
                     <div class="panel-heading">
                       <h4 class="panel-title">

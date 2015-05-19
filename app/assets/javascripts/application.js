@@ -22,6 +22,7 @@
 //= require jquery_nested_form
 //= require bootstrap-datepicker
 //= require datepicker-pt-BR
+//= require dependent-fields
 //= require_tree .
 
 jQuery(function($){
@@ -88,9 +89,14 @@ function remove_fields (link) {
         $(function () {
             $('#datetimepicker12').datetimepicker({
                 inline: false,
-                format: 'DD/MM/YYYY HH:MM',
+                format: 'DD/MM/YYYY hh:mm',
                 sideBySide: true
                 // language: 'pt-BR'
             });
         });
 //
+//DependentFields
+$(document).ready(function() {
+    DependentFields.bind()
+});
+//DependentFields

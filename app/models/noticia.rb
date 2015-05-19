@@ -1,8 +1,7 @@
 class Noticia < ActiveRecord::Base
 
-  scope :nao_arquivadas, -> {where(publicado = true).order("publicado_em DESC")}
-  #scope :destaque, -> {where("pauta = ? or destaque = ?",true,true).order("publicado_em DESC")}
-  scope :destaque, -> {where("publicado = true and destaque = true and pauta = true",true).order("publicado_em DESC")}
+  scope :publicavel, -> {where("publicado = false",true).order("publicado_em DESC")}
+  scope :destaque, -> {where("publicado = true and destaque = true",true).order("publicado_em DESC")}
   scope :pauta, -> {where("publicado = true and destaque = false",true).order("publicado_em DESC")}
   scope :arquivadas, -> {where("publicado = false and destaque = false",true).order("publicado_em DESC")}
 

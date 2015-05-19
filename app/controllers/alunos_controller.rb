@@ -5,7 +5,10 @@ class AlunosController < ApplicationController
   respond_to :html
 
   def index
-    @alunos = Aluno.all
+    #@alunos = Aluno.all
+
+    @q = Aluno.ransack(params[:q])
+    @alunos = @q.result(distinct: true)
     #respond_with(@alunos)
 
     require 'barby' #sou aqui mesmo se vou servir ao resto so sistema?
