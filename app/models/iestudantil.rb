@@ -38,7 +38,6 @@ class Iestudantil < ActiveRecord::Base
     return self.entregue?
   end
 
-
   def imprimir_carteira
     self.impresso = true
   end

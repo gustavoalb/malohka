@@ -5,7 +5,6 @@ class Aluno < ActiveRecord::Base
   has_many :carteiras, class_name: 'Iestudantil'
   has_one :usuario
   accepts_nested_attributes_for :pessoa, :allow_destroy => true
-  #validates_presence_of [:matricula, :ano_ingresso, :curso, :semestre_atual, :pessoa_id], :message=>"Não pode ficar em branco!"
   validates_presence_of [:matricula, :ano_ingresso, :curso, :semestre_atual], :message=>"Não pode ficar em branco!"
 
   def gerar_c_barra

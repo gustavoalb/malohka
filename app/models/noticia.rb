@@ -43,5 +43,4 @@ class Noticia < ActiveRecord::Base
     self.save
   end
 
-
 end

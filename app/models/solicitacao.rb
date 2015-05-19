@@ -3,7 +3,6 @@ class Solicitacao < ActiveRecord::Base
   #scope :em_aberto, -> {where(finalizado:false)}
   scope :salsifufu, -> {where(finalizado:true)}
   scope :do_objeto, lambda{|objeto_id| where("solicitavel_id=?",objeto_id)}
-  #scope :nome_do_troco, -> {where(???solicitavel.aluno.pessoa.usuario.id??)}
   #.order(:created_at)}
   accepts_nested_attributes_for :solicitavel
   #accepts_nested_attributes_for :iestudantis
