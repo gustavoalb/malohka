@@ -55,20 +55,19 @@
   </div>
   <h4>Outras notícias</h4>
   <%- model_class = Noticia -%>
-  <%# Noticia.destaqued.each do |r| %>
-    <% Noticia.pauta.each do |r| %>
-      <p><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;<%= r.created_at.strftime("%d/%m/%Y") %>&nbsp;&nbsp;<%= link_to r.titulo, noticia_path(r) %></p>
-    <% end %>
-  </div>
-  <!-- <div class="col-md-12, well">
+  <% Noticia.pauta.each do |r| %>
+    <p><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;<%= r.created_at.strftime("%d/%m/%Y") %>&nbsp;&nbsp;<%= link_to r.titulo, noticia_path(r) %></p>
+  <% end %>
+</div>
+<!-- <div class="col-md-12, well">
   <!--   <h3>Eventos</h3> -->
-  <!--   <div class="row">
+<!--   <div class="row">
     <div class="col-sm-12 col-md-12">
       <div class="col-sm-12 col-md-12, row">
         <%- model_class = Evento -%><% @eventos.each do |evento| %>
           <div id="eventos" class="col-sm-4 col-md-6, thumbnail"> -->
-  <!--<div class="thumbnail">ver esse aqui-->
-  <!--             <%= link_to (image_tag "thumbnail-3.jpg"), root_path %>
+<!--<div class="thumbnail">ver esse aqui-->
+<!--             <%= link_to (image_tag "thumbnail-3.jpg"), root_path %>
             <div class="caption text-center" style='position:relative; top:-25px'>
               <h3><%= truncate(evento.nome, :length => 160) %></h3>
               <div style='position:absolute; top:90%; margin-left:20%'><a href="#" class="btn btn-warning" role="button  ">Informações</a>
@@ -79,5 +78,5 @@
       </div>
     </div>
   </div> -->
-  <!-- </div> -->
+<!-- </div> -->
 </div>
