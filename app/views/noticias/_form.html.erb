@@ -42,7 +42,7 @@
     <%= f.input :conteudo, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} } %>
   </div>
 </div>
-<%= f.button :submit, :class => 'btn-primary' %>
+<%= f.submit "Confirmar",:class => 'btn btn-primary' %>
 <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 noticias_path, :class => 'btn btn-default' %>
 <% end %>

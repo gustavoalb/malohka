@@ -1,6 +1,5 @@
 class Pessoa < ActiveRecord::Base
   include CriarUsuario
-  #include CriarAluno
   has_one :usuario
   has_many :alunos
   validates_presence_of [:nome, :cpf], :message=>"Não pode ficar em branco!"

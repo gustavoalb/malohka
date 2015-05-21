@@ -51,11 +51,11 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Grupo de Pesquisa <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><%= link_to "Sobre o GTE", root_path %></li>
-                  <li class="divider"></li>
-                  <li><%= link_to "Linhas de Pesquisa", root_path %></li>
-                  <li><%= link_to "Pesquisadores", root_path %></li>
-                  <li><%= link_to "Projetos", root_path %></li>
+                  <!--                <li><%= link_to "Sobre o GTE", root_path %></li>
+                  <li class="divider"></li> -->
+                  <!-- <li><%= link_to "Linhas de Pesquisa", root_path %></li> -->
+                  <li><%= link_to "Pesquisadores", pesquisadores_path %></li>
+                  <li><%= link_to "Projetos", projetos_path %></li>
                 </ul>
               </li>
               <li class="dropdown">
@@ -89,24 +89,24 @@
       </div>
       <div class="container" style="padding-top: 0px;">
         <!-- elemento com imagem -->
-        <!--<div class="row">
-            <div class="col-md-12"> -->
-        <%= bootstrap_flash %>
-        <!--               <div class="container text-justify">
-                <div class="row">
-                  <div class="col-md-4">
-                    <%= image_tag "ifap_logo1.png" %>
-                  </div>
-                  <div class="col-md-8"></div>
+        <div class="row">
+          <div class="col-md-12">
+            <%= bootstrap_flash %>
+            <div class="container text-justify">
+              <div class="row">
+                <div class="col-md-4 center">
+                  <%= image_tag "fronte.png" %>
                 </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <hr>
-                  </div>
+                <div class="col-md-8"></div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <hr>
                 </div>
               </div>
             </div>
-          </div>-->
+          </div>
+        </div>
       </div>
       <div class="container">
         <div class="row">
@@ -115,7 +115,7 @@
               <div class="row">
                 <div class="col-md-2">
                   <div class="panel panel-default">
-                    <div class="panel-heading">
+                    <!-- <div class="panel-heading">
                       <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#accordionOne">+&nbsp;Principal</a>
                       </h4>
@@ -124,17 +124,17 @@
                       <div class="panel-body"><%= link_to "Institucional", root_path %></div>
                       <div class="panel-body"><%= link_to "Organograma", root_path %></div>
                       <div class="panel-body"><%= link_to "Como chegar", root_path %></div>
-                    </div>
+                    </div> -->
                     <div class="panel-heading">
                       <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#accordionTwo">+&nbsp;GTE</a>
                       </h4>
                     </div>
                     <div id="accordionTwo" class="panel-collapse collapse">
-                      <div class="panel-body"><%= link_to "GTE", root_path %></div>
-                      <div class="panel-body"><%= link_to "Linhas de Pesquisa", root_path %></div>
-                      <div class="panel-body"><%= link_to "Pesquisadores", root_path %></div>
-                      <div class="panel-body"><%= link_to "Projetos", root_path %></div>
+                      <!--       <div class="panel-body"><%= link_to "GTE", root_path %></div> -->
+                      <!-- <div class="panel-body"><%= link_to "Linhas de Pesquisa", root_path %></div> -->
+                      <div class="panel-body"><%= link_to "Pesquisadores", pesquisadores_path %></div>
+                      <div class="panel-body"><%= link_to "Projetos", projetos_path %></div>
                     </div>
                     <div class="panel-heading">
                       <h4 class="panel-title">

@@ -8,6 +8,7 @@ class ValidarUsuarioController < ApplicationController
     end
 
     @datas.push current_usuario.pessoa.nascimento
+    @datas = @datas.shuffle
 
   end
 
@@ -20,10 +21,11 @@ class ValidarUsuarioController < ApplicationController
       @current_usuario.save
       @retorno = root_url
       @mensagem = "Usuário validado com sucesso!"
+      redirect_to @retorno, :notice=> @mensagem
     else
       @retorno = validar_usuario_index_url
-      @mensagem = "Você precisa confirmar sua data de nascimento"
+      @mensagem = "Você precisa confirmar sua data de nascimento!"
+      redirect_to @retorno, :alert=> @mensagem
     end
-    redirect_to @retorno, :alert=> @mensagem
   end
 end

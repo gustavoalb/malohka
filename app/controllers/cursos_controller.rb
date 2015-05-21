@@ -5,8 +5,10 @@ class CursosController < ApplicationController
   respond_to :html
 
   def index
-    @cursos = Curso.all
-    respond_with(@cursos)
+    #cursos = Curso.all.order("nivel_id ASC, nome DESC")
+    #respond_with(@cursos)
+    @q = Curso.ransack(params[:q])
+    @cursos = @q.result(distinct: true)
   end
 
   def show

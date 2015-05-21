@@ -1,6 +1,6 @@
 <%- model_class = Aluno -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1 align='center'><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
 <% if can? :manage, :all %>
   <p>
@@ -8,10 +8,12 @@
     <%= link_to "Gerar Identidades Estudantis", alunos_path(format: "pdf" ),   :class  => 'btn btn-primary' %>
   </p>
 <% end %>
-<%= search_form_for @q do |f| %>
-  <%= f.search_field :pessoa_nome_cont %>
-  <%= f.submit %>
-<% end %>
+<div class="form-inputs">
+  <%= search_form_for @q do |f| %>
+    <%= f.search_field :pessoa_nome_cont %>
+    <%= f.submit "Pesquisar",:class => 'btn btn-primary btn-xs' %>
+  <% end %>
+</div>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -23,10 +25,9 @@
       <% end %>
       <th><%= model_class.human_attribute_name('Aluno') %></th>
       <th><%= model_class.human_attribute_name(:matricula) %></th>
-      <th><%= model_class.human_attribute_name(:ano_ingresso) %></th>
-      <th><%= model_class.human_attribute_name(:curso_id) %></th>
-      <th><%= model_class.human_attribute_name(:semestre_atual) %></th>
-      <th><%= model_class.human_attribute_name(:turma_id) %></th>
+      <th>Curso</th>
+      <th>Semestre Atual</th>
+      <th>Turma</th>
       <th><%=t '.actions', :default => t("helpers.Ações") %></th>
     </tr>
   </thead>
@@ -36,10 +37,10 @@
         <% if aluno.pessoa.foto.present? %>
           <td><%= image_tag(aluno.pessoa.foto(:thumb)) %></td>
         <% else %>
+          <td><%= image_tag("anonimo.jpg", size: "90") %></td>
         <% end %>
         <td><%= link_to aluno.pessoa.nome, aluno_path(aluno) %></td>
         <td><%= aluno.matricula %></td>
-        <td><%= aluno.ano_ingresso %></td>
         <td><%= aluno.curso_id %></td>
         <td><%= aluno.semestre_atual %></td>
         <td><%= aluno.turma_id %></td>
@@ -56,6 +57,6 @@
     <% end %>
   </tbody>
 </table>
-<%= link_to t('.new', :default => t("helpers.links.new")),
+<%= link_to t('.new', :default => t("helpers.links.Cadastrar")),
             new_aluno_path,
             :class => 'btn btn-primary' %>

@@ -5,8 +5,10 @@ class NoticiasController < ApplicationController
   respond_to :html
 
   def index
-    @noticias = Noticia.all
-    respond_with(@noticias)
+    #@noticias = Noticia.all
+    #respond_with(@noticias)
+    @q = Noticia.ransack(params[:q])
+    @noticias = @q.result(distinct: true)
   end
 
   def show
@@ -69,6 +71,18 @@ class NoticiasController < ApplicationController
       @noticia.em_pauta
     end
     redirect_to @noticia
+  end
+
+  def publicar_noticia
+    @noticia = Noticia.find(params[:noticia_id])
+    if params[:publicado]=='sim'
+      @noticia.publicado = true
+    elsif params[:publicado]=='nao'
+      @noticia.publicado = false
+      @noticia.status = 'publicavel'
+    end
+    @noticia.save
+    redirect_to noticias_url
   end
 
   private

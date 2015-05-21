@@ -1,45 +1,47 @@
 <%- model_class = Turma -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1 align='center'>Turmas</h1>
 </div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:nome) %></th>
-      <th><%= model_class.human_attribute_name(:codigo) %></th>
-      <th><%= model_class.human_attribute_name(:turno) %></th>
-      <% @turmas.each do |turma| %>
-        <% if turma.curso==nil %>
-        <% else %>
-          <th><%= model_class.human_attribute_name(:curso_id) %></th>
-        <% end %>
-      <% end %>
-      <th><%=t '.actions', :default => t("helpers.Ações") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @turmas.each do |turma| %>
+<%= search_form_for @q do |f| %>
+  <%= f.search_field :nome_cont %>
+  <%= f.submit %>
+<% end %>
+<br>
+<div class="col-sm-12 col-md-12, row, well">
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td><%= link_to turma.nome, turma_path(turma) %></td>
-        <td><%= turma.codigo %></td>
-        <td><%= turma.turno %></td>
-        <% if turma.curso==nil %>
-        <% else %>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Turno</th>
+        <th>Nivel Id</th>
+        <th><%= model_class.human_attribute_name(:curso_id) %></th>
+        <th><%=t '.actions', :default => t("helpers.Ações") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @turmas.each do |turma| %>
+        <tr>
+          <td><%= turma.id %></td>
+          <td><%= link_to turma.nome, turma_path(turma) %></td>
+          <td><%= turma.turno %></td>
           <td><%= turma.curso.nome %></td>
-        <% end %>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+          <td><%= turma.curso.nivel.nome %></td>
+          <td><%= turma.nivel_id %></td>
+          <td>
+            <%= link_to t('.edit', :default => t("helpers.links.editar")),
                       edit_turma_path(turma), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+            <%= link_to t('.destroy', :default => t("helpers.links.apagar")),
                       turma_path(turma),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-xs btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= link_to t('.new', :default => t("helpers.links.new")),
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= link_to t('.new', :default => t("helpers.links.cadastrar Turma")),
             new_turma_path,
             :class => 'btn btn-primary' %>

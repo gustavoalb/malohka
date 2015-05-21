@@ -1,11 +1,10 @@
 <%= simple_form_for @curso, :html => { :class => 'form-horizontal' } do |f| %>
-  <%= f.input :nome %>
-  <%= f.input :codigo %>
-  <% if @curso.nivel==nil %>
-  <% else %>
+  <div class="col-sm-12 col-md-12, row, well">
+    <%= f.input :nome %>
+    <%= f.input :codigo %>
     <%= f.input :nivel_id,:collection=>Nivel.all.collect{|n|[n.nome,n.id]},:prompt=>"Selecione o Nível" %>
-  <% end %>
-  <%= f.button :submit, :class => 'btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+    <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancelar")),
                 cursos_path, :class => 'btn btn-default' %>
+  </div>
 <% end %>

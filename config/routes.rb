@@ -2,13 +2,18 @@ Rails.application.routes.draw do
 
   resources :noticias do
     put "atualizar_status/:noticia_id/:status"=>'noticias#atualizar_status', as: :atualizar_status
+    put "publicar_noticia/:noticia_id/:publicado"=>'noticias#publicar_noticia', as: :publicar_noticia
   end
 
+  #teste do controller static
   scope "/gte" do
-    %w[gte sobre_o_gte linhas_de_pesquisa pesquisadores projetos].each do |p|
+    %w[gte pesquisadores projetos].each do |p|
       get p, controller: "static", action: p
     end
   end
+
+  #get gte, controller: "static", action: gte
+  #teste do controller static
 
   # %w[servicos contato sobre organograma como_chegar ops].each do |p|
   #   get p, controller: "static", action: p
@@ -25,11 +30,6 @@ Rails.application.routes.draw do
   end
 
 
-  #meu teste de ajax
-  # resources :noticias do
-  #   get 'toggle_destaque', :on => :member
-  # end
-  #termina aqui
 
   # scope "" do
   #   resources :paginas
@@ -50,7 +50,9 @@ Rails.application.routes.draw do
     get "delete"
   end
   resources :alunos
-  resources :turmas
+  resources :turmas do
+    post 'cursos', on: :collection
+  end
   resources :cursos
   resources :niveis
 

@@ -5,8 +5,13 @@ class TurmasController < ApplicationController
   respond_to :html
 
   def index
-    @turmas = Turma.all
-    respond_with(@turmas)
+    #@turmas = Turma.all.order("turno ASC, curso_id ASC")
+    # respond_with(@turmas)
+
+    @q = Turma.ransack(params[:q])
+    @turmas = @q.result(distinct: true)
+
+
   end
 
   def show
@@ -37,12 +42,22 @@ class TurmasController < ApplicationController
     respond_with(@turma)
   end
 
+  def cursos
+    @nivel = Nivel.find(params[:nivel]) if !params[:nivel].blank?
+    if @nivel
+      @cursos = @nivel.cursos.collect{|c|[c.nome,c.id]}
+      render :partial => 'cursos'
+    else
+      render nothing: true
+    end
+  end
+
   private
   def set_turma
     @turma = Turma.find(params[:id])
   end
 
   def turma_params
-    params.require(:turma).permit(:nome, :codigo, :turno, :curso_id)
+    params.require(:turma).permit(:nome, :codigo, :turno, :curso_id, :nivel_id)
   end
 end

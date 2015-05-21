@@ -2,8 +2,12 @@ module CriarUsuario
   extend ActiveSupport::Concern
 
   included do
-    after_create :criar_usuario, only: :create
+    after_create :criar_usuario
   end
+
+  # included do
+  #   after_create :criar_usuario, only: :create
+  # end
 
   def criar_usuario
     #não está permitindo fazer o update da data de nascimento

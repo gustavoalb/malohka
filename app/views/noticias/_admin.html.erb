@@ -61,6 +61,9 @@
                               <dd><%= publicavel.created_at.strftime("%d/%m/%y às %H:%M") %></dd>
                               <dt><strong>Publicada em:</strong></dt>
                               <dd><%= publicavel.publicado_em.strftime("%d/%m/%y às %H:%M") %></dd>
+                              <% if can? :manage, Noticia %>
+                                <%= link_to 'Publicar', noticia_publicar_noticia_path(publicavel,'sim'), method: :put, :class => 'btn btn-primary btn-xs' %>
+                              <% end %>
                               <% if can? :update, Noticia %>
                                 <dt><strong>Ações:</strong></dt>
                                 <dd><%= link_to t('.edit', :default => t("helpers.links.Editar")), edit_noticia_path(publicavel), :class => 'btn btn-default btn-xs' %>
@@ -197,6 +200,7 @@
                                 <dd>
                                   <% if can? :manage, Noticia %>
                                     <%= link_to 'Colocar em destaque', noticia_atualizar_status_path(pauta,'em_destaque'), method: :put, :class => 'btn btn-primary btn-xs' %>
+                                    <%= link_to 'Despublicar', noticia_publicar_noticia_path(pauta,'nao'), method: :put, :class => 'btn btn-primary btn-xs' %>
                                   <% end %>
                                   <%= link_to t('.edit', :default => t("helpers.links.Editar")), edit_noticia_path(pauta), :class => 'btn btn-default btn-xs' %>
                                 <% end %>

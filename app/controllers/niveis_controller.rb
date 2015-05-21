@@ -5,7 +5,7 @@ class NiveisController < ApplicationController
   respond_to :html
 
   def index
-    @niveis = Nivel.all
+    @niveis = Nivel.all.order("nome ASC")
     respond_with(@niveis)
   end
 
