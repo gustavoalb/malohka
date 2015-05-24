@@ -9,9 +9,12 @@
   <dd><%= @pessoa.cpf %></dd>
   <dt><strong><%= model_class.human_attribute_name(:rg) %>:</strong></dt>
   <dd><%= @pessoa.rg %></dd>
+  <dt><strong>Tipagem Sanguínea:</strong></dt>
+  <dd><%= @pessoa.fator_rh  %></dd>
+  <dt><strong>Telefone:</strong></dt>
+  <dd><%= @pessoa.telefone %></dd>
   <dt><strong><%= model_class.human_attribute_name(:nascimento) %>:</strong></dt>
-  <dd><%= @pessoa.nascimento %></dd>
-  <dd><%#= @pessoa.nascimento.strftime("%d/%m/%Y") %></dd>
+  <dd><%= @pessoa.nascimento.strftime("%d/%m/%Y") %></dd>
   <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
   <dd><%= @pessoa.email %></dd>
 </dl>

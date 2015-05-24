@@ -5,8 +5,10 @@ class PessoasController < ApplicationController
   respond_to :html
 
   def index
-    @pessoas = Pessoa.all
-    respond_with(@pessoas)
+    # @pessoas = Pessoa.all
+    # respond_with(@pessoas)
+    @q = Pessoa.ransack(params[:q])
+    @pessoas = @q.result(distinct: true)
   end
 
   def show
@@ -43,6 +45,6 @@ class PessoasController < ApplicationController
   end
 
   def pessoa_params
-    params.require(:pessoa).permit(:nome, :cpf, :nascimento, :rg, :email, :fator_rh, :foto)
+    params.require(:pessoa).permit(:nome, :cpf, :nascimento, :rg, :email, :fator_rh, :foto, :atualizado, :telefone, :atualizado, :status)
   end
 end

@@ -12,10 +12,13 @@
     <thead>
       <tr>
         <th>Id</th>
+        <th>Nível</th>
         <th>Nome</th>
         <th>Turno</th>
-        <th>Nivel Id</th>
-        <th><%= model_class.human_attribute_name(:curso_id) %></th>
+        <th>Curso</th>
+        <% if can? :manage, Turma %>
+          <th>Curso.id.nome</th>
+        <% end %>
         <th><%=t '.actions', :default => t("helpers.Ações") %></th>
       </tr>
     </thead>
@@ -23,11 +26,17 @@
       <% @turmas.each do |turma| %>
         <tr>
           <td><%= turma.id %></td>
+          <% if turma.nivel_id.present? %>
+            <td><%= turma.nivel.nome %></td>
+          <% else %>
+            <td>Pendente :~(</td>
+          <% end %>
           <td><%= link_to turma.nome, turma_path(turma) %></td>
           <td><%= turma.turno %></td>
           <td><%= turma.curso.nome %></td>
-          <td><%= turma.curso.nivel.nome %></td>
-          <td><%= turma.nivel_id %></td>
+          <% if can? :manage, Turma %>
+            <td><%= turma.curso.nivel.nome %></td>
+          <% end %>
           <td>
             <%= link_to t('.edit', :default => t("helpers.links.editar")),
                       edit_turma_path(turma), :class => 'btn btn-default btn-xs' %>
@@ -42,6 +51,8 @@
     </tbody>
   </table>
 </div>
+<div align='center'><%= will_paginate @turmas %></div>
+<%#= will_paginate @collection, renderer: BootstrapPagination::Rails %>
 <%= link_to t('.new', :default => t("helpers.links.cadastrar Turma")),
             new_turma_path,
             :class => 'btn btn-primary' %>

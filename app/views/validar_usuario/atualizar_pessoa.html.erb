@@ -1,0 +1,23 @@
+<%= simple_form_for @pessoa, url: validar_usuario_salvar_pessoa_url, method: :post,:html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.error_notification %>
+  <div class="page-header">
+    <h1 align='center'>Atilizar informações</h1>
+    <h2 align='center'>Nome</h2>
+  </div>
+  <div class="col-sm-12 col-md-12, row, well">
+    <div class="col-sm-5 col-md-7, thumbnail, center">
+      <div align="CENTER">
+      </div>
+      <div>
+      </div>
+    </div>
+    <div class="col-sm-4 col-md-7">
+      <h3 align='center'>Informações Discentes</h3>
+      <%= f.input :rg %>
+      <%#= f.input :matricula %>
+    </div>
+  </div>
+  <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                pessoas_path, :class => 'btn btn-default' %>
+<% end %>

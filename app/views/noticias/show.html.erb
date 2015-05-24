@@ -5,31 +5,10 @@
 <div class="col-md-12, well">
   <div class="row">
     <div class="col-sm-12 col-md-12,  thumbnail">
-      <p align="right"> publicado em <%= @noticia.publicado_em.strftime("%d/%m/%Y às %H:%M") %> </p>
+      <p align="right"> <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> publicado em <%= @noticia.publicado_em.strftime("%d/%m/%Y às %H:%M") %> </p>
       <div><%= @noticia.conteudo.html_safe %></div>
     </div>
   </div>
 </div>
 <br>
-<%= link_to t('.back', :default => t("helpers.links.back")), noticias_path, :class => 'btn btn-default'  %>
-<!-- <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:titulo) %>:</strong></dt>
-  <dd><%= best_in_place_if can?(:update, @noticia), @noticia, :titulo %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:conteudo) %>:</strong></dt>
-  <dd><%= @noticia.conteudo %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:publicado_em) %>:</strong></dt>
-  <dd><%= @noticia.publicado_em.strftime("%d/%m/%y às %H:%M") %></dd>
-  <dt><strong>Publicado?</strong></dt>
-  <dd><%= sim_nao(best_in_place_if can?(:update, @noticia), @noticia, :publicado, as: :checkbox, collection: {false: "Não", true: "Sim"}) %></dd>
-  <dt><strong>Em Destaque?</strong></dt>
-  <dd><%= sim_nao(best_in_place_if can?(:update, @noticia), @noticia, :destaque, as: :checkbox, collection: {false: "Não", true: "Sim"}) %></dd>
-  <dt><strong>Em pauta?</strong></dt>
-  <dd><%= sim_nao(best_in_place_if can?(:update, @noticia), @noticia, :pauta, as: :checkbox, collection: {false: "Não", true: "Sim"}) %></dd>
-</dl>
-<%= link_to t('.back', :default => t("helpers.links.back")), noticias_path, :class => 'btn btn-default'  %>
-<% if can? :update, @noticia %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_noticia_path(@noticia), :class => 'btn btn-default' %>
-<% end %>
-<% if can? :destroy, @noticia %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")), noticia_path(@noticia), :method => 'delete',  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger' %>
-<% end %> -->
+<%= link_to t('.back', :default => t("helpers.links.voltar")), noticias_path, :class => 'btn btn-default'  %>

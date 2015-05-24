@@ -3,9 +3,11 @@ class Aluno < ActiveRecord::Base
   belongs_to :turma
   belongs_to :pessoa
   has_many :carteiras, class_name: 'Iestudantil'
+  has_many :niveis
   has_one :usuario
   accepts_nested_attributes_for :pessoa, :allow_destroy => true
   validates_presence_of [:matricula, :ano_ingresso, :curso, :semestre_atual], :message=>"Não pode ficar em branco!"
+  validates :turma_id, :presence => true, :on => :update
 
   def gerar_c_barra
     pessoa = self.pessoa

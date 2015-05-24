@@ -7,10 +7,8 @@ class TurmasController < ApplicationController
   def index
     #@turmas = Turma.all.order("turno ASC, curso_id ASC")
     # respond_with(@turmas)
-
     @q = Turma.ransack(params[:q])
-    @turmas = @q.result(distinct: true)
-
+    @turmas = @q.result(distinct: true).order("turno ASC, curso_id ASC").paginate(:page => params[:page], :per_page => 5)
 
   end
 

@@ -1,0 +1,48 @@
+<%#= simple_nested_form_for @alunos, url: validar_usuario_salvar_pessoa_url, method: :post,:html => { :class => 'form-horizontal' } do |f| %>
+  <%#= f.error_notification %>
+  <!--   <div class="page-header">
+    <h1 align='center'>Atilizar informações</h1>
+    <h2 align='center'>Nome</h2>
+  </div>
+  <div class="col-sm-12 col-md-12, row, well">
+    <div class="col-sm-5 col-md-7, thumbnail, center">
+      <div align="CENTER">
+      </div>
+      <div>
+      </div>
+    </div>
+    <div class="col-sm-4 col-md-7">
+      <h3 align='center'>Informações Discentes</h3>
+      <%#= f.input :rg %>
+      <%#= f.input :matricula %>
+    </div>
+  </div> -->
+  <%#= f.submit "Confirmar",:class => 'btn btn-primary' %>
+  <%#= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                pessoas_path, :class => 'btn btn-default' %>
+  <%# end %>
+  <%- model_class = Aluno -%>
+  <div class="page-header">
+    <h1>Editar <%#= @aluno.pessoa.nome %></h1>
+  </div>
+  <%#= simple_nested_form_for :aluno, :html => { :class => 'form-vertical' } do |f| %>
+    <%# @aluno.each do |aluno| %>
+      <%= simple_nested_form_for :aluno, url: validar_usuario_salvar_aluno_url, method: :post,:html => { :class => 'form-horizontal' } do |f| %>
+        <%#= f.simple_fields_for @pessoa do |p| %>
+          <%#= p.input :nome, label: 'Nome da pessoa' %>
+          <%# end -%>
+          <td><%= @aluno.matricula %></td>
+          <%= f.input :matricula %>
+          <%= f.input :curso,:collection=>Curso.all.collect{|n|[n.nome,n.nome]},:prompt=>"Selecione o curso", label: 'Curso' %>
+          <%#= f.input :curso_id,:collection=>Curso.all.collect{|n|[n.nome,n.id]},:prompt=>"Selecione o curso", label: 'Curso em cursos' %>
+          <%#= f.input :endereco %>
+          <%= f.input :ano_ingresso,:as=>:string,input_html: { maxlength: 4 } %>
+          <%= f.input :turma_id,:collection=>Turma.all.collect{|n|[n.nome,n.id]},:prompt=>"Selecione a turma" %>
+          <%# end -%>
+        </div>
+      </div>
+      <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                alunos_path, :class => 'btn btn-default' %>
+      <%# end %>
+    <% end %>

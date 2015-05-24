@@ -15,7 +15,11 @@
       <%= f.input :nome %>
       <%= f.input :cpf %>
       <%= f.input :rg %>
-      <div class="container">
+      <div class="form-group">
+        <label>Nascimento</label>
+        <div><%= f.date_select :nascimento %></div>
+      </div>
+      <!--       <div class="container">
         <div class="form-group">
           <label class="row">Nascimento</label>
           <div class="form-inline">
@@ -24,7 +28,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <%= f.submit "Confirmar",:class => 'btn btn-primary' %>

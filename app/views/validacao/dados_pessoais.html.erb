@@ -1,0 +1,32 @@
+<div class="page-header" align='center'>
+  <h1>Confirmação de informações</h1>
+  <h3>Dados Pessoais</h3>
+</div>
+<%= simple_form_for @pessoa, :url => wizard_path do |f|  %>
+  <%= f.error_notification %>
+  <div class="col-sm-12 col-md-12, row, well">
+    <div class="col-sm-5 col-md-7, thumbnail, center">
+      <div align="CENTER">
+        <% if @pessoa.foto.present? %>
+          <%= image_tag(@aluno.pessoa.foto.url(:medium)) %>
+        <% else %>
+          <%= image_tag("anonimo.jpg", size: "250") %>
+          <p>Não se preocupe, sua foto será atualizada. :)</p>
+        <% end -%>
+      </div>
+      <div>
+        <p align='center'><strong><%= @pessoa.nome %></strong></p>
+        <p><strong>Nascimento:</strong> <%= @pessoa.nascimento.strftime("%d/%m/%Y") unless @pessoa.nascimento.nil?%></p>
+        <p><strong>Cpf: </strong><%= @pessoa.cpf %></p>
+      </div>
+    </div>
+    <div class="col-sm-4 col-md-7">
+      <%= f.input :rg, label: 'Registro Geral (RG)' %>
+      <%= f.input :fator_rh,:collection=>Pessoa.fator_rhs.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione", label: 'Tipagem Sanguínea' %>
+      <%= f.input :telefone %>
+      <%= f.input :email %>
+    </div>
+  </div>
+  <div align='center'><%= f.submit "Confirmar",:class => 'btn btn-primary' %>
+    <%= link_to 'Ei, está tudo certo aqui!', next_wizard_path %></div>
+<% end %>

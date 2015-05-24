@@ -1,9 +1,9 @@
 <div class="col-sm-12 col-md-12, row, well">
   <%=simple_form_for :usuario,:url=>validar_usuario_salvar_usuario_url do |f|%>
-    <p><strong>Selecione sua data de nascimento</strong></p>
+    <p><strong>Selecione sua data de nascimento:</strong></p>
     <label class="radio">
       <%=f.input :data, :collection=>@datas.map {|i|[i.to_s_br,i.to_s_br]}, as: :radio_buttons, label: false %>
     </label>
-    <%=f.submit "Validar Usuário"%>
+    <%= f.submit "Validar Usuário",:class => 'btn btn-primary' %>
   <%end%>
 </div>

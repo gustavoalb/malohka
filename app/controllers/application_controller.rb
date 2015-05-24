@@ -4,20 +4,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :authenticate_usuario!,  :except => :principal
 
-
-  # rescue_from CanCan::AccessDenied do |exception|
-  #   flash[:error] = "Access denied!"
-  #   redirect_to :back
-  # end
-
-  # rescue_from CanCan::AccessDenied do |exception|
-  #   authorize! :read, All, :alert => exception.default_message = "Você não pode acessar esta área!"
-  #redirect_to main_app.root_url, :alert => exception.default_message = "Você não pode acessar esta área!"
-  #end
-  #before_filter :validar_usuario
+  before_filter :validar_usuario
+  #before_action :atualizar_aluno
   rescue_from CanCan::AccessDenied do |exception|
-    #flash[:error] = "Accesso negado."
-    #redirect_to main_app.root_url
+
     render :file => "#{Rails.root}/public/403.html", :status => 403, :layout => false
   end
 
@@ -45,13 +35,22 @@ class ApplicationController < ActionController::Base
   def validar_usuario
     if usuario_signed_in?
       if current_usuario.validado?
-        exit
+        #exit
       else
         redirect_to validar_usuario_index_url
       end
     end
   end
 
+  def atualizar_usuario
+    if current_usuario.validado?
+      if current_usuario.pessoa and  current_usuario.pessoa.atualizado?
+        redirect_to root_url
+      else
+        redirect_to validar_usuario_atualizar_pessoa_url
+      end
+    end
+  end
 
   protected
 

@@ -1,13 +1,20 @@
 class SolicitacoesController < ApplicationController
   load_and_authorize_resource
   before_action :set_solicitacao, only: [:show, :edit, :update, :destroy]
+  #before_action :atualizar_aluno
 
   respond_to :html
 
   def index
     @pessoa = current_usuario.pessoa
+    #@aluno = @pessoa.alunos.first
     @solicitacao = Solicitacao.new
-    respond_with(@solicitacoes)
+    #respond_with(@solicitacoes)
+    if @pessoa.status == 'pendente'
+      redirect_to validacao_index_path
+    elsif @pessoa.status = 'atualizado'
+      respond_with(@solicitacoes)
+    end
   end
 
   def show

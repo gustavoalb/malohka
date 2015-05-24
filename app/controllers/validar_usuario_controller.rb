@@ -28,4 +28,95 @@ class ValidarUsuarioController < ApplicationController
       redirect_to @retorno, :alert=> @mensagem
     end
   end
+
+  # def atualizar_pessoa
+  #   @usuario = current_usuario
+  #   @pessoa = @usuario.pessoa
+  #   @alunos = @pessoa.alunos
+  # end
+
+  # def salvar_pessoa
+  #   @usuario = current_usuario
+  #   @pessoa = @usuario.pessoa
+  #   @pessoa.update(pessoa_params)
+  #   if @pessoa.save
+  #     redirect_to root_url, message: "Informação atualizada com sucesso!"
+  #   else
+  #     render action: 'atualizar_pessoa'
+  #   end
+  # end
+  # @usuario = current_usuario
+  # @pessoa = @current_usuario.pessoa
+
+
+
+  #veja isso
+
+
+  def atualizar_pessoa
+    @usuario = current_usuario
+    @pessoa = @current_usuario.pessoa
+    #@aluno = @pessoa.alunos.first
+    #@pessoa.id = @aluno.pessoa.id
+  end
+
+  def salvar_pessoa
+    #@pessoa_id = @aluno.pessoa.id
+    @usuario = current_usuario
+    @pessoa = @current_usuario.pessoa
+    #coloquei
+    #@aluno = @pessoa.alunos.first
+    @pessoa.update(pessoa_params)
+    if @pessoa.save
+      redirect_to validar_usuario_atualizar_aluno_url, :notice=> "Informações pessoais atualizadas com sucesso!"
+      #redirect_to edit_aluno_url, :notice=> "Informação atualizada com sucesso!"
+    else
+      render action: 'atualizar_pessoa'
+    end
+  end
+
+
+  #veja
+
+
+
+
+
+
+  def atualizar_aluno
+    @usuario = current_usuario
+    @pessoa = @current_usuario.pessoa
+    #@aluno = @pessoa.alunos
+    @aluno = @pessoa.alunos.first#order("id ASC").paginate :page => params[:page], :per_page => 10
+  end
+
+  def salvar_aluno
+    @usuario = current_usuario
+    @pessoa = @current_usuario.pessoa
+    #@aluno = @pessoa.alunos
+    @aluno = @pessoa.alunos.first#order("id ASC").paginate :page => params[:page], :per_page => 10
+    #@aluno = Aluno.find(params[:id])
+    #    @pessoa = @current_usuario.pessoa
+    @aluno.update(aluno_params)
+    #@aluno.update#_attributes(params[:aluno])
+    if @aluno.save
+      redirect_to root_url, :notice=> "Informações discentes atualizadas com sucesso!"
+    else
+      render action: 'atualizar_aluno'
+    end
+  end
+
+
+
+
+
+
+  def pessoa_params
+    params.require(:pessoa).permit(:nome, :cpf, :nascimento, :rg, :email, :fator_rh, :foto, :atualizado, :telefone, aluno: [ :matricula ])
+  end
+
+  def aluno_params
+    params.require(:aluno).permit(:matricula, :ano_ingresso, :curso, :curso_id, :turma_id, :semestre_atual, pessoa: [ :nome,:foto ])
+  end
+
 end

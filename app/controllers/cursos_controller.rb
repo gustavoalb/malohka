@@ -8,7 +8,7 @@ class CursosController < ApplicationController
     #cursos = Curso.all.order("nivel_id ASC, nome DESC")
     #respond_with(@cursos)
     @q = Curso.ransack(params[:q])
-    @cursos = @q.result(distinct: true)
+    @cursos = @q.result(distinct: true).order("nivel_id ASC, nome DESC")
   end
 
   def show

@@ -90,7 +90,6 @@ class AlunosController < ApplicationController
 
   def update
     @pessoa_id = @aluno.pessoa.id
-    #pessoa_params = params[:aluno].delete(:pessoa)
     pessoa_params = params[:aluno].delete(:pessoa)
     if @aluno.update(aluno_params)
       Pessoa.transaction do
@@ -241,7 +240,6 @@ class AlunosController < ApplicationController
   end
 
   def aluno_params
-    params.require(:aluno).permit(:matricula, :ano_ingresso, :curso, :curso_id, :turma_id, :semestre_atual, pessoa: [ :nome,:foto ])
-    #params.require(:aluno).permit(:matricula, :ano_ingresso, :curso, :curso_id, :turma_id, :semestre_atual, pessoa_attributes: [ :id, :nome,:foto, :_destroy])
+    params.require(:aluno).permit(:matricula, :ano_ingresso, :curso, :curso_id, :turma_id, :semestre_atual, :nivel_id, :status, :ativo, pessoa: [ :nome,:foto ])
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2220150507134134) do
+ActiveRecord::Schema.define(version: 2220150507134137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,9 @@ ActiveRecord::Schema.define(version: 2220150507134134) do
     t.integer  "pessoa_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "nivel_id"
+    t.string   "status"
+    t.boolean  "ativo"
   end
 
   create_table "ckeditor_assets", force: true do |t|
@@ -131,6 +134,10 @@ ActiveRecord::Schema.define(version: 2220150507134134) do
     t.datetime "foto_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "atualizado",        default: false
+    t.string   "telefone"
+    t.integer  "fator_rh"
+    t.string   "status"
   end
 
   create_table "respostas", force: true do |t|

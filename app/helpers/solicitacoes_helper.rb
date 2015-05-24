@@ -30,8 +30,8 @@ module SolicitacoesHelper
         table_body << "<td>#{sim_nao(solicitacao.finalizado) }</td>"
         table_body << "<td>#{solicitacao.created_at.strftime("%d/%m/%y às %H:%M ") }</td>"
         table_body << "<td>#{solicitacao.solicitavel.status }</td>"
-        table_body << "<td>#{link_to t('.edit', :default => t("helpers.links.edit")), edit_solicitacao_path(solicitacao),
-              :class => 'btn btn-default btn-xs'} #{link_to t('.destroy', :default => t("helpers.links.destroy")), solicitacao_path(solicitacao),
+        table_body << "<td>#{link_to t('.edit', :default => t("helpers.links.editar")), edit_solicitacao_path(solicitacao),
+              :class => 'btn btn-default btn-xs'} #{link_to t('.destroy', :default => t("helpers.links.apagar")), solicitacao_path(solicitacao),
               :method => :delete,
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-xs btn-danger' }</td>"

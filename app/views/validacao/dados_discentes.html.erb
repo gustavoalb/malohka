@@ -1,0 +1,38 @@
+<div class="page-header" align='center'>
+  <h1>Confirmação de informações</h1>
+  <h3>Dados Discentes</h3>
+</div>
+<%= simple_form_for @aluno, :url => wizard_path do |f|  %>
+  <div class="col-sm-12 col-md-12, row, well">
+    <div class="col-sm-5 col-md-7, thumbnail, center">
+      <div align="CENTER">
+        <% if @aluno.pessoa.foto.present? %>
+          <%= image_tag(@aluno.pessoa.foto.url(:medium)) %>
+        <% else %>
+          <%= image_tag("anonimo.jpg", size: "250") %>
+          <p>Não se preocupe, sua foto será atualizada. :)</p>
+        <% end -%>
+      </div>
+      <div>
+        <p align='center'><strong><%= @pessoa.nome %></strong></p>
+      </div>
+    </div>
+    <div class="col-sm-4 col-md-7">
+      <p><strong>Matrícula:</strong> <%= @aluno.matricula %></p>
+      <p><strong>Curso:</strong> <%= @aluno.curso %></p>
+      <p><strong>Ano de ingresso:</strong> <%= @aluno.ano_ingresso %></p>
+      <hr>
+      <%#= f.input :curso_id,:collection=>Curso.all.collect{|n|[n.nome,n.id]},:prompt=>"Selecione o curso", label: 'Curso em cursos' %>
+      <%#= f.input :endereco %>
+      <%= f.input :nivel_id, :collection=>Nivel.all.collect {|z|[z.nome,z.id]},:prompt=>"Selecione o nível de sua turma", label: 'Nível de ensino da turma' %>
+      <%= render 'turmas' %>
+      <div id='turmas'></div>
+      <div id='cursos'></div>
+      <%= f.input :turma_id,:collection=>Turma.all.collect{|n|[n.nome,n.id]},:prompt=>"Selecione a turma" %>
+    </div>
+  </div>
+  <%# end -%>
+  <div align='center'> <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
+    <%= link_to 'Ei, está tudo certo aqui!', next_wizard_path %></div>
+  <%# end %>
+<% end %>

@@ -39,4 +39,29 @@ module ApplicationHelper
     end
   end
 
+
+  def continuar(form)
+    html=""
+    voltar="<i class='fa fa-hand-left icon-white'></i> Voltar"
+    if current_usuario
+      html+="#{link_to raw(voltar),previous_wizard_path,:class=>'btn btn-warning'} "
+    end
+    html+= "<button class='btn btn-success' type='submit'>Continuar <i class='fa fa-hand-right icon-white'></i></button>"
+    #html+="#{form.submit}"
+    return html.html_safe
+  end
+
+
+  def continuar_tag
+    html=""
+    voltar="<i class='fa fa-hand-left icon-white'></i> Voltar"
+    if current_usuario
+      html+="#{link_to raw(voltar),previous_wizard_path,:class=>'btn btn-warning'} "
+    end
+    html+= "<button class='btn btn-success' type='submit'>Continuar <i class='fa fa-hand-right icon-white'></i></button>"
+    #html+="#{form.submit}"
+    return html.html_safe
+  end
+
+
 end

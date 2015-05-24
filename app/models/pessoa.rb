@@ -3,6 +3,12 @@ class Pessoa < ActiveRecord::Base
   has_one :usuario
   has_many :alunos
   validates_presence_of [:nome, :cpf], :message=>"Não pode ficar em branco!"
+  validates :fator_rh, :presence => true, :on => :update
+  validates :rg, :presence => true, :on => :update
+  validates :telefone, :presence => true, :on => :update
+  validates :email, :presence => true, :on => :update
+
+  enum fator_rh: {'A+'=> 1, 'A-'=>2, 'B+'=> 3, 'B-'=> 4, 'AB+'=> 5, 'AB+'=> 6, 'O+'=> 7, 'O-'=> 8, 'Não sabido'=> 9}
 
   has_attached_file :foto,
     :path => ":rails_root/public/system/:attachment/:id/:basename_:style.:extension",
@@ -22,4 +28,19 @@ class Pessoa < ActiveRecord::Base
     #    :presence => true,
     :size => { :in => 0..10.megabytes },
     :content_type => { :content_type => /^image\/(jpeg|png|gif|tiff)$/ }
+
+  state_machine :status, :initial => :pendente do
+    event :atualizar do
+      transition :pendente => :atualizado
+    end
+    event :decair do
+      transition :atualizado => :pendente
+    end
+
+    after_transition :pendente => :atualizado do |pessoa, transition|
+      pessoa.atualizado = true
+      pessoa.save!
+    end
+  end
+
 end

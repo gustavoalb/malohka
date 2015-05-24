@@ -38,12 +38,20 @@ Rails.application.routes.draw do
   #   end
   # end
 
-
+  resources :validacao
   resources :eventos
   resources :pesquisas
   resources :pessoas
   get 'validar_usuario/index'
+
+  # atualização de pessoa e aluno
   post 'validar_usuario/salvar_usuario'
+  get 'validar_usuario/atualizar_pessoa'
+  post 'validar_usuario/salvar_pessoa'
+  get 'validar_usuario/atualizar_aluno'
+  post 'validar_usuario/salvar_aluno'
+
+
   mount Ckeditor::Engine => '/ckeditor'
   devise_for :usuarios ,:controllers => { :sessions => "sessions"}
   resources :noticias do

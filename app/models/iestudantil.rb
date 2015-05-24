@@ -8,17 +8,18 @@ class Iestudantil < ActiveRecord::Base
   #accepts_nested_attributes_for :solicitacao
   #validates_uniqueness_of :aluno_id, :message => 'Você só pode pedir uma Iestudantil para essa matrícula', :if => :entregue?
 
+
   state_machine :status, :initial => :solicitado do
     event :imprimir do
       transition :solicitado => :impresso
     end
 
-    event :entregar do
-      transition :impresso => :entregue
-    end
-
     event :cancelar do
       transition any => :cancelado
+    end
+
+    event :entregar do
+      transition :impresso => :entregue
     end
 
     after_transition :solicitado => :impresso do |carteira, transition|
@@ -28,11 +29,40 @@ class Iestudantil < ActiveRecord::Base
 
     after_transition :impresso => :entregue do |carteira, transition|
       carteira.entregue = true
-      carteira.save
       s = carteira.solicitacao
       s.finalizar
+      carteira.save
+      s.save
     end
   end
+
+
+
+  # state_machine :status, :initial => :solicitado do
+  #   event :imprimir do
+  #     transition :solicitado => :impresso
+  #   end
+
+  #   event :entregar do
+  #     transition :impresso => :entregue
+  #   end
+
+  #   event :cancelar do
+  #     transition any => :cancelado
+  #   end
+
+  #   after_transition :solicitado => :impresso do |carteira, transition|
+  #     carteira.impresso = true
+  #     carteira.save
+  #   end
+
+  #   after_transition :impresso => :entregue do |carteira, transition|
+  #     carteira.entregue = true
+  #     carteira.save
+  #     s = carteira.solicitacao
+  #     s.finalizar
+  #   end
+  # end
 
   def carteira_entregue?
     return self.entregue?

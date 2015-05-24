@@ -5,7 +5,7 @@
       <div class="input-group">
         <strong>Selecione a matrícula para a solicitação</strong> &nbsp;<%= f.input :solicitante_id, collection: @pessoa.alunos.collect{|a|[a.matricula,a.id]}, label: false, include_blank: false %>
       </div>
-      <%= f.button :submit, :class =>"btn btn-primary" %>
+      <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
     </div>
   <% end %>
 </div>

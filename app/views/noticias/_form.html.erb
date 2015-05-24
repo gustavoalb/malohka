@@ -25,14 +25,14 @@
               <%#= f.input :publicado %>
               <%= best_in_place @noticia, :publicado, as: :checkbox, collection: {false: "Não", true: "Sim"} %>
             </td>
-            <td>
-              <div class="form-group">
+            <td><%= f.date_select :publicado_em, label: false %>
+              <!--               <div class="form-group">
                 <div class="form-inline">
                   <div class='input-group date' id='datetimepicker12'>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= f.input :publicado_em, input_html:{value: f.object.publicado_em.to_s_br},as: :string, label: false %> &nbsp;<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </td>
           <% end %>
         </tr>
