@@ -233,6 +233,16 @@ class AlunosController < ApplicationController
     end
   end
 
+  def turmas
+    @nivel = Nivel.find(params[:nivel]) if !params[:nivel].blank?
+    if @nivel
+      @turmas = @nivel.turmas.collect{|c|[c.nome,c.id]}
+      render :partial => 'turmas'
+    else
+      render nothing: true
+    end
+  end
+
   private
   def set_aluno
     @aluno = Aluno.find(params[:id])

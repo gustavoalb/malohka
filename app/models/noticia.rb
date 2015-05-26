@@ -1,9 +1,11 @@
 class Noticia < ActiveRecord::Base
 
-  scope :publicavel, -> {where("publicado = false and status = 'publicavel'",true).order("publicado_em DESC")}
-  scope :destaque, -> {where("publicado = true and status = 'em_destaque'",true).order("publicado_em DESC")}
-  scope :pauta, -> {where("publicado = true and status = 'em_pauta'",true).order("publicado_em DESC")}
-  scope :arquivadas, -> {where("publicado = false and destaque = false",true).order("publicado_em DESC")}
+  #scope :publicavel, -> {where("publicado = false and status = 'publicavel'",true).order("publicado_em DESC")}
+  #scope :publicavel, -> {where("status = 'publicavel'",true).order("publicado_em DESC")}
+  scope :publicavel, -> {where("status = 'publicavel'",true).order("publicado_em DESC")}
+  scope :destaque, -> {where("status = 'em_destaque'",true).order("publicado_em DESC")}
+  scope :pauta, -> {where("status = 'em_pauta'",true).order("publicado_em DESC")}
+  scope :arquivadas, -> {where("status = 'em_arquivo'",true).order("publicado_em DESC")}
 
   state_machine :status, :initial => :publicavel do
     #state_machine :status, :initial => :em_destaque do
@@ -14,6 +16,14 @@ class Noticia < ActiveRecord::Base
 
     event :em_destaque do
       transition any => :em_destaque
+    end
+
+    event :em_arquivo do
+      transition any => :em_arquivo
+    end
+
+    event :reavaliar do
+      transition any => :publicavel
     end
 
 

@@ -16,6 +16,8 @@
  *= require bootstrap-datepicker
  *= require_tree .
  *= require font-awesome
+ *= require owl.carousel
+ *= require owl.theme
  */
  @import "bootstrap-sprockets";
 
@@ -29,3 +31,15 @@
       url('/assets/glyphicons-halflings-regular.ttf') format('truetype'),
       url('/assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
+
+
+
+
+
+    #owl-demo .item img{
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+

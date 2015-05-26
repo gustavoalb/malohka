@@ -23,6 +23,7 @@
 //= require bootstrap-datepicker
 //= require datepicker-pt-BR
 //= require dependent-fields
+//= require owl.carousel
 //= require_tree .
 
 jQuery(function($){
@@ -100,3 +101,33 @@ $(document).ready(function() {
     DependentFields.bind()
 });
 //DependentFields
+$(".owl-carousel").owlCarousel();
+
+
+
+
+
+    $(document).ready(function() {
+     
+      $("#owl-demo").owlCarousel({
+     
+          navigation : true, // Show next and prev buttons
+          slideSpeed : 300,
+          paginationSpeed : 400,
+          singleItem:true
+     
+          // "singleItem:true" is a shortcut for:
+          // items : 1, 
+          // itemsDesktop : false,
+          // itemsDesktopSmall : false,
+          // itemsTablet: false,
+          // itemsMobile : false
+     
+      });
+     
+    });
+
+$('.owl-carousel').owlCarousel({
+  autoPlay: 3000,
+  item: 3
+});

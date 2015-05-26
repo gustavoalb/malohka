@@ -46,9 +46,9 @@
       </div>
     </div>
     <div class="col-sm-4 col-md-7">
-      <%# if can? :manage, @aluno %>
-      <%= render 'manage', :f => f %>
-      <%# end -%>
+      <% if can? :manage, @aluno %>
+        <%= render 'manage', :f => f %>
+      <% end -%>
     </div>
   </div>
   <%= f.submit "Confirmar",:class => 'btn btn-primary' %>

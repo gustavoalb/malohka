@@ -2,47 +2,13 @@
   <%= f.error_notification %>
   <div class="col-sm-12 col-md-12, row, well">
     <div class="col-sm-12 col-md-12">
-      <table class="table table-striped">
-        <thead>
-          <th>Forma de divulgação</th>
-          <% if can? :manage, Noticia %>
-            <th>Publicado?</th>
-            <th>Data de publicação</th>
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <div class="form-inline">
-              <div>
-                &nbsp;&nbsp;&nbsp;&nbsp;<%=f.input :status,collection:[["Em Destaque","em_destaque"],["Em Pauta","em_pauta"]], label: false %>
-              </div>
-            </div>
-          </td>
-          <% if can? :manage, Noticia %>
-            <td>
-              <%#= f.input :publicado %>
-              <%= best_in_place @noticia, :publicado, as: :checkbox, collection: {false: "Não", true: "Sim"} %>
-            </td>
-            <td><%= f.date_select :publicado_em, label: false %>
-              <!--               <div class="form-group">
-                <div class="form-inline">
-                  <div class='input-group date' id='datetimepicker12'>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= f.input :publicado_em, input_html:{value: f.object.publicado_em.to_s_br},as: :string, label: false %> &nbsp;<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                  </div>
-                </div>
-              </div> -->
-            </td>
-          <% end %>
-        </tr>
-      </tbody>
-    </table>
-    <%= f.input :titulo, label: 'Título' %>
-    <%= f.input :conteudo, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} } %>
+      <p class="row"><strong>Data de publicação</strong><br>
+        <%= f.date_select :publicado_em, label: 's' %></p>
+      <%= f.input :titulo, label: 'Título' %>
+      <%= f.input :conteudo, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }, label: 'Conteúdo' %>
+    </div>
   </div>
-</div>
-<%= f.submit "Confirmar",:class => 'btn btn-primary' %>
-<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+  <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 noticias_path, :class => 'btn btn-default' %>
 <% end %>

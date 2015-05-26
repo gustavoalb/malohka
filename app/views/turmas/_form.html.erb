@@ -8,12 +8,5 @@
     <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 turmas_path, :class => 'btn btn-default' %>
-    ---
-    <%= f.collection_select :nivel_id, Nivel.order(:id), :id, :nome, include_blank: true %>
-    <%= f.input :nivel_id, :collection=>Nivel.all.collect {|z|[z.nome,z.id]},:prompt=>"Selecione o Nível", label: 'Nível de ensino do curso' %>
-    <div class="js-dependent-fields" data-select-id="nivel_id" data-option-value="1|2">
-      <%= f.input :curso_id, as: :integer %>
-    </div>
-    ei
   <% end %>
 </div>

@@ -85,6 +85,28 @@ class NoticiasController < ApplicationController
     redirect_to noticias_url
   end
 
+  #meu teste
+
+
+
+  def alterar_status
+    #@pub = DateTime.Now
+    @noticia = Noticia.find(params[:noticia_id])
+    if params[:status]=='destaque'
+      @noticia.em_destaque
+      #@noticia.publicado_em = @pub
+    elsif params[:status]=='pauta'
+      @noticia.em_pauta
+      #@noticia.publicado_em = @pub
+    elsif params[:status]=='arquivo'
+      @noticia.em_arquivo
+    elsif params[:status]=='reavaliacao'
+      @noticia.reavaliar
+    end
+    @noticia.save
+    redirect_to noticias_url
+  end
+
   private
   def set_noticia
     @noticia = Noticia.find(params[:id])
