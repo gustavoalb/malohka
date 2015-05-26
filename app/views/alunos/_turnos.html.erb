@@ -1,0 +1,3 @@
+<%=simple_fields_for :aluno do |f|%>
+  <%= f.input :turno_id, :collection=>@turnos,:prompt=>"Selecione o turno", label: 'Turno' %>
+<%end%>

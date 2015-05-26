@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
   resources :noticias do
-    put "atualizar_status/:noticia_id/:status"=>'noticias#atualizar_status', as: :atualizar_status
-    put "publicar_noticia/:noticia_id/:publicado"=>'noticias#publicar_noticia', as: :publicar_noticia
+    #put "atualizar_status/:noticia_id/:status"=>'noticias#atualizar_status', as: :atualizar_status
+    #put "publicar_noticia/:noticia_id/:publicado"=>'noticias#publicar_noticia', as: :publicar_noticia
     put "alterar_status/:noticia_id/:status"=>'noticias#alterar_status', as: :alterar_status
   end
 
@@ -46,11 +46,11 @@ Rails.application.routes.draw do
   get 'validar_usuario/index'
 
   # atualização de pessoa e aluno
-  post 'validar_usuario/salvar_usuario'
-  get 'validar_usuario/atualizar_pessoa'
-  post 'validar_usuario/salvar_pessoa'
-  get 'validar_usuario/atualizar_aluno'
-  post 'validar_usuario/salvar_aluno'
+  # post 'validar_usuario/salvar_usuario'
+  # get 'validar_usuario/atualizar_pessoa'
+  # post 'validar_usuario/salvar_pessoa'
+  # get 'validar_usuario/atualizar_aluno'
+  # post 'validar_usuario/salvar_aluno'
 
 
   mount Ckeditor::Engine => '/ckeditor'
@@ -58,7 +58,10 @@ Rails.application.routes.draw do
   resources :noticias do
     get "delete"
   end
-  resources :alunos
+  resources :alunos   do
+    #post 'turmas', on: :collection
+    post 'turnos', on: :collection
+  end
   resources :turmas do
     post 'cursos', on: :collection
   end

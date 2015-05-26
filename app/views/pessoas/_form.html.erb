@@ -3,7 +3,11 @@
   <div class="col-sm-12 col-md-12, row, well">
     <div class="col-sm-5 col-md-7, thumbnail, center">
       <div align="CENTER">
-        <%= image_tag(@pessoa.foto.url(:medium)) %><%= f.input :foto, as: :file, label: 'Atualizar foto' %>
+        <% if @pessoa.foto.present? %>
+          <%= image_tag(@pessoa.foto.url(:medium)) %>
+        <% else %>
+          <%= image_tag("anonimo.jpg", size: "250x230") %><%= f.input :foto, as: :file, label: 'Atualizar foto' %>
+        <% end %>
       </div>
       <div>
         <p><strong>Nascimento:</strong> <%= @pessoa.nascimento.strftime("%d/%m/%Y") unless @pessoa.nascimento.nil?%></p>
@@ -14,7 +18,10 @@
     <div class="col-sm-4 col-md-7">
       <%= f.input :nome %>
       <%= f.input :cpf %>
-      <%= f.input :rg %>
+      <%= f.input :rg, label: 'Registro Geral (RG)' %>
+      <%= f.input :fator_rh,:collection=>Pessoa.fator_rhs.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione", label: 'Tipagem Sanguínea' %>
+      <%= f.input :telefone %>
+      <%= f.input :email %>
       <div class="form-group">
         <label>Nascimento</label>
         <div><%= f.date_select :nascimento %></div>

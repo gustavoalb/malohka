@@ -22,22 +22,11 @@
       <p><strong>Curso:</strong> <%= @aluno.curso %></p>
       <p><strong>Ano de ingresso:</strong> <%= @aluno.ano_ingresso %></p>
       <hr>
-      iiiiiiiiiiiiiii
-      <%= f.grouped_collection_select :turma_id, Nivel.order(:nome), :niveis, :nome, :id, :nome, include_blank: true %>
       <%= f.input :nivel_id, :collection=>Nivel.all.collect {|z|[z.nome,z.id]},:prompt=>"Selecione o Nível", label: 'Nível de ensino do curso' %>
-      <div id='cursos'></div>
-      0000000000000000000
-      <%#= f.input :curso_id,:collection=>Curso.all.collect{|n|[n.nome,n.id]},:prompt=>"Selecione o curso", label: 'Curso em cursos' %>
-      <%#= f.input :endereco %>
-      <%#= f.input :nivel_id, :collection=>Nivel.all.collect {|z|[z.nome,z.id]},:prompt=>"Selecione o nível de sua turma", label: 'Nível de ensino da turma' %>
-      <%#= render 'turmas' %>
-      <!-- <div id='turmas'></div>
-      <div id='cursos'></div> -->
-      <%#= f.input :turma_id,:collection=>Turma.all.collect{|n|[n.nome,n.id]},:prompt=>"Selecione a turma" %>
+      <div id='turmas'></div>
+      <div id='curso'></div>
     </div>
   </div>
-  <%# end -%>
   <div align='center'> <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
     <%= link_to 'Ei, está tudo certo aqui!', next_wizard_path %></div>
-  <%# end %>
 <% end %>

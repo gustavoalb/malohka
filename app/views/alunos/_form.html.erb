@@ -1,10 +1,11 @@
 <div id="formulario_aluno">
   <%#= formulario_aluno (@aluno) %>
 </div>
-<div class="col-sm-12 col-md-12, row, well">
-  <div class="col-sm-5 col-md-7, thumbnail, center">
-    <div align="CENTER">
-      <%= simple_nested_form_for @aluno, :html => { :class => 'form-vertical' } do |f| %>
+<%= simple_nested_form_for @aluno, :html => { :class => 'form-vertical' } do |f| %>
+  <%= f.error_notification %>
+  <div class="col-sm-12 col-md-12, row, well">
+    <div class="col-sm-5 col-md-7, thumbnail, center">
+      <div align="CENTER">
         <% if @aluno.pessoa.foto.present? %>
           <%= image_tag(@aluno.pessoa.foto.url(:medium)) %>
           <%= f.simple_fields_for @pessoa do |p| %>

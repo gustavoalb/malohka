@@ -87,12 +87,12 @@
           </div>
         </div>
       </div>
-      <!-- <div class="container" style="padding-top: 0px;"> -->
-      <!-- elemento com imagem -->
-      <!--        <div class="row">
+      <div class="container" style="padding-top: 0px;">
+        <!-- elemento com imagem -->
+        <div class="row">
           <div class="col-md-12">
             <%= bootstrap_flash %>
-            <div class="container text-justify">
+            <!--             <div class="container text-justify">
               <div class="row">
                 <div class="col-md-4 center">
                   <%= image_tag "fronte.png" %>
@@ -104,10 +104,10 @@
                   <hr>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
-      </div> -->
+      </div>
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
@@ -150,79 +150,11 @@
                       </h4>
                     </div>
                   </div>
-                  <!-- Fim do acordeão 2 -->
-                  <!--<div class="panel panel-if" draggable="true">
-                  <!-- Acordeão 1 --
-                  <div class="panel-heading">
-                    <h3 class="panel-title" draggable="true"><%= link_to 'Principal', root_path %></h3>
-                        </div>
-                        <!-- Accordions--
-                  <div class="panel-group" id="accordion1">
-                    <div class="panel">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion1" href="#Institucional">Institucional</a>
-                        </h4>
-                      </div>
-                      <div id="Institucional" class="panel-collapse collapse out">
-                        <div class="panel-body">
-                          <p data-toggle="collapse" data-parent="#accordion1"><%= link_to 'Histórico', root_path %></p>
-                          <p data-toggle="collapse" data-parent="#accordion1"><%= link_to 'Funcionamento', root_path %></p>
-                          <p data-toggle="collapse" data-parent="#accordion1"><%= link_to 'Organograma', root_path %></p>
-                          <p data-toggle="collapse" data-parent="#accordion1"><%= link_to 'Como chegar', root_path %></p>
-                          <p data-toggle="collapse" data-parent="#accordion1"><%= link_to 'Boletins de Serviço', root_path %></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo">Licitações e Contratos</a>
-                        </h4>
-                      </div>
-                      <div id="collapseTwo" class="panel-collapse collapse">
-                        <div class="panel-body">
-                          <p data-toggle="collapse" data-parent="#accordion1"><%= link_to 'Histórico', root_path %></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion1" href="#collapseThree">Ouvidoria</a>
-                        </h4>
-                      </div>
-                      <div id="collapseThree" class="panel-collapse collapse">
-                        <div class="panel-body">er labore wes an.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion1" href="#collapseFour">Legislação Educacional</a>
-                        </h4>
-                      </div>
-                      <div id="collapseFour" class="panel-collapse collapse">
-                        <div class="panel-body">Comissões
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Fim do Acordeão 1 -->
                 </div>
                 <div class="col-md-10">
                   <!--<= render 'shared/breadcrumb' %>-->
                   <%= yield %>
                 </div>
-                <!-- Accordion - BEGIN -->
-                <!--<div class="col-md-2">
-                    <!<h3>Destaques</h3>
-              <%#= link_to (image_tag "acesso-informacao.png"), root_path %>
-              <%#= link_to (image_tag "portaltransparencia-205x50.png"), root_path %>
-              <%#= link_to (image_tag "banner_sipac_lateral.jpg"), root_path %>
-                  </div>-->
               </div>
             </div>
           </div>
@@ -243,7 +175,6 @@
     </script>
   </body>
   <br>
-  <%#= link_to image_tag(current_usuario.pessoa.foto.url, :size=>'40x30', :alt=>'attendence', :class=>"img-circle"), edit_usuario_registration_path %>
   <div id="rodape">
     <div align='center'><%= image_tag "malohkinha_oficial.png", :size=>'35x25' %></div>
     <p style="text-align: center; color: gray"> <strong>Powered by Malohka (2014-2015)<br>

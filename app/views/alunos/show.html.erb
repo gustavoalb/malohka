@@ -11,27 +11,31 @@
         <%= image_tag("anonimo.jpg", size: "250") %>
       <% end -%>
     </div>
+    <div align='left'>
+      <% if can? :manage, @aluno %>
+        <dl class="dl-horizontal">
+          <dt><strong><%= model_class.human_attribute_name(:cpf) %>:</strong></dt>
+          <dd><%= @aluno.pessoa.cpf %></dd>
+          <dt><strong><%= model_class.human_attribute_name('E-mail') %>:</strong></dt>
+          <dd><%= @aluno.pessoa.usuario.email %> </dd>
+        </dl>
+      <% end -%>
+    </div>
   </div>
   <div class="col-sm-4 col-md-7">
     <dl class="dl-horizontal">
-      <dt><strong><%= model_class.human_attribute_name(:nascimento) %>:</strong></dt>
-      <dd><%= @aluno.pessoa.nascimento.to_s_br %></dd>
-      <dt><strong><%= model_class.human_attribute_name(:matricula) %>:</strong></dt>
-      <dd><%= @aluno.matricula %></dd>
-      <% if can? :manage, @aluno %>
-        <dt><strong><%= model_class.human_attribute_name(:cpf) %>:</strong></dt>
-        <dd><%= @aluno.pessoa.cpf %></dd>
-        <dt><strong><%= model_class.human_attribute_name('Endereço') %>:</strong></dt>
-        <dd>@aluno.pessoa.endereco a ser inserido na tabela</dd>
-        <dt><strong><%= model_class.human_attribute_name('E-mail') %>:</strong></dt>
-        <dd><%= @aluno.pessoa.usuario.email %> </dd>
-      <% end -%>
-      <dt><strong><%= model_class.human_attribute_name(:ano_ingresso) %>:</strong></dt>
-      <dd><%= @aluno.ano_ingresso %></dd>
       <% if @aluno.turma==nil %>
       <% else %>
-        <dt><strong>Turma: &nbsp;</strong></dt>
-        <dd> <%= @aluno.turma.nome %></dd>
+        <dt><strong>Matrícula:</strong></dt>
+        <dd><%= @aluno.matricula %></dd>
+        <dt><strong>Nível de ensino:</strong></dt>
+        <dd><%= @aluno.turma.nivel.nome %></dd>
+        <dt><strong>Curso: &nbsp;</strong></dt>
+        <dd> <%= @aluno.turma.curso.nome %></dd>
+        <dt><strong>Turma:</strong></dt>
+        <dd><%= @aluno.turma.nome %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:turno) %>:</strong></dt>
+        <dd><%= @aluno.turma.turno %></dd>
       <% end %>
     </dl>
   </div>

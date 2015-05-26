@@ -1,5 +1,6 @@
 <%- model_class = Pessoa -%>
-<div class="page-header">
-  <h1>Editar <%= @pessoa.nome %></h1>
+<div class="page-header" align='center'>
+  <h1>Atualizar dados pessoais <%= @pessoa.nome %></h1>
+  <h2> <%= @pessoa.nome %></h2>
 </div>
 <%= render :partial => 'form' %>

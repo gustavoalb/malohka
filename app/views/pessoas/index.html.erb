@@ -23,7 +23,13 @@
   <tbody>
     <% @pessoas.each do |pessoa| %>
       <tr>
-        <td><%= image_tag(pessoa.foto(:thumb)) %></td>
+        <td>
+          <% if pessoa.foto.present? %>
+            <%= image_tag(pessoa.foto.url(:thumb)) %>
+          <% else %>
+            <%= image_tag("anonimo.jpg", size: "45x40") %>
+          <% end %>
+        </td>
         <td><%= link_to pessoa.nome, pessoa_path(pessoa) %></td>
         <td><%= pessoa.cpf %></td>
         <td><%= pessoa.rg %></td>
