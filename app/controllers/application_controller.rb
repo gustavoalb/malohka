@@ -5,9 +5,8 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_usuario!,  :except => :principal
 
   before_filter :validar_usuario
-  #before_action :atualizar_aluno
   rescue_from CanCan::AccessDenied do |exception|
-
+    #    redirect_to :back, :alert => exception.message
     render :file => "#{Rails.root}/public/403.html", :status => 403, :layout => false
   end
 

@@ -9,6 +9,7 @@ class Pessoa < ActiveRecord::Base
   validates :email, :presence => true, :on => :update
 
   enum fator_rh: {'A+'=> 1, 'A-'=>2, 'B+'=> 3, 'B-'=> 4, 'AB+'=> 5, 'AB+'=> 6, 'O+'=> 7, 'O-'=> 8, 'Não sabido'=> 9}
+  enum sexo: {'Masculino'=> 1, 'Feminino'=>2}
 
   has_attached_file :foto,
     :path => ":rails_root/public/system/:attachment/:id/:basename_:style.:extension",

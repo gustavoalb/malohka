@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2220150507134137) do
+ActiveRecord::Schema.define(version: 2220150507134139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,12 +62,16 @@ ActiveRecord::Schema.define(version: 2220150507134137) do
   end
 
   create_table "iestudantis", force: true do |t|
-    t.boolean  "impresso",   default: false
-    t.boolean  "entregue",   default: false
+    t.boolean  "impresso",         default: false
+    t.boolean  "entregue",         default: false
     t.integer  "aluno_id"
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "data_lote"
+    t.datetime "data_impressao"
+    t.datetime "data_entrega"
+    t.datetime "data_finalizacao"
   end
 
   create_table "niveis", force: true do |t|
@@ -138,6 +142,10 @@ ActiveRecord::Schema.define(version: 2220150507134137) do
     t.string   "telefone"
     t.integer  "fator_rh"
     t.string   "status"
+    t.integer  "sexo"
+    t.string   "mae"
+    t.string   "pai"
+    t.string   "rg_orgao_emissor"
   end
 
   create_table "respostas", force: true do |t|

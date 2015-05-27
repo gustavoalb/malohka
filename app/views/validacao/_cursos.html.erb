@@ -1,3 +1,13 @@
-<%=simple_fields_for :aluno do |f|%>
-  <%= f.input :turma_id, :collection=>@turmas,:prompt=>"Selecione a turma" %>
+<script type="text/javascript">
+  $('#turnos').on('change','#turma_curso_id',function(){
+      var curso = $('#turma_curso_id').val();
+      var turno = "<%=@turno%>"
+    jQuery.post("/alunos/turmas/?turno=" + turno +"&curso="+curso, function(data){
+      $("#turmas").html(data);
+    });
+  });
+</script>
+<%=simple_fields_for :turma do |f|%>
+  <%= f.input :curso_id, :collection=>@cursos,:prompt=>"Selecione o Curso", label: 'Curso' %>
 <%end%>
+<div id='turmas'></div>

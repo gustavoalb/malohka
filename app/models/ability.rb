@@ -23,11 +23,10 @@ class Ability
       #can :read, Noticia
       #can [:read, :create ], Solicitacao
     elsif usuario.role? :aluno
-      #can [ :read, :update ], Aluno
+      can [:read, :create, :destroy ], Solicitacao
       can :read, Noticia
       #Evento ainda não liberado :~(
       #can :read, Evento
-      can [:read, :create ], Solicitacao
     end
   end
 

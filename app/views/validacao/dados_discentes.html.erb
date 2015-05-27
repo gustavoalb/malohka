@@ -22,10 +22,10 @@
       <p><strong>Curso:</strong> <%= @aluno.turma.curso.nome if @aluno.turma %></p>
       <p><strong>Ano de ingresso:</strong> <%= @aluno.ano_ingresso %></p>
       <hr>
-      <% if @aluno.turma.nil?%>
-        <%= f.input :nivel_id, :collection=>Nivel.all.collect {|z|[z.nome,z.id]}, include_blank: "Selecione o nível", label: 'Nível de ensino do curso'%>
-      <% else %>
+      <% if !@aluno.turma.nil?%>
         <%= f.input :nivel_id, :collection=>Nivel.all.collect {|z|[z.nome,z.id]}, include_blank: "Selecione o nível", label: 'Nível de ensino do curso', hint: "Para alterar as informações é necessário informar o nível de seu curso novamente", selected: :blank %>
+      <% else %>
+        <%= f.input :nivel_id, :collection=>Nivel.all.collect {|z|[z.nome,z.id]}, include_blank: "Selecione o nível", label: 'Nível de ensino do curso'%>
       <% end %>
       <%#= f.input :turma_id,:collection=>Turma.all.collect{|n|[n.nome,n.id]},:prompt=>"Selecione a turma" %>
       <!-- <div id='turmas'></div> -->
@@ -37,6 +37,8 @@
             <%= t.input :curso_id, :collection=>Curso.joins(:turmas).where("turmas.turno = ?",Turma.turnos[@aluno.turma.turno]).uniq.collect{|c|[c.nome,c.id]},:prompt=>"Selecione o Curso",label: 'Curso', selected: @aluno.turma.curso.id,input_html: {disabled: true} %>
             <%= t.input :turma_id, :collection=>Turma.where(curso: @aluno.turma.curso,turno: Turma.turnos[@aluno.turma.turno]).collect{|t|[t.nome,t.id]},:prompt=>"Selecione a turma", label: 'Turma', selected: @aluno.turma.id, input_html: {disabled: true} %>
           <% end %>
+        <% else %>
+          <div id='turnos'></div>
         <% end %>
       </div>
     </div>

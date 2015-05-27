@@ -21,14 +21,16 @@ module ApplicationHelper
     end
   end
 
-  def status_iestudantil(objeto)
-    if objeto=="solicitado"
-      return "Solicitado"
-    elsif objeto=="impresso"
-      return "Impresso"
-    elsif objeto=="entregue"
-      return "Entregue"
+  def ver_form_nil(objeto)
+    #if objeto.type =='DateTime'
+    if objeto==nil
+      return "Nada cadastrado"
+    else
+      objeto
     end
+    #else
+    # return "xunda"
+    #end
   end
 
   def tipo_solicitavel(solicitacao)

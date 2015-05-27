@@ -64,6 +64,7 @@
                   <li><%#= link_to "Sobre o que é oferecido", servicos_path %></li>
                   <li class="divider"></li>
                   <li><%= link_to "Solicitar Identidade Estudantil", solicitacoes_path %></li>
+                  <li><a href="mailto:ouvidoria@ifap.edu.br">Ouvidoria</a></li>
                 </ul>
               </li>
               <!-- <li><%= link_to "Eventos", eventos_path  %></li> -->
@@ -71,7 +72,7 @@
             </ul>
             <p class="navbar-text pull-right">
               <% if usuario_signed_in? %>
-                <strong><%= current_usuario.email %>&nbsp;<%#= current_usuario.pessoa.nome.split(/ /)[0] %> </strong>
+                <strong><%#= current_usuario.email %>&nbsp;<%= current_usuario.pessoa.nome.split(/ /)[0].titleize %> </strong>
                 <% if current_usuario.pessoa.foto.present? %>
                   <%= link_to image_tag(current_usuario.pessoa.foto.url, :size=>'40x30', :alt=>'attendence', :class=>"img-circle"), edit_usuario_registration_path %>
                 <% else %>
@@ -143,6 +144,7 @@
                     </div>
                     <div id="accordionThree" class="panel-collapse collapse">
                       <div class="panel-body"><%= link_to "Identidade Estudantil", solicitacoes_path %></div>
+                      <div class="panel-body"><a href="mailto:ouvidoria@ifap.edu.br">Ouvidoria</a></div>
                     </div>
                     <div class="panel-heading">
                       <h4 class="panel-title">

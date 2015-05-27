@@ -1,0 +1,13 @@
+<script type="text/javascript">
+  $('#turnos').on('change','#turma_turno',function(){
+      var turno = $('#turma_turno').val();
+      var nivel = "<%=@nivel.id%>"
+    jQuery.post("/alunos/cursos_turno/?turno=" + turno +"&nivel="+nivel, function(data){
+      $("#cursos").html(data);
+    });
+  });
+</script>
+<%= simple_fields_for :turma do |f|%>
+  <%= f.input :turno, :collection=>Turma.turnos.collect { |s| [s[0].humanize, s[1]] },:prompt=>"Selecione o turno", label: 'Turno'%>
+<%end%>
+<div id='cursos'></div>

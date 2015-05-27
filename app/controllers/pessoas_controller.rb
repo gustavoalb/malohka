@@ -45,6 +45,6 @@ class PessoasController < ApplicationController
   end
 
   def pessoa_params
-    params.require(:pessoa).permit(:nome, :cpf, :nascimento, :rg, :email, :fator_rh, :foto, :atualizado, :telefone, :atualizado, :status)
+    params.require(:pessoa).permit(:nome, :sexo, :mae, :pai, :cpf, :nascimento, :rg, :rg_orgao_emissor,:email, :fator_rh, :foto, :atualizado, :telefone, :atualizado, :status)
   end
 end

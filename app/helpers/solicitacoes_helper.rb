@@ -6,9 +6,6 @@ module SolicitacoesHelper
       <tr>
       <th>Solicitante</th>
       <th>Tipo de solicitação</th>
-      <th>Impresso?</th>
-      <th>Entregue?</th>
-      <th>Finalizado?</th>
       <th>Iniciado em</th>
       <th>Status</th>
       <th>Ações</th>
@@ -23,13 +20,10 @@ module SolicitacoesHelper
         table_body << "<tr>"
         table_body << "<td>#{solicitacao.solicitavel.aluno.matricula }</td>"
         table_body << "<td>#{link_to tipo_solicitavel(solicitacao.solicitavel_type), solicitacao_path(solicitacao) }</td>"
-        table_body << "<td>#{sim_nao(solicitacao.solicitavel.impresso) }</td>"
-        table_body << "<td>#{sim_nao(solicitacao.solicitavel.entregue) }</td>"
-        table_body << "<td>#{sim_nao(solicitacao.finalizado) }</td>"
+
         table_body << "<td>#{solicitacao.created_at.strftime("%d/%m/%y às %H:%M ") }</td>"
-        table_body << "<td>#{solicitacao.solicitavel.status }</td>"
-        table_body << "<td>#{link_to t('.edit', :default => t("helpers.links.editar")), edit_solicitacao_path(solicitacao),
-              :class => 'btn btn-default btn-xs'} #{link_to t('.destroy', :default => t("helpers.links.apagar")), solicitacao_path(solicitacao),
+        table_body << "<td>#{status_solicitacao(solicitacao.solicitavel.status) }</td>"
+        table_body << "<td>#{link_to t('.destroy', :default => t("helpers.links.apagar")), solicitacao_path(solicitacao),
               :method => :delete,
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-xs btn-danger' }</td>"
@@ -43,12 +37,40 @@ module SolicitacoesHelper
     raw(html)
   end
 
+  #{link_to t('.edit', :default => t("helpers.links.editar")), edit_solicitacao_path(solicitacao), :class => 'btn btn-default btn-xs'}
+
   def status_solicitacao(objeto)
+    # Em solicitações
     if objeto=="criado"
-      return "Criado e em andamento"
+      return "Solicitação realizada e encaminhada para as devidas providências."
     elsif objeto=="finalizado"
-      return "Finalizado"
+      return "Solicitação conluída."
+      # Em Iestudantil
+    elsif objeto=="solicitado"
+      return "A espera de seleção em arquivo de lote para impressão."
+    elsif objeto=="para_impressao"
+      return "Selecionado em arquivo de lote e a espera de impressão."
+    elsif objeto=="impresso"
+      return "Objeto impresso a ser separado para entrega."
+    elsif objeto=="entregue"
+      return "Entrega confirmada."
+    elsif objeto=="cancelado"
+      return "Solicitação cancelada"
     end
   end
+
+
+
+  def status_iestudantil(objeto)
+    if objeto=="entregue"
+      return "finalizado"
+    else #if objeto=="impresso"
+      return "em andamento"
+      # elsif objeto=="entregue"
+      #   return "Entregue"
+      # end
+    end
+  end
+
 
 end

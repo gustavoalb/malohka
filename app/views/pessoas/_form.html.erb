@@ -16,16 +16,23 @@
       </div>
     </div>
     <div class="col-sm-4 col-md-7">
+      <h3 align='center'>Informações básicas</h3>
       <%= f.input :nome %>
-      <%= f.input :cpf, input_html: {class: 'cpf'} %>
-      <%= f.input :rg, label: 'Registro Geral (RG)' %>
-      <%= f.input :fator_rh,:collection=>Pessoa.fator_rhs.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione", label: 'Tipagem Sanguínea' %>
-      <%= f.input :telefone, input_html: {class: 'fone'} %>
-      <%= f.input :email %>
+      <%= f.input :sexo,:collection=>Pessoa.sexos.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione", label: 'Sexo' %>
       <div class="form-group">
         <label>Nascimento</label>
         <div><%= f.date_select :nascimento %></div>
       </div>
+      <%= f.input :fator_rh,:collection=>Pessoa.fator_rhs.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione", label: 'Tipagem Sanguínea' %>
+      <%= f.input :mae, label: 'Nome da mãe' %>
+      <%= f.input :pai, label: 'Nome do pai' %>
+      <h3 align='center'>Documentação</h3>
+      <%= f.input :cpf, input_html: {class: 'cpf'} %>
+      <%= f.input :rg, label: 'Registro Geral (RG)' %>
+      <%= f.input :rg_orgao_emissor, label: 'Órgão Emissor' %>
+      <h3 align='center'>Contato</h3>
+      <%= f.input :telefone, input_html: {class: 'fone'} %>
+      <%= f.input :email %>
       <!--       <div class="container">
         <div class="form-group">
           <label class="row">Nascimento</label>

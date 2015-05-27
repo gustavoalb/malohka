@@ -6,21 +6,26 @@ class Iestudantil < ActiveRecord::Base
     joins(:aluno).where('alunos.pessoa_id=?',pessoa_id)
   }
   #accepts_nested_attributes_for :solicitacao
-  validates_uniqueness_of :aluno_id, :message => 'Você só pode pedir uma Iestudantil para essa matrícula'
+  #validates_uniqueness_of :aluno_id, :message => 'Você só pode pedir uma Iestudantil para essa matrícula'
 
 
   state_machine :status, :initial => :solicitado do
+    event :em_lote do
+      transition :solicitado => :para_impressao
+    end
+
     event :imprimir do
-      transition :solicitado => :impresso
+      transition :para_impressao => :impresso
+    end
+
+    event :entregar do
+      transition :impresso => :entregue
     end
 
     event :cancelar do
       transition any => :cancelado
     end
 
-    event :entregar do
-      transition :impresso => :entregue
-    end
 
     after_transition :solicitado => :impresso do |carteira, transition|
       carteira.impresso = true
@@ -35,21 +40,6 @@ class Iestudantil < ActiveRecord::Base
       s.save
     end
   end
-
-
-
-  # state_machine :status, :initial => :solicitado do
-  #   event :imprimir do
-  #     transition :solicitado => :impresso
-  #   end
-
-  #   event :entregar do
-  #     transition :impresso => :entregue
-  #   end
-
-  #   event :cancelar do
-  #     transition any => :cancelado
-  #   end
 
   #   after_transition :solicitado => :impresso do |carteira, transition|
   #     carteira.impresso = true
