@@ -24,9 +24,15 @@ class ValidacaoController < ApplicationController
     when :dados_pessoais
       @pessoa.update(pessoa_params)
       render_wizard @pessoa
-    else
+
+    when :confirmacao
+
+    when :dados_discentes
       @aluno.update(aluno_params)
       render_wizard @aluno
+    end
+    if @aluno.save
+      @pessoa.atualizar
     end
   end
 
@@ -49,7 +55,7 @@ class ValidacaoController < ApplicationController
   # #neceśsário
 
   def aluno_params
-    params.require(:aluno).permit(:matricula, :ano_ingresso, :curso, :curso_id, :turma_id, :semestre_atual, pessoa: [ :nome,:foto ])
+    params.require(:aluno).permit(:matricula, :ano_ingresso, :curso, :curso_id, :turma_id, :semestre_atual,:nivel_id, pessoa: [ :nome,:foto ])
   end
 
   private

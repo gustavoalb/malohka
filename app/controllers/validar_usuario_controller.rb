@@ -2,9 +2,13 @@ class ValidarUsuarioController < ApplicationController
   skip_before_filter :validar_usuario
   def index
     @datas = []
-    3.times do |i|
+    2.times do |i|
       ii = i+1
       @datas.push current_usuario.pessoa.nascimento + ii.year
+    end
+    2.times do |i|
+      ii = i+1
+      @datas.push current_usuario.pessoa.nascimento + ii.month
     end
 
     @datas.push current_usuario.pessoa.nascimento

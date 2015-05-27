@@ -3,7 +3,7 @@
   <div class="col-sm-12 col-md-12, row, well">
     <div class="col-sm-12 col-md-12">
       <p class="row"><strong>Data de publicação</strong><br>
-        <%= f.date_select :publicado_em, label: 's' %></p>
+        <%= f.input :publicado_em, input_html: {class: 'datetime'}, label: false %></p>
       <%= f.input :titulo, label: 'Título' %>
       <%= f.input :conteudo, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }, label: 'Conteúdo' %>
     </div>

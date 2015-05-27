@@ -6,7 +6,7 @@ class Iestudantil < ActiveRecord::Base
     joins(:aluno).where('alunos.pessoa_id=?',pessoa_id)
   }
   #accepts_nested_attributes_for :solicitacao
-  #validates_uniqueness_of :aluno_id, :message => 'Você só pode pedir uma Iestudantil para essa matrícula', :if => :entregue?
+  validates_uniqueness_of :aluno_id, :message => 'Você só pode pedir uma Iestudantil para essa matrícula'
 
 
   state_machine :status, :initial => :solicitado do

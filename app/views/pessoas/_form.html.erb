@@ -17,10 +17,10 @@
     </div>
     <div class="col-sm-4 col-md-7">
       <%= f.input :nome %>
-      <%= f.input :cpf %>
+      <%= f.input :cpf, input_html: {class: 'cpf'} %>
       <%= f.input :rg, label: 'Registro Geral (RG)' %>
       <%= f.input :fator_rh,:collection=>Pessoa.fator_rhs.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione", label: 'Tipagem Sanguínea' %>
-      <%= f.input :telefone %>
+      <%= f.input :telefone, input_html: {class: 'fone'} %>
       <%= f.input :email %>
       <div class="form-group">
         <label>Nascimento</label>

@@ -4,7 +4,6 @@ module SolicitacoesHelper
       <table class="table table-striped">
       <thead>
       <tr>
-      <th>Id</th>
       <th>Solicitante</th>
       <th>Tipo de solicitação</th>
       <th>Impresso?</th>
@@ -22,9 +21,8 @@ module SolicitacoesHelper
     Iestudantil.da_pessoa(pessoa.id).each do |ie|
       Solicitacao.do_objeto(ie.id).each do |solicitacao|
         table_body << "<tr>"
-        table_body << "<td>#{link_to solicitacao.id, solicitacao_path(solicitacao) }</td>"
         table_body << "<td>#{solicitacao.solicitavel.aluno.matricula }</td>"
-        table_body << "<td>#{tipo_solicitavel(solicitacao.solicitavel_type) }</td>"
+        table_body << "<td>#{link_to tipo_solicitavel(solicitacao.solicitavel_type), solicitacao_path(solicitacao) }</td>"
         table_body << "<td>#{sim_nao(solicitacao.solicitavel.impresso) }</td>"
         table_body << "<td>#{sim_nao(solicitacao.solicitavel.entregue) }</td>"
         table_body << "<td>#{sim_nao(solicitacao.finalizado) }</td>"

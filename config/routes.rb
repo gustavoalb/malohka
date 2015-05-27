@@ -46,11 +46,11 @@ Rails.application.routes.draw do
   get 'validar_usuario/index'
 
   # atualização de pessoa e aluno
-  # post 'validar_usuario/salvar_usuario'
-  # get 'validar_usuario/atualizar_pessoa'
-  # post 'validar_usuario/salvar_pessoa'
-  # get 'validar_usuario/atualizar_aluno'
-  # post 'validar_usuario/salvar_aluno'
+  post 'validar_usuario/salvar_usuario'
+  get 'validar_usuario/atualizar_pessoa'
+  post 'validar_usuario/salvar_pessoa'
+  get 'validar_usuario/atualizar_aluno'
+  post 'validar_usuario/salvar_aluno'
 
 
   mount Ckeditor::Engine => '/ckeditor'
@@ -59,8 +59,9 @@ Rails.application.routes.draw do
     get "delete"
   end
   resources :alunos   do
-    #post 'turmas', on: :collection
+    post 'turmas', on: :collection
     post 'turnos', on: :collection
+    post 'cursos_turno', on: :collection
   end
   resources :turmas do
     post 'cursos', on: :collection

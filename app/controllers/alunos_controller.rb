@@ -233,11 +233,12 @@ class AlunosController < ApplicationController
     end
   end
 
-  def turmas
+  def cursos_turno
     @nivel = Nivel.find(params[:nivel]) if !params[:nivel].blank?
-    if @nivel
-      @turmas = @nivel.turmas.collect{|c|[c.nome,c.id]}
-      render :partial => 'turmas'
+    @turno = params[:turno] if !params[:turno].blank?
+    if @nivel and @turno
+      @cursos = @nivel.cursos.joins(:turmas).where("turmas.turno = ?",@turno).uniq.collect{|c|[c.nome,c.id]}
+      render :partial => 'cursos'
     else
       render nothing: true
     end
@@ -246,8 +247,19 @@ class AlunosController < ApplicationController
   def turnos
     @nivel = Nivel.find(params[:nivel]) if !params[:nivel].blank?
     if @nivel
-      @turnos = @nivel.turnos.collect{|c|[c[0].humanize, c[0]]}
+      @turnos = [["Manhã",1],["Tarde",2],["Noite",3]]
       render :partial => 'turnos'
+    else
+      render nothing: true
+    end
+  end
+
+  def turmas
+    @curso = Curso.find(params[:curso]) if !params[:curso].blank?
+    @turno = params[:turno] if !params[:turno].blank?
+    if @curso and @turno
+      @turmas = @curso.turmas.where(:turno=>@turno).collect{|c|[c.nome,c.id]}
+      render :partial => 'turmas'
     else
       render nothing: true
     end

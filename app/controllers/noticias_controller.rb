@@ -85,10 +85,6 @@ class NoticiasController < ApplicationController
     redirect_to noticias_url
   end
 
-  #meu teste
-
-
-
   def alterar_status
     #@pub = DateTime.Now
     @noticia = Noticia.find(params[:noticia_id])

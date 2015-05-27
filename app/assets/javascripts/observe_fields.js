@@ -35,8 +35,8 @@ jQuery(function($) {$("#turma_nivel_id").change(function() {
 jQuery(function($) {$("#aluno_nivel_id").change(function() {
     // make a POST call and replace the content
     var nivel = $('#aluno_nivel_id').val();
-    jQuery.post("/alunos/turmas/?nivel=" + nivel, function(data){
-      $("#turmas").html(data);    
+    jQuery.post("/alunos/turnos/?nivel=" + nivel, function(data){
+      $("#turnos").html(data);    
     });
   });
 });

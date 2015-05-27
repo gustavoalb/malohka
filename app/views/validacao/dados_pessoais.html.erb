@@ -23,10 +23,9 @@
     <div class="col-sm-4 col-md-7">
       <%= f.input :rg, label: 'Registro Geral (RG)' %>
       <%= f.input :fator_rh,:collection=>Pessoa.fator_rhs.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione", label: 'Tipagem Sanguínea' %>
-      <%= f.input :telefone %>
+      <%= f.input :telefone, input_html: {class: 'fone'} %>
       <%= f.input :email %>
     </div>
   </div>
-  <div align='center'><%= f.submit "Confirmar",:class => 'btn btn-primary' %>
-    <%= link_to 'Ei, está tudo certo aqui!', next_wizard_path %></div>
+  <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
 <% end %>
