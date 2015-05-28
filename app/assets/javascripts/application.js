@@ -18,7 +18,6 @@
 //= require twitter/bootstrap
 //= require ckeditor/init
 //= require moment
-//= require bootstrap
 //= require bootstrap-datetimepicker
 //= require jquery_nested_form
 //= require bootstrap-datepicker

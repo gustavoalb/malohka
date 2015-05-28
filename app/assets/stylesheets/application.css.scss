@@ -11,9 +11,7 @@
  * file per style scope.
  *
  *= require bootstrap_and_overrides
- * tirei esse para teste require bootstrap-datetimepicker
  *= require_self
- *= require bootstrap
  *= require bootstrap-datepicker
  *= require_tree .
  *= require font-awesome
@@ -32,15 +30,3 @@
       url('/assets/glyphicons-halflings-regular.ttf') format('truetype'),
       url('/assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
-
-
-
-
-
-    #owl-demo .item img{
-        display: block;
-        width: 100%;
-        height: auto;
-    }
-
-
