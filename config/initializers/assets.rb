@@ -7,7 +7,6 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( ckeditor/* )
 Rails.application.config.assets.paths += %W("#{Rails.root}/app/assets/fonts")
 #
-
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 #Rails.application.config.assets.precompile += %w( search.js )
