@@ -16,8 +16,6 @@ class ValidacaoController < ApplicationController
     @usuario = current_usuario
     @pessoa = @current_usuario.pessoa
     @aluno = @pessoa.alunos.first
-    #@pessoa.update(pessoa_params)
-    #@aluno.update(aluno_params)
 
     case step
     when :dados_pessoais
@@ -30,9 +28,8 @@ class ValidacaoController < ApplicationController
       @aluno.update(aluno_params)
       render_wizard @aluno
     end
-    if @pessoa.save
+    if @aluno.save
       @pessoa.atualizar
-    elsif @aluno.save
       @aluno.atualizar
     end
   end
