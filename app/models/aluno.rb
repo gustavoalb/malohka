@@ -9,6 +9,9 @@ class Aluno < ActiveRecord::Base
   validates_presence_of [:matricula, :ano_ingresso, :curso, :semestre_atual], :message=>"Não pode ficar em branco!"
   validates :turma_id, :presence => true, :on => :update
 
+  scope :da_pessoa, where('alunos.pessoa_id = ?', p)
+
+
   def gerar_c_barra
     pessoa = self.pessoa
     barcode = Barby::Code128B.new(pessoa.cpf)
@@ -24,7 +27,19 @@ class Aluno < ActiveRecord::Base
     else
       puts merda
     end
+  end
 
+  state_machine :status, :initial => :pendente do
+    event :atualizar do
+      transition :pendente => :atualizado
+    end
+    event :decair do
+      transition :atualizado => :pendente
+    end
+
+    after_transition :pendente => :atualizado do |aluno, transition|
+      aluno.save!
+    end
   end
 
 end

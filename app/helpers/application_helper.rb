@@ -25,6 +25,8 @@ module ApplicationHelper
     #if objeto.type =='DateTime'
     if objeto==nil
       return "Nada cadastrado"
+    elsif objeto.blank?
+      return "Nada cadastrado"
     else
       objeto
     end

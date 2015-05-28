@@ -7,9 +7,8 @@ class Pessoa < ActiveRecord::Base
   validates :rg, :presence => true, :on => :update
   validates :telefone, :presence => true, :on => :update
   validates :email, :presence => true, :on => :update
-  # validates :sexo, :presence => true, :on => :update
-  # validates :mae, :presence => true, :on => :update
-  # validates :pai, :presence => true, :on => :update
+  validates :sexo, :presence => true, :on => :update
+  validates :mae, :presence => true, :on => :update
 
   enum fator_rh: {'A+'=> 1, 'A-'=>2, 'B+'=> 3, 'B-'=> 4, 'AB+'=> 5, 'AB+'=> 6, 'O+'=> 7, 'O-'=> 8, 'Não sabido'=> 9}
   enum sexo: {'Masculino'=> 1, 'Feminino'=>2}

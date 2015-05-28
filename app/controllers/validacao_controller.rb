@@ -1,8 +1,6 @@
 class ValidacaoController < ApplicationController
-  skip_before_filter :validacao
   include Wicked::Wizard
 
-  #before_action :set_steps
   before_action :setup_wizard
 
   steps :inicio, :dados_pessoais, :dados_discentes, :confirmacao
@@ -32,8 +30,10 @@ class ValidacaoController < ApplicationController
       @aluno.update(aluno_params)
       render_wizard @aluno
     end
-    if @aluno.save
+    if @pessoa.save
       @pessoa.atualizar
+    elsif @aluno.save
+      @aluno.atualizar
     end
   end
 

@@ -1,23 +1,5 @@
 <%- model_class = Aluno -%>
-<div class="page-header">
-  <h1 align='center'><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
-</div>
-<% if can? :manage, :all %>
-  <p>
-    <%= link_to "Gerar Identidades Estudantis", alunos_path(format: "pdf" ),   :class  => 'btn btn-primary' %>
-  </p>
-<% end %>
-<% if can? :manage, Aluno %>
-  <%= render "leitura_admin" %>
-<% else %>
-  <%= render 'index_admin' %>
-<% end %>
-<%# if can? :manage, Aluno %>
-<%# render '' %>
-<%# elsif can? :edit, Aluno %>
-<%#= render 'index_admin' %>
-<%# end %>
-<!-- <div class="form-inputs">
+<div class="form-inputs">
   <%= search_form_for @q do |f| %>
     <%= f.search_field :pessoa_nome_cont %>
     <%= f.submit "Pesquisar",:class => 'btn btn-primary btn-xs' %>
@@ -63,4 +45,4 @@
 </table>
 <%= link_to t('.new', :default => t("helpers.links.Cadastrar")),
             new_aluno_path,
-            :class => 'btn btn-primary' %> -->
+            :class => 'btn btn-primary' %>

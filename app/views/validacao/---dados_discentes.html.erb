@@ -16,12 +16,12 @@
       <div>
         <p align='center'><strong><%= @pessoa.nome %></strong></p>
       </div>
-      <hr>
+    </div>
+    <div class="col-sm-4 col-md-7">
       <p><strong>Matrícula:</strong> <%= @aluno.matricula %></p>
       <p><strong>Curso:</strong> <%= @aluno.turma.curso.nome if @aluno.turma %></p>
       <p><strong>Ano de ingresso:</strong> <%= @aluno.ano_ingresso %></p>
-    </div>
-    <div class="col-sm-4 col-md-7">
+      <hr>
       <% if !@aluno.turma.nil?%>
         <%= f.input :nivel_id, :collection=>Nivel.all.collect {|z|[z.nome,z.id]}, include_blank: "Selecione o nível", label: 'Nível de ensino do curso', hint: "Para alterar as informações é necessário informar o nível de seu curso novamente", selected: :blank %>
       <% else %>
@@ -42,6 +42,6 @@
         <% end %>
       </div>
     </div>
-    <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
   </div>
+  <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
 <% end %>

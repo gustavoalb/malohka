@@ -6,15 +6,13 @@ class AlunosController < ApplicationController
 
   def index
     #@alunos = Aluno.all
-
     @q = Aluno.ransack(params[:q])
-    @alunos = @q.result(distinct: true)
+    @alunos = @q.result(distinct: true).accessible_by(current_ability)
     #respond_with(@alunos)
 
     require 'barby' #sou aqui mesmo se vou servir ao resto so sistema?
     require 'barby/barcode/code_39' #sou aqui mesmo se vou servir ao resto so sistema?
     require 'barby/outputter/png_outputter' #sou aqui mesmo se vou servir ao resto so sistema?
-
 
     respond_to do |format|
       format.html # show.html.erb
@@ -49,20 +47,13 @@ class AlunosController < ApplicationController
           f.close
 
           report.page.item(:barra).value(b.path)
-
-
         end
-
         send_data report.generate, filename: "Identidade Estudantil.pdf",
           type: 'application/pdf',
           disposition: 'inline' # para visualização no navegador
         #disposition: 'attachment' # para download
-
       end
     end
-
-
-
   end
 
   #  def show

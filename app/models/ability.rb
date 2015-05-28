@@ -25,7 +25,8 @@ class Ability
     elsif usuario.role? :aluno
       can [:read, :create, :destroy ], Solicitacao
       can :read, Noticia
-      can [:create, :read, :update], Aluno
+      can [:manage], Aluno, pessoa_id: usuario.pessoa_id
+      cannot [:destroy, :create, :edit], Aluno
       # can [:manage], Nivel
       # can [:manage], Turma
       # can [:manage], Curso
