@@ -18,12 +18,10 @@
 //= require twitter/bootstrap
 //= require ckeditor/init
 //= require moment
-//= require bootstrap
 //= require bootstrap-datetimepicker
 //= require jquery_nested_form
-//= require datepicker-pt-BR
-//= require dependent-fields
-//= require owl.carousel
+//= require bootstrap-datepicker
+// require datepicker-pt-BR
 //= require_tree .
 
 jQuery(function($){
@@ -41,12 +39,7 @@ $('#empauta a:first').tab('show') // Select first tab
 $('#myTab a:last').tab('show') // Select last tab
 $('#myTab li:eq(2) a').tab('show') // Select third tab (0-indexed
 
-
-
-function remove_fields (link) {
-  $(link).previous("input[type=hidden]").value = "1";
-  $(link).up(".fields").hide();
-};
+// datepicker
 $(function () {
   $('#datetimepicker1').datetimepicker();
 });
@@ -101,39 +94,15 @@ $(function () {
                 // language: 'pt-BR'
               });
 });
+// datepicker
+
+function remove_fields (link) {
+  $(link).previous("input[type=hidden]").value = "1";
+  $(link).up(".fields").hide();
+};
 //
 //DependentFields
 $(document).ready(function() {
   DependentFields.bind()
 });
 //DependentFields
-$(".owl-carousel").owlCarousel();
-
-
-
-
-
-$(document).ready(function() {
-
-  $("#owl-demo").owlCarousel({
-
-          navigation : true, // Show next and prev buttons
-          slideSpeed : 300,
-          paginationSpeed : 400,
-          singleItem:true
-
-          // "singleItem:true" is a shortcut for:
-          // items : 1, 
-          // itemsDesktop : false,
-          // itemsDesktopSmall : false,
-          // itemsTablet: false,
-          // itemsMobile : false
-
-        });
-
-});
-
-$('.owl-carousel').owlCarousel({
-  autoPlay: 3000,
-  item: 3
-});

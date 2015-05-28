@@ -1,4 +1,5 @@
 class ValidacaoController < ApplicationController
+  skip_before_filter :validacao
   include Wicked::Wizard
 
   #before_action :set_steps
@@ -50,12 +51,12 @@ class ValidacaoController < ApplicationController
 
   # #necessário
   def pessoa_params
-    params.require(:pessoa).permit(:nome, :cpf, :nascimento, :rg, :email, :fator_rh, :foto, :atualizado, :telefone, aluno: [ :matricula ])
+    params.require(:pessoa).permit(:nome, :sexo, :mae, :pai, :cpf, :nascimento, :rg, :rg_orgao_emissor,:email, :fator_rh, :foto, :atualizado, :telefone, :atualizado, :status, aluno: [ :matricula ])
   end
   # #neceśsário
 
   def aluno_params
-    params.require(:aluno).permit(:matricula, :ano_ingresso, :curso, :curso_id, :turma_id, :semestre_atual,:nivel_id, pessoa: [ :nome,:foto ])
+    params.require(:aluno).permit(:matricula, :ano_ingresso, :turma_id, :curso_id, :semestre_atual, :curso, :nivel_id, :status, :ativo, pessoa: [ :nome,:foto ])
   end
 
   private

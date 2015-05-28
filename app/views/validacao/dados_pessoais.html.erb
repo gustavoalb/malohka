@@ -21,12 +21,16 @@
       </div>
     </div>
     <div class="col-sm-4 col-md-7">
-      <%#= f.input :sexo %>
+      <h3 align='center'>Informações básicas</h3>
       <%= f.input :sexo,:collection=>Pessoa.sexos.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione", label: 'Sexo' %>
       <%= f.input :mae, label: 'Nome da mãe' %>
       <%= f.input :pai, label: 'Nome do pai' %>
-      <%= f.input :rg, label: 'Registro Geral (RG)' %>
       <%= f.input :fator_rh,:collection=>Pessoa.fator_rhs.collect { |s| [s[0].humanize.upcase, s[0]] },:prompt=>"Selecione", label: 'Tipagem Sanguínea' %>
+      <hr>
+      <h3 align='center'>Documentação</h3>
+      <%= f.input :rg, label: 'Registro Geral (com UF)' %>
+      <hr>
+      <h3 align='center'>Contato</h3>
       <%= f.input :telefone, input_html: {class: 'fone'} %>
       <%= f.input :email %>
     </div>

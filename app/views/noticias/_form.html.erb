@@ -2,13 +2,18 @@
   <%= f.error_notification %>
   <div class="col-sm-12 col-md-12, row, well">
     <div class="col-sm-12 col-md-12">
-      <p class="row"><strong>Data de publicação</strong><br>
-        <%= f.input :publicado_em, input_html: {class: 'datetime'}, label: false %></p>
-      <%= f.input :titulo, label: 'Título' %>
-      <%= f.input :conteudo, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }, label: 'Conteúdo' %>
+      <p class="row"><strong>Data de publicação</strong> (dd/mm/aaaa hh:mm)<br>
+        <div class="container">
+          <div class="form-group">
+            <div class="form-inline">
+              <%= f.input :publicado_em, label: false %>
+            </div>
+          </div>
+        </div>
+        <%= f.input :titulo, label: 'Título' %>
+        <%= f.input :conteudo, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }, label: 'Conteúdo' %>
+      </div>
     </div>
-  </div>
-  <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                noticias_path, :class => 'btn btn-default' %>
-<% end %>
+    <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")), noticias_path, :class => 'btn btn-default' %>
+  <% end %>

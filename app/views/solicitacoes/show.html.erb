@@ -31,7 +31,7 @@
     <div align="CENTER">
     </div>
     <div>
-      <p><strong>Criação:&nbsp;</strong><%= @solicitacao.created_at.strftime("%d/%m/%y às %H:%M ") %></p>
+      <p><strong>Criação:&nbsp;</strong><%= ver_form_nil(@solicitacao.created_at.strftime("%d/%m/%y às %H:%M ")) %></p>
       <p><strong>Envio para lote:&nbsp;</strong><%= ver_form_nil(@solicitacao.solicitavel.data_lote) %></p>
       <p><strong>Impressão:&nbsp;</strong><%= ver_form_nil(@solicitacao.solicitavel.data_impressao) %></p>
       <p><strong>Entrega:&nbsp;</strong><%= ver_form_nil(@solicitacao.solicitavel.data_entrega) %></p>

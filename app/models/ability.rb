@@ -25,6 +25,10 @@ class Ability
     elsif usuario.role? :aluno
       can [:read, :create, :destroy ], Solicitacao
       can :read, Noticia
+      can [:create, :read, :update], Aluno
+      # can [:manage], Nivel
+      # can [:manage], Turma
+      # can [:manage], Curso
       #Evento ainda não liberado :~(
       #can :read, Evento
     end

@@ -10,6 +10,9 @@ class SolicitacoesController < ApplicationController
     #@aluno = @pessoa.alunos.first
     @solicitacao = Solicitacao.new
     #respond_with(@solicitacoes)
+    #if current_usuario.roles_mask = 4 and @pessoa.status == 'pendente'
+
+
     if @pessoa.status == 'pendente'
       redirect_to validacao_index_path
     elsif @pessoa.status = 'atualizado'
