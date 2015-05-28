@@ -21,6 +21,7 @@
 //= require bootstrap
 //= require bootstrap-datetimepicker
 //= require jquery_nested_form
+//= require bootstrap-datepicker
 //= require datepicker-pt-BR
 //= require dependent-fields
 //= require owl.carousel
