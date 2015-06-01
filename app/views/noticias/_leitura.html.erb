@@ -1,18 +1,24 @@
-<div id="noticias" class="col-md-12, row, well">
-  <div class="row">
-    <% Noticia.destaque.each do |noticia| %>
-      <div class="col-sm-12 col-md-12, row, thumbnail">
-        <p align="CENTER"><strong><%= link_to noticia.titulo, noticia_path(noticia) %></strong></p>
-        <p align="left">&nbsp;<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;Publicado em <%= noticia.publicado_em.strftime("%d/%m/%y às %H:%M") %> </p>
-        <div><%= truncate(noticia.conteudo.html_safe, :length => 800, :omission => "" , :escape => false) %>...<%= link_to 'leia mais', noticia_path(noticia) %>
+<div id='tag_cloud'>
+  <%# tag_cloud Noticia.tag_counts, %w[s m l] do |tag, css_class| %>
+    <%#= link_to tag.name, tag_path(tag.name), class: css_class %>
+    <%# end %>
+  </div>
+  <div id="noticias" class="col-md-12, row, well">
+    <div class="row">
+      <% Noticia.destaque.each do |noticia| %>
+        <div class="col-sm-12 col-md-12, row, thumbnail">
+          <p align="CENTER"><strong><%= link_to noticia.titulo, noticia_path(noticia) %></strong></p>
+          <p align="left">&nbsp;<span><%= image_tag "calendario.png" %></span>&nbsp;Publicado em <%= noticia.publicado_em.strftime("%d/%m/%y às %H:%M") %> </p>
+          <div><%= truncate(noticia.conteudo.html_safe, :length => 800, :omission => "" , :escape => false) %>...<%= link_to 'leia mais', noticia_path(noticia) %>
+          </div>
+          <%#= raw noticia.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
         </div>
-      </div>
+      <% end %>
+    </div>
+    <% if Noticia.pauta.present? %>
+      <h4>Outras notícias</h4>
+      <% Noticia.arquivadas.each do |r| %>
+        <p align="left">&nbsp;<span><%= image_tag "calendario.png" %></span>&nbsp;<%= r.publicado_em.strftime("%d/%m/%y às %H:%M") %>&nbsp;&nbsp;<%= link_to r.titulo, noticia_path(r) %></p>
+      <% end %>
     <% end %>
   </div>
-  <% if Noticia.pauta.present? %>
-    <h4>Outras notícias</h4>
-    <% Noticia.arquivadas.each do |r| %>
-      <p align="left">&nbsp;<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;<%= r.publicado_em.strftime("%d/%m/%y às %H:%M") %>&nbsp;&nbsp;<%= link_to r.titulo, noticia_path(r) %></p>
-    <% end %>
-  <% end %>
-</div>

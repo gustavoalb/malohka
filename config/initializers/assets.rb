@@ -5,7 +5,8 @@ Rails.application.config.assets.version = '1.0'
 
 # teste
 Rails.application.config.assets.precompile += %w( ckeditor/* )
-Rails.application.config.assets.paths += %W("#{Rails.root}/app/assets/fonts")
+#Rails.application.config.assets.paths += %W("#{Rails.root}/app/assets/fonts")
+Rails.application.config.assets.paths << Rails.root.join("webcam")
 #
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.

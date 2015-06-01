@@ -1,56 +1,53 @@
 <%= simple_form_for @pessoa, :html => { :class => 'form-horizontal' } do |f| %>
   <%= f.error_notification %>
-  <div class="col-sm-12 col-md-12, row, well">
-    <div class="col-sm-5 col-md-7, thumbnail, center">
-      <div align="CENTER">
-        <% if @pessoa.foto.present? %>
-          <%= image_tag(@pessoa.foto.url(:medium)) %>
-        <% else %>
-          <%= image_tag("anonimo.jpg", size: "250x230") %><%= f.input :foto, as: :file, label: 'Atualizar foto' %>
-        <% end %>
-      </div>
-      <div>
-        <p><strong>Nascimento:</strong> <%= @pessoa.nascimento.strftime("%d/%m/%Y") unless @pessoa.nascimento.nil?%></p>
-        <p><strong>E-mail:</strong> <%= @pessoa.email %></p>
-        <p><strong>Endereço:</strong> <%= @pessoa.cpf %></p>
-      </div>
-    </div>
-    <div class="col-sm-4 col-md-7">
-      <h3 align='center'>Informações básicas</h3>
-      <%= f.input :nome %>
-      <%= f.input :sexo,:collection=>Pessoa.sexos.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione", label: 'Sexo' %>
-      <div class="form-group">
-        <label>Nascimento</label>
-        <div class="form-inline">
-          &nbsp;&nbsp;&nbsp;&nbsp;<%= f.input :nascimento, label: false %>
-        </div>
-      </div>
-      <%= f.input :fator_rh,:collection=>Pessoa.fator_rhs.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione", label: 'Tipagem Sanguínea' %>
-      <%= f.input :mae, label: 'Nome da mãe' %>
-      <%= f.input :pai, label: 'Nome do pai' %>
-      <hr>
-      <h3 align='center'>Documentação</h3>
-      <%= f.input :cpf, input_html: {class: 'cpf'} %>
-      <%= f.input :rg, label: 'Registro Geral (com UF)' %>
-      <%#= f.input :rg_orgao_emissor, label: 'Órgão Emissor' %>
-      <hr>
-      <h3 align='center'>Contato</h3>
-      <%= f.input :telefone, input_html: {class: 'fone'} %>
-      <%= f.input :email %>
-      <% if can? :manage, Pessoa %>
-        <div class="container">
-          <div class="form-group">
-            <label class="row">Nascimento</label>
-            <div class="form-inline">
-              <div class='input-group date' id='datetimepicker10'>
-                <%= f.input :nascimento, as: :string, label: false %> &nbsp;<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
+  <%= abre_estilo_5a12_well %>
+  <div align="CENTER">
+    <% if @pessoa.foto.present? %>
+      <%= image_tag(@pessoa.foto.url(:medium)) %>
+    <% else %>
+      <%= image_tag("anonimo.jpg", size: "250x230") %><%= f.input :foto, as: :file, label: 'Atualizar foto' %>
+    <% end %>
+  </div>
+  <div>
+    <p><strong>Nascimento:</strong> <%= @pessoa.nascimento.strftime("%d/%m/%Y") unless @pessoa.nascimento.nil?%></p>
+    <p><strong>E-mail:</strong> <%= @pessoa.email %></p>
+    <p><strong>Endereço:</strong> <%= @pessoa.cpf %></p>
+  </div>
+</div>
+<div class="col-sm-4 col-md-7">
+  <h3 align='center'>Informações básicas</h3>
+  <%= f.input :nome %>
+  <%= f.input :sexo,:collection=>Pessoa.sexos.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione", label: 'Sexo' %>
+  <div class="form-group">
+    <label>Nascimento</label>
+    <div class="form-inline">
+      &nbsp;&nbsp;&nbsp;&nbsp;<%= f.input :nascimento, label: false %>
     </div>
   </div>
+  <%= f.input :fator_rh,:collection=>Pessoa.fator_rhs.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione", label: 'Tipagem Sanguínea' %>
+  <%= f.input :mae, label: 'Nome da mãe' %>
+  <%= f.input :pai, label: 'Nome do pai' %>
+  <hr>
+  <h3 align='center'>Documentação</h3>
+  <%= f.input :cpf, input_html: {class: 'cpf'} %>
+  <%= f.input :rg, label: 'Registro Geral (com UF)' %>
+  <hr>
+  <h3 align='center'>Contato</h3>
+  <%= f.input :telefone, input_html: {class: 'fone'} %>
+  <%= f.input :email %>
+  <% if can? :manage, Pessoa %>
+    <div class="container">
+      <div class="form-group">
+        <label class="row">Nascimento</label>
+        <div class="form-inline">
+          <div class='input-group date' id='datetimepicker10'>
+            <%= f.input :nascimento, as: :string, label: false %> &nbsp;<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <%= fecha_estilo_5a12_well %>
   <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 pessoas_path, :class => 'btn btn-default' %>

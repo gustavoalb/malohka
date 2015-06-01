@@ -90,3 +90,6 @@ gem 'will_paginate-bootstrap'
 gem 'wicked'
 
 gem 'owlcarousel-rails'
+
+# Para tags em Notícias
+gem 'acts-as-taggable-on', '~> 3.4'

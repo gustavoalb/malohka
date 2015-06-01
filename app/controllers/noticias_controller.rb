@@ -29,11 +29,6 @@ class NoticiasController < ApplicationController
     respond_with(@noticia)
   end
 
-  # def update
-  #   @noticia.update(noticia_params)
-  #   respond_with(@noticia)
-  # end
-
   def update
     @noticia = Noticia.find params[:id]
 
@@ -49,20 +44,11 @@ class NoticiasController < ApplicationController
   end
 
 
-
-
-
-
   def destroy
     @noticia.destroy
     respond_with(@noticia)
   end
 
-  # def toggle_destaque
-  #   @a = Noticia.find(params[:id])
-  #   @a.toggle!(:destaque)
-  #   render :nothing => true
-  # end
   def atualizar_status
     @noticia = Noticia.find(params[:noticia_id])
     if params[:status]=='em_destaque'
@@ -109,6 +95,6 @@ class NoticiasController < ApplicationController
   end
 
   def noticia_params
-    params.require(:noticia).permit(:titulo, :conteudo, :publicado_em, :publicado, :destaque, :pauta,:status)
+    params.require(:noticia).permit(:titulo, :conteudo, :publicado_em, :tag_list, :status)
   end
 end

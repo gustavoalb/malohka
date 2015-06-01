@@ -1,0 +1,14 @@
+<%= simple_form_for @pessoa, :html => { :class => 'form-horizontal' } do |f| %>
+    <% if @pessoa.foto.present? %>
+      <%= image_tag(@pessoa.foto.url(:medium)) %>
+    <% else %>
+      <%= image_tag("anonimo.jpg", size: "250x230") %><%= f.input :foto, as: :file, label: 'Atualizar foto' %>
+    <% end %>
+  </div>
+  <div>
+    <p><strong>Nascimento:</strong> <%= @pessoa.nascimento.strftime("%d/%m/%Y") unless @pessoa.nascimento.nil?%></p>
+    <p><strong>E-mail:</strong> <%= @pessoa.email %></p>
+    <p><strong>Endereço:</strong> <%= @pessoa.cpf %></p>
+  </div>
+</div>
+<% end %>

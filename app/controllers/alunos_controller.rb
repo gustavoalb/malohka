@@ -123,9 +123,9 @@ class AlunosController < ApplicationController
         report.page.item(:matricula).value(@aluno.matricula)
         report.page.item(:validade).value("dez/2015") # inserir validade
 
-        f = File.open (@aluno.pessoa.foto.path)
-        report.page.item(:foto).value(open(f))
-        f.close
+        #f = File.open (@aluno.pessoa.foto.path)
+        #report.page.item(:foto).value(open(f))
+        #f.close
 
         report.page.item(:barra).value(b.path)
         #end

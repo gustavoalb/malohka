@@ -23,7 +23,7 @@
                 <% Noticia.publicavel.each do |publicavel| %>
                   <tr>
                     <td>
-                      <p><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;<%= publicavel.publicado_em.strftime("%d/%m/%Y") %>&nbsp;&nbsp;&nbsp;<strong><%= publicavel.titulo %></strong></p>
+                      <p><span><%= image_tag "calendario.png" %></span>&nbsp;<%= publicavel.publicado_em.strftime("%d/%m/%Y") %>&nbsp;&nbsp;&nbsp;<strong><%= publicavel.titulo %></strong></p>
                       <%= truncate(publicavel.conteudo.html_safe, :length => 400, :omission => "" , :escape => false) %>...(continua)
                     </td>
                     <td  align='right'>
@@ -76,7 +76,7 @@
                 <% Noticia.destaque.each do |destaque| %>
                   <tr>
                     <td>
-                      <p><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;<%= destaque.publicado_em.strftime("%d/%m/%Y") %>&nbsp;&nbsp;&nbsp;<strong><%= destaque.titulo %></strong></p>
+                      <p><span><%= image_tag "calendario.png" %></span>&nbsp;<%= destaque.publicado_em.strftime("%d/%m/%Y") %>&nbsp;&nbsp;&nbsp;<strong><%= destaque.titulo %></strong></p>
                       <%= truncate(destaque.conteudo.html_safe, :length => 400, :omission => "" , :escape => false) %>...(continua)
                     </td>
                     <td  align='right'>
@@ -131,7 +131,7 @@
                 <% Noticia.pauta.each do |pauta| %>
                   <tr>
                     <td>
-                      <p><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;<%= pauta.publicado_em.strftime("%d/%m/%Y") %>&nbsp;&nbsp;&nbsp;<strong><%= pauta.titulo %></strong></p>
+                      <p><span><%= image_tag "calendario.png" %></span>&nbsp;<%= pauta.publicado_em.strftime("%d/%m/%Y") %>&nbsp;&nbsp;&nbsp;<strong><%= pauta.titulo %></strong></p>
                       <%= truncate(pauta.conteudo.html_safe, :length => 400, :omission => "" , :escape => false) %>...(continua)
                     </td>
                     <td  align='right'>
@@ -184,7 +184,7 @@
               <% Noticia.arquivadas.each do |antiga| %>
                 <tr>
                   <td>
-                    <p><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;<%= antiga.publicado_em.strftime("%d/%m/%Y") %>&nbsp;&nbsp;&nbsp;<strong><%= antiga.titulo %></strong></p>
+                    <p><span><%= image_tag "calendario.png" %></span>&nbsp;<%= antiga.publicado_em.strftime("%d/%m/%Y") %>&nbsp;&nbsp;&nbsp;<strong><%= antiga.titulo %></strong></p>
                     <%= truncate(antiga.conteudo.html_safe, :length => 400, :omission => "" , :escape => false) %>...(continua)
                   </td>
                   <td  align='right'>

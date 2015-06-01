@@ -22,13 +22,17 @@ module ApplicationHelper
   end
 
   def ver_form_nil(objeto)
-    #if objeto.type =='DateTime'
+    #if objeto.is_a?DateTime
     if objeto==nil
       return "Nada cadastrado"
     elsif objeto.blank?
       return "Nada cadastrado"
-    else
-      objeto
+    elsif objeto!=nil
+      if objeto.is_a?DateTime
+        return "objeto"
+      else
+        objeto
+      end
     end
     #else
     # return "xunda"
@@ -44,28 +48,38 @@ module ApplicationHelper
   end
 
 
-  def continuar(form)
-    html=""
-    voltar="<i class='fa fa-hand-left icon-white'></i> Voltar"
-    if current_usuario
-      html+="#{link_to raw(voltar),previous_wizard_path,:class=>'btn btn-warning'} "
-    end
-    html+= "<button class='btn btn-success' type='submit'>Continuar <i class='fa fa-hand-right icon-white'></i></button>"
-    #html+="#{form.submit}"
-    return html.html_safe
+  def abre_estilo_5a12_well
+    div_5a12 = %{
+      <div class="col-sm-12 col-md-12, row, well">
+      <div class="col-sm-5 col-md-7, thumbnail, center">
+    }
+    html = div_5a12
+    raw(html)
   end
 
-
-  def continuar_tag
-    html=""
-    voltar="<i class='fa fa-hand-left icon-white'></i> Voltar"
-    if current_usuario
-      html+="#{link_to raw(voltar),previous_wizard_path,:class=>'btn btn-warning'} "
-    end
-    html+= "<button class='btn btn-success' type='submit'>Continuar <i class='fa fa-hand-right icon-white'></i></button>"
-    #html+="#{form.submit}"
-    return html.html_safe
+  def fecha_estilo_5a12_well
+    div_5a12 = %{
+      </div>
+      </div>
+    }
+    html = div_5a12
+    raw(html)
   end
 
+  def abre_estilo_12_well
+    div_12 = %{
+      <div class="col-sm-12 col-md-12, row, well">
+    }
+    html = div_12
+    raw(html)
+  end
+
+  def fecha_estilo_12_well
+    div_12 = %{
+      </div>
+    }
+    html = div_12
+    raw(html)
+  end
 
 end

@@ -47,8 +47,9 @@
       <%- model_class = Noticia -%><% Noticia.destaque.each do |noticia| %>
         <div class="col-sm-12 col-md-12, row, thumbnail">
           <p align="CENTER"><strong><%= link_to noticia.titulo, noticia_path(noticia) %></strong></p>
-          <p align="left"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;publicado em <%= noticia.publicado_em.strftime("%d/%m/%Y às %H:%M") %> </p>
+          <p align="left"><span><%= image_tag "calendario.png" %></span>&nbsp;publicado em <%= noticia.publicado_em.strftime("%d/%m/%Y às %H:%M") %> </p>
           <div><%= truncate(noticia.conteudo.html_safe, :length => 800, :omission => "" , :escape => false) %>...&nbsp;<%= link_to 'Leia mais...', noticia_path(noticia) %></div>
+          <p><%#= noticia.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></p>
         </div>
       <% end %>
     </div>
@@ -56,7 +57,7 @@
   <h4>Outras notícias</h4>
   <%- model_class = Noticia -%>
   <% Noticia.pauta.each do |r| %>
-    <p><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;<%= r.created_at.strftime("%d/%m/%Y") %>&nbsp;&nbsp;<%= link_to r.titulo, noticia_path(r) %></p>
+    <p><span><%= image_tag "calendario.png" %></span>&nbsp;<%= r.created_at.strftime("%d/%m/%Y") %>&nbsp;&nbsp;<%= link_to r.titulo, noticia_path(r) %></p>
   <% end %>
 </div>
 <!-- <div class="col-md-12, well">
