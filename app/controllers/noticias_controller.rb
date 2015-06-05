@@ -49,37 +49,34 @@ class NoticiasController < ApplicationController
     respond_with(@noticia)
   end
 
-  def atualizar_status
-    @noticia = Noticia.find(params[:noticia_id])
-    if params[:status]=='em_destaque'
-      @noticia.em_destaque
-    elsif params[:status]=='em_pauta'
-      @noticia.em_pauta
-    end
-    redirect_to @noticia
-  end
+  # def atualizar_status
+  #   @noticia = Noticia.find(params[:noticia_id])
+  #   if params[:status]=='em_destaque'
+  #     @noticia.em_destaque
+  #   elsif params[:status]=='em_pauta'
+  #     @noticia.em_pauta
+  #   end
+  #   redirect_to @noticia
+  # end
 
-  def publicar_noticia
-    @noticia = Noticia.find(params[:noticia_id])
-    if params[:publicado]=='sim'
-      @noticia.publicado = true
-    elsif params[:publicado]=='nao'
-      @noticia.publicado = false
-      @noticia.status = 'publicavel'
-    end
-    @noticia.save
-    redirect_to noticias_url
-  end
+  # def publicar_noticia
+  #   @noticia = Noticia.find(params[:noticia_id])
+  #   if params[:publicado]=='sim'
+  #     @noticia.publicado = true
+  #   elsif params[:publicado]=='nao'
+  #     @noticia.publicado = false
+  #     @noticia.status = 'publicavel'
+  #   end
+  #   @noticia.save
+  #   redirect_to noticias_url
+  # end
 
   def alterar_status
-    #@pub = DateTime.Now
     @noticia = Noticia.find(params[:noticia_id])
     if params[:status]=='destaque'
       @noticia.em_destaque
-      #@noticia.publicado_em = @pub
     elsif params[:status]=='pauta'
       @noticia.em_pauta
-      #@noticia.publicado_em = @pub
     elsif params[:status]=='arquivo'
       @noticia.em_arquivo
     elsif params[:status]=='reavaliacao'

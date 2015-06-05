@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   end
   #  get 'tags/:tag', to: 'noticias#index', as: :tag
   resources :noticias do
-    #put "atualizar_status/:noticia_id/:status"=>'noticias#atualizar_status', as: :atualizar_status
-    #put "publicar_noticia/:noticia_id/:publicado"=>'noticias#publicar_noticia', as: :publicar_noticia
+    ##put "atualizar_status/:noticia_id/:status"=>'noticias#atualizar_status', as: :atualizar_status
+    ##put "publicar_noticia/:noticia_id/:publicado"=>'noticias#publicar_noticia', as: :publicar_noticia
+    #put "alterar_status/:noticia_id/:status"=>'noticias#alterar_status', as: :alterar_status
     put "alterar_status/:noticia_id/:status"=>'noticias#alterar_status', as: :alterar_status
   end
 
@@ -80,7 +81,6 @@ Rails.application.routes.draw do
   resources :estaticos
   resources :semi_estaticas
   #get ':edit', to: 'paginas#edit', as: :id
-
 
   #este aqui libera o permalink - começo
   scope ":tipo" do
