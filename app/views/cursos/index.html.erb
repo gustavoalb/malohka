@@ -11,9 +11,10 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th><%= model_class.human_attribute_name(:nome) %></th>
-        <th><%= model_class.human_attribute_name(:codigo) %></th>
-        <th><%= model_class.human_attribute_name(:nivel_id) %></th>
+        <th>Nome</th>
+        <th>Código</th>
+        <th>Nível</th>
+        <th>Duração</th>
         <th><%=t '.actions', :default => t("helpers.Ações") %></th>
       </tr>
     </thead>
@@ -26,6 +27,7 @@
           <% else %>
             <td><%= curso.nivel.nome %> </td>
           <% end %>
+          <td><%= curso.duracao %></td>
           <td>
             <%= link_to t('.edit', :default => t("helpers.links.editar")),
                       edit_curso_path(curso), :class => 'btn btn-default btn-xs' %>

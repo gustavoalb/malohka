@@ -1,5 +1,4 @@
 class Aluno < ActiveRecord::Base
-  #  include CriarUsuario
   belongs_to :turma
   belongs_to :pessoa
   has_many :carteiras, class_name: 'Iestudantil'
@@ -10,7 +9,6 @@ class Aluno < ActiveRecord::Base
   validates :turma_id, :presence => true, :on => :update
 
   scope :da_pessoa, where('alunos.pessoa_id = ?', p)
-
 
   def gerar_c_barra
     pessoa = self.pessoa
@@ -25,7 +23,7 @@ class Aluno < ActiveRecord::Base
     if @aluno.turma.nome.present?
       puts coisa
     else
-      puts merda
+      puts teste
     end
   end
 

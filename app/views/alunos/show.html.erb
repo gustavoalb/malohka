@@ -24,33 +24,36 @@
   </div>
   <div class="col-sm-4 col-md-7">
     <dl class="dl-horizontal">
-      <% if @aluno.turma==nil %>
-      <% else %>
-        <dt><strong>Matrícula:</strong></dt>
-        <dd><%= @aluno.matricula %></dd>
-        <dt><strong>Nível de ensino:</strong></dt>
-        <dd><%= @aluno.turma.nivel.nome %></dd>
-        <dt><strong>Curso: &nbsp;</strong></dt>
-        <dd> <%= @aluno.turma.curso.nome %></dd>
-        <dt><strong>Turma:</strong></dt>
-        <dd><%= @aluno.turma.nome %></dd>
-        <dt><strong><%= model_class.human_attribute_name(:turno) %>:</strong></dt>
-        <dd><%= @aluno.turma.turno %></dd>
-      <% end %>
+      <dt><strong>Matrícula:</strong></dt>
+      <dd><%= ver_form_nil(@aluno.matricula) %></dd>
+      <dt><strong>Ano de ingresso:</strong></dt>
+      <dd><%= ver_form_nil(@aluno.turma.nivel.nome) %></dd>
+      <dt><strong>Nível de ensino:</strong></dt>
+      <dd><%= ver_form_nil(@aluno.turma.nivel.nome) %></dd>
+      <dt><strong>Curso: &nbsp;</strong></dt>
+      <dd> <%= ver_form_nil(@aluno.turma.curso.nome) %></dd>
+      <dt><strong>Turma:</strong></dt>
+      <dd><%= ver_form_nil(@aluno.turma.nome) %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:turno) %>:</strong></dt>
+      <dd><%= ver_form_nil(@aluno.turma.turno) %></dd>
     </dl>
   </div>
 </div>
 <div>
   <%= link_to t('.back', :default => t("helpers.links.voltar")),
               alunos_path, :class => 'btn btn-default'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.editar")),
+  <% if can? :edit, Aluno %>
+    <%= link_to t('.edit', :default => t("helpers.links.editar")),
               edit_aluno_path(@aluno), :class => 'btn btn-default' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.apagar")),
+  <% end %>
+  <% if can? :edit, Aluno %>
+    <%= link_to t('.destroy', :default => t("helpers.links.apagar")),
               aluno_path(@aluno),
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
-  <% if can? :manage, Aluno %>
+  <% end %>
+  <% if can? :edit, Aluno %>
     <%= link_to "Gerar Identidade Estudantil",  aluno_path(@aluno, format: "pdf" ),   :class  => 'btn btn-primary' %>
   <% end %>
 </div>

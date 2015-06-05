@@ -8,6 +8,8 @@
     <dd><%= @curso.codigo %></dd>
     <dt><strong><%= model_class.human_attribute_name(:nivel_id) %>:</strong></dt>
     <dd><%= @curso.nivel.nome %></dd>
+    <dt><strong>Duração:</strong></dt>
+    <dd><%= @curso.duracao %></dd>
     <dt><strong>Cadastrado em:</strong></dt>
     <dd><%= @curso.created_at.strftime("%d/%m/%Y %H:%m") %></dd>
   </dl>

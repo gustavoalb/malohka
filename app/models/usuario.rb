@@ -6,7 +6,7 @@ class Usuario < ActiveRecord::Base
   scope :with_role, lambda { |role| {:conditions => "roles_mask & #{2**ROLES.index(role.to_s)} > 0"} }
   validates_presence_of [:pessoa_id], :message=>"Não pode ficar em branco!"
 
-  ROLES = %w[admin ascom aluno servidor lead iestudantil]
+  ROLES = %w[admin ascom aluno funcionario lead iestudantil]
 
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.sum

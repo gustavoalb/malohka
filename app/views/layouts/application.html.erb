@@ -54,8 +54,8 @@
                   <!--                <li><%= link_to "Sobre o GTE", root_path %></li>
                   <li class="divider"></li> -->
                   <!-- <li><%= link_to "Linhas de Pesquisa", root_path %></li> -->
-                  <li><%= link_to "Pesquisadores", pesquisadores_path %></li>
-                  <li><%= link_to "Projetos", projetos_path %></li>
+                  <li><a href="/gte/pesquisadores">Pesquisadores</a><%#= link_to "Pesquisadores", pesquisadores_path %></li>
+                  <li><a href="/gte/projetos">Projetos</a><%#= link_to "Projetos", projetos_path %></li>
                 </ul>
               </li>
               <li class="dropdown">
@@ -67,7 +67,7 @@
                   <li><a href="mailto:ouvidoria@ifap.edu.br">Ouvidoria</a></li>
                 </ul>
               </li>
-              <!-- <li><%= link_to "Eventos", eventos_path  %></li> -->
+              <li><a href="/sobre/malohka">Sobre</a><%#= link_to "Sobre", "http://localhost:3000/sobre/malohka" %></li>
               <li><%#= link_to "Sobre", sobre_path %></li>
             </ul>
             <p class="navbar-text pull-right">
@@ -128,14 +128,14 @@
                     </div> -->
                     <div class="panel-heading">
                       <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#accordionTwo"><span><%= image_tag "home.png" %></span>&nbsp;&nbsp;GTE</a>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#accordionOne"><span><%= image_tag "home.png" %></span>&nbsp;&nbsp;GTE</a>
                       </h4>
                     </div>
-                    <div id="accordionTwo" class="panel-collapse collapse">
+                    <div id="accordionOne" class="panel-collapse collapse">
                       <!--       <div class="panel-body"><%= link_to "GTE", root_path %></div> -->
                       <!-- <div class="panel-body"><%= link_to "Linhas de Pesquisa", root_path %></div> -->
-                      <div class="panel-body"><%= link_to "Pesquisadores", pesquisadores_path %></div>
-                      <div class="panel-body"><%= link_to "Projetos", projetos_path %></div>
+                      <div class="panel-body"><a href="/gte/pesquisadores">Pesquisadores</a><%#= link_to "Pesquisadores", "http://localhost:3000/gte/pesquisadores" %></div>
+                      <div class="panel-body"><a href="/gte/projetos">Projetos</a><%#= link_to "Projetos", "http://localhost:3000/gte/projetos" %></div>
                     </div>
                     <div class="panel-heading">
                       <h4 class="panel-title">

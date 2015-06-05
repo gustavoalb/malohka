@@ -1,11 +1,9 @@
 class Noticia < ActiveRecord::Base
   #acts_as_taggable
-  has_many :taggings
-  has_many :tags, through: :taggings
+  # has_many :taggings
+  #  has_many :tags, through: :taggings
 
 
-  #scope :publicavel, -> {where("publicado = false and status = 'publicavel'",true).order("publicado_em DESC")}
-  #scope :publicavel, -> {where("status = 'publicavel'",true).order("publicado_em DESC")}
   scope :publicavel, -> {where("status = 'publicavel'",true).order("publicado_em DESC")}
   scope :destaque, -> {where("status = 'em_destaque'",true).order("publicado_em DESC")}
   scope :pauta, -> {where("status = 'em_pauta'",true).order("publicado_em DESC")}

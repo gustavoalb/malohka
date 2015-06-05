@@ -3,12 +3,26 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_filter :authenticate_usuario!,  :except => :principal
-
+  helper_method :meus_alunos
   before_filter :validar_usuario
+  #rescue_from CanCan::AccessDenied do |exception|
+  # redirect_to :back, :alert => "Você não tem autorização para acessar esta área"
+  #    redirect_to :back, :alert => exception.message
+  #render :file => "#{Rails.root}/public/403.html", :status => 403, :layout => false
+  #end
+
   rescue_from CanCan::AccessDenied do |exception|
-    #    redirect_to :back, :alert => exception.message
-    render :file => "#{Rails.root}/public/403.html", :status => 403, :layout => false
+    if !ENV['HTTP_REFERER'].blank?
+      redirect_to :back, :alert => "Você não tem autorização para acessar esta área"
+    else
+      respond_to do |format|
+        #format.html { render template: "erros/erro_acesso", layout: 'layouts/application', status: 403 }
+        format.html { render :file => "#{Rails.root}/public/403.html", :status => 403, :layout => false }
+        format.all { render nothing: true, status: 403 }
+      end
+    end
   end
+
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
@@ -31,6 +45,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  def meus_alunos
+    @alunos ||= Aluno.where(pessoa_id:current_usuario.pessoa.id)
+  end
+
   def validar_usuario
     if usuario_signed_in?
       if current_usuario.validado?

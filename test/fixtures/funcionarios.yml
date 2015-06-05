@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  matricula: MyString
+  cargo: MyString
+  cargo_id: 1
+  data_posse: 2015-06-02
+  pessoa_id: 1
+
+two:
+  matricula: MyString
+  cargo: MyString
+  cargo_id: 1
+  data_posse: 2015-06-02
+  pessoa_id: 1

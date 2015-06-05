@@ -6,9 +6,10 @@ class AlunosController < ApplicationController
 
   def index
     #@alunos = Aluno.all
-    @q = Aluno.ransack(params[:q])
-    @alunos = @q.result(distinct: true).accessible_by(current_ability)
+    #@q = Aluno.ransack(params[:q])
+    #alunos = @q.result(distinct: true).order("id ASC").paginate(:page => params[:page], :per_page => 5)
     #respond_with(@alunos)
+    @alunos = meus_alunos
 
     require 'barby' #sou aqui mesmo se vou servir ao resto so sistema?
     require 'barby/barcode/code_39' #sou aqui mesmo se vou servir ao resto so sistema?
@@ -73,6 +74,8 @@ class AlunosController < ApplicationController
     @pessoa = Pessoa.find(@aluno.pessoa_id)
   end
 
+
+
   def create
     @aluno = Aluno.new(aluno_params)
     @aluno.save
@@ -98,43 +101,49 @@ class AlunosController < ApplicationController
 
   #def idestudantil
   def show
-    require 'barby'
-    require 'barby/barcode/code_39'
-    require 'barby/outputter/png_outputter'
-    barcode = Barby::Code39.new("#{@aluno.pessoa.cpf}")
 
-    blob = Barby::PngOutputter.new(barcode).to_png(:xdim => 3) #Raw PNG data
-    b = File.open("/tmp/codigo_barras_#{barcode}.png",'w')
-    b.write blob
-    b.close
+    if  current_usuario.roles_mask == 1
+      require 'barby'
+      require 'barby/barcode/code_39'
+      require 'barby/outputter/png_outputter'
+      barcode = Barby::Code39.new("#{@aluno.pessoa.cpf}")
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.pdf do
-        # Thin ReportsでPDFを作成
-        report = ThinReports::Report.new(layout: "#{Rails.root}/app/reports/iestudantil_m2015.tlf")
+      blob = Barby::PngOutputter.new(barcode).to_png(:xdim => 3) #Raw PNG data
+      b = File.open("/tmp/codigo_barras_#{barcode}.png",'w')
+      b.write blob
+      b.close
 
-        #2.times do
-        report.start_new_page
-        report.page.item(:nome).value(@aluno.pessoa.nome)
-        report.page.item(:nascimento).value(@aluno.pessoa.nascimento.to_s_br)
-        report.page.item(:rg).value(@aluno.pessoa.rg)
-        report.page.item(:curso).value("Técnico em Rede de Computadores") #inserir cursos
-        report.page.item(:matricula).value(@aluno.matricula)
-        report.page.item(:validade).value("dez/2015") # inserir validade
+      respond_to do |format|
+        format.html # show.html.erb
+        format.pdf do
+          # Thin ReportsでPDFを作成
+          report = ThinReports::Report.new(layout: "#{Rails.root}/app/reports/iestudantil_m2015.tlf")
 
-        #f = File.open (@aluno.pessoa.foto.path)
-        #report.page.item(:foto).value(open(f))
-        #f.close
+          #2.times do
+          report.start_new_page
+          report.page.item(:nome).value(@aluno.pessoa.nome)
+          report.page.item(:nascimento).value(@aluno.pessoa.nascimento.to_s_br)
+          report.page.item(:rg).value(@aluno.pessoa.rg)
+          report.page.item(:curso).value("Técnico em Rede de Computadores") #inserir cursos
+          report.page.item(:matricula).value(@aluno.matricula)
+          report.page.item(:validade).value("dez/2015") # inserir validade
 
-        report.page.item(:barra).value(b.path)
-        #end
+          #f = File.open (@aluno.pessoa.foto.path)
+          #report.page.item(:foto).value(open(f))
+          #f.close
 
-        send_data report.generate, filename: "#{@aluno.id}.pdf",
-          type: 'application/pdf',
-          disposition: 'inline' # para visualização no navegador
-        #disposition: 'attachment' # para download
+          report.page.item(:barra).value(b.path)
+          #end
+
+          send_data report.generate, filename: "#{@aluno.id}.pdf",
+            type: 'application/pdf',
+            disposition: 'inline' # para visualização no navegador
+          #disposition: 'attachment' # para download
+        end
       end
+    elsif current_usuario.roles_mask == 4
+    else
+      render :file => "#{Rails.root}/public/403.html", :status => 403, :layout => false
     end
   end
 
@@ -262,7 +271,8 @@ class AlunosController < ApplicationController
     @pessoa = @aluno.pessoa
   end
 
+
   def aluno_params
-    params.require(:aluno).permit(:matricula, :ano_ingresso, :curso, :curso_id, :turma_id, :semestre_atual, :nivel_id, :status, :ativo, pessoa: [ :nome,:foto ])
+    params.require(:aluno).permit(:matricula, :ano_ingresso, :curso, :curso_id, :turma_id, :periodo_atual, :semestre_atual, :nivel_id, :status, :ativo, pessoa: [ :nome,:foto ])
   end
 end

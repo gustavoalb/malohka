@@ -1,0 +1,18 @@
+<div id="noticias" class="col-md-12, row, well">
+  <div class="row">
+    <% Noticia.nao_arquivadas.each do |noticia| %>
+      <div class="col-sm-12 col-md-12, row, thumbnail">
+        <p align="CENTER"><strong><%= link_to noticia.titulo, noticia_path(noticia) %></strong></p>
+        <p align="left">&nbsp;<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;Publicado em <%= noticia.publicado_em.strftime("%d/%m/%y às %H:%M") %> </p>
+        <div><%= truncate(noticia.conteudo.html_safe, :length => 800, :omission => "" , :escape => false) %>...&nbsp;<%= link_to 'Leia mais...', noticia_path(noticia) %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <% if Noticia.arquivadas.present? %>
+    <h4>Outras notícias</h4>
+    <% Noticia.arquivadas.each do |r| %>
+      <p><%= r.created_at.strftime("%d/%m/%Y") %>&nbsp;&nbsp;<%= link_to r.titulo, noticia_path(r) %></p>
+    <% end %>
+  <% end %>
+</div>

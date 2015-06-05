@@ -1,0 +1,2 @@
+module EstaticosHelper
+end

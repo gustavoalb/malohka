@@ -1,0 +1,26 @@
+oi444444
+<h1>Listing paginas</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Permalink</th>
+      <th>Content</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @paginas.each do |pagina| %>
+      <tr>
+        <td><%= pagina.nome %></td>
+        <td><%= pagina.permalink %></td>
+        <td><%= pagina.conteudo %></td>
+        <td><%= link_to 'Show', pagina %></td>
+        <td><%= link_to 'Edit', edit_pagina_path(pagina) %></td>
+        <td><%= link_to 'Destroy', pagina, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<%= link_to 'New Pagina', new_pagina_path %>

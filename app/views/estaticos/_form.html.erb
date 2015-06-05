@@ -1,0 +1,12 @@
+<%#= simple_form_for @pagina, url: estatico_path(@pagina.id), :html => { :class => 'form-horizontal' } do |f| %>
+  <%= simple_form_for @pagina, url: estatico_path(@pagina.id), :html => { :class => 'form-horizontal' } do |f| %>
+    <%= f.input :nome %>
+    <%= f.input :tipo,:collection=>Pagina.tipos.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o Tipo" %>
+    <%= f.input :permalink %>
+    <%#= f.input :content %>
+    <%= f.input :conteudo, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }  %>
+    <%#= f.input :tipo_id %>
+    <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancelar")),
+                paginas_path, :class => 'btn btn-default' %>
+  <% end %>

@@ -1,0 +1,12 @@
+<%- model_class = Pagina -%>
+<div class="page-header" align='center'>
+  <h1><%= @pagina.nome %></h1>
+</div>
+<% if can? :update, Pagina %>
+  <%= render "painel_admin" %>
+<% end %>
+<div class="col-sm-12 col-md-12, well">
+  <%= @pagina.conteudo.html_safe %>
+</div>
+<%= link_to t('.back', :default => t("helpers.links.voltar")),
+              estaticos_path, :class => 'btn btn-default'  %>

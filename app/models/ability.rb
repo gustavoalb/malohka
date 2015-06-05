@@ -8,8 +8,6 @@ class Ability
       can :manage, :all
     elsif usuario.role? :ascom
       can :manage, Noticia
-      #Evento ainda não liberado :~(
-      #can :read, Evento
       can :manage, Pagina
     elsif usuario.role? :lead
       can [:update, :read, :new, :create], Noticia
@@ -22,9 +20,16 @@ class Ability
       can [ :read, :update ], Aluno
       #can :read, Noticia
       #can [:read, :create ], Solicitacao
+    elsif usuario.role? :funcionario
+      can :read, Noticia
+      can :read, Evento
     elsif usuario.role? :aluno
       can [:read, :create, :destroy ], Solicitacao
       can :read, Noticia
+      #can [:read, :update], Pagina
+      can :access, :ckeditor
+      can [:read, :create, :destroy], Ckeditor::Picture, assetable_id: usuario.id
+      can [:read, :create, :destroy], Ckeditor::AttachmentFile, assetable_id: usuario.id
       can [:manage], Aluno, pessoa_id: usuario.pessoa_id
       cannot [:destroy, :create, :edit], Aluno
       # can [:manage], Nivel

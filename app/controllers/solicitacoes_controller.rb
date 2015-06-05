@@ -7,14 +7,12 @@ class SolicitacoesController < ApplicationController
 
   def index
     @pessoa = current_usuario.pessoa
-    #@aluno = @pessoa.alunos.first
     @solicitacao = Solicitacao.new
     #respond_with(@solicitacoes)
     if @pessoa.status == 'pendente' and @pessoa.alunos.first.status == 'pendente'
-      #if current_usuario.roles_mask == 4 and @pessoa.status == 'pendente' and @aluno.status == 'pendente'
-      #if @pessoa.status == 'pendente'
+      #if current_usuario.roles_mask == 4 #and @pessoa.alunos.first.status == 'pendente'
       redirect_to validacao_index_path
-    elsif @pessoa.status = 'atualizado'
+    elsif @pessoa.status = 'atualizado' and @pessoa.alunos.first.status == 'atualizado'
       respond_with(@solicitacoes)
     end
   end

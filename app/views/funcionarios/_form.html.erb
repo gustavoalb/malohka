@@ -1,0 +1,16 @@
+<%= simple_form_for @funcionario, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :matricula %>
+  <%= error_span(@funcionario[:matricula]) %>
+  <%= f.input :cargo %>
+  <%= error_span(@funcionario[:cargo]) %>
+  <%= f.input :cargo_id %>
+  <%= error_span(@funcionario[:cargo_id]) %>
+  <%= f.input :data_posse %>
+  <%= error_span(@funcionario[:data_posse]) %>
+  <%= f.input :pessoa_id %>
+  <%= error_span(@funcionario[:pessoa_id]) %>
+
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                funcionarios_path, :class => 'btn btn-default' %>
+<% end %>

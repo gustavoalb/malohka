@@ -66,9 +66,6 @@ module SolicitacoesHelper
       return "finalizado"
     else #if objeto=="impresso"
       return "em andamento"
-      # elsif objeto=="entregue"
-      #   return "Entregue"
-      # end
     end
   end
 

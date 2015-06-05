@@ -2,7 +2,7 @@ class Pagina < ActiveRecord::Base
   validates_uniqueness_of :permalink
 
   # enum tipo_id: {'principal'=> 1, 'gte'=>2, 'servicos'=> 3}
-  enum tipo: {'Principal'=> 'principal', 'Gte'=>'gte', 'Serviços'=> 'servicos'}
+  enum tipo: {'Principal'=> 'principal', 'Gte'=>'gte', 'Serviços'=> 'servicos', 'Sobre'=> 'sobre'}
   #inherited_resources
   #actions :show
 
@@ -19,7 +19,7 @@ class Pagina < ActiveRecord::Base
   #   permalink
   # end
   def to_param
-    #    "#{permalink.to_s.parameterize}"
-    "#{id}"
+    "#{permalink.to_s.parameterize}"
+    #{}"#{id}"
   end
 end

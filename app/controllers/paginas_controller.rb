@@ -1,6 +1,6 @@
 class PaginasController < ApplicationController
-  load_and_authorize_resource :except=> [:show]
-  before_action :set_pagina, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource :except=> [:permalink]
+  before_action :set_pagina, only: [:show]
 
   respond_to :html
 
@@ -11,8 +11,14 @@ class PaginasController < ApplicationController
   end
 
   def show
-    #@pagina = Pagina.find_by_permalink!(params[:id])
-    @pagina = Pagina.find(params[:id])
+    @pagina = Pagina.find_by_permalink!(params[:id])
+    #@pagina = Pagina.find(params[:id])
+    respond_with(@pagina)
+  end
+
+  def permalink
+    @pagina = Pagina.where(tipo:params[:tipo],permalink:params[:permalink]).first
+    #@pagina = Pagina.find(params[:id])
     respond_with(@pagina)
   end
 
@@ -22,8 +28,8 @@ class PaginasController < ApplicationController
   end
 
   def edit
-    @pagina = Pagina.find(params[:id])
-    #@pagina = Pagina.find(params[:permalink])
+    #@pagina = Pagina.find(params[:id])
+    @pagina = Pagina.find(params[:permalink])
     #@@pagina = Pagina.find_by_permalink!(params[:id])
     #@pagina = Pagina.find_by_permalink!(params[:permalink])
   end
@@ -50,8 +56,8 @@ class PaginasController < ApplicationController
 
   private
   def set_pagina
-    @pagina = Pagina.find(params[:id])
-    #@pagina = Pagina.find_by_permalink!(params[:id])
+    #@pagina = Pagina.find(params[:id])
+    @pagina = Pagina.find_by_permalink!(params[:id])
 
 
   end

@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
 
+  resources :funcionarios
+
   resources :photos, :only => [:index, :show, :new, :create] do
     post 'upload', :on => :collection
   end
-
   get 'tags/:tag', to: 'noticias#index', as: :tag
   resources :noticias do
     #put "atualizar_status/:noticia_id/:status"=>'noticias#atualizar_status', as: :atualizar_status
@@ -12,11 +13,11 @@ Rails.application.routes.draw do
   end
 
   #teste do controller static
-  scope "/gte" do
-    %w[gte pesquisadores projetos].each do |p|
-      get p, controller: "static", action: p
-    end
-  end
+  # scope "/gte" do
+  #   %w[gte pesquisadores projetos].each do |p|
+  #     get p, controller: "static", action: p
+  #   end
+  # end
 
   #get gte, controller: "static", action: gte
   #teste do controller static
@@ -25,17 +26,11 @@ Rails.application.routes.draw do
   #   get p, controller: "static", action: p
   # end
 
-  # %w[:paginas].each do |p|
-  #   get p, controller: "paginas", action: p
-  # end
-
   scope "/servicos" do
     resources :solicitacoes do
       get 'solicitar_ie/:aluno_id'=>'solicitacoes#solicitar_ie', as: :solicitar_ie, on: :collection
     end
   end
-
-
 
   # scope "" do
   #   resources :paginas
@@ -47,7 +42,11 @@ Rails.application.routes.draw do
   resources :validacao
   resources :eventos
   resources :pesquisas
-  resources :pessoas
+  resources :pessoas do
+    post 'upload', :on => :collection
+  end
+
+  # validação de usuário
   get 'validar_usuario/index'
 
   # atualização de pessoa e aluno
@@ -56,7 +55,6 @@ Rails.application.routes.draw do
   post 'validar_usuario/salvar_pessoa'
   get 'validar_usuario/atualizar_aluno'
   post 'validar_usuario/salvar_aluno'
-
 
   mount Ckeditor::Engine => '/ckeditor'
   devise_for :usuarios ,:controllers => { :sessions => "sessions"}
@@ -75,22 +73,19 @@ Rails.application.routes.draw do
   resources :cursos
   resources :niveis
 
-  #este aqui libera o 'páginas', mas a rota fica com '/paginas/' na frente
-  #resources :paginas#, only: [:index, :edit, :new, :show]
-  #este aqui fecha a liberação de 'páginas' com a rota fica com '/paginas/' na frente
+  resources :paginas #do
+  #   get 'nova_pagina' => 'paginas#new', as: :nova_pagina
+  # end
 
-
-
-  resources :paginas#, except: :show do
-  #get':id', to: 'paginas#show', as: :pagina
-
-
+  resources :estaticos
+  resources :semi_estaticas
+  #get ':edit', to: 'paginas#edit', as: :id
 
 
   #este aqui libera o permalink - começo
-  ##  scope ":permalink" do
-  ##    get':id', to: 'paginas#show', as: :permalink
-  ##  end
+  scope ":tipo" do
+    get ':permalink', to: 'paginas#permalink', as: :permalink
+  end
   #este aqui libera o permalink - fim
 
 
