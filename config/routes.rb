@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :photos, :only => [:index, :show, :new, :create] do
     post 'upload', :on => :collection
   end
-  get 'tags/:tag', to: 'noticias#index', as: :tag
+  #  get 'tags/:tag', to: 'noticias#index', as: :tag
   resources :noticias do
     #put "atualizar_status/:noticia_id/:status"=>'noticias#atualizar_status', as: :atualizar_status
     #put "publicar_noticia/:noticia_id/:publicado"=>'noticias#publicar_noticia', as: :publicar_noticia
