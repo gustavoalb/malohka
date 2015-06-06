@@ -11,8 +11,11 @@ Rails.application.routes.draw do
     ##put "atualizar_status/:noticia_id/:status"=>'noticias#atualizar_status', as: :atualizar_status
     ##put "publicar_noticia/:noticia_id/:publicado"=>'noticias#publicar_noticia', as: :publicar_noticia
     #assert_routing({ path: 'noticias', method: :put }, { controller: 'noticias', action: 'alterar_status' })
+    get "delete"
   end
 
+  #  resources :noticias do
+  #  end
 
 
   #teste do controller static
@@ -61,9 +64,7 @@ Rails.application.routes.draw do
 
   mount Ckeditor::Engine => '/ckeditor'
   devise_for :usuarios ,:controllers => { :sessions => "sessions"}
-  resources :noticias do
-    get "delete"
-  end
+
   #  resources :tags, only: [:index, :show]
   resources :alunos   do
     post 'turmas', on: :collection
