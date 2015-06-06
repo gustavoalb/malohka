@@ -12,6 +12,9 @@ class SolicitacoesController < ApplicationController
     if @pessoa.status == 'pendente' and @pessoa.alunos.first.status == 'pendente'
       #if current_usuario.roles_mask == 4 #and @pessoa.alunos.first.status == 'pendente'
       redirect_to validacao_index_path
+    elsif current_usuario.roles_mask == 8
+      redirect_to :back, :alert => "Esta área ainda será liberada para sua classe de usuário. :~("
+      #render "#{Rails.root}/public/ops.html" # false/gte/pesquisadores"
     elsif @pessoa.status = 'atualizado' and @pessoa.alunos.first.status == 'atualizado'
       respond_with(@solicitacoes)
     end

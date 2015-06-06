@@ -6,14 +6,20 @@ class EventosController < ApplicationController
 
   def index
     @eventos = Evento.all
-    @date = params[:month] ? Date.strftime(params[:month]) : Date.today
+    # @date = params[:month] ? Date.strftime(params[:month]) : Date.today
     @periodos = []
     @eventos.each do |evento|
       evento.periodos.each do |periodo|
         @periodos << periodo
       end
     end
-    respond_with(@eventos)
+    #respond_with(@eventos)
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @events }
+    end
+
   end
 
   def show

@@ -17,7 +17,11 @@
     <% @solicitacoes.each do |solicitacao| %>
       <tr>
         <td><%= link_to solicitacao.id, solicitacao_path(solicitacao) %></td>
-        <td><%= solicitacao.solicitavel.aluno.matricula %></td>
+        <% if solicitacao.solicitavel.aluno.present? %>
+          <td><%= solicitacao.solicitavel.aluno.matricula %></td>
+        <% else %>
+          <td>Xunda</td>
+        <% end -%>
         <td><%= solicitacao.solicitavel_type %></td>
         <td><%= solicitacao.solicitavel.impresso %></td>
         <td><%= solicitacao.solicitavel.entregue %></td>

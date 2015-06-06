@@ -5,16 +5,15 @@ Rails.application.routes.draw do
   resources :photos, :only => [:index, :show, :new, :create] do
     post 'upload', :on => :collection
   end
-  #  get 'tags/:tag', to: 'noticias#index', as: :tag
+
   resources :noticias do
     put "alterar_status/:noticia_id/:status"=>'noticias#alterar_status', as: :alterar_status
-    ##put "atualizar_status/:noticia_id/:status"=>'noticias#atualizar_status', as: :atualizar_status
-    ##put "publicar_noticia/:noticia_id/:publicado"=>'noticias#publicar_noticia', as: :publicar_noticia
-    #assert_routing({ path: 'noticias', method: :put }, { controller: 'noticias', action: 'alterar_status' })
-    get "delete"
   end
 
+  ##put "atualizar_status/:noticia_id/:status"=>'noticias#atualizar_status', as: :atualizar_status
+  ##put "publicar_noticia/:noticia_id/:publicado"=>'noticias#publicar_noticia', as: :publicar_noticia
   #  resources :noticias do
+  #    get "delete"
   #  end
 
 
@@ -65,7 +64,6 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   devise_for :usuarios ,:controllers => { :sessions => "sessions"}
 
-  #  resources :tags, only: [:index, :show]
   resources :alunos   do
     post 'turmas', on: :collection
     post 'turnos', on: :collection
@@ -81,9 +79,8 @@ Rails.application.routes.draw do
   #   get 'nova_pagina' => 'paginas#new', as: :nova_pagina
   # end
 
-  resources :estaticos
-  resources :semi_estaticas
-  #get ':edit', to: 'paginas#edit', as: :id
+  #  resources :estaticos
+  #  resources :semi_estaticas
 
   #este aqui libera o permalink - começo
   scope ":tipo" do
@@ -91,8 +88,5 @@ Rails.application.routes.draw do
   end
   #este aqui libera o permalink - fim
 
-
   root :to => "home#principal"
-
-
 end

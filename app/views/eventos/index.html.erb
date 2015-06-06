@@ -1,65 +1,54 @@
-<div id="calendar">
-    <h2 id="month">  
-    <%= link_to "<", :month => (@date.beginning_of_month-1).strftime("%Y-%m-01") %>  
-    <%= h @date.strftime("%B / %Y") %>  
-    <%= link_to ">", :month => (@date.end_of_month+1).strftime("%Y-%m-01") %>  
-  </h2>
-  <%= calendar_for @periodos, :year => @date.year, :month => @date.month do |calendar| %>
-    <%= calendar.head('Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado')%>
-    <% calendar.day(:day_method => :inicio) do |date, periodos| %>
-      <%= date.day %>
-      <ul>
-        <% for periodo in periodos %>  
-        <li><%=periodo.evento.nome %></li>
-        <li><%=periodo.inicio.strftime("%H:%M")%></li>
-        <li><%=periodo.termino.strftime("%H:%M")%></li>
+<div id='calendar'></div>
+<h2 id="month">
+  <%#= link_to "<", :month => (@date.beginning_of_month-1).strftime("%Y-%m-01") %>
+  <%#= h @date.strftime("%B / %Y") %>
+  <%#= link_to ">", :month => (@date.end_of_month+1).strftime("%Y-%m-01") %>
+</h2>
+<%#= calendar_for @periodos, :year => @date.year, :month => @date.month do |calendar| %>
+  <%#= calendar.head('Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado')%>
+  <%# calendar.day(:day_method => :inicio) do |date, periodos| %>
+    <%#= date.day %>
+    <ul>
+      <%# for periodo in periodos %>
+      <li><%#=periodo.evento.nome %></li>
+      <li><%#=periodo.inicio.strftime("%H:%M")%></li>
+      <li><%#=periodo.termino.strftime("%H:%M")%></li>
+      <%# end %>
+    </ul>
+    <%# end %>
+    <%# end %>
+    <h1>Listing eventos</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>comeco</th>
+          <th>periodo</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @eventos.each do |evento| %>
+          <tr>
+            <td><%= evento.nome %></td>
+            <% evento.periodos.each do |periodo|%>
+              <td><%#= periodo.comeco%></td>
+              <td><%= periodo.inicio.to_s_br%></td>
+              <td><%= periodo.termino.to_s_br%></td>
+            <% end%>
+            <td><%= link_to 'Show', evento %></td>
+            <td><%= link_to 'Edit', edit_evento_path(evento) %></td>
+            <td><%= link_to 'Destroy', evento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
         <% end %>
-      </ul>  
-    <% end %>
-  <% end %>
-</div>
-
-<h1>Listing eventos</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>comeco</th>
-      <th>periodo</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @eventos.each do |evento| %>
+      </tbody>
+    </table>
+    <%# @periodos.each do |periodo| %>
       <tr>
-        <td><%= evento.nome %></td>
-          <% evento.periodos.each do |periodo|%>
-          <td><%= periodo.comeco%></td>
-          <td><%= periodo.inicio.to_s_br%></td>
-          <% end%>
-        
-        <td><%= link_to 'Show', evento %></td>
-        <td><%= link_to 'Edit', edit_evento_path(evento) %></td>
-        <td><%= link_to 'Destroy', evento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%#= periodo.inicio %></td>
+        <td><%#= periodo.comeco %></td>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-
-<%# @periodos.each do |periodo| %>
-  <tr>
-    <td><%#= periodo.inicio %></td>
-    <td><%#= periodo.comeco %></td>
-
-
-  </tr>
-<%# end  Jessica Cristine Mota da Cruz 99118-0341%>
-</table>
-
-
-<br>
-
-<%= link_to 'New Evento', new_evento_path %>
+      <%# end  Jessica Cristine Mota da Cruz 99118-0341%>
+    </table>
+    <br>
+    <%= link_to 'New Evento', new_evento_path %>

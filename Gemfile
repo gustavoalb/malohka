@@ -27,9 +27,10 @@ gem "font-awesome-rails"
 
 
 gem 'bootstrap-datepicker-rails'
-gem 'momentjs-rails', '>= 2.8.1', :github => 'derekprior/momentjs-rails'
+gem 'momentjs-rails'#, '>= 2.8.1', :github => 'derekprior/momentjs-rails'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
-# gem "watu_table_builder", :require => "table_builder"
+#gem "watu_table_builder", :require => "table_builder"
+gem 'fullcalendar-rails'
 
 gem "nested_form"
 

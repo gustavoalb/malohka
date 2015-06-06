@@ -1,8 +1,14 @@
 <p>
-<!--<= tag.input :name, label: "Tag Name"%>-->
-  <%= p.input :inicio %>
-  <%= p.input :termino %>
-  <!--<= builder.input :pesquisa_id, input_html: {value: @pesquisa.id}, as: :hidden%>-->
+  <!--<= tag.input :name, label: "Tag Name"%>-->
+  <div class="container">
+    <p class="row"><strong></strong></p>
+    <div class="form-group, row">
+      <div class="form-inline">
+        <strong>Início:</strong><%= p.input :inicio, label: false %>&nbsp;&nbsp;<strong>Término:</strong>
+        <%= p.input :termino, label: false %>
+      </div>
+    </div>
+  </div>
   <%= p.check_box :_destroy %>
   <%= p.label :_destroy, "Remover período?" %>
 </p>
