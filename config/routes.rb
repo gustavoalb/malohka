@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   end
 
   resources :noticias do
-    put "alterar_status/:noticia_id/:status"#=>'noticias#alterar_status', as: :alterar_status
+    member do
+      put "alterar_status/:status"=>"noticias#alterar_status"
+    end
   end
 
   ##put "atualizar_status/:noticia_id/:status"=>'noticias#atualizar_status', as: :atualizar_status
