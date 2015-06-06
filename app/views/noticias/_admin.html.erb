@@ -47,8 +47,8 @@
                                 <dt><strong>Ações:</strong></dt>
                                 <dd>
                                   <% if can? :manage, Noticia %>
-                                    <%= link_to 'Colocar em destaque', noticia_alterar_status_path(publicavel,'destaque'), method: :put, :class => 'btn btn-primary btn-xs' %>
-                                    <%= link_to 'Colocar em pauta', noticia_alterar_status_path(publicavel,'pauta'), method: :put, :class => 'btn btn-primary btn-xs' %>
+                                    <%= link_to 'Publicar em destaque', noticia_alterar_status_path(publicavel,'destaque'), method: :put, :class => 'btn btn-primary btn-xs' %>
+                                    <%= link_to 'Publicar em pauta', noticia_alterar_status_path(publicavel,'pauta'), method: :put, :class => 'btn btn-primary btn-xs' %>
                                   <% end %>
                                   <%= link_to t('.edit', :default => t("helpers.links.Editar")), edit_noticia_path(publicavel), :class => 'btn btn-default btn-xs' %>
                                 <% end %>
@@ -155,7 +155,7 @@
                                 <dt><strong>Ações:</strong></dt>
                                 <dd>
                                   <% if can? :manage, Noticia %>
-                                    <%= link_to 'Colocar em destaque', noticia_alterar_status_path(pauta,'em_destaque'), method: :put, :class => 'btn btn-primary btn-xs' %>
+                                    <%= link_to 'Colocar em destaque', noticia_alterar_status_path(pauta,'destaque'), method: :put, :class => 'btn btn-primary btn-xs' %>
                                     <%= link_to 'Arquivar', noticia_alterar_status_path(pauta,'arquivo'), method: :put, :class => 'btn btn-info btn-xs' %>
                                     <%= link_to 'Corrigir', noticia_alterar_status_path(pauta,'reavaliacao'), method: :put, :class => 'btn btn-warning btn-xs' %>
                                   <% end %>
@@ -208,7 +208,7 @@
                               <dt><strong>Ações:</strong></dt>
                               <dd>
                                 <% if can? :manage, Noticia %>
-                                  <%= link_to 'Colocar em destaque', noticia_alterar_status_path(antiga,'em_destaque'), method: :put, :class => 'btn btn-primary btn-xs' %>
+                                  <%= link_to 'Colocar em destaque', noticia_alterar_status_path(antiga,'destaque'), method: :put, :class => 'btn btn-primary btn-xs' %>
                                   <%= link_to 'Arquivar', noticia_alterar_status_path(antiga,'arquivo'), method: :put, :class => 'btn btn-info btn-xs' %>
                                   <%= link_to 'Corrigir', noticia_alterar_status_path(antiga,'reavaliacao'), method: :put, :class => 'btn btn-warning btn-xs' %>
                                 <% end %>
