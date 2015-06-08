@@ -84,7 +84,7 @@ Rails.application.routes.draw do
   #  resources :semi_estaticas
 
   #este aqui libera o permalink - começo
-  scope "view/:tipo" do
+  scope "conteudo/:tipo" do
     get ':permalink', to: 'paginas#permalink', as: :permalink
   end
 
