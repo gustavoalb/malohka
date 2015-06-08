@@ -1,26 +1,39 @@
 class EstaticosController < ApplicationController
-  load_and_authorize_resource #:except=> [:index]
+  load_and_authorize_resource :except=> [:index, :new, :create, :edit, :update, :show]
   before_action :set_pagina, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
   def index
     @paginas = Pagina.all
-    #@paginas = Pagina.find_by_permalink!(params[:id])
     respond_with(@paginas)
   end
 
+  def console
+    console
+  end
+
+  def new
+    @pagina = Pagina.new
+    #redirect_to estatico_path
+    respond_with(@pagina)
+  end
+
+
+  def create
+    @pagina = Pagina.new(pagina_params)
+    @pagina.save
+    #respond_with estatico_path
+    respond_with(@pagina)
+  end
+
   def show
-    #@pagina = Pagina.find_by_permalink!(params[:id])
     @pagina = Pagina.find(params[:id])
     respond_with(@pagina)
   end
 
   def edit
     @pagina = Pagina.find(params[:id])
-    #@pagina = Pagina.find(params[:permalink])
-    #@pagina = Pagina.find_by_permalink!(params[:id])
-    #@pagina = Pagina.find_by_permalink!(params[:permalink])
   end
 
   # def create

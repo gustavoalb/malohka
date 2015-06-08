@@ -29,6 +29,14 @@
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger btn-xs' %>
           <%# end %>
+          <%= link_to t('.back', :default => t("helpers.links.voltar")),
+              estaticos_path, :class => 'btn btn-default btn-xs'  %>
+          <% if can? :update, Pagina %>
+            <%= link_to t('.edit', :default => t("helpers.links.Editar")), edit_estatico_path(@pagina.id), :class => 'btn btn-default btn-xs' %>
+          <% end %>
+          <% if can? :destroy, Pagina %>
+            <%= link_to t('.destroy', :default => t("helpers.links.Deletar")), estatico_path(@pagina.id), :method => 'delete',  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger btn-xs' %>
+          <% end %>
         </td>
       </tr>
     </tbody>

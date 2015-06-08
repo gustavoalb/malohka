@@ -2,10 +2,6 @@ Rails.application.routes.draw do
 
   resources :funcionarios
 
-  resources :photos, :only => [:index, :show, :new, :create] do
-    post 'upload', :on => :collection
-  end
-
   resources :noticias do
   end
 
@@ -48,7 +44,7 @@ Rails.application.routes.draw do
   resources :eventos
   resources :pesquisas
   resources :pessoas do
-    post 'upload', :on => :collection
+    #    post 'upload', :on => :collection
   end
 
   # validação de usuário
@@ -81,7 +77,7 @@ Rails.application.routes.draw do
 
   get 'estaticos/index'
 
-  #  resources :semi_estaticas
+  resources :estaticos
 
   #este aqui libera o permalink - começo
   scope "conteudo/:tipo" do
