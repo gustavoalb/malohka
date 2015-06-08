@@ -21,7 +21,7 @@
 //= require fullcalendar
 //= require bootstrap-datetimepicker
 //= require jquery_nested_form
-= require bootstrap-datepicker
+//= require bootstrap-datepicker
 // require datepicker-pt-BR
 //= require_tree .
 
