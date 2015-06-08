@@ -1,6 +1,8 @@
 p0= Pessoa.create(nome:'Ruan Pablo',cpf:'71225285291',rg:'283845',nascimento:'08/01/1982',email:'71225285291')
 u0= Usuario.find_by_email('71225285291@ifap.edu.br').update_attributes(roles_mask:'1',validado:true)
 a0 = Aluno.create(matricula:'0000000000001',curso:'Técnico em Alimentos',periodo_atual:'1',semestre_atual:'1º Ano',ano_ingresso:'2015',:pessoa_id=>p0.id)
+p00= Pessoa.create(nome:'Poderoso Alexandre',cpf:'70138826234',nascimento:'30/06/1980',email:'70138826234')
+a00 = Aluno.create(matricula:'0000000000002',curso:'Técnico em Alimentos',periodo_atual:'1',semestre_atual:'1º Ano',ano_ingresso:'2015',:pessoa_id=>p00.id)
 n1 = Nivel.create(nome:'Integrado',codigo:'int')
 n2 = Nivel.create(nome:'Subsequente',codigo:'sub')
 n3 = Nivel.create(nome:'Superior',codigo:'sup')

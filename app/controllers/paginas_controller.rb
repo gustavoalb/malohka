@@ -19,7 +19,10 @@ class PaginasController < ApplicationController
   def permalink
     @pagina = Pagina.where(tipo:params[:tipo],permalink:params[:permalink]).first
     #@pagina = Pagina.find(params[:id])
-    respond_with(@pagina)
+    respond_to do |format|
+      format.html
+    end
+
   end
 
   def new
