@@ -79,7 +79,8 @@ Rails.application.routes.draw do
   #   get 'nova_pagina' => 'paginas#new', as: :nova_pagina
   # end
 
-  #  resources :estaticos
+  get 'estaticos/index'
+
   #  resources :semi_estaticas
 
   #este aqui libera o permalink - começo

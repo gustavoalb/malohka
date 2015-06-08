@@ -32,7 +32,7 @@ class PaginasController < ApplicationController
 
   def edit
     #@pagina = Pagina.find(params[:id])
-    @pagina = Pagina.find(params[:permalink])
+    @pagina = Pagina.find(params[:id])
     #@@pagina = Pagina.find_by_permalink!(params[:id])
     #@pagina = Pagina.find_by_permalink!(params[:permalink])
   end
