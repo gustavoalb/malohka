@@ -24,7 +24,8 @@ Rails.application.routes.draw do
   # end
 
   #get gte, controller: "static", action: gte
-  #teste do controller static
+  #teste do controller staticameters: {"tipo"=>"images", "permalink"=>"servicos"}
+
 
   # %w[servicos contato sobre organograma como_chegar ops].each do |p|
   #   get p, controller: "static", action: p
@@ -82,9 +83,10 @@ Rails.application.routes.draw do
   #  resources :semi_estaticas
 
   #este aqui libera o permalink - começo
-  scope ":tipo" do
+  scope "view/:tipo" do
     get ':permalink', to: 'paginas#permalink', as: :permalink
   end
+
   #este aqui libera o permalink - fim
 
   root :to => "home#principal"
