@@ -19,40 +19,28 @@
         <% end -%>
       </div>
       <div>
-        <table>
-          <% if @aluno.curso_id.present? %>
-            <tr>
-              <td><strong>Curso:&nbsp;</strong></td>
-              <td> <%= @aluno.curso_id %></td>
-            </tr>
-          <% else %>
-            <%= @aluno.curso_id %>
-          <% end %>
-          <tr>
-            <td><strong>Matrícula:&nbsp;</strong></td>
-            <td> <%= @aluno.matricula %></td>
-          </tr>
-          <% if @aluno.turma==nil %>
-          <% else %>
-            <tr>
-              <td><strong>Turma:&nbsp;</strong></td>
-              <td> <%= @aluno.turma.nome %></td>
-            </tr>
-          <% end %>
-          <tr>
-            <td><strong>Ano de ingresso: &nbsp;</strong></td>
-            <td> <%= @aluno.ano_ingresso %></td>
-          </tr>
-        </table>
+        <% if @aluno.curso_id.present? %>
+          <p><strong>Curso:&nbsp;</strong><%= @aluno.curso_id %></p>
+        <% else %>
+          <%= @aluno.curso_id %>
+        <% end %>
+        <p><strong>Matrícula:&nbsp;</strong><%= @aluno.matricula %></p>
+        <% if @aluno.turma==nil %>
+        <% else %>
+          <p><strong>Turma:&nbsp;</strong><%= @aluno.turma.nome %></p>
+        <% end %>
+        <p><strong>Ano de ingresso: &nbsp;</strong><%= @aluno.ano_ingresso %></p>
       </div>
     </div>
     <div class="col-sm-4 col-md-7">
-      <% if can? :manage, @aluno %>
-        <%= render 'manage', :f => f %>
-      <% end -%>
+      <% if can? :create, Aluno %>
+        <%= render 'form_alunos', :f => f %>
+      <% else %>
+        <%= render 'form_meus_alunos', :f => f %>
+      <% end %>
     </div>
   </div>
   <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+  <%= link_to t('.cancel', :default => t("helpers.links.cancelar")),
                 alunos_path, :class => 'btn btn-default' %>
 <% end %>

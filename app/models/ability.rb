@@ -31,8 +31,8 @@ class Ability
       can :access, :ckeditor
       can [:read, :create, :destroy], Ckeditor::Picture, assetable_id: usuario.id
       can [:read, :create, :destroy], Ckeditor::AttachmentFile, assetable_id: usuario.id
-      can [:manage], Aluno, pessoa_id: usuario.pessoa_id
-      cannot [:destroy, :create, :edit], Aluno
+      can [:manage, :edit, :update], Aluno, pessoa_id: usuario.pessoa_id
+      cannot [:destroy, :create], Aluno
       # can [:manage], Nivel
       # can [:manage], Turma
       # can [:manage], Curso

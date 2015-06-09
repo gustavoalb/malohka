@@ -75,7 +75,7 @@ Rails.application.routes.draw do
   #   get 'nova_pagina' => 'paginas#new', as: :nova_pagina
   # end
 
-  get 'estaticos/index'
+  #get 'estaticos/index'
 
   resources :estaticos
 

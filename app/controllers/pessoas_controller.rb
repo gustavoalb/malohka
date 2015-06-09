@@ -5,7 +5,7 @@ class PessoasController < ApplicationController
   respond_to :html
 
   def index
-    console
+    #console
     # @pessoas = Pessoa.all
     # respond_with(@pessoas)
     @q = Pessoa.ransack(params[:q])

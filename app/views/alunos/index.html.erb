@@ -7,8 +7,9 @@
     <%= link_to "Gerar Identidades Estudantis", alunos_path(format: "pdf" ),   :class  => 'btn btn-primary' %>
   </p>
 <% end %>
-<% if can? :manage, Aluno %>
-  <%= render "leitura_admin" %>
-<% else %>
+<% if can? :create, Aluno %>
   <%= render 'index_admin' %>
+<% else %>
+  <%= render "index_meus_alunos" %>
 <% end %>
+<div align='center'><%#= will_paginate @alunos %></div>

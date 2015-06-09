@@ -6,8 +6,8 @@ class AlunosController < ApplicationController
 
   def index
     #@alunos = Aluno.all
-    #@q = Aluno.ransack(params[:q])
-    #alunos = @q.result(distinct: true).order("id ASC").paginate(:page => params[:page], :per_page => 5)
+    @q = Aluno.ransack(params[:q])
+    alunos = @q.result(distinct: true).order("id ASC")#.paginate(:page => params[:page], :per_page => 5)
     #respond_with(@alunos)
     @alunos = meus_alunos
 
@@ -43,9 +43,22 @@ class AlunosController < ApplicationController
           report.page.item(:matricula).value(aluno.matricula)
           #report.page.item(:validade).value(@aluno.validade) # inserir validade
 
-          f = File.open (aluno.pessoa.foto.path)
-          report.page.item(:foto).value(open(f))
-          f.close
+
+          if aluno.pessoa.nil?
+            #image_tag("anonimo.jpg")
+          elsif aluno.pessoa.foto.present?
+            f = File.open (aluno.pessoa.foto.path)
+            report.page.item(:foto).value(open(f))
+            f.close
+          end
+
+
+
+
+
+          # f = File.open (aluno.pessoa.foto.path)
+          # report.page.item(:foto).value(open(f))
+          # f.close
 
           report.page.item(:barra).value(b.path)
         end
