@@ -22,7 +22,6 @@ module ApplicationHelper
   end
 
   def ver_form_nil(objeto)
-    #if objeto.is_a?DateTime
     if objeto==nil
       return "Nada cadastrado"
     elsif objeto.blank?

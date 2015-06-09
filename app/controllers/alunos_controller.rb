@@ -195,48 +195,6 @@ class AlunosController < ApplicationController
     end
   end
 
-  def iestudantilf
-    respond_to do |format|
-      format.html # show.html.erb
-      format.pdf do
-        # Thin ReportsでPDFを作成
-        # 先ほどEditorで作ったtlfファイルを読み込む
-        #report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'cr80.tlf')
-        report = ThinReports::Report.new(layout: "#{Rails.root}/app/reports/cr80.tlf")
-        # 1ページ目を開始
-        10.times do
-          report.start_new_page
-          report.page.item(:nome).value(@aluno.nome)
-          report.page.item(:nascimento).value(@aluno.nascimento)
-          report.page.item(:rg).value(@aluno.rg)
-          report.page.item(:curso).value(@aluno.curso.nome) #inserir cursos
-          report.page.item(:matricula).value(@aluno.matricula)
-          #report.page.item(:foto).value(open('http://rubyonrails.org/images/rails.png'))
-
-          f = File.open (@aluno.foto.path)
-          report.page.item(:foto).value(open(f))
-          f.close
-
-          require 'barby'
-          require 'barby/barcode/code_39'
-          require 'barby/outputter/png_outputter'
-          barcode_value = "099999333"
-          full_path = "/somewhere/barcode_#{barcode_value}.png"
-          b = Barby::Code39.new(barcode_value)
-          File.open(full_path, 'w') { |f| f.write barcode.to_png(:margin => 3, :xdim => 2, :height => 55) }
-          report.page.item(:barra).value(open(b))
-          b.close
-        end
-
-        send_data report.generate, filename: "#{@aluno.id}.pdf",
-          #send_data report.generate, filename: 'Identidade Estudantil.pdf',
-          type: 'application/pdf',
-          #disposition: 'inline' # para visualização no navegador
-          disposition: 'attachment' # para download
-      end
-    end
-  end
-
   def cursos_turno
     @nivel = Nivel.find(params[:nivel]) if !params[:nivel].blank?
     @turno = params[:turno] if !params[:turno].blank?

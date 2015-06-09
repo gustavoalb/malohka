@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   #    get "delete"
   #  end
 
-
   #teste do controller static
   # scope "/gte" do
   #   %w[gte pesquisadores projetos].each do |p|
@@ -22,11 +21,6 @@ Rails.application.routes.draw do
 
   #get gte, controller: "static", action: gte
   #teste do controller staticameters: {"tipo"=>"images", "permalink"=>"servicos"}
-
-
-  # %w[servicos contato sobre organograma como_chegar ops].each do |p|
-  #   get p, controller: "static", action: p
-  # end
 
   scope "/servicos" do
     resources :solicitacoes do

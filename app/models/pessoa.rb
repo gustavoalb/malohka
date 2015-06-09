@@ -38,7 +38,7 @@ class Pessoa < ActiveRecord::Base
 
     begin
       temp_file.write(data)
-      self.image = temp_file # assumes has_attached_file :picture
+      self.image = temp_file ## assumes has_attached_file :picture
     ensure
       temp_file.close
       temp_file.unlink

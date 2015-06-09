@@ -1,49 +1,45 @@
 <%- model_class = Aluno -%>
 <div class="form-inputs">
-  <%#= search_form_for @q do |f| %>
-    <%#= f.search_field :pessoa_nome_cont %>
-    <%#= f.submit "Pesquisar",:class => 'btn btn-primary btn-xs' %>
-    <%# end %>
-  </div>
-  <table class="table table-striped">
-    <thead>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Foto</th>
+      <th>Aluno</th>
+      <th>Matricula</th>
+      <th>Curso</th>
+      <th>Semestre Atual</th>
+      <th>Turma</th>
+      <!-- <th><%=t '.actions', :default => t("helpers.Ações") %></th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <% @alunos.each do |aluno| %>
       <tr>
-        <th>Foto</th>
-        <th>Aluno</th>
-        <th>Matricula</th>
-        <th>Curso</th>
-        <th>Semestre Atual</th>
-        <th>Turma</th>
-        <!-- <th><%=t '.actions', :default => t("helpers.Ações") %></th> -->
-      </tr>
-    </thead>
-    <tbody>
-      <% @alunos.each do |aluno| %>
-        <tr>
-          <% if aluno.pessoa.nil? %>
-            <td><%= image_tag("anonimo.jpg", size: "60x50") %></td>
-            <td><%= ver_form_nil(aluno.pessoa) %></td>
-            <td><%= link_to aluno.matricula, aluno_path(aluno) %></td>
-            <td><%= ver_form_nil(aluno.curso) %></td>
-            <td><%= ver_form_nil(aluno.semestre_atual) %></td>
-            <td><%= ver_form_nil(aluno.turma_id) %></td>
+        <% if aluno.pessoa.nil? %>
+          <td><%= image_tag("anonimo.jpg", size: "60x50") %></td>
+          <td><%= ver_form_nil(aluno.pessoa) %></td>
+          <td><%= link_to aluno.matricula, aluno_path(aluno) %></td>
+          <td><%= ver_form_nil(aluno.curso) %></td>
+          <td><%= ver_form_nil(aluno.semestre_atual) %></td>
+          <td><%= ver_form_nil(aluno.turma_id) %></td>
+        <% else %>
+          <% if aluno.pessoa.foto.present? %>
+            <td><%= image_tag(aluno.pessoa.foto(:thumb)) %></td>
           <% else %>
-            <% if aluno.pessoa.foto.present? %>
-              <td><%= image_tag(aluno.pessoa.foto(:thumb)) %></td>
-            <% else %>
-              <td><%= image_tag("anonimo.jpg", size: "60x50") %></td>
-            <% end %>
-            <td><%= ver_form_nil(aluno.pessoa.nome) %></td>
-            <td><%= link_to aluno.matricula, aluno_path(aluno) %></td>
-            <td><%= ver_form_nil(aluno.curso) %></td>
-            <td><%= ver_form_nil(aluno.semestre_atual) %></td>
-            <td><%= ver_form_nil(aluno.turma_id) %></td>
+            <td><%= image_tag("anonimo.jpg", size: "60x50") %></td>
           <% end %>
-          <td>
-            <%= link_to t('.edit', :default => t("helpers.links.atualizar")),
+          <td><%= ver_form_nil(aluno.pessoa.nome) %></td>
+          <td><%= link_to aluno.matricula, aluno_path(aluno) %></td>
+          <td><%= ver_form_nil(aluno.curso) %></td>
+          <td><%= ver_form_nil(aluno.semestre_atual) %></td>
+          <td><%= ver_form_nil(aluno.turma_id) %></td>
+        <% end %>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.atualizar")),
                       edit_aluno_path(aluno), :class => 'btn btn-default btn-xs' %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

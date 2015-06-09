@@ -43,6 +43,6 @@
               :class => 'btn btn-danger' %>
   <% end %>
   <% if can? :create, Aluno %>
-    <%= link_to "Gerar Identidade Estudantil",  aluno_path(@aluno, format: "pdf" ),   :class  => 'btn btn-primary' %>
+    <%= link_to "Gerar Identidade Estudantil",  aluno_path(@aluno, format: "pdf" ), :class  => 'btn btn-primary' %>
   <% end %>
 </div>

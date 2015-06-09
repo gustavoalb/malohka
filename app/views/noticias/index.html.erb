@@ -2,13 +2,9 @@
 <div class="page-header" align='center'>
   <h1>Notícias</h1>
 </div>
-<%#= search_form_for @q do |f| %>
-  <%#= f.search_field :titulo_cont %>
-  <%#= f.submit %>
-  <%# end %>
-  <br>
-  <% if can? :update, Noticia %>
-    <%= render "admin" %>
-  <% else %>
-    <%= render 'leitura' %>
-  <% end %>
+<br>
+<% if can? :update, Noticia %>
+  <%= render "admin" %>
+<% else %>
+  <%= render 'leitura' %>
+<% end %>
