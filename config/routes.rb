@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   resources :funcionarios
 
   resources :noticias do
+    put "alterar_status/:noticia_id/:status"=>'noticias#alterar_status', as: :alterar_status
   end
 
-  put "alterar_status/:noticia_id/:status"=>'noticias#alterar_status', as: :alterar_status
+
   ##put "publicar_noticia/:noticia_id/:publicado"=>'noticias#publicar_noticia', as: :publicar_noticia
   #  resources :noticias do
   #    get "delete"

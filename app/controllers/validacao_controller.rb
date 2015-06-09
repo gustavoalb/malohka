@@ -9,7 +9,14 @@ class ValidacaoController < ApplicationController
     @usuario = current_usuario
     @pessoa = @current_usuario.pessoa
     @aluno = @pessoa.alunos.first
-    render_wizard
+    if @pessoa.status == 'atualizado'
+      #respond_with(@solicitacoes)#
+      redirect_to root_path, :alert => "Seus dados já foram atualizados! :D"
+      #render "#{Rails.root}/public/ops.html" # false/gte/pesquisadores"
+    elsif @pessoa.status == 'pendente'
+      render_wizard
+    end
+
   end
 
   def update

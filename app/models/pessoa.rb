@@ -20,7 +20,7 @@ class Pessoa < ActiveRecord::Base
   :styles => {
     :thumb    => ['100x100#',  :jpg, :quality => 70],
     :medium   => ["250x250>",  :jpg, :quality => 70],
-    :foto   => ["66x84",  :jpg, :quality => 70],
+    :foto   => ["278x355",  :jpg, :quality => 70],
   },
   :convert_options => {
     :thumb    => '-set colorspace sRGB -strip',

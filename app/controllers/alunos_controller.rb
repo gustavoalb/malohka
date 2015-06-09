@@ -52,10 +52,6 @@ class AlunosController < ApplicationController
             f.close
           end
 
-
-
-
-
           # f = File.open (aluno.pessoa.foto.path)
           # report.page.item(:foto).value(open(f))
           # f.close
@@ -69,10 +65,6 @@ class AlunosController < ApplicationController
       end
     end
   end
-
-  #  def show
-  #    respond_with(@aluno)
-  #  end
 
   def calcular_validade
 
@@ -114,7 +106,6 @@ class AlunosController < ApplicationController
 
   #def idestudantil
   def show
-
     if  current_usuario.roles_mask == 1
       require 'barby'
       require 'barby/barcode/code_39'
