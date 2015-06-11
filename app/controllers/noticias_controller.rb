@@ -75,6 +75,7 @@ class NoticiasController < ApplicationController
     @noticia = Noticia.find(params[:noticia_id])
     if params[:status]=='destaque'
       @noticia.em_destaque
+      @noticia.publicado_em = DateTime.now
     elsif params[:status]=='pauta'
       @noticia.em_pauta
     elsif params[:status]=='arquivo'

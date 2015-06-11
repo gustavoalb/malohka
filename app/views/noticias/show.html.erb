@@ -9,8 +9,6 @@
       <div><%= @noticia.conteudo.html_safe %></div>
     </div>
   </div>
-  <b>Tags:</b>
-  <%= raw @noticia.tag_list.join(', ') %>
 </div>
 <br>
 <%= link_to t('.back', :default => t("helpers.links.voltar")), noticias_path, :class => 'btn btn-default'  %>

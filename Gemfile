@@ -94,7 +94,3 @@ gem 'owlcarousel-rails'
 
 # Para tags em Notícias
 gem 'acts-as-taggable-on', '~> 3.4'
-
-group :development do
-  gem 'web-console', '~> 2.0'
-end

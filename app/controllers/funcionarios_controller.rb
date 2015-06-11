@@ -1,4 +1,5 @@
 class FuncionariosController < ApplicationController
+  load_and_authorize_resource
   before_action :set_funcionario, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
@@ -37,11 +38,11 @@ class FuncionariosController < ApplicationController
   end
 
   private
-    def set_funcionario
-      @funcionario = Funcionario.find(params[:id])
-    end
+  def set_funcionario
+    @funcionario = Funcionario.find(params[:id])
+  end
 
-    def funcionario_params
-      params.require(:funcionario).permit(:matricula, :cargo, :cargo_id, :data_posse, :pessoa_id)
-    end
+  def funcionario_params
+    params.require(:funcionario).permit(:matricula, :cargo, :cargo_id, :data_posse, :pessoa_id)
+  end
 end

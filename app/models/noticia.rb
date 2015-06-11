@@ -24,17 +24,18 @@ class Noticia < ActiveRecord::Base
     end
 
 
-    # after_transition :em_destaque => :em_pauta do |noticia, transition|
-    #   noticia.destaque = false
-    #   noticia.pauta = true
-    #   noticia.save
-    # end
+    after_transition :publicavel => :em_pauta do |noticia, transition|
+      #   noticia.destaque = false
+      #   noticia.pauta = true
+      noticia.publicado_em = DateTime.now
+      noticia.save
+    end
 
-    # after_transition :em_pauta => :em_destaque do |noticia, transition|
-    #   noticia.destaque = true
-    #   noticia.pauta = true
-    #   noticia.save
-    # end
+    after_transition :publicavel => :em_destaque do |noticia, transition|
+      #   noticia.destaque = true
+      noticia.publicado_em = DateTime.now
+      noticia.save
+    end
   end
 
   # after_create :change_status
