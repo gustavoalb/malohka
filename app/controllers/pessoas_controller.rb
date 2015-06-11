@@ -18,6 +18,10 @@ class PessoasController < ApplicationController
     respond_with(@pessoa)
   end
 
+  def foto
+    @pessoa = Pessoa.find(params[:pessoa_id])
+  end
+
   def edit
   end
 
@@ -35,6 +39,17 @@ class PessoasController < ApplicationController
   def destroy
     @pessoa.destroy
     respond_with(@pessoa)
+  end
+
+  def upload_foto
+    @pessoa = Pessoa.find(params[:pessoa_id])
+    @pessoa.set_picture(request.raw_post)
+    if @pessoa.save(:validate => false)
+      render :nothing=>true
+    else
+      render :text => "Foto não foi salva"
+    end
+
   end
 
   private

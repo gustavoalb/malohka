@@ -78,7 +78,7 @@ $(function() {
     var upload_done = function(response) {
       $("#upload_snapshot").prop("disabled", false);
       $("#loader").hide();
-      $("#upload_status").html("Upload successful");
+      $("#upload_status").html("<div class='alert alert-success' role='alert'><strong>Foto Salva com Sucesso!</strong> A Foto do Usuário foi Salva com sucesso!.    </div>");
       $("#upload_result").html(response);
     };
 
@@ -86,7 +86,7 @@ $(function() {
       $("#upload_snapshot").prop("disabled", false);
       $("#loader").hide();
       $("#upload_status").html(
-        "Upload failed with status " + code + " (" + error + ")");
+        "<div class='alert alert-success' role='alert'><strong>Erro</strong> Foto não foi salva pelo seguinte motivo: " + code + " (" + error + ")"+"</div>");
       $("#upload_result").html(response);
     };
 

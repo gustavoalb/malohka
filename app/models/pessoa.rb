@@ -35,10 +35,9 @@ class Pessoa < ActiveRecord::Base
 
   def set_picture(data)
     temp_file = Tempfile.new(['temp', '.jpg'], :encoding => 'ascii-8bit')
-
     begin
       temp_file.write(data)
-      self.image = temp_file ## assumes has_attached_file :picture
+      self.foto = temp_file ## assumes has_attached_file :picture
     ensure
       temp_file.close
       temp_file.unlink
