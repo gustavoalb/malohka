@@ -5,7 +5,7 @@
 <div class="col-md-12, well">
   <div class="row">
     <div class="col-sm-12 col-md-12,  thumbnail">
-      <p align="right"> <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> publicado em <%= @noticia.publicado_em.strftime("%d/%m/%Y às %H:%M") %> </p>
+      <p align="justify"><span><%= image_tag "calendario.png" %></span> publicado em <%= @noticia.publicado_em.strftime("%d/%m/%Y às %H:%M") %> </p>
       <div><%= @noticia.conteudo.html_safe %></div>
     </div>
   </div>

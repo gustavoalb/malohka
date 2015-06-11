@@ -34,7 +34,7 @@ class NoticiasController < ApplicationController
 
     respond_to do |format|
       if @noticia.update_attributes(noticia_params)
-        format.html { redirect_to(@noticia, :notice => 'Notícia atualizada com successo.') }
+        #format.html { redirect_to(@noticia, :notice => 'Notícia atualizada com successo.') }
         format.json { respond_with_bip(@noticia) }
       else
         format.html { render :action => "edit" }

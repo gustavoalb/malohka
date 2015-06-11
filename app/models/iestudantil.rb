@@ -1,10 +1,15 @@
 class Iestudantil < ActiveRecord::Base
   include ESolicitavel
-  has_one :solicitacao, as: :solicitavel, dependent: :destroy
+  has_one :solicitacao, as: :solicitavel
   belongs_to :aluno
   scope :da_pessoa, lambda{|pessoa_id|
     joins(:aluno).where('alunos.pessoa_id=?',pessoa_id)
   }
+  scope :solicitadas, -> {where("status = 'solicitado'",true)}
+  scope :imprimiveis, -> {where("status = 'para_impressao'",true)}
+  scope :entregues, -> {where("status = 'entregue'",true)}
+  scope :canceladas, -> {where("status = 'cancelado'",true)}
+  scope :salsifufu, -> {where("aluno = nil", true)}
   #accepts_nested_attributes_for :solicitacao
   #validates_uniqueness_of :aluno_id, :message => 'Você só pode pedir uma Iestudantil para essa matrícula'
 

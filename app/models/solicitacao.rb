@@ -1,7 +1,21 @@
 class Solicitacao < ActiveRecord::Base
-  belongs_to :solicitavel, polymorphic: true
+  belongs_to :solicitavel, polymorphic: true, dependent: :destroy
+
   #scope :em_aberto, -> {where(finalizado:false)}
-  scope :salsifufu, -> {where(finalizado:true)}
+  scope :ie_solicitadas, where('iestudantis.status=?','solicitado')
+
+  # scope :da_pessoa, lambda{|pessoa_id|
+  #    joins(:aluno).where('alunos.pessoa_id=?',pessoa_id)
+  #  }
+
+  #scope :solicitadas, -> {where("status = 'solicitado'",true)}
+
+  # scope :solicitadas, -> {where("status = 'solicitado'",true)}
+  #   scope :imprimiveis, -> {where("status = 'para_impressao'",true)}
+  #   scope :entregues, -> {where("status = 'entregue'",true)}
+  #   scope :canceladas, -> {where("status = 'cancelado'",true)}
+
+
   scope :do_objeto, lambda{|objeto_id| where("solicitavel_id=?",objeto_id)}
   #.order(:created_at)}
   accepts_nested_attributes_for :solicitavel

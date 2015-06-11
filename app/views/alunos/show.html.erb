@@ -21,11 +21,11 @@
   </div>
   <div class="col-sm-4 col-md-7">
     <p><strong>Matrícula:&nbsp;</strong><%= ver_form_nil(@aluno.matricula) %></p>
-    <p><strong>Ano de ingresso:&nbsp;</strong><%= ver_form_nil(@aluno.turma.nivel.nome) %></p>
-    <p><strong>Nível de ensino:&nbsp;</strong><%= ver_form_nil(@aluno.turma.nivel.nome) %></p>
-    <p><strong>Curso:&nbsp;</strong><%= ver_form_nil(@aluno.turma.curso.nome) %></p>
-    <p><strong>Turma:&nbsp;</strong><%= ver_form_nil(@aluno.turma.nome) %></p>
-    <p><strong>Turno:&nbsp;</strong><%= ver_form_nil(@aluno.turma.turno) %></p>
+    <p><strong>Ano de ingresso:&nbsp;</strong><%= ver_form_nil(@aluno, 'ano_ingresso') %></p>
+    <p><strong>Nível de ensino:&nbsp;</strong><%= ver_form_nil(@aluno.turma,"nivel") %></p>
+    <p><strong>Curso:&nbsp;</strong><%= ver_form_nil(@aluno.turma, 'curso') %></p>
+    <p><strong>Turma:&nbsp;</strong><%= ver_form_nil(@aluno.turma, 'nome') %></p>
+    <p><strong>Turno:&nbsp;</strong><%= ver_form_nil(@aluno.turma, 'turno') %></p>
   </div>
 </div>
 <div>

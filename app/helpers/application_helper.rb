@@ -21,21 +21,30 @@ module ApplicationHelper
     end
   end
 
-  def ver_form_nil(objeto)
-    if objeto==nil
-      return "Nada cadastrado"
-    elsif objeto.blank?
-      return "Nada cadastrado"
-    elsif objeto!=nil
-      if objeto.is_a?DateTime
-        return "objeto"
-      else
-        objeto
+  def ver_form_nil(objeto,atributo=nil)
+    if !objeto.nil? and atributo.nil?
+      if objeto.respond_to?(:nome)
+        return objeto.nome
+      elsif !objeto.respond_to?(:nome) and objeto.respond_to?(:codigo)
+        return objeto.codigo
+      elsif !objeto.respond_to?(:nome) and !objeto.respond_to?(:codigo) and objeto.is_a?(String)
+        return objeto
+      elsif !objeto.respond_to?(:nome) and !objeto.respond_to?(:codigo) and objeto.is_a?(DateTime)
+        return objeto.to_s_br
       end
+    elsif !objeto.nil? and !atributo.nil?
+      if objeto.send(atributo).respond_to?(:nome)
+        return objeto.send(atributo).nome
+      elsif !objeto.send(atributo).respond_to?(:nome) and objeto.send(atributo).respond_to?(:codigo)
+        return objeto.send(atributo).codigo
+      elsif !objeto.send(atributo).respond_to?(:nome) and !objeto.send(atributo).respond_to?(:codigo) and objeto.send(atributo).respond_to?(:matricula)
+        return objeto.send(atributo).matricula
+      else
+        return objeto.send(atributo)
+      end
+    else
+      return "Nada Cadastrado"
     end
-    #else
-    # return "xunda"
-    #end
   end
 
   def tipo_solicitavel(solicitacao)

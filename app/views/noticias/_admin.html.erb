@@ -23,7 +23,7 @@
                 <% Noticia.publicavel.each do |publicavel| %>
                   <tr>
                     <td>
-                      <p><span><%= image_tag "calendario.png" %></span>&nbsp;<%= publicavel.publicado_em.strftime("%d/%m/%Y") %>&nbsp;&nbsp;&nbsp;<strong><%= publicavel.titulo %></strong></p>
+                      <p align='justify'><span><%= image_tag "calendario.png" %></span>&nbsp;<%= publicavel.publicado_em.strftime("%d/%m/%Y") %>&nbsp;&nbsp;&nbsp;<strong><%= link_to publicavel.titulo, noticia_path(publicavel) %></strong></p>
                       <%= truncate(publicavel.conteudo.html_safe, :length => 400, :omission => "" , :escape => false) %>...(continua)
                     </td>
                     <td  align='right'>
@@ -76,7 +76,7 @@
                 <% Noticia.destaque.each do |destaque| %>
                   <tr>
                     <td>
-                      <p><span><%= image_tag "calendario.png" %></span>&nbsp;<%= destaque.publicado_em.strftime("%d/%m/%Y às %H:%M") %>&nbsp;&nbsp;&nbsp;<strong><%= destaque.titulo %></strong></p>
+                      <p align='justify'><span><%= image_tag "calendario.png" %></span>&nbsp;<%= destaque.publicado_em.strftime("%d/%m/%Y às %H:%M") %>&nbsp;&nbsp;&nbsp;<strong><%= link_to destaque.titulo, noticia_path(destaque) %></strong></p>
                       <%= truncate(destaque.conteudo.html_safe, :length => 400, :omission => "" , :escape => false) %>...(continua)
                     </td>
                     <td  align='right'>
@@ -100,7 +100,7 @@
                                 <dt><strong>Ações:</strong></dt>
                                 <dd>
                                   <% if can? :manage, Noticia %>
-                                    <%= link_to 'Colocar em Pauta', noticia_alterar_status_path(destaque,'em_pauta'), method: :put, :class => 'btn btn-primary btn-xs' %>
+                                    <%= link_to 'Colocar em Pauta', noticia_alterar_status_path(destaque,'pauta'), method: :put, :class => 'btn btn-primary btn-xs' %>
                                     <%= link_to 'Arquivar', noticia_alterar_status_path(destaque,'arquivo'), method: :put, :class => 'btn btn-info btn-xs' %>
                                     <%= link_to 'Corrigir', noticia_alterar_status_path(destaque,'reavaliacao'), method: :put, :class => 'btn btn-warning btn-xs' %>
                                   <% end %>
@@ -131,7 +131,7 @@
                 <% Noticia.pauta.each do |pauta| %>
                   <tr>
                     <td>
-                      <p><span><%= image_tag "calendario.png" %></span>&nbsp;<%= pauta.publicado_em.strftime("%d/%m/%Y às %H:%M") %>&nbsp;&nbsp;&nbsp;<strong><%= pauta.titulo %></strong></p>
+                      <p align='center'><span><%= image_tag "calendario.png" %></span>&nbsp;<%= pauta.publicado_em.strftime("%d/%m/%Y às %H:%M") %>&nbsp;&nbsp;&nbsp;<strong><%= link_to pauta.titulo, noticia_path(pauta) %></strong></p>
                       <%= truncate(pauta.conteudo.html_safe, :length => 400, :omission => "" , :escape => false) %>...(continua)
                     </td>
                     <td  align='right'>
@@ -184,7 +184,7 @@
               <% Noticia.arquivadas.each do |antiga| %>
                 <tr>
                   <td>
-                    <p><span><%= image_tag "calendario.png" %></span>&nbsp;<%= antiga.publicado_em.strftime("%d/%m/%Y às %H:%M") %>&nbsp;&nbsp;&nbsp;<strong><%= antiga.titulo %></strong></p>
+                    <p align='justify'><span><%= image_tag "calendario.png" %></span>&nbsp;<%= antiga.publicado_em.strftime("%d/%m/%Y às %H:%M") %>&nbsp;&nbsp;&nbsp;<strong><%= link_to antiga.titulo, noticia_path(antiga) %></strong></p>
                     <%= truncate(antiga.conteudo.html_safe, :length => 400, :omission => "" , :escape => false) %>...(continua)
                   </td>
                   <td  align='right'>
@@ -209,7 +209,7 @@
                               <dd>
                                 <% if can? :manage, Noticia %>
                                   <%= link_to 'Colocar em destaque', noticia_alterar_status_path(antiga,'destaque'), method: :put, :class => 'btn btn-primary btn-xs' %>
-                                  <%= link_to 'Arquivar', noticia_alterar_status_path(antiga,'arquivo'), method: :put, :class => 'btn btn-info btn-xs' %>
+                                  <%= link_to 'Publicar em pauta', noticia_alterar_status_path(antiga,'pauta'), method: :put, :class => 'btn btn-primary btn-xs' %>
                                   <%= link_to 'Corrigir', noticia_alterar_status_path(antiga,'reavaliacao'), method: :put, :class => 'btn btn-warning btn-xs' %>
                                 <% end %>
                                 <%= link_to t('.edit', :default => t("helpers.links.Editar")), edit_noticia_path(antiga), :class => 'btn btn-default btn-xs' %>
