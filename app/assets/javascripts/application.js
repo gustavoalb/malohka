@@ -21,10 +21,7 @@
 //= require ckeditor/init
 
 //= require fullcalendar
-//= require bootstrap-datetimepicker
 //= require jquery_nested_form
-//= require bootstrap-datepicker
-// require datepicker-pt-BR
 //= require_tree .
 
 jQuery(function($){
@@ -43,60 +40,60 @@ $('#myTab a:last').tab('show') // Select last tab
 $('#myTab li:eq(2) a').tab('show') // Select third tab (0-indexed
 
 // datepicker
-$(function () {
-  $('#datetimepicker1').datetimepicker();
-});
-$(function () {
-  $('#datetimepicker2').datetimepicker({
-    locale: 'ru'
-  });
-});
-$(function () {
-  $('#datetimepicker3').datetimepicker({
-    format: 'LT'
-  });
-});
-$(function () {
-  $('#datetimepicker4').datetimepicker();
-});
-$(function () {
-  $('#datetimepicker5').datetimepicker({
-    defaultDate: "11/1/2013",
-    disabledDates: [
-    moment("12/25/2013"),
-    new Date(2013, 11 - 1, 21),
-    "11/22/2013 00:53"
-    ]
-  });
-});
-$(function () {
-  $('#datetimepicker6').datetimepicker();
-  $('#datetimepicker7').datetimepicker();
-  $("#datetimepicker6").on("dp.change", function (e) {
-    $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-  });
-  $("#datetimepicker7").on("dp.change", function (e) {
-    $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-  });
-});
+// $(function () {
+//   $('#datetimepicker1').datetimepicker();
+// });
+// $(function () {
+//   $('#datetimepicker2').datetimepicker({
+//     locale: 'ru'
+//   });
+// });
+// $(function () {
+//   $('#datetimepicker3').datetimepicker({
+//     format: 'LT'
+//   });
+// });
+// $(function () {
+//   $('#datetimepicker4').datetimepicker();
+// });
+// $(function () {
+//   $('#datetimepicker5').datetimepicker({
+//     defaultDate: "11/1/2013",
+//     disabledDates: [
+//     moment("12/25/2013"),
+//     new Date(2013, 11 - 1, 21),
+//     "11/22/2013 00:53"
+//     ]
+//   });
+// });
+// $(function () {
+//   $('#datetimepicker6').datetimepicker();
+//   $('#datetimepicker7').datetimepicker();
+//   $("#datetimepicker6").on("dp.change", function (e) {
+//     $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+//   });
+//   $("#datetimepicker7").on("dp.change", function (e) {
+//     $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+//   });
+// });
 
-// seleção de tipo por dias
-$(function () {
-  $('#datetimepicker10').datetimepicker({
-    viewMode: 'days',
-    format: 'DD/MM/YYYY',
-    language: 'pt-BR'
-  });
-});
-// seleção inline com data e hora
-$(function () {
-  $('#datetimepicker12').datetimepicker({
-    inline: false,
-    format: 'DD/MM/YYYY hh:mm',
-    sideBySide: true
-                // language: 'pt-BR'
-              });
-});
+// // seleção de tipo por dias
+// $(function () {
+//   $('#datetimepicker10').datetimepicker({
+//     viewMode: 'days',
+//     format: 'DD/MM/YYYY',
+//     language: 'pt-BR'
+//   });
+// });
+// // seleção inline com data e hora
+// $(function () {
+//   $('#datetimepicker12').datetimepicker({
+//     inline: false,
+//     format: 'DD/MM/YYYY hh:mm',
+//     sideBySide: true
+//                 // language: 'pt-BR'
+//               });
+// });
 // datepicker
 
 function remove_fields (link) {
@@ -106,7 +103,7 @@ function remove_fields (link) {
 //
 //DependentFields
 $(document).ready(function() {
-  DependentFields.bind()
+  //DependentFields.bind()
 });
 //DependentFields
 

@@ -7,16 +7,11 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:email) %></th>
-      <th><%= model_class.human_attribute_name(:encrypted_password) %></th>
-      <th><%= model_class.human_attribute_name(:reset_password_token) %></th>
-      <th><%= model_class.human_attribute_name(:reset_password_sent_at) %></th>
-      <th><%= model_class.human_attribute_name(:remember_created_at) %></th>
-      <th><%= model_class.human_attribute_name(:current_sign_in_at) %></th>
-      <th><%= model_class.human_attribute_name(:last_sign_in_at) %></th>
-      <th><%= model_class.human_attribute_name(:current_sign_in_ip) %></th>
-      <th><%= model_class.human_attribute_name(:last_sign_in_ip) %></th>
       <th><%= model_class.human_attribute_name(:login) %></th>
       <th><%= model_class.human_attribute_name(:tipo) %></th>
+      <th><%= model_class.human_attribute_name(:roles_mask) %></th>
+      <th><%= model_class.human_attribute_name(:validado) %></th>
+      <th><%= model_class.human_attribute_name(:pessoa_id) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -26,16 +21,11 @@
       <tr>
         <td><%= link_to usuario.id, usuario_path(usuario) %></td>
         <td><%= usuario.email %></td>
-        <td><%= usuario.encrypted_password %></td>
-        <td><%= usuario.reset_password_token %></td>
-        <td><%= usuario.reset_password_sent_at %></td>
-        <td><%= usuario.remember_created_at %></td>
-        <td><%= usuario.current_sign_in_at %></td>
-        <td><%= usuario.last_sign_in_at %></td>
-        <td><%= usuario.current_sign_in_ip %></td>
-        <td><%= usuario.last_sign_in_ip %></td>
         <td><%= usuario.login %></td>
         <td><%= usuario.tipo %></td>
+        <td><%= usuario.roles_mask %></td>
+        <td><%= usuario.validado %></td>
+        <td><%= usuario.pessoa_id %></td>
         <td><%=l usuario.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
@@ -50,7 +40,6 @@
     <% end %>
   </tbody>
 </table>
-
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_usuario_path,
             :class => 'btn btn-primary' %>

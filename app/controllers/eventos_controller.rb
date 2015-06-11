@@ -5,20 +5,31 @@ class EventosController < ApplicationController
   respond_to :html
 
   def index
-    @eventos = Evento.all
+    @periodos = Periodo.all
     # @date = params[:month] ? Date.strftime(params[:month]) : Date.today
-    @periodos = []
-    @eventos.each do |evento|
-      evento.periodos.each do |periodo|
-        @periodos << periodo
-      end
-    end
-    #respond_with(@eventos)
+    #   @periodos = []
+    #   @eventos.each do |evento|
+    #     evento.periodos.each do |periodo|
+    #       @periodos << periodo
+    #     end
+    #   end
+    #   #respond_with(@eventos)
 
-    respond_to do |format|
-      format.html
-      format.json { render :json => @events }
-    end
+    #   respond_to do |format|
+    #     format.html
+    #     format.json { render :json => @eventos }
+    #   end
+
+    # ano_inicio,mes_inicio,dia_inicio = params['start'].split("-") if params['start']
+    # ano_fim,mes_fim,dia_fim = params['end'].split("-") if params['end']
+    # inicio = Time.new(ano_inicio,mes_inicio,dia_inicio)
+    # fim = Time.new(ano_fim,mes_fim,dia_fim)
+    # @eventos = Evento.scoped
+    # @eventos = Evento.entre(inicio, fim) if (inicio && fim)
+
+
+
+
 
   end
 
@@ -57,6 +68,6 @@ class EventosController < ApplicationController
   end
 
   def evento_params
-    params.require(:evento).permit(:nome, periodos_attributes: [ :id, :inicio, :termino,:_destroy] )
+    params.require(:evento).permit(:nome, :in, :te, periodos_attributes: [ :id, :inicio, :termino,:_destroy] )
   end
 end

@@ -1,25 +1,25 @@
 class SessionsController < Devise::SessionsController
- # skip_before_filter :check_concurrent_session
-skip_before_filter :validar_usuario
- def create
-  super
+  # skip_before_filter :check_concurrent_session
+  skip_before_filter :validar_usuario
+  def create
+    super
 
-end
+  end
 
-def destroy
+  def destroy
 
-  super
-end
+    super
+  end
 
 
-private
-def set_online_user
-  current_user.online = true
-  current_user.save(validate: false)
-end
+  private
+  def set_online_user
+    current_usuario.online = true
+    current_usuario.save(validate: false)
+  end
 
-def set_offline_user
- current_user.online = false
- current_user.save(validate: false)
-end
+  def set_offline_usuario
+    current_usuario.online = false
+    current_usuario.save(validate: false)
+  end
 end

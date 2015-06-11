@@ -24,7 +24,7 @@ class AlunosController < ApplicationController
 
         @alunos.each do |aluno|
 
-          barcode = Barby::Code39.new(aluno.pessoa.cpf)
+          barcode = Barby::Code39.new(aluno.matricula)
 
           blob = Barby::PngOutputter.new(barcode).to_png(:xdim => 3) #Raw PNG data
           #    xdim: (default: 1)
@@ -110,7 +110,7 @@ class AlunosController < ApplicationController
       require 'barby'
       require 'barby/barcode/code_39'
       require 'barby/outputter/png_outputter'
-      barcode = Barby::Code39.new("#{@aluno.pessoa.cpf}")
+      barcode = Barby::Code39.new("#{@aluno.matricula}")
 
       blob = Barby::PngOutputter.new(barcode).to_png(:xdim => 3) #Raw PNG data
       b = File.open("/tmp/codigo_barras_#{barcode}.png",'w')

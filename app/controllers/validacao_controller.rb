@@ -35,7 +35,7 @@ class ValidacaoController < ApplicationController
       render_wizard @aluno
     end
     if @aluno.save
-      @pessoa.atualizar
+      #@pessoa.atualizar
       @aluno.atualizar
     end
   end

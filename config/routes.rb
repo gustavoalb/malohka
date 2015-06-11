@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :usuarios
+  resources :grupos
   resources :funcionarios
-
   resources :noticias do
     put "alterar_status/:noticia_id/:status"=>'noticias#alterar_status', as: :alterar_status
   end
@@ -55,7 +56,7 @@ Rails.application.routes.draw do
   post 'validar_usuario/salvar_aluno'
 
   mount Ckeditor::Engine => '/ckeditor'
-  devise_for :usuarios ,:controllers => { :sessions => "sessions"}
+  devise_for :usuarios , path_prefix: 'perfil',:controllers => { :sessions => "sessions"}
 
   resources :alunos   do
     post 'turmas', on: :collection
