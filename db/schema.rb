@@ -61,6 +61,8 @@ ActiveRecord::Schema.define(version: 2220150507134153) do
     t.string   "nome"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "I"
+    t.datetime "t"
     t.datetime "te"
     t.datetime "in"
   end
@@ -186,11 +188,6 @@ ActiveRecord::Schema.define(version: 2220150507134153) do
   create_table "respostas", force: true do |t|
     t.integer  "pergunta_id"
     t.string   "conteudo"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "semi_estaticas", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end

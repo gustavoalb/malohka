@@ -41,6 +41,8 @@ Rails.application.routes.draw do
   resources :pesquisas
   resources :pessoas do
     #    post 'upload', :on => :collection
+    get :foto
+    post :upload_foto
   end
 
   # validação de usuário

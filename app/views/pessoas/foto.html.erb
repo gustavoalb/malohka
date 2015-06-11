@@ -1,0 +1,15 @@
+<h1><%=@pessoa.nome%></h1>
+<div id="camera">
+  <div class="placeholder img-thumbnail">
+  </div>
+</div>
+<br>
+<button id="take_snapshots" class='btn btn-primary'><%=fa_icon('camera')%> Registrar Foto</button>
+<button id="show_stream" class="btn btn-default"><%=fa_icon('camera')%> Nova Foto</button><br>
+<div id="snapshots"></div>
+<button id="upload_snapshot" class='btn btn-success btn-xs'><%=fa_icon('upload')%> Usar Selecionada</button>
+<button id="discard_snapshot" class='btn btn-danger btn-xs'><%=fa_icon('trash')%> Excluir Selecionada</button><br>
+<input type="hidden" id="api_url" placeholder="/photos/upload" value='<%=pessoa_upload_foto_url(@pessoa)%>'><br>
+<img src="<%=asset_path('loader.gif')%>" id="loader">
+<div id="upload_status"></div>
+<div id="upload_result"></div>

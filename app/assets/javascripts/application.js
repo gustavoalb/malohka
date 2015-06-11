@@ -13,11 +13,13 @@
 // require turbolinks
 //= require jquery
 //= require jquery_ujs
+
+//= require moment
 //= require jquery.purr
 //= require best_in_place
 //= require twitter/bootstrap
 //= require ckeditor/init
-//= require moment
+
 //= require fullcalendar
 //= require jquery_nested_form
 //= require_tree .
@@ -101,7 +103,7 @@ function remove_fields (link) {
 //
 //DependentFields
 $(document).ready(function() {
-  DependentFields.bind()
+  //DependentFields.bind()
 });
 //DependentFields
 
