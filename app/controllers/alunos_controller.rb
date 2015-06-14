@@ -5,9 +5,9 @@ class AlunosController < ApplicationController
   respond_to :html
 
   def index
-    #@alunos = Aluno.all
+    #@alunos = Aluno.all.order("ano_ingresso DESC")
     @q = Aluno.ransack(params[:q])
-    alunos = @q.result(distinct: true).order("id ASC")#.paginate(:page => params[:page], :per_page => 5)
+    alunos = @q.result(distinct: true).order("ano_ingresso ASC")#.paginate(:page => params[:page], :per_page => 5)
     #respond_with(@alunos)
     @alunos = meus_alunos
 

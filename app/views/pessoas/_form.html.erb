@@ -3,7 +3,7 @@
   <%= abre_estilo_5a12_well %>
   <div align="CENTER">
     <% if @pessoa.foto.present? %>
-      <%= image_tag(@pessoa.foto.url(:medium)) %>
+      <%= image_tag(@pessoa.foto.url(:medium)) %><%= f.input :foto, as: :file, label: 'Atualizar foto' %>
     <% else %>
       <%= image_tag("anonimo.jpg", size: "250x230") %><%= f.input :foto, as: :file, label: 'Atualizar foto' %>
     <% end %>
