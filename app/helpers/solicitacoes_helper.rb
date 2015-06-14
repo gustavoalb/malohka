@@ -39,7 +39,7 @@ module SolicitacoesHelper
 
   #{link_to t('.edit', :default => t("helpers.links.editar")), edit_solicitacao_path(solicitacao), :class => 'btn btn-default btn-xs'}
 
-  def status_solicitacao(objeto)
+  def status_solicitavel(objeto)
     # Em solicitações
     if objeto=="criado"
       return "Solicitação realizada e encaminhada para as devidas providências."

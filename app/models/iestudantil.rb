@@ -7,6 +7,7 @@ class Iestudantil < ActiveRecord::Base
   }
   scope :solicitadas, -> {where("status = 'solicitado'",true)}
   scope :imprimiveis, -> {where("status = 'para_impressao'",true)}
+  scope :impressas, -> {where("status = 'impresso'",true)}
   scope :entregues, -> {where("status = 'entregue'",true)}
   scope :canceladas, -> {where("status = 'cancelado'",true)}
   scope :salsifufu, -> {where("aluno = nil", true)}

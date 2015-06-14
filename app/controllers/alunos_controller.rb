@@ -128,13 +128,23 @@ class AlunosController < ApplicationController
           report.page.item(:nome).value(@aluno.pessoa.nome)
           report.page.item(:nascimento).value(@aluno.pessoa.nascimento.to_s_br)
           report.page.item(:rg).value(@aluno.pessoa.rg)
-          report.page.item(:curso).value("Técnico em Rede de Computadores") #inserir cursos
+          report.page.item(:curso).value(@aluno.curso) #inserir cursos
           report.page.item(:matricula).value(@aluno.matricula)
           report.page.item(:validade).value("dez/2015") # inserir validade
 
           #f = File.open (@aluno.pessoa.foto.path)
           #report.page.item(:foto).value(open(f))
           #f.close
+
+          if @aluno.pessoa.nil?
+            #image_tag("anonimo.jpg")
+          elsif @aluno.pessoa.foto.present?
+            f = File.open (@aluno.pessoa.foto.path)
+            report.page.item(:foto).value(open(f))
+            f.close
+          end
+
+
 
           report.page.item(:barra).value(b.path)
           #end

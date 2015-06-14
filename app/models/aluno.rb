@@ -9,6 +9,7 @@ class Aluno < ActiveRecord::Base
   validates :turma_id, :presence => true, :on => :update
 
   scope :da_pessoa, where('alunos.pessoa_id = ?', p)
+  scope :doze, -> {where("ano_ingresso = '2012'",true)}
 
   def gerar_c_barra
     pessoa = self.pessoa

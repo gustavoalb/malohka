@@ -8,6 +8,7 @@ class SolicitacoesController < ApplicationController
   def index
     @pessoa = current_usuario.pessoa
     @solicitacao = Solicitacao.new
+    @iestudantis = Iestudantil.all
     #if @pessoa.status == 'pendente' and @pessoa.alunos.first.status == 'pendente'
     if current_usuario.roles_mask == 8
       redirect_to :back, :alert => "Esta área ainda será liberada para sua classe de usuário. :~("
