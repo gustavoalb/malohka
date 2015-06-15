@@ -73,7 +73,7 @@
               <% if usuario_signed_in? %>
                 <strong><%#= current_usuario.email %>&nbsp;<%= current_usuario.pessoa.nome.split(/ /)[0].titleize %> </strong>
                 <% if current_usuario.pessoa.foto.present? %>
-                  <%= link_to image_tag(current_usuario.pessoa.foto.url, :size=>'40x30', :alt=>'attendence', :class=>"img-circle"), edit_usuario_registration_path %>
+                  <%= link_to image_tag(current_usuario.pessoa.foto.url, :size=>'35x35', :alt=>'attendence', :class=>"img-circle"), edit_usuario_registration_path %>
                 <% else %>
                   <%= link_to image_tag("anonimo.jpg", :size=>'40x30', :alt=>'attendence', :class=>"img-circle"), edit_usuario_registration_path %></li>
               <% end -%>

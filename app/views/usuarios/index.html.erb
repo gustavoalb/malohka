@@ -6,12 +6,12 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
+      <th>Nome</th>
       <th><%= model_class.human_attribute_name(:email) %></th>
       <th><%= model_class.human_attribute_name(:login) %></th>
       <th><%= model_class.human_attribute_name(:tipo) %></th>
       <th><%= model_class.human_attribute_name(:roles_mask) %></th>
       <th><%= model_class.human_attribute_name(:validado) %></th>
-      <th><%= model_class.human_attribute_name(:pessoa_id) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -20,17 +20,21 @@
     <% @usuarios.each do |usuario| %>
       <tr>
         <td><%= link_to usuario.id, usuario_path(usuario) %></td>
+        <% if !usuario.pessoa.nil? %>
+          <td><%= usuario.pessoa.nome %><%#= meta(usuario.pessoa.nome) %></td>
+        <% else %><%#= meta(usuario.pessoa.nome) %>
+          <td>Nada Cadastrado</td>
+        <% end %>
         <td><%= usuario.email %></td>
         <td><%= usuario.login %></td>
         <td><%= usuario.tipo %></td>
         <td><%= usuario.roles_mask %></td>
         <td><%= usuario.validado %></td>
-        <td><%= usuario.pessoa_id %></td>
-        <td><%=l usuario.created_at %></td>
+        <td><%= usuario.created_at.to_s_br %></td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+          <%= link_to t('.edit', :default => t("helpers.links.editar")),
                       edit_usuario_path(usuario), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+          <%= link_to t('.destroy', :default => t("helpers.links.apagar")),
                       usuario_path(usuario),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },

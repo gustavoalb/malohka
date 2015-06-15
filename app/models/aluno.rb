@@ -10,6 +10,10 @@ class Aluno < ActiveRecord::Base
 
   scope :da_pessoa, where('alunos.pessoa_id = ?', p)
   scope :doze, -> {where("ano_ingresso = '2012'",true)}
+  scope :treze, -> {where("ano_ingresso = '2013'",true)}
+  scope :quatorze, -> {where("ano_ingresso = '2014'",true)}
+  scope :quinze, -> {where("ano_ingresso = '2015'",true)}
+  #scope :fotas, -> {where("@aluno.pessoa.foto_file_name = nil",true)}
 
   def gerar_c_barra
     pessoa = self.pessoa
