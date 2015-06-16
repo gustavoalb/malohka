@@ -9,8 +9,9 @@ class SolicitacoesController < ApplicationController
     @pessoa = current_usuario.pessoa
     @solicitacao = Solicitacao.new
     @iestudantis = Iestudantil.all
+
     #if @pessoa.status == 'pendente' and @pessoa.alunos.first.status == 'pendente'
-    if current_usuario.roles_mask == 8
+    if current_usuario.roles_mask == 10
       redirect_to :back, :alert => "Esta área ainda será liberada para sua classe de usuário. :~("
     elsif @pessoa.alunos.first.status == 'pendente'
       #if current_usuario.roles_mask == 4 #and @pessoa.alunos.first.status == 'pendente'
@@ -62,6 +63,36 @@ class SolicitacoesController < ApplicationController
     @solicitacao.destroy
     respond_with(@solicitacao)
   end
+
+
+
+  def cancelar_solicitacao
+    @iestudantil = Iestudantil.find(params[:iestudantil_id])
+    #@iestudantil = Iestudantil.find(params[:id])
+    if params[:status]=='cancelado'
+      @iestudantil.cancelar
+    elsif params[:status]=='impresso'
+    end
+    #    @solicitacao.save
+    redirect_to solicitacoes_url
+  end
+
+  # def alterar_status
+  #   @noticia = Noticia.find(params[:noticia_id])
+  #   if params[:status]=='destaque'
+  #     @noticia.em_destaque
+  #     @noticia.publicado_em = DateTime.now
+  #   elsif params[:status]=='pauta'
+  #     @noticia.em_pauta
+  #   elsif params[:status]=='arquivo'
+  #     @noticia.em_arquivo
+  #   elsif params[:status]=='reavaliacao'
+  #     @noticia.reavaliar
+  #   end
+  #   @noticia.save
+  #   redirect_to noticias_url
+  # end
+
 
   private
   def set_solicitacao

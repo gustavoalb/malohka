@@ -1,9 +1,6 @@
 json.array!(@periodos) do |evento|
-  json.extract! evento, :id
+  json.extract! evento
   json.start evento.inicio
-  json.end evento.termino
   json.title evento.nome
-  json.url evento_url(evento, format: :html)
+  json.end evento.termino
 end
-
-

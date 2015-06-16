@@ -6,7 +6,7 @@ class Evento < ActiveRecord::Base
     self.periodos.first.inicio
   end
 
-  def inicio_termino
+  def termino_evento
     self.periodos.first.termino
   end
 

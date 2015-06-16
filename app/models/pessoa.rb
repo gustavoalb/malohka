@@ -4,12 +4,12 @@ class Pessoa < ActiveRecord::Base
   has_one :usuario
   has_many :alunos
   validates_presence_of [:nome, :cpf], :message=>"Não pode ficar em branco!"
-  # validates :fator_rh, :presence => true, :on => :update
-  # validates :rg, :presence => true, :on => :update
-  # validates :telefone, :presence => true, :on => :update
-  # validates :email, :presence => true, :on => :update
-  # validates :sexo, :presence => true, :on => :update
-  # validates :mae, :presence => true, :on => :update
+  validates :fator_rh, :presence => true, :on => :update
+  validates :rg, :presence => true, :on => :update
+  validates :telefone, :presence => true, :on => :update
+  validates :email, :presence => true, :on => :update
+  validates :sexo, :presence => true, :on => :update
+  validates :mae, :presence => true, :on => :update
 
   #scope :fotas, -> {where("foto.blank?",true)}
 

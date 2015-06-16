@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   scope "/servicos" do
     resources :solicitacoes do
       get 'solicitar_ie/:aluno_id'=>'solicitacoes#solicitar_ie', as: :solicitar_ie, on: :collection
+      put "cancelar_solicitacao/:iestudantil_id/:status"=>'solicitacoes#cancelar_solicitacao', as: :cancelar_solicitacao
     end
   end
 

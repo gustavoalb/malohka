@@ -4,8 +4,6 @@
   <thead>
     <tr>
       <th>Nome</th>
-      <th>comeco</th>
-      <th>periodo</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -13,8 +11,6 @@
     <% @eventos.each do |evento| %>
       <tr>
         <td><%= evento.nome %></td>
-        <td><%= evento.in %></td>
-        <td><%= evento.te %></td>
         <% evento.periodos.each do |periodo|%>
           <td><%= periodo.inicio.to_s_br%></td>
           <td><%= periodo.termino.to_s_br%></td>

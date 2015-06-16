@@ -127,10 +127,10 @@
                     </div> -->
                     <div class="panel-heading">
                       <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#accordionOne"><span><%= image_tag "home.png" %></span>&nbsp;&nbsp;GTE</a>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#accordionUm"><span><%= image_tag "home.png" %></span>&nbsp;GTE</a>
                       </h4>
                     </div>
-                    <div id="accordionOne" class="panel-collapse collapse">
+                    <div id="accordionUm" class="panel-collapse collapse">
                       <!--       <div class="panel-body"><%= link_to "GTE", root_path %></div> -->
                       <!-- <div class="panel-body"><%= link_to "Linhas de Pesquisa", root_path %></div> -->
                       <div class="panel-body"><a href="/conteudo/gte/pesquisadores">Pesquisadores</a></div>
@@ -138,18 +138,51 @@
                     </div>
                     <div class="panel-heading">
                       <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#accordionThree"><span><%= image_tag "servicos.png" %></span>&nbsp;&nbsp;Serviços</a>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#accordionDois"><span><%= image_tag "servicos.png" %></span>&nbsp;Serviços</a>
                       </h4>
                     </div>
-                    <div id="accordionThree" class="panel-collapse collapse">
+                    <div id="accordionDois" class="panel-collapse collapse">
                       <div class="panel-body"><%= link_to "Identidade Estudantil", solicitacoes_path %></div>
                       <div class="panel-body"><a href="mailto:ouvidoria@ifap.edu.br">Ouvidoria</a></div>
                     </div>
-                    <div class="panel-heading">
+                    <% if can? :manage, :all %>
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#accordionTres">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;Cadastros</a>
+                        </h4>
+                      </div>
+                      <div id="accordionTres" class="panel-collapse collapse">
+                        <div class="panel-body"><%= link_to "Pessoas", pessoas_path %></div>
+                        <div class="panel-body"><%= link_to "Alunos", alunos_path %></div>
+                        <div class="panel-body"><%= link_to "Funcionários", funcionarios_path %></div>
+                        <div class="panel-body"><%= link_to "Usuários", usuarios_path %></div>
+                        <div class="panel-body"><%= link_to "Níveis", niveis_path %></div>
+                        <div class="panel-body"><%= link_to "Cursos", cursos_path %></div>
+                        <div class="panel-body"><%= link_to "Turmas", turmas_path %></div>
+                      </div>
+                    <% end %>
+                    <% if can? :manage, :all %>
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#accordionQuatro">
+                            <span class="glyphicon glyphicon-road" aria-hidden="true"></span>
+                            &nbsp;Forja</a>
+                        </h4>
+                      </div>
+                      <div id="accordionQuatro" class="panel-collapse collapse">
+                        <div class="panel-body"><%= link_to "Grupos", grupos_path %></div>
+                        <div class="panel-body"><%= link_to "Pesquisas", pesquisas_path %></div>
+                        <!-- <div class="panel-body"><%#= link_to "Diário", diarios_path %></div> -->
+                        <div class="panel-body"><%= link_to "Usuários", usuarios_path %></div>
+                        <div class="panel-body"><%= link_to "Eventos", eventos_path %></div>
+                      </div>
+                    <% end %>
+                    <!--                     <div class="panel-heading">
                       <h4 class="panel-title">
                         <a><%#= link_to "Contato", contato_path %></a>
                       </h4>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <div class="col-md-10">

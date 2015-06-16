@@ -9,7 +9,7 @@ class NoticiasController < ApplicationController
     #respond_with(@noticias)
     @q = Noticia.ransack(params[:q])
     #@noticias = @q.result(distinct: true)
-    @noticias = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 10).order("publicado_em ASC")
+    @noticias = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 5).order("publicado_em ASC")
   end
 
   def show
@@ -49,28 +49,6 @@ class NoticiasController < ApplicationController
     @noticia.destroy
     respond_with(@noticia)
   end
-
-  # def atualizar_status
-  #   @noticia = Noticia.find(params[:noticia_id])
-  #   if params[:status]=='em_destaque'
-  #     @noticia.em_destaque
-  #   elsif params[:status]=='em_pauta'
-  #     @noticia.em_pauta
-  #   end
-  #   redirect_to @noticia
-  # end
-
-  # def publicar_noticia
-  #   @noticia = Noticia.find(params[:noticia_id])
-  #   if params[:publicado]=='sim'
-  #     @noticia.publicado = true
-  #   elsif params[:publicado]=='nao'
-  #     @noticia.publicado = false
-  #     @noticia.status = 'publicavel'
-  #   end
-  #   @noticia.save
-  #   redirect_to noticias_url
-  # end
 
   def alterar_status
     @noticia = Noticia.find(params[:noticia_id])

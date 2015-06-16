@@ -26,7 +26,9 @@ module SolicitacoesHelper
         table_body << "<td>#{link_to t('.destroy', :default => t("helpers.links.apagar")), solicitacao_path(solicitacao),
               :method => :delete,
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-xs btn-danger' }</td>"
+              :class => 'btn btn-xs btn-danger' }
+              #{link_to 'Cancelar', solicitacao_cancelar_solicitacao_path(solicitacao.id,ie.id,'cancelado'), method: :put, :class => 'btn btn-primary btn-xs'}
+              </td>"
         table_body << "</tr>"
       end
     end

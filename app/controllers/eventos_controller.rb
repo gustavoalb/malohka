@@ -6,6 +6,7 @@ class EventosController < ApplicationController
 
   def index
     @periodos = Periodo.all
+
     # @date = params[:month] ? Date.strftime(params[:month]) : Date.today
     #   @periodos = []
     #   @eventos.each do |evento|
