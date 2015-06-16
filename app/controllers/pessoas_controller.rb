@@ -1,4 +1,5 @@
 class PessoasController < ApplicationController
+  #require 'will_paginate/array'
   load_and_authorize_resource
   before_action :set_pessoa, only: [:show, :edit, :update, :destroy]
 
@@ -6,7 +7,7 @@ class PessoasController < ApplicationController
 
   def index
     @q = Pessoa.ransack(params[:q])
-    @pessoas = @q.result(distinct: true)
+    @pessoas = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 10).order("nome ASC")
   end
 
   def show

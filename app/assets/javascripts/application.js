@@ -13,13 +13,11 @@
 // require turbolinks
 //= require jquery
 //= require jquery_ujs
-
 //= require moment
 //= require jquery.purr
 //= require best_in_place
 //= require twitter/bootstrap
 //= require ckeditor/init
-
 //= require fullcalendar
 //= require jquery_nested_form
 //= require_tree .
@@ -108,3 +106,6 @@ $(document).ready(function() {
 //DependentFields
 
 
+$(function() {
+    $("#basic-chart-source").orgChart({container: $("chart")});
+});

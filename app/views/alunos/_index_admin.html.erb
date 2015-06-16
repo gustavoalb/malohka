@@ -53,3 +53,5 @@
   </tbody>
 </table>
 <%= link_to t('.new', :default => t("helpers.links.Cadastrar")), new_aluno_path, :class => 'btn btn-primary' %>
+<div align='center'>
+  <%= will_paginate @alunos, renderer: BootstrapPagination::Rails %></div>

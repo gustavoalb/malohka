@@ -22,7 +22,7 @@ module SolicitacoesHelper
         table_body << "<td>#{link_to tipo_solicitavel(solicitacao.solicitavel_type), solicitacao_path(solicitacao) }</td>"
 
         table_body << "<td>#{solicitacao.created_at.strftime("%d/%m/%y às %H:%M ") }</td>"
-        table_body << "<td>#{status_solicitacao(solicitacao.solicitavel.status) }</td>"
+        table_body << "<td>#{status_solicitavel(solicitacao.solicitavel.status) }</td>"
         table_body << "<td>#{link_to t('.destroy', :default => t("helpers.links.apagar")), solicitacao_path(solicitacao),
               :method => :delete,
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },

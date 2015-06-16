@@ -8,7 +8,8 @@ class NoticiasController < ApplicationController
     #@noticias = Noticia.all
     #respond_with(@noticias)
     @q = Noticia.ransack(params[:q])
-    @noticias = @q.result(distinct: true)
+    #@noticias = @q.result(distinct: true)
+    @noticias = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 10).order("publicado_em ASC")
   end
 
   def show

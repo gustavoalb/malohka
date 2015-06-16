@@ -4,7 +4,12 @@ class UsuariosController < ApplicationController
   respond_to :html
 
   def index
-    @usuarios = Usuario.all
+    # @usuarios = Usuario.all
+    @q = Usuario.ransack(params[:q])
+    #alunos = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 20).order("ano_ingresso ASC")#.paginate(:page => params[:page], :per_page => 5)
+    #respond_with(@alunos)
+    #@alunos = meus_alunos
+    @usuarios = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 10).order("id ASC")
   end
 
   def show

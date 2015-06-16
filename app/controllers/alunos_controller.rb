@@ -5,11 +5,12 @@ class AlunosController < ApplicationController
   respond_to :html
 
   def index
-    #@alunos = Aluno.all.order("ano_ingresso DESC")
+    #@alunos = Aluno.all#.order("ano_ingresso DESC")
     @q = Aluno.ransack(params[:q])
-    alunos = @q.result(distinct: true).order("ano_ingresso ASC")#.paginate(:page => params[:page], :per_page => 5)
+    #alunos = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 20).order("ano_ingresso ASC")#.paginate(:page => params[:page], :per_page => 5)
     #respond_with(@alunos)
-    @alunos = meus_alunos
+    #@alunos = meus_alunos
+    @alunos = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 10).order("id ASC")
 
     require 'barby' #sou aqui mesmo se vou servir ao resto so sistema?
     require 'barby/barcode/code_39' #sou aqui mesmo se vou servir ao resto so sistema?

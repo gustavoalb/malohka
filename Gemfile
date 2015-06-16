@@ -84,8 +84,9 @@ gem 'ransack'
 gem "jpeg_camera", "~> 1.3.2"
 
 # para paginação
-gem 'will_paginate', '~> 3.0.6'
+#gem 'will_paginate', '~> 3.0.6'
 #gem 'will_paginate-bootstrap'
+gem 'will_paginate-bootstrap'
 
 # RESTful way to display a step by step process
 gem 'wicked'
