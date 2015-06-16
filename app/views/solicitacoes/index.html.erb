@@ -3,7 +3,7 @@
   <h1 align='center'>Solicitações</h1>
 </div>
 <% if can? :manage, Solicitacao %>
-  <%#= render "admin" %>
-  <%# else %>
+  <%= render "admin" %>
+<% else %>
   <%= render 'padrao' %>
 <% end %>
