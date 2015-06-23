@@ -39,7 +39,16 @@ module SolicitacoesHelper
     raw(html)
   end
 
-  #{link_to t('.edit', :default => t("helpers.links.editar")), edit_solicitacao_path(solicitacao), :class => 'btn btn-default btn-xs'}
+  # def progresso
+  #   divo << "<div class="progress">"
+  #   divo << "<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%">25% (#{ status_iestudantil(@solicitacao.solicitavel.status) })"
+  #   divo << "</div>"
+  #   divo << "</div>"
+  #   }
+
+  #   html = divo
+  #   raw(html)
+  # end
 
   def status_solicitavel(objeto)
     # Em solicitações

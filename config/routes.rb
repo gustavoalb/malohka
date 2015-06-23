@@ -1,17 +1,13 @@
 Rails.application.routes.draw do
 
+  resources :iteracoes
+
   resources :usuarios
   resources :grupos
   resources :funcionarios
   resources :noticias do
     put "alterar_status/:noticia_id/:status"=>'noticias#alterar_status', as: :alterar_status
   end
-
-
-  ##put "publicar_noticia/:noticia_id/:publicado"=>'noticias#publicar_noticia', as: :publicar_noticia
-  #  resources :noticias do
-  #    get "delete"
-  #  end
 
   #teste do controller static
   # scope "/gte" do
@@ -63,6 +59,7 @@ Rails.application.routes.draw do
     post 'turmas', on: :collection
     post 'turnos', on: :collection
     post 'cursos_turno', on: :collection
+    get 'iestudantil_do_aluno/:aluno_id'=>'alunos#iestudantil_do_aluno', as: :iestudantil_do_aluno, on: :collection
   end
   resources :turmas do
     post 'cursos', on: :collection

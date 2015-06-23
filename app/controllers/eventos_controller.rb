@@ -69,6 +69,6 @@ class EventosController < ApplicationController
   end
 
   def evento_params
-    params.require(:evento).permit(:nome, :in, :te, periodos_attributes: [ :id, :inicio, :termino,:_destroy] )
+    params.require(:evento).permit(:nome, periodos_attributes: [ :id, :inicio, :termino,:_destroy] )
   end
 end

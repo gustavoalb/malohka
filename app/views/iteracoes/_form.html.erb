@@ -1,0 +1,12 @@
+<%= simple_nested_form_for(@iteracao) do |f| %>
+  <%= abre_estilo_12_well %>
+  <%= f.input :nome, label: 'Nome da Iteração' %>
+  <%= f.simple_fields_for :guts do |builder|%>
+    <%= render 'guts', :p => builder %>
+  <% end %>
+  <%= f.link_to_add "Adicionar Item", :guts, :class => 'btn btn-info btn-xs' %>
+  <%= fecha_estilo_12_well %>
+  <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancelar")),
+                iteracoes_path, :class => 'btn btn-default' %>
+<% end %>

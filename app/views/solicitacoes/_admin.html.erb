@@ -73,7 +73,6 @@
                       <td><%= ie.status %></td>
                       <td  align='left'>
                         <%= link_to 'Cancelar', solicitacao_cancelar_solicitacao_path(ie.id,ie.id,'cancelado'), method: :put, :class => 'btn btn-primary btn-xs' %>
-                        <%#= link_to 'Publicar em destaque', noticia_alterar_status_path(publicavel,'destaque'), method: :put, :class => 'btn btn-primary btn-xs' %>
                         <button class="btn-default btn-xs" data-toggle="modal" data-target="#solicitacao-<%= ie.id %>-notes">Detalhes</button></td>
                       <!-- Modal -->
                       <div class="modal fade" id="solicitacao-<%= ie.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="solicitacao-<%= ie.id %>-label" aria-hidden="true">

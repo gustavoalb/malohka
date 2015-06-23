@@ -1,0 +1,143 @@
+<%- model_class = Iteracao -%>
+<div class="page-header">
+  <h1 align='center'>Iterações</h1>
+</div>
+<%= abre_estilo_12_well %>
+<%#end%>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Nome</th>
+      <th>Criado em</th>
+      <th>Status</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @iteracoes.each do |iteracao| %>
+      <tr>
+        <td><%= link_to iteracao.id, iteracao_path(iteracao) %></td>
+        <td><%#= iteracao.nome %><%= best_in_place iteracao, :nome, :as => :input %></td>
+        <td><%= iteracao.created_at.strftime("%d/%m/%y às %H:%M") %></td>
+        <td><%= iteracao.status %></td>
+        <%#= link_to t('.edit', :default => t("helpers.links.editar")),
+                      edit_iteracao_path(iteracao), :class => 'btn btn-default btn-xs' %>
+        <%#= link_to t('.destroy', :default => t("helpers.links.apagar")),
+                      iteracao_path(iteracao),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        <td><button class="btn-default btn-xs" data-toggle="modal" data-target="#noticia-<%= iteracao.id %>-notes">Detalhes</button>
+          <!--<button class="btn-default btn-xs" data-toggle="modal" data-target="#noticia-<%#= gut.id %>-notes">Detalhes</button> -->
+          <!-- modal com tabela -->
+          <!-- <div class="container"> -->
+          <div>
+            <!-- <div class="row"> -->
+            <div>
+              <!-- <div class="col-md-12"> -->
+              <div>
+                <!--  <a href="#gridModal" data-toggle="modal">Modal Table and Grid</a> -->
+                <!-- Modal -->
+                <!--<div class="modal fade" id="noticia-<%#= iteracao.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="noticia-<%#= iteracao.id %>-label" aria-hidden="true"> -->
+                <div class="modal fade" id="noticia-<%= iteracao.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="noticia-<%= iteracao.id %>-label" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="noticia-<%= iteracao.id %>-label" align='center'><%= iteracao.nome %></h4>
+                      </div>
+                      <div class="modal-body">
+                        <table class="table table-striped table-hover table-bordered table-condensed">
+                          <tr>
+                            <th>Tarefa</th>
+                            <th>Gravidade</th>
+                            <th>Urgência</th>
+                            <th>Tendência</th>
+                            <th>Total</th>
+                          </tr>
+                          <% iteracao.guts.sort_by{|g|g.total_gut}.reverse.each do |gut|%>
+                            <tr><!-- Parameters: {"user_attributes"=>{"name"=>"John"}, "id"=>"6"} -->
+                              <td><%#= gut[:item] %>
+                                <%= best_in_place gut, :item,
+                              path: iteracao_path(iteracao.id), type: :input,
+                              param: "iteracao[guts_attributes][id]=#{gut.id}&iteracao[guts_attributes]" %></td>
+                              <td><%#= gut[:gravidade] %><%#= best_in_place gut, gut.gravidade, :as => :input %>
+                                <%= best_in_place gut, :gravidade,
+                              path: iteracao_path(iteracao.id), type: :input,
+                              param: "iteracao[guts_attributes][id]=#{gut.id}&iteracao[guts_attributes]" %></td>
+                              <%#= p.input :gravidade, label: false, :collection=>Gut.gravidades.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione" %>
+                              <!-- :collection=>Gut.gravidades.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione" -->
+                              <td><%= gut[:urgencia] %></td>
+                              <td><%= gut[:tendencia] %></td>
+                              <td><%= gut.total_gut %></td>
+                            <% end %>
+                          </tr>
+                        </table>
+                        <dl class="dl-horizontal">
+                          <dt><strong>Criada em:</strong></dt>
+                          <dd><%= iteracao.created_at.strftime("%d/%m/%y às %H:%M") %></dd>
+                          <dt><strong>Finalizada em:</strong></dt>
+                          <dd><%#= iteracao.publicado_em.strftime("%d/%m/%y às %H:%M") %></dd>
+                          <% if can? :update, Iteracao %>
+                            <dt><strong>Ações:</strong></dt>
+                            <dd>
+                              <%= link_to t('.edit', :default => t("helpers.links.Finalizar")), edit_iteracao_path(iteracao), :class => 'btn btn-info btn-xs' %>
+                              <%= link_to t('.edit', :default => t("helpers.links.Editar")), edit_iteracao_path(iteracao), :class => 'btn btn-default btn-xs' %>
+                            <% end %>
+                            <% if can? :destroy, Iteracao %>
+                              <%= link_to t('.destroy', :default => t("helpers.links.Deletar")), iteracao_path(iteracao), :method => 'delete',  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger btn-xs' %>
+                            <% end %></dd>
+                        </dl>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- modal com tabela -->
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<!--   <table class="table table-bordered" >
+    <thead >
+      <tr >
+        <th>Tarefa</th>
+        <th>Gravidade</th>
+        <th>Urgência</th>
+        <th>Tendência</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody  align='center'>
+      <tr>
+        <% @guts.each do |gut|%>
+          <td><%= gut.item %></td>
+          <td><%= gut[:gravidade] %></td>
+          <td><%= gut[:urgencia] %></td>
+          <td><%= gut[:tendencia] %></td>
+          <td><%= gut[:gravidade] + gut[:urgencia] + gut[:tendencia] %></td>
+          <td><%= @total %></td>
+          <%# end%>
+          <td>
+            <%= link_to t('.edit', :default => t("helpers.links.editar")),
+                      edit_iteracao_path(gut), :class => 'btn btn-default btn-xs' %>
+            <%= link_to t('.destroy', :default => t("helpers.links.apagar")),
+                      iteracao_path(gut),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table> -->
+<%= fecha_estilo_12_well %>
+<%= link_to t('.new', :default => t("helpers.links.nova Iteração")),
+            new_iteracao_path,
+            :class => 'btn btn-primary' %>

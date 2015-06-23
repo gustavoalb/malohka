@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gravidade: MyString
+  integer: MyString
+  urgencia: 1
+  tendencia: 1
+
+two:
+  gravidade: MyString
+  integer: MyString
+  urgencia: 1
+  tendencia: 1

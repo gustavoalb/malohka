@@ -30,3 +30,15 @@
 </table>
 <br>
 <%= link_to 'Novo Evento', new_evento_path %>
+<!--     <% @eventos.each do |evento| %>
+      <tr>
+        <td><%= evento.nome %></td>
+        <% evento.periodos.each do |periodo|%>
+          <td><%= periodo.inicio.to_s_br%></td>
+          <td><%= periodo.termino.to_s_br%></td>
+        <% end%>
+        <td><%= link_to 'Show', evento %></td>
+        <td><%= link_to 'Edit', edit_evento_path(evento) %></td>
+        <td><%= link_to 'Destroy', evento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %> -->

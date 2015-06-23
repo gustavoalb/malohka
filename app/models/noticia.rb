@@ -1,4 +1,6 @@
 class Noticia < ActiveRecord::Base
+  validates_presence_of :titulo, :message=>"Não pode ficar em branco!"
+
   scope :publicavel, -> {where("status = 'publicavel'",true).order("publicado_em DESC")}
   scope :destaque, -> {where("status = 'em_destaque'",true).order("publicado_em DESC")}
   scope :pauta, -> {where("status = 'em_pauta'",true).order("publicado_em DESC")}

@@ -162,47 +162,56 @@ class AlunosController < ApplicationController
     end
   end
 
-  def iestudantil
-    #  require 'barby'
-    #  require 'barby/barcode/code_39'
-    #  require 'barby/outputter/png_outputter'
-    #  barcode = Barby::Code39.new("#{@aluno.pessoa.cpf}")
-    #  barcode = Barby::Code39.new(@aluno)
+  def iestudantil_do_aluno
+    @aluno = Aluno.find(params[:aluno_id])
+    if  current_usuario.roles_mask == 1
+      require 'barby'
+      require 'barby/barcode/code_39'
+      require 'barby/outputter/png_outputter'
+      barcode = Barby::Code39.new("#{@aluno.matricula}")
 
-    #   blob = Barby::PngOutputter.new(barcode).to_png(:xdim => 3) #Raw PNG data
-    #   b = File.open("/tmp/codigo_barras_#{barcode}.png",'w')
-    #   b.write blob
-    #   b.close
+      blob = Barby::PngOutputter.new(barcode).to_png(:xdim => 3) #Raw PNG data
+      b = File.open("/tmp/codigo_barras_#{barcode}.png",'w')
+      b.write blob
+      b.close
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.pdf do
+      respond_to do |format|
+        format.html # show.html.erb
+        format.pdf do
+          # Thin ReportsでPDFを作成
+          report = ThinReports::Report.new(layout: "#{Rails.root}/app/reports/iestudantil_m2015.tlf")
 
-        report = ThinReports::Report.new(layout: "#{Rails.root}/app/reports/iestudantil_m2015.tlf")
-
-        @alunos.each do |aluno|
-          #2.times do
           report.start_new_page
-          report.page.item(:nome).value(aluno.pessoa.nome)
-          report.page.item(:nascimento).value(aluno.pessoa.nascimento.to_s_br)
-          report.page.item(:rg).value(aluno.pessoa.rg)
-          #report.page.item(:curso).value(@aluno.curso) #inserir cursos
-          report.page.item(:matricula).value(aluno.matricula)
-          #report.page.item(:validade).value(@aluno.validade) # inserir validade
+          report.page.item(:nome).value(@aluno.pessoa.nome)
+          report.page.item(:nascimento).value(@aluno.pessoa.nascimento.to_s_br)
+          report.page.item(:rg).value(@aluno.pessoa.rg)
+          report.page.item(:curso).value(@aluno.curso) #inserir cursos
+          report.page.item(:matricula).value(@aluno.matricula)
+          report.page.item(:validade).value("dez/2015") # inserir validade
 
-          f = File.open (aluno.pessoa.foto.path)
-          report.page.item(:foto).value(open(f))
-          f.close
+          #f = File.open (@aluno.pessoa.foto.path)
+          #report.page.item(:foto).value(open(f))
+          #f.close
+
+          if @aluno.pessoa.nil?
+            #image_tag("anonimo.jpg")
+          elsif @aluno.pessoa.foto.present?
+            f = File.open (@aluno.pessoa.foto.path)
+            report.page.item(:foto).value(open(f))
+            f.close
+          end
 
           report.page.item(:barra).value(b.path)
+
+          send_data report.generate, filename: "#{@aluno.id}.pdf",
+            type: 'application/pdf',
+            #disposition: 'inline' # para visualização no navegador
+            disposition: 'attachment' # para download
         end
-
-        send_data report.generate, filename: "#{@aluno.id}.pdf",
-          type: 'application/pdf',
-          #  disposition: 'inline' # para visualização no navegador
-          disposition: 'attachment' # para download
-
       end
+    elsif current_usuario.roles_mask == 4
+    else
+      render :file => "#{Rails.root}/public/403.html", :status => 403, :layout => false
     end
   end
 

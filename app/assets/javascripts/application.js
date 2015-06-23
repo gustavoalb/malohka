@@ -15,11 +15,11 @@
 //= require jquery_ujs
 //= require moment
 //= require jquery.purr
-//= require best_in_place
 //= require twitter/bootstrap
 //= require ckeditor/init
 //= require fullcalendar
 //= require jquery_nested_form
+//= require best_in_place
 //= require_tree .
 
 jQuery(function($){
@@ -94,10 +94,6 @@ $('#myTab li:eq(2) a').tab('show') // Select third tab (0-indexed
 // });
 // datepicker
 
-function remove_fields (link) {
-  $(link).previous("input[type=hidden]").value = "1";
-  $(link).up(".fields").hide();
-};
 //
 //DependentFields
 $(document).ready(function() {

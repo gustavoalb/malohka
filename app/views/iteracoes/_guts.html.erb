@@ -1,0 +1,26 @@
+<div id='guts' class='well'>
+  <div style="width:98%; float:left; margin-right: 1%; margin-left: 1%"><%= p.input :item, label: 'Item da iteração' %></div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th style="width:29%; float:left; margin-right: 4%;">Gravidade</th>
+        <th style="width:29%; float:left; margin-right: 4%;">Urgência</th>
+        <th style="width:29%; float:left; margin-right: 4%;">Tendência</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <div class="container">
+          <div class="form-group, row">
+            <div class="form-inline">
+              <td style="width:30%; float:left; margin-right: 4%;"><%= p.input :gravidade, label: false, :collection=>Gut.gravidades.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione" %></td>
+              <td style="width:30%; float:left; margin-right: 4%;"><%= p.input :urgencia, label: false, :collection=>Gut.urgencias.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione" %></td>
+              <td style="width:30%; float:left; margin-right: 1%;"><%= p.input :tendencia, label: false, :collection=>Gut.tendencias.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione" %></td>
+              <td><%= p.link_to_remove "Remover este item", :class => 'btn btn-danger btn-xs' %></td>
+            </div>
+          </div>
+        </div>
+      </tr>
+    </tbody>
+  </table>
+</div>
