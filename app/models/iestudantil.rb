@@ -11,8 +11,6 @@ class Iestudantil < ActiveRecord::Base
   scope :entregues, -> {where("status = 'entregue'",true)}
   scope :canceladas, -> {where("status = 'cancelado'",true)}
   scope :salsifufu, -> {where("aluno = nil", true)}
-  #accepts_nested_attributes_for :solicitacao
-  #validates_uniqueness_of :aluno_id, :message => 'Você só pode pedir uma Iestudantil para essa matrícula'
 
 
   state_machine :status, :initial => :solicitado do

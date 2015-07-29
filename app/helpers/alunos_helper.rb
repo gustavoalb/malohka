@@ -28,6 +28,14 @@ module AlunosHelper
       xunda
     end
 
+    def validade(objeto)
+      if objeto.month >= 7
+        return "sim"
+      elsif objeto.month <= 5
+        return "Nao"
+      end
+    end
+
     # if @aluno.turma==nil
     #   @aluno.turma.nome
     # else

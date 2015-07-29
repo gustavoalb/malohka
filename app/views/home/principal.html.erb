@@ -59,24 +59,50 @@
     <p><span><%= image_tag "calendario.png" %></span>&nbsp;<%= r.created_at.strftime("%d/%m/%Y") %>&nbsp;&nbsp;<%= link_to r.titulo, noticia_path(r) %></p>
   <% end %>
 </div>
-<!-- <div class="col-md-12, well">
-  <!--   <h3>Eventos</h3> -->
-<!--   <div class="row">
+<div class="col-md-12, well">
+  <h3>Eventos</h3>
+  <div class="row">
     <div class="col-sm-12 col-md-12">
       <div class="col-sm-12 col-md-12, row">
         <%- model_class = Evento -%><% @eventos.each do |evento| %>
-          <div id="eventos" class="col-sm-4 col-md-6, thumbnail"> -->
-<!--<div class="thumbnail">ver esse aqui-->
-<!--             <%= link_to (image_tag "thumbnail-3.jpg"), root_path %>
-            <div class="caption text-center" style='position:relative; top:-25px'>
-              <h3><%= truncate(evento.nome, :length => 160) %></h3>
-              <div style='position:absolute; top:90%; margin-left:20%'><a href="#" class="btn btn-warning" role="button  ">Informações</a>
+          <div id="eventos" class="col-sm-4 col-md-6, thumbnail">
+            <div class="thumbnail">
+              <%= link_to (image_tag "thumbnail-3.jpg"), evento %>
+              <div class="caption text-center" style='position:relative; top:-25px'>
+                <h3><%= truncate(evento.nome, :length => 160) %></h3>
+                <div style='position:absolute; top:90%; margin-left:20%'><a href="#" class="btn btn-warning" role="button  ">Informações</a>
+                  <button class="btn-default btn-xs" data-toggle="modal" data-target="#evento-<%= evento.id %>-notes">Detalhes</button></dd>
+                <!-- Modal -->
+                <div class="modal fade" id="evento-<%= evento.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="evento-<%= evento.id %>-label" aria-hidden="true">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h3 class="modal-title" id="evento-<%= evento.id %>-label" align='center'><%= evento.nome %></h3>
+                      </div>
+                      <div class="modal-body" >
+                        <p>Uma descrição linda da importância de se testar atributos aninhados</p>
+                        <br>
+                        <h4>Destaques:</h4>
+                        <% @participacoes.each do |o| %>
+                          <ul>
+                            <li><strong><%= o.periodo.componente %></strong> - dia <%= o.periodo.inicio.strftime("%d/%m/%Y")  %></li>
+                          </ul>
+                        <% end %>
+                      </div>
+                      <div class="modal-footer">
+                        <%= link_to 'Quero saber mais sobre isso!', evento, :class => 'btn btn-primary' %>
+                        <button type="button" class="btn btn-defaut btn-xs" data-dismiss="modal">Fechar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Modal -->
               </div>
             </div>
           </div>
         <% end %>
       </div>
     </div>
-  </div> -->
-<!-- </div> -->
+  </div>
+</div>
 </div>

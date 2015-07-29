@@ -1,5 +1,6 @@
 <%= simple_form_for(@evento) do |f| %>
   <%= f.error_notification %>
+  <%= abre_estilo_12_well %>
   <div class="form-inputs">
     <%= f.input :nome %>
   </div>
@@ -9,4 +10,5 @@
   <div class="form-actions">
     <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
   </div>
+  <%= fecha_estilo_12_well %>
 <% end %>

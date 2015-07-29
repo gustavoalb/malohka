@@ -14,12 +14,13 @@
 //= require jquery
 //= require jquery_ujs
 //= require moment
-//= require jquery.purr
 //= require twitter/bootstrap
 //= require ckeditor/init
 //= require fullcalendar
 //= require jquery_nested_form
 //= require best_in_place
+//= require best_in_place.purr
+//= require jquery.purr
 //= require_tree .
 
 jQuery(function($){

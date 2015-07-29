@@ -9,7 +9,6 @@ class IteracoesController < ApplicationController
     @iteracoes_nomes = @iteracoes.group_by(&:nome)
     @guts = Gut.all
 
-    #@total = @gut[:gravidade] + @gut[:urgencia] + @gut[:tendencia]
     respond_with(@iteracoes)
   end
 
@@ -32,11 +31,6 @@ class IteracoesController < ApplicationController
     respond_with(@iteracao)
   end
 
-  # def update
-  #   @iteracao.update(iteracao_params)
-  #   respond_with(@iteracao)
-  # end
-
   def update
     @iteracao = Iteracao.find params[:id]
 
@@ -45,20 +39,34 @@ class IteracoesController < ApplicationController
         format.html { redirect_to(@iteracao, :notice => 'iteracao was successfully updated.') }
         format.json { respond_with_bip(@iteracao) }
       else
-        format.html { render :action => "edit" }
-        format.json { respond_with_bip(@iteracao) }
+        # format.html { render :action => "edit" }
+        # format.json { respond_with_bip(@iteracao) }
+        format.html { render :action => "show" }
+        format.json { render :json => @iteracao.errors.full_messages, :status => :unprocessable_entity }
       end
     end
   end
-
 
   def destroy
     @iteracao.destroy
     respond_with(@iteracao)
   end
 
-
-
+  def alterar_status
+    @guts = Iteracao.find(params[:iteracao_id]).guts
+    #@gut = @guts.find(params[:gut_id])
+    @gut = Iteracao.guts.find(params[:gut])
+    #@gut = Iteracao.guts.find(params[:gut_id])
+    if params[:status]=='avaliado'
+      @gut.avaliar
+    elsif params[:status]=='finalizado'
+      @gut.finalizar
+    elsif params[:status]=='reavaliacao'
+      @gut.reavaliar
+    end
+    @iteracao.save
+    redirect_to iteracoes_url
+  end
 
   private
   def set_iteracao

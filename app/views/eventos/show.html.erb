@@ -1,13 +1,55 @@
 <p id="notice"><%= notice %></p>
-<p>
-  <strong>Nome:</strong>
+<h3 align='center'>
   <%= @evento.nome %>
-</p>
-<ol>
-  <% for periodo in @evento.periodos %>
-  <li><%= h periodo.inicio.strftime("%d/%m/%Y às %H:%m") %></li>
-  <li><%= h periodo.termino.strftime("%d/%m/%Y às %H:%m") %></li>
+</h3>
+<h4 align='center'>Programação</h4>
+<%= abre_estilo_12_well %>
+<% for periodo in @evento.periodos %>
+<div class='well'>
+  <p align='center'><strong><%= periodo.componente %></strong></p>
+  <dl class="dl-horizontal">
+    <dt><strong>Perído:</strong></dt>
+    <dd><%= periodo.inicio.strftime("%d/%m/%Y às %H:%m") %> à <%= h periodo.termino.strftime("%d/%m/%Y às %H:%m") %></dd>
+    <dt><strong>Descrição:</strong></dt>
+    <dd>Total de <strong><%= periodo.qnt_horas %> horas</strong> de atividade. <%= h periodo.descricao %></dd>
+    <br>
+    <dt></dt>
+    <dd><%#= link_to 'Chega de conversa, faça minha inscrição agora!', noticia_alterar_status_path(periodo,'destaque'), method: :put, :class => 'btn btn-primary btn-xs' %>
+      <button class="btn-primary btn-xs" data-toggle="modal" data-target="#evento-<%= @evento.id %>-notes">Detalhes</button></dd>
+    <!-- Modal -->
+    <div class="modal fade" id="evento-<%= @evento.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="evento-<%= @evento.id %>-label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="evento-<%= @evento.id %>-label" align='center'><%= periodo.componente %></h4>
+          </div>
+          <div class="modal-body">
+            <dl class="dl-horizontal">
+              <dt><strong>Perído:</strong></dt>
+              <dd><%= periodo.inicio.strftime("%d/%m/%Y às %H:%m") %> à <%= h periodo.termino.strftime("%d/%m/%Y às %H:%m") %></dd>
+              <dt><strong>Descrição:</strong></dt>
+              <dd>Total de <strong><%= periodo.qnt_horas %> horas</strong> de atividade. <%= h periodo.descricao %></dd>
+            </dl>
+            <%= simple_form_for(@evento) do |t| %>
+              <%= t.error_notification %>
+              <div class="form-inputs">
+                <%=t.hidden_field :pessoa_id,value: @pessoa %>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <%= t.submit "Confirmar",:class => 'btn btn-primary' %>
+            <% end %>
+            <button type="button" class="btn btn-defaut btn-xs" data-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+  </dl>
+</div>
 <% end %>
-</ol>
-<%= link_to 'Edit', edit_evento_path(@evento) %> |
-<%= link_to 'Back', eventos_path %>
+<%= fecha_estilo_12_well %>
+<% if can? :update, Evento %>
+  <%= link_to 'Editar', edit_evento_path(@evento) %> |
+<% end %>
+<%= link_to 'Voltar', eventos_path %>

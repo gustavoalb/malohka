@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2220150507134157) do
+ActiveRecord::Schema.define(version: 2220150507134165) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,6 +148,14 @@ ActiveRecord::Schema.define(version: 2220150507134157) do
 
   add_index "paginas", ["permalink"], name: "index_paginas_on_permalink", using: :btree
 
+  create_table "participacoes", force: true do |t|
+    t.integer  "periodo_id"
+    t.integer  "pessoa_id"
+    t.boolean  "frequencia"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "perguntas", force: true do |t|
     t.integer  "pesquisa_id"
     t.text     "conteudo"
@@ -161,6 +169,9 @@ ActiveRecord::Schema.define(version: 2220150507134157) do
     t.datetime "termino"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "qnt_horas"
+    t.string   "componente"
+    t.text     "descricao"
   end
 
   create_table "pesquisas", force: true do |t|

@@ -1,14 +1,22 @@
+<hr>
 <p>
-  <!--<= tag.input :name, label: "Tag Name"%>-->
   <div class="container">
-    <p class="row"><strong></strong></p>
     <div class="form-group, row">
       <div class="form-inline">
-        <strong>Início:</strong><%= p.input :inicio, label: false %>&nbsp;&nbsp;<strong>Término:</strong>
-        <%= p.input :termino, label: false %>
+        <%= p.input :componente, label: 'Atividade:' %>
+      </div>
+      <div class="form-inline">
+        <strong>Início:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= p.input :inicio, label: false %>&nbsp;
+      </div>
+      <div class="form-inline">
+        <strong>Término:</strong>&nbsp;&nbsp;<%= p.input :termino, label: false %>
+      </div>
+      <div class="form-inline">
+        <%= p.input :qnt_horas, label: 'Total de horas para esta atividade:'  %>
       </div>
     </div>
   </div>
+  <%= p.input :descricao, as: :text, label: 'Descrição:' %>
   <%= p.check_box :_destroy %>
-  <%= p.label :_destroy, "Remover período?" %>
+  <%= p.label :_destroy, "Remover esta atividade?" %>
 </p>

@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+  <div id="sanfonadois" class="panel-collapse collapse">
+    <table class="table table-striped table-hover table-bordered table-condensed">
+      <tr>
+        <th>Tarefa</th>
+        <th>Gravidade</th>
+        <th>Urgência</th>
+        <th>Tendência</th>
+        <th>Total</th>
+        <th>Status</th>
+      </tr>
+      <% Gut.pendentes.each do |gut|%>
+        <tr>
+          <td><%= gut[:item] %></td>
+          <td><%= gut[:gravidade] %></td>
+          <td><%= gut[:urgencia] %></td>
+          <td><%= gut[:tendencia] %></td>
+          <td><%= gut.total_gut %></td>
+          <td><%= gut.status %></td>
+        <% end %>
+      </tr>
+    </table>
+  </div>
+</div>

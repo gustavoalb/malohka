@@ -105,6 +105,30 @@ class AlunosController < ApplicationController
     respond_with(@aluno)
   end
 
+  def validade_aluno
+    duracao = @aluno.turma.curso.duracao
+    periodo_atual = @aluno.periodo_atual
+    a_cursar = (duracao - periodo_atual)
+    semestres_restantes = Time.now + (a_cursar*6).month
+    if semestres_restantes.month >= 7
+      return "dez"
+    elsif semestres_restantes.month <= 5
+      return "jun"
+    end
+  end
+
+  def validade_alunos
+    duracao = @aluno.turma.curso.duracao
+    periodo_atual = @aluno.periodo_atual
+    a_cursar = (duracao - periodo_atual)
+    semestres_restantes = Time.now + (a_cursar*6).month
+    if semestres_restantes.month >= 7
+      return "dez"
+    elsif semestres_restantes.month <= 5
+      return "jun"
+    end
+  end
+
   #def idestudantil
   def show
     if  current_usuario.roles_mask == 1
@@ -117,6 +141,8 @@ class AlunosController < ApplicationController
       b = File.open("/tmp/codigo_barras_#{barcode}.png",'w')
       b.write blob
       b.close
+
+
 
       respond_to do |format|
         format.html # show.html.erb
@@ -131,7 +157,8 @@ class AlunosController < ApplicationController
           report.page.item(:rg).value(@aluno.pessoa.rg)
           report.page.item(:curso).value(@aluno.curso) #inserir cursos
           report.page.item(:matricula).value(@aluno.matricula)
-          report.page.item(:validade).value("dez/2015") # inserir validade
+          report.page.item(:mes_validade).value(validade) # inserir validade
+          report.page.item(:ano_validade).value("8888")
 
           #f = File.open (@aluno.pessoa.foto.path)
           #report.page.item(:foto).value(open(f))

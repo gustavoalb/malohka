@@ -3,14 +3,18 @@ class Pessoa < ActiveRecord::Base
   include CriarUsuario
   has_one :usuario
   has_many :alunos
+  #belongs_to :periodo
+  has_many :participacoes
+  has_many :periodos,
+    :through => :participacoes
   validates_presence_of [:nome, :cpf], :message=>"Não pode ficar em branco!"
   validates_uniqueness_of :cpf
-  validates :fator_rh, :presence => true, :on => :update
-  validates :rg, :presence => true, :on => :update
-  validates :telefone, :presence => true, :on => :update
-  validates :email, :presence => true, :on => :update
-  validates :sexo, :presence => true, :on => :update
-  validates :mae, :presence => true, :on => :update
+  # validates :fator_rh, :presence => true, :on => :update
+  # validates :rg, :presence => true, :on => :update
+  # validates :telefone, :presence => true, :on => :update
+  # validates :email, :presence => true, :on => :update
+  # validates :sexo, :presence => true, :on => :update
+  # validates :mae, :presence => true, :on => :update
 
   enum fator_rh: {'A+'=> 1, 'A-'=>2, 'B+'=> 3, 'B-'=> 4, 'AB+'=> 5, 'AB-'=> 6, 'O+'=> 7, 'O-'=> 8, 'Nem faço ideia'=> 9}
   enum sexo: {'Masculino'=> 1, 'Feminino'=>2}

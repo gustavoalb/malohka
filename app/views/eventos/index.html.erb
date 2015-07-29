@@ -1,44 +1,28 @@
 <div id='calendar'></div>
-<h1>Listing eventos</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @eventos.each do |evento| %>
+<% if can? :manage, Evento %>
+  <h1>Lista de Eventos</h1>
+  <table>
+    <thead>
       <tr>
-        <td><%= evento.nome %></td>
-        <% evento.periodos.each do |periodo|%>
-          <td><%= periodo.inicio.to_s_br%></td>
-          <td><%= periodo.termino.to_s_br%></td>
-        <% end%>
-        <td><%= link_to 'Show', evento %></td>
-        <td><%= link_to 'Edit', edit_evento_path(evento) %></td>
-        <td><%= link_to 'Destroy', evento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Nome</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-<%# @periodos.each do |periodo| %>
-  <tr>
-    <td><%#= periodo.inicio %></td>
-    <td><%#= periodo.comeco %></td>
-  </tr>
-</table>
-<br>
-<%= link_to 'Novo Evento', new_evento_path %>
-<!--     <% @eventos.each do |evento| %>
-      <tr>
-        <td><%= evento.nome %></td>
-        <% evento.periodos.each do |periodo|%>
-          <td><%= periodo.inicio.to_s_br%></td>
-          <td><%= periodo.termino.to_s_br%></td>
-        <% end%>
-        <td><%= link_to 'Show', evento %></td>
-        <td><%= link_to 'Edit', edit_evento_path(evento) %></td>
-        <td><%= link_to 'Destroy', evento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %> -->
+    </thead>
+    <tbody>
+      <% @eventos.each do |evento| %>
+        <tr>
+          <td><%= evento.nome %></td>
+          <td><%= link_to 'Mostrar', evento %></td>
+          <td><%= link_to 'Editar', edit_evento_path(evento) %></td>
+          <td><%= link_to 'Apagar', evento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to 'Novo Evento', new_evento_path %>
+<% end %>
+<% @participacoes.each do |o| %>
+  <%= o.id %>
+  <%= o.periodo.componente %>
+  <%= o.frequencia %>
+<% end %>

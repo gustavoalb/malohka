@@ -6,7 +6,7 @@ class Aluno < ActiveRecord::Base
   has_one :usuario
   accepts_nested_attributes_for :pessoa, :allow_destroy => true
   validates_presence_of [:matricula, :ano_ingresso, :curso, :semestre_atual], :message=>"Não pode ficar em branco!"
-  validates :turma_id, :presence => true, :on => :update
+  # validates :turma_id, :presence => true, :on => :update
 
   scope :da_pessoa, where('alunos.pessoa_id = ?', p)
   scope :doze, -> {where("ano_ingresso = '2012'",true)}

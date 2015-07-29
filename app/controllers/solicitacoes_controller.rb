@@ -43,7 +43,6 @@ class SolicitacoesController < ApplicationController
     if params[:tipo]=='ie' and solicitacao_params[:solicitante_id]
       @solicitante = current_usuario.pessoa.alunos.find(solicitacao_params[:solicitante_id])
       @ie = @solicitante.carteiras.create
-      # @solicitacao = Solicitacao.create(solicitavel_id: @ie.id, solicitavel_type: 'Iestudantil', solicitante_id: @solicitante.id)
       @pessoa = current_usuario.pessoa
     end
     #eu aprendedo ajax

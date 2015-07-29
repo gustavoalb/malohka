@@ -32,30 +32,38 @@
             <th>Urgência</th>
             <th>Tendência</th>
             <th>Total</th>
+            <th>Status</th>
           </tr>
-          <% @guts.each do |gut|%>
-            <tr>
-              <td><%= gut[:item] %></td>
-              <td><%= gut[:gravidade] %></td>
-              <td><%= gut[:urgencia] %></td>
-              <td><%= gut[:tendencia] %></td>
-              <td><%= gut.total_gut %></td>
-            <% end %>
-          </tr>
-        </table>
-        <p align='center'><a data-toggle="collapse" data-parent="#accordion" href="#sanfonadois"><!-- <span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span> --> Ver legenda</a></p>
-        <div>
-          <%= render 'matriz_gut' %>
+          <%# @iteracao.guts.each do |gut|%>
+            <%# Iteracao.with_cd_players.each do |t|%>
+              <% Gut.pendentes.each do |gut|%>
+                <tr>
+                  <td><%= gut[:item] %></td>
+                  <td><%= gut[:gravidade] %></td>
+                  <td><%= gut[:urgencia] %></td>
+                  <td><%= gut[:tendencia] %></td>
+                  <td><%= gut.total_gut %></td>
+                  <td><%= gut.status %></td>
+                <% end %><%# end %>
+              </tr>
+            </table>
+            <p align='center'><a data-toggle="collapse" data-parent="#accordion" href="#sanfonadois">legenda</a></p>
+            <div>
+              <%= render 'avaliados_gut' %>
+            </div>
+            <p align='center'><a data-toggle="collapse" data-parent="#accordion" href="#sanfonatres">Ver legenda</a></p>
+            <div>
+              <%= render 'matriz_gut' %>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <%= fecha_estilo_12_well %>
-  <%= link_to t('.back', :default => t("helpers.links.voltar")),
+      <%= fecha_estilo_12_well %>
+      <%= link_to t('.back', :default => t("helpers.links.voltar")),
               iteracoes_path, :class => 'btn btn-default'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.editar")),
+      <%= link_to t('.edit', :default => t("helpers.links.editar")),
               edit_iteracao_path(@iteracao), :class => 'btn btn-default' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.apagar")),
+      <%= link_to t('.destroy', :default => t("helpers.links.apagar")),
               iteracao_path(@iteracao),
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },

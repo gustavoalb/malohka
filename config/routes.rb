@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  resources :iteracoes
+  resources :iteracoes do
+    put "alterar_status/:iteracao_id/:status"=>'iteracoes#alterar_status', as: :alterar_status
+  end
 
   resources :usuarios
   resources :grupos

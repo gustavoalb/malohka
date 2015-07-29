@@ -1,5 +1,5 @@
 $(document).ready ->
-  $('#calendar').fullCalendar
+  $('#calendar').fullCalendar {
     header:
       left: 'prev,next today',
       center: 'title',
@@ -15,3 +15,4 @@ $(document).ready ->
         ' ': 'H:mm-{H:mm}'
       },
     dragOpacity: "0.8"
+    }

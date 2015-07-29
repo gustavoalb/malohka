@@ -6,6 +6,8 @@ class EventosController < ApplicationController
 
   def index
     @periodos = Periodo.all
+    @pessoa = current_usuario.pessoa
+    @participacoes = Participacao.all
 
     # @date = params[:month] ? Date.strftime(params[:month]) : Date.today
     #   @periodos = []
@@ -27,10 +29,6 @@ class EventosController < ApplicationController
     # fim = Time.new(ano_fim,mes_fim,dia_fim)
     # @eventos = Evento.scoped
     # @eventos = Evento.entre(inicio, fim) if (inicio && fim)
-
-
-
-
 
   end
 
@@ -63,12 +61,17 @@ class EventosController < ApplicationController
     respond_with(@evento)
   end
 
+  def inscricao_atividade
+    @participacao = Periodo.find(params[:periodo_id])
+    @participante = Pessoa.find(params[:id])
+  end
+
   private
   def set_evento
     @evento = Evento.find(params[:id])
   end
 
   def evento_params
-    params.require(:evento).permit(:nome, periodos_attributes: [ :id, :inicio, :termino,:_destroy] )
+    params.require(:evento).permit(:nome, periodos_attributes: [ :id, :componente, :qnt_horas, :inicio, :termino, :descricao, :_destroy] )
   end
 end
