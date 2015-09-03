@@ -33,29 +33,6 @@ class ValidarUsuarioController < ApplicationController
     end
   end
 
-  # def atualizar_pessoa
-  #   @usuario = current_usuario
-  #   @pessoa = @usuario.pessoa
-  #   @alunos = @pessoa.alunos
-  # end
-
-  # def salvar_pessoa
-  #   @usuario = current_usuario
-  #   @pessoa = @usuario.pessoa
-  #   @pessoa.update(pessoa_params)
-  #   if @pessoa.save
-  #     redirect_to root_url, message: "Informação atualizada com sucesso!"
-  #   else
-  #     render action: 'atualizar_pessoa'
-  #   end
-  # end
-  # @usuario = current_usuario
-  # @pessoa = @current_usuario.pessoa
-
-
-
-  #veja isso
-
 
   def atualizar_pessoa
     @usuario = current_usuario

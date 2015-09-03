@@ -1,54 +1,51 @@
 class EventosController < ApplicationController
-  load_and_authorize_resource
   before_action :set_evento, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
   def index
-    @periodos = Periodo.all
-    @pessoa = current_usuario.pessoa
-    @participacoes = Participacao.all
-
-    # @date = params[:month] ? Date.strftime(params[:month]) : Date.today
-    #   @periodos = []
-    #   @eventos.each do |evento|
-    #     evento.periodos.each do |periodo|
-    #       @periodos << periodo
-    #     end
-    #   end
-    #   #respond_with(@eventos)
-
-    #   respond_to do |format|
-    #     format.html
-    #     format.json { render :json => @eventos }
-    #   end
-
-    # ano_inicio,mes_inicio,dia_inicio = params['start'].split("-") if params['start']
-    # ano_fim,mes_fim,dia_fim = params['end'].split("-") if params['end']
-    # inicio = Time.new(ano_inicio,mes_inicio,dia_inicio)
-    # fim = Time.new(ano_fim,mes_fim,dia_fim)
-    # @eventos = Evento.scoped
-    # @eventos = Evento.entre(inicio, fim) if (inicio && fim)
-
+    @eventos = Evento.all
+    @componentes = Componente.all
+    respond_with(@eventos)
   end
 
   def show
+    @participacoes = Participacao.all
     respond_with(@evento)
   end
 
   def new
     @evento = Evento.new
-    3.times { @evento.periodos.build }
+    responsavel_id = current_usuario.pessoa
+    1.times do
+      componentes = @evento.componentes.build
+      1.times { componentes.periodos.build }
+    end
     #respond_with(@evento)
   end
 
   def edit
+    responsavel_id = current_usuario.pessoa
+
   end
 
   def create
-    @evento = Evento.new(evento_params)
-    @evento.save
-    respond_with(@evento)
+    @evento = Evento.new
+    @evento.save(validate: false)
+    redirect_to evento_wizard_evento_path(@evento, :inicio)
+  end
+
+
+  def registrar_participacao
+    @evento = Evento.find(params[:evento_id])
+    @componente = Componente.find(params[:evento][:componente_id])
+    @pessoa = Pessoa.find(params[:evento][:pessoa_id])
+    @participacao = @pessoa.participacoes.new(:componente_id=>@componente.id)
+    if @participacao.save
+      redirect_to evento_url(@evento), notice: 'Inscrição feita com sucesso!'
+    else
+      redirect_to evento_url(@evento), alert: 'Você já possui uma inscrição ativa para esta atividade. :~('
+    end
   end
 
   def update
@@ -61,17 +58,12 @@ class EventosController < ApplicationController
     respond_with(@evento)
   end
 
-  def inscricao_atividade
-    @participacao = Periodo.find(params[:periodo_id])
-    @participante = Pessoa.find(params[:id])
-  end
-
   private
   def set_evento
     @evento = Evento.find(params[:id])
   end
 
   def evento_params
-    params.require(:evento).permit(:nome, periodos_attributes: [ :id, :componente, :qnt_horas, :inicio, :termino, :descricao, :_destroy] )
+    params.require(:evento).permit(:nome, :descricao, :status, :responsavel_id, :pessoa_id, :componente_id, :logo, :banner, :organizacao, :parceiros, :apoio, componentes_attributes: [ :id, :evento_id, :nome, :qnt_horas, :descricao, :vagas, {:publico_ids => []}, {:ministrantes_ids => []}, :publico, :tipo_componente, :local, :status, :ministrante_id, :_destroy, periodos_attributes: [ :id, :componente_id, :inicio, :termino, :_destroy]])
   end
 end

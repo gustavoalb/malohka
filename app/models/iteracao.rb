@@ -7,9 +7,9 @@ class Iteracao < ActiveRecord::Base
   scope :do, lambda{|iteracao_id|
     joins(:gut).where('guts.iteracao_id=?',iteracao_id)
   }
-  scope :ies, where('guts.status=?','pendente')
-  scope :with_cd_player, joins(:guts).where("guts.gravidade = 4")#where("guts.gravidade = 4")
-  scope :with_cd_players, -> { joins(:guts).where("guts.status = 'pendente'") }
+  #scope :ies, where('guts.status=?','pendente')
+  #scope :with_cd_player, joins(:guts).where("guts.gravidade = 4")#where("guts.gravidade = 4")
+  #scope :with_cd_players, -> { joins(:guts).where("guts.status = 'pendente'") }
 
 
   state_machine :status, :initial => :sob_avaliacao do

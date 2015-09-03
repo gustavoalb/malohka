@@ -61,48 +61,52 @@
 </div>
 <div class="col-md-12, well">
   <h3>Eventos</h3>
-  <div class="row">
-    <div class="col-sm-12 col-md-12">
-      <div class="col-sm-12 col-md-12, row">
-        <%- model_class = Evento -%><% @eventos.each do |evento| %>
-          <div id="eventos" class="col-sm-4 col-md-6, thumbnail">
-            <div class="thumbnail">
-              <%= link_to (image_tag "thumbnail-3.jpg"), evento %>
-              <div class="caption text-center" style='position:relative; top:-25px'>
-                <h3><%= truncate(evento.nome, :length => 160) %></h3>
-                <div style='position:absolute; top:90%; margin-left:20%'><a href="#" class="btn btn-warning" role="button  ">Informações</a>
-                  <button class="btn-default btn-xs" data-toggle="modal" data-target="#evento-<%= evento.id %>-notes">Detalhes</button></dd>
-                <!-- Modal -->
-                <div class="modal fade" id="evento-<%= evento.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="evento-<%= evento.id %>-label" aria-hidden="true">
-                  <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h3 class="modal-title" id="evento-<%= evento.id %>-label" align='center'><%= evento.nome %></h3>
-                      </div>
-                      <div class="modal-body" >
-                        <p>Uma descrição linda da importância de se testar atributos aninhados</p>
-                        <br>
-                        <h4>Destaques:</h4>
-                        <% @participacoes.each do |o| %>
-                          <ul>
-                            <li><strong><%= o.periodo.componente %></strong> - dia <%= o.periodo.inicio.strftime("%d/%m/%Y")  %></li>
-                          </ul>
-                        <% end %>
-                      </div>
-                      <div class="modal-footer">
-                        <%= link_to 'Quero saber mais sobre isso!', evento, :class => 'btn btn-primary' %>
-                        <button type="button" class="btn btn-defaut btn-xs" data-dismiss="modal">Fechar</button>
-                      </div>
-                    </div>
+  <div class="container, row">
+    <div class="row">
+      <!-- <div class="other_container"> -->
+      <!-- <div class="div_flex"> -->
+      <%- model_class = Evento -%><% @eventos.each do |evento| %>
+        <div class="col-sm-4 col-md-6">
+          <div class="thumbnail">
+            <%= link_to (image_tag "thumbnail-3.jpg"), evento %>
+            <div class="div_fixa" align='center'>
+              <h4><%= truncate(evento.nome, :length => 160) %></h4>
+              <!-- Modal ministrante -->
+            </div>
+            <div align='center'><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#evento-<%= evento.id %>-notes">
+                Detalhes
+              </button>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="evento-<%= evento.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="evento-<%= evento.id %>-label" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3 class="modal-title" id="evento-<%= evento.id %>-label" align='center'><%= evento.nome %></h3>
                   </div>
+                  <div class="modal-body" >
+                    <p><%= evento.id %><%#= evento.descricao.html_safe %></p>
+                    <hr>
+                    <h4>Destaques:</h4>
+                    <% for componente in evento.componentes %>
+                    <ul>
+                      <li><%=  componente.tipo_componente %>: <%= componente.nome %></li>
+                    </ul>
+                  <% end %>
                 </div>
-                <!-- Modal -->
+                <div class="modal-footer">
+                  <%= link_to 'Quero saber mais sobre isso!', evento, :class => 'btn btn-primary' %>
+                  <button type="button" class="btn btn-defaut btn-xs" data-dismiss="modal">Fechar</button>
+                </div>
               </div>
             </div>
           </div>
-        <% end %>
+          <!-- Modal -->
+        </div>
       </div>
-    </div>
+      <!-- </div> -->
+    <% end %>
   </div>
 </div>
 </div>
+<!--fim container-->

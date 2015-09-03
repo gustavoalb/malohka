@@ -1,16 +1,44 @@
-<%= simple_form_for @funcionario, :html => { :class => 'form-horizontal' } do |f| %>
-  <%= f.input :matricula %>
-  <%= error_span(@funcionario[:matricula]) %>
-  <%= f.input :cargo %>
-  <%= error_span(@funcionario[:cargo]) %>
-  <%= f.input :cargo_id %>
-  <%= error_span(@funcionario[:cargo_id]) %>
-  <%= f.input :data_posse %>
-  <%= error_span(@funcionario[:data_posse]) %>
-  <%= f.input :pessoa_id %>
-  <%= error_span(@funcionario[:pessoa_id]) %>
-
-  <%= f.button :submit, :class => 'btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+<%#= simple_form_for @funcionario, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= simple_nested_form_for @funcionario, :html => { :class => 'form-vertical' } do |f| %>
+    <%= f.error_notification %>
+    <div class="col-sm-12 col-md-12, row, well">
+      <div class="col-sm-5 col-md-7, thumbnail, center">
+        <div align="CENTER">
+          <% if @funcionario.pessoa.foto.present? %>
+            <%= image_tag(@funcionario.pessoa.foto.url(:medium)) %>
+            <%= f.simple_fields_for @pessoa do |p| %>
+              <%= p.input :foto, as: :file, label: 'Atualizar foto' %>
+            <% end -%>
+          <% else %>
+            <%= f.simple_fields_for @pessoa do |p| %>
+              <%= image_tag("anonimo.jpg", size: "250") %>
+              <%= p.input :foto, as: :file, label: false %>
+            <% end %>
+          <% end -%>
+        </div>
+        <div>
+          <% if @funcionario.cargo_id.present? %>
+            <p><strong>Curso:&nbsp;</strong><%= @funcionario.cargo_id %></p>
+          <% else %>
+            <%= @funcionario.cargo_id %>
+          <% end %>
+          <p><strong>Matrícula:&nbsp;</strong><%= @funcionario.matricula %></p>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-7">
+        <%= f.input :matricula %>
+        <%= f.input :cargo %>
+        <%= f.input :cargo_id %>
+        <%= f.input :data_posse %>
+        <%= f.input :pessoa_id %>
+        <%= f.button :submit, :class => 'btn-primary' %>
+        <% if can? :create, Aluno %>
+          <%#= render 'form_funcionarios', :f => f %>
+        <% else %>
+          <%#= render 'form_meus_alunos', :f => f %>
+        <% end %>
+      </div>
+    </div>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 funcionarios_path, :class => 'btn btn-default' %>
-<% end %>
+  <% end %>

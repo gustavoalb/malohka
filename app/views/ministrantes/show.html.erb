@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <% if @ministrante.foto.present? %>
+    <strong>Foto:</strong>
+    <%= image_tag(@ministrante.foto.url(:medium)) %>
+  <% else %>
+    <strong>Foto:</strong>
+    <%= image_tag("anonimo.jpg", size: "250x230") %>
+  <% end %>
+</p>
+<p>
+  <strong>Pessoa:</strong>
+  <%= @ministrante.pessoa_id %>
+</p>
+<p>
+  <strong>Nome:</strong>
+  <%= @ministrante.nome %>
+</p>
+<p>
+  <strong>Organizacao:</strong>
+  <%= @ministrante.organizacao %> - <%= @ministrante.sigla_organizacao %>
+</p>
+<p>
+  <strong>Nome:</strong>
+  <%= @ministrante.contato %>
+</p>
+<p>
+  <strong>Biografia:</strong>
+  <%= @ministrante.biografia %>
+</p>
+<%= link_to 'Edit', edit_ministrante_path(@ministrante) %> |
+<%= link_to 'Back', ministrantes_path %>

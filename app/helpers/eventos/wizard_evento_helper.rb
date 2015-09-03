@@ -1,0 +1,2 @@
+module Eventos::WizardEventoHelper
+end

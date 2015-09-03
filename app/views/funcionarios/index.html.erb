@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
+      <th>Nome</th>
       <th><%= model_class.human_attribute_name(:matricula) %></th>
       <th><%= model_class.human_attribute_name(:cargo) %></th>
       <th><%= model_class.human_attribute_name(:cargo_id) %></th>
@@ -19,6 +20,7 @@
     <% @funcionarios.each do |funcionario| %>
       <tr>
         <td><%= link_to funcionario.id, funcionario_path(funcionario) %></td>
+        <td><%= link_to ver_form_nil(funcionario.pessoa.nome), funcionario_path(funcionario) %></td>
         <td><%= funcionario.matricula %></td>
         <td><%= funcionario.cargo %></td>
         <td><%= funcionario.cargo_id %></td>
@@ -38,7 +40,6 @@
     <% end %>
   </tbody>
 </table>
-
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_funcionario_path,
             :class => 'btn btn-primary' %>

@@ -4,11 +4,20 @@ class Aluno < ActiveRecord::Base
   has_many :carteiras, class_name: 'Iestudantil'
   has_many :niveis
   has_one :usuario
+  has_one :foto, :through => :pessoa
   accepts_nested_attributes_for :pessoa, :allow_destroy => true
   validates_presence_of [:matricula, :ano_ingresso, :curso, :semestre_atual], :message=>"Não pode ficar em branco!"
   # validates :turma_id, :presence => true, :on => :update
 
-  scope :da_pessoa, where('alunos.pessoa_id = ?', p)
+  scope :da_pessoa, -> (pessoa) {
+    where(:pessoa_id => pessoa.id)
+  }
+
+  #scope :com_turma, -> (turma) {
+  #  where('aluno.turma=?,!nil')
+  #}
+
+  scope :imprimiveis, -> {where("aluno.pessoa = '!nil'",true)}
   scope :doze, -> {where("ano_ingresso = '2012'",true)}
   scope :treze, -> {where("ano_ingresso = '2013'",true)}
   scope :quatorze, -> {where("ano_ingresso = '2014'",true)}

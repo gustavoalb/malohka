@@ -6,6 +6,10 @@ class Iestudantil < ActiveRecord::Base
     joins(:aluno).where('alunos.pessoa_id=?',pessoa_id)
   }
   scope :solicitadas, -> {where("status = 'solicitado'",true)}
+  scope :solicitadas_com_foto, -> {where("!status=nil",true)}
+  # ç
+  # joins(:periodos).where("inicio BETWEEN ? and ?",Time.parse("11/08/2015 00:00 UTC -3"),Time.parse("11/08/2015 23:59 UTC -3")).order("periodos.inicio").count
+
   scope :imprimiveis, -> {where("status = 'para_impressao'",true)}
   scope :impressas, -> {where("status = 'impresso'",true)}
   scope :entregues, -> {where("status = 'entregue'",true)}

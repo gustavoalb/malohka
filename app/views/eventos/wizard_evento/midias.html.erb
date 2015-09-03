@@ -1,0 +1,62 @@
+<div class="page-header">
+  <h1 align='center'><%= @evento.nome %></h1>
+</div>
+<h3>Customizar midias,</h3>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Não é um item indispensável e o mundo não irá acabar por isso.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Por outro lado, um banner de chamada e o uso de uma logo garante uma aparência mais completa.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Vale a pena investir nisso!</strong></p>
+<br>
+<%= simple_form_for @evento, :url => wizard_path, method: :put do |f|  %>
+  <%#= f.error_notification %>
+  <div class="col-sm-12 col-md-12, row, well">
+    <h3>Logo marca</h3>
+    <p align='center'><strong>Trata-se da identidade visual do evento para divulgações onde o canal de chamada não permite maiores informações. A sua já está finalizada?</strong></p>
+    <div class="col-sm-6 col-md-7, thumbnail, center">
+      <div>
+        <p>Uma imagem ilustrativa aqui</p>
+        <%= image_tag(@evento.logo(:medium)) %>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-7, center">
+      <div>
+        <% if @evento.logo_file_name.present? %>
+          <p><strong>Atualizar logo</strong></p>
+          <%= image_tag(@evento.logo(:medium)) %>
+          <%= f.input :logo, as: :file, label: false %>
+        <% else %>
+          <p><strong>Atualizar logo</strong></p>
+          <%= image_tag("anonimo.jpg", size: "250") %>
+          <%= f.input :logo, as: :file, label: false %>
+        <% end -%>
+      </div>
+    </div>
+    <div class="div_espaco">
+    </div>
+    <hr>
+    <h3>Banner</h3>
+    <p align='center'><strong>Apesar de mais trabalhoso, o banner tem a vantagem de conter mais informações sobre os pontos que se detacam no evento. As cores da sua paleta conversam entre si?</strong></p>
+    <div class="col-sm-12 col-md-12, row">
+      <div class="col-sm-6 col-md-7, thumbnail, center">
+        <div>
+          <p>Uma imagem ilustrativa aqui</p>
+          <%= image_tag(@evento.banner(:medium)) %>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-7, center">
+        <div>
+          <% if @evento.banner_file_name.present? %>
+            <p><strong>Atualizar Banner</strong></p>
+            <%= image_tag(@evento.banner(:medium)) %>
+            <%= f.input :banner, as: :file, label: false %>
+          <% else %>
+            <p><strong>Atualizar Banner</strong></p>
+            <%= image_tag("anonimo.jpg", size: "250") %>
+            <%= f.input :banner, as: :file, label: false %>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
+  <%= link_to 'Tudo está ok aqui. :)', next_wizard_path,:class => 'btn btn-default btn-xs' %></div>
+<% end %>

@@ -1,55 +1,41 @@
-<p id="notice"><%= notice %></p>
-<h3 align='center'>
-  <%= @evento.nome %>
-</h3>
-<h4 align='center'>Programação</h4>
-<%= abre_estilo_12_well %>
-<% for periodo in @evento.periodos %>
-<div class='well'>
-  <p align='center'><strong><%= periodo.componente %></strong></p>
-  <dl class="dl-horizontal">
-    <dt><strong>Perído:</strong></dt>
-    <dd><%= periodo.inicio.strftime("%d/%m/%Y às %H:%m") %> à <%= h periodo.termino.strftime("%d/%m/%Y às %H:%m") %></dd>
-    <dt><strong>Descrição:</strong></dt>
-    <dd>Total de <strong><%= periodo.qnt_horas %> horas</strong> de atividade. <%= h periodo.descricao %></dd>
-    <br>
-    <dt></dt>
-    <dd><%#= link_to 'Chega de conversa, faça minha inscrição agora!', noticia_alterar_status_path(periodo,'destaque'), method: :put, :class => 'btn btn-primary btn-xs' %>
-      <button class="btn-primary btn-xs" data-toggle="modal" data-target="#evento-<%= @evento.id %>-notes">Detalhes</button></dd>
-    <!-- Modal -->
-    <div class="modal fade" id="evento-<%= @evento.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="evento-<%= @evento.id %>-label" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title" id="evento-<%= @evento.id %>-label" align='center'><%= periodo.componente %></h4>
-          </div>
-          <div class="modal-body">
-            <dl class="dl-horizontal">
-              <dt><strong>Perído:</strong></dt>
-              <dd><%= periodo.inicio.strftime("%d/%m/%Y às %H:%m") %> à <%= h periodo.termino.strftime("%d/%m/%Y às %H:%m") %></dd>
-              <dt><strong>Descrição:</strong></dt>
-              <dd>Total de <strong><%= periodo.qnt_horas %> horas</strong> de atividade. <%= h periodo.descricao %></dd>
-            </dl>
-            <%= simple_form_for(@evento) do |t| %>
-              <%= t.error_notification %>
-              <div class="form-inputs">
-                <%=t.hidden_field :pessoa_id,value: @pessoa %>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <%= t.submit "Confirmar",:class => 'btn btn-primary' %>
-            <% end %>
-            <button type="button" class="btn btn-defaut btn-xs" data-dismiss="modal">Fechar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Modal -->
-  </dl>
+<%#- model_class = Evento -%>
+<%- model_class = Evento -%>
+<div class="page-header" align='center'>
+  <% if @evento.banner_file_name.present? %>
+    <%= image_tag(@evento.banner(:banner)) %>
+  <% else %>
+    <h1 align='center'><%= @evento.nome %></h1>
+  <% end %>
 </div>
+<%= render :partial => 'showw' %>
+<br>
+<!-- <div align='center'>
+  <h4><a data-toggle="collapse" data-parent="#accordion" href="#coordenacao">Coordenação</a></h4>
+  <div class="panel panel-default">
+    <div id="coordenacao" class="panel-collapse collapse">
+      <dl class="dl-horizontal">
+        <dt><strong>Coordenação:</strong></dt>
+        <dd><%#= @evento.responsavel.nome %></dd>
+        <dt><strong>Status:</strong></dt>
+        <dd><%#= @evento.status %></dd>
+      </dl>
+    </div>
+  </div>
+
+</div> -->
+</div>
+</div>
+<%= link_to t('.back', :default => t("helpers.links.voltar")),
+              eventos_path, :class => 'btn btn-default'  %>
+<% if can? :edit, Evento %>
+  <%= link_to t('.edit', :default => t("helpers.links.editar")),
+              edit_evento_path(@evento), :class => 'btn btn-default' %>
 <% end %>
-<%= fecha_estilo_12_well %>
-<% if can? :update, Evento %>
-  <%= link_to 'Editar', edit_evento_path(@evento) %> |
+<% if can? :destroy, Evento %>
+  <%= link_to t('.destroy', :default => t("helpers.links.apagar")),
+              evento_path(@evento),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
 <% end %>
-<%= link_to 'Voltar', eventos_path %>
+</div>

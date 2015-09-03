@@ -131,7 +131,7 @@
                 <% Noticia.pauta.each do |pauta| %>
                   <tr>
                     <td>
-                      <p align='center'><span><%= image_tag "calendario.png" %></span>&nbsp;<%= pauta.publicado_em.strftime("%d/%m/%Y às %H:%M") %>&nbsp;&nbsp;&nbsp;<strong><%= link_to pauta.titulo, noticia_path(pauta) %></strong></p>
+                      <p align='justify'><span><%= image_tag "calendario.png" %></span>&nbsp;<%= pauta.publicado_em.strftime("%d/%m/%Y às %H:%M") %>&nbsp;&nbsp;&nbsp;<strong><%= link_to pauta.titulo, noticia_path(pauta) %></strong></p>
                       <%= truncate(pauta.conteudo.html_safe, :length => 400, :omission => "" , :escape => false) %>...(continua)
                     </td>
                     <td  align='right'>

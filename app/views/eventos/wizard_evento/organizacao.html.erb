@@ -1,0 +1,49 @@
+<div class="page-header">
+  <% if @evento.banner_file_name.present? %>
+    <%= image_tag(@evento.banner(:banner)) %>
+  <% end -%>
+</div>
+<section class="content">
+  <div class="navigator">
+    <ol>
+      <li class="finished">Download
+      
+        <li class="current">Task
+      
+          <li class="unfinished">Upload
+      
+            <li class="unfinished">Questionnaire
+    </ol>
+          </div>
+        </section>
+        <h1 class="btn-default btn-xlarge" align='center' data-toggle="modal" data-target="#evento-<%= @evento.id %>-notes">Organização</h1>
+        <!-- Modal evento -->
+        <div class="modal fade" id="evento-<%= @evento.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="evento-<%= @evento.id %>-label" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="evento-<%= @evento.id %>-label" align='center'>Organização<br>
+                </h3>
+              </div>
+              <div class="modal-body" align='justify'>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uma atividade, por mais simples que seja, exige algum esforço. Nada mais justo que elencar aqueles que, direta ou indiretamente, ofereceram sua parcela de contribuição</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Não é momento para ser acanhado!!!</strong></p>
+                <br>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal -->
+        <br>
+        <%= simple_form_for @evento, :url => wizard_path do |f|  %>
+          <div class="col-sm-12 col-md-12, row, well">
+            <%= f.input :organizacao, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }, label: 'Quem está organizando este evento?' %>
+            <%= f.input :parceiros, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }, label: 'Quem são os parceiros?' %>
+            <%= f.input :apoio, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }, label: 'O evento recebe apoio de alguém?' %>
+          </div>
+          <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
+          <%= f.submit 'Next Step' %>
+        <% end %>

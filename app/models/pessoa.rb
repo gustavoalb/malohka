@@ -1,12 +1,15 @@
 require 'tempfile'
 class Pessoa < ActiveRecord::Base
+  #desabilitado por já existir todos os alunos
   include CriarUsuario
+  #desabilitado por já existir todos os alunos
+
   has_one :usuario
   has_many :alunos
-  #belongs_to :periodo
+  has_many :funcionarios
   has_many :participacoes
-  has_many :periodos,
-    :through => :participacoes
+  has_many :componentes, :through => :participacoes
+  has_many :eventos
   validates_presence_of [:nome, :cpf], :message=>"Não pode ficar em branco!"
   validates_uniqueness_of :cpf
   # validates :fator_rh, :presence => true, :on => :update

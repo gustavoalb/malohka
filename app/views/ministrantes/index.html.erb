@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+<h1>Listing Ministrantes</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Pessoa</th>
+      <th>Nome</th>
+      <th>Organizacao</th>
+      <th>Biografia</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @ministrantes.each do |ministrante| %>
+      <tr>
+        <td><%= ministrante.id %></td>
+        <td>  <% if ministrante.foto.present? %>
+            <%= image_tag(ministrante.foto.url(:thumb)) %>
+          <% else %>
+            <%= image_tag("anonimo.jpg", size: "100") %>
+          <% end %></td>
+        <td><%= ministrante.nome %></td>
+        <td><%= ministrante.organizacao %></td>
+        <td><%#= ministrante.biografia %>
+          <%= truncate(ministrante.biografia, :length => 200, :omission => "" , :escape => false) %>...</td>
+        <td><%= link_to 'Show', ministrante %></td>
+        <td><%= link_to 'Edit', edit_ministrante_path(ministrante) %></td>
+        <td><%= link_to 'Destroy', ministrante, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<%= link_to 'New Ministrante', new_ministrante_path %>

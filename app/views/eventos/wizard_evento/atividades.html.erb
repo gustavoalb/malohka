@@ -1,0 +1,47 @@
+<div class="page-header">
+  <% if @evento.banner_file_name.present? %>
+    <%= image_tag(@evento.banner(:banner)) %>
+  <% end -%>
+</div>
+<h1 class="btn-default btn-xlarge" align='center' data-toggle="modal" data-target="#evento-<%= @evento.id %>-notes">Atividades</h1>
+<!-- Modal evento -->
+<div class="modal fade" id="evento-<%= @evento.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="evento-<%= @evento.id %>-label" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="evento-<%= @evento.id %>-label" align='center'>Atividades<br>
+        </h3>
+      </div>
+      <div class="modal-body" align='justify'>
+        <p >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Neste parte, conforme o planejamento global, será possível inserir uma ou várias atividades de natureza distintas (e isso sequer é um problema). Assim, é possível oferecer componentes como <strong>palestras</strong>, <strong>minicursos</strong> ou mesmo uma <strong>atividade cultural</strong> sem maiores dificuldades.</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Se pensarmos bem, é aqui que uma ideia se torna de fato em um item de divulgação efetiva. Essa infraestrutura oferece múltiplas possibilidades reaproveitamento dos registros gravados.</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Não tenha dúvida, estamos chegando a algum lugar!!!</strong></p>
+        <br>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<br>
+<%= simple_nested_form_for @evento, :url => wizard_path do |f| %>
+  <% for componente in @evento.componentes %>
+  <tr>
+    <%# for periodo in componente.periodos %>
+    <td><%# if periodo.inicio.present? %><%#= h periodo.inicio.strftime("%d/%m/%y às %H:%M") %><%# end %><%=  componente.id %><%=  componente.nome %></td>
+  <% end %>
+  <div>
+    <%= f.simple_fields_for :componentes do |builder|%>
+      <div class="col-sm-12 col-md-12, row, well">
+        <%= render 'componentes', :f => builder %>
+      <% end %>
+      <%= f.link_to_add "Adicionar Componente", :componentes, :class => 'btn btn-info btn-xs' %>
+    </div>
+    <br>
+    <!-- <div> -->
+    <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
+    <%= f.submit 'Next Step' %>
+  <% end %>
+</div>

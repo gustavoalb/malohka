@@ -1,4 +1,47 @@
 <%- model_class = Iteracao -%>
+<article class="accordion">
+  <section id="acc1">
+    <h2><a href="#acc1">Title One</a></h2>
+    <p>This content appears on page 1.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+ lacinia elit nec mi ornare et viverra massa pharetra. Phasellus mollis,
+ massa sed suscipit pharetra.</p>
+    <p class="accnav"><a href="#acc2">next ➧</a></p>
+  </section>
+  <section id="acc2">
+    <h2><a href="#acc2">Title Two</a></h2>
+    <p>This content appears on page 2.</p>
+    <p>Fusce ullamcorper orci vel turpis vestibulum eu congue nisl 
+euismod. Maecenas euismod, orci non tempus fermentum, leo metus lacinia 
+lacus, nec ultrices quam ligula ac leo.</p>
+    <p class="accnav"><a href="#acc3">next ➧</a></p>
+  </section>
+  <section id="acc3">
+    <h2><a href="#acc3">Title Three</a></h2>
+    <p>This content appears on page 3.</p>
+    <p>Sed et diam eu ipsum scelerisque laoreet quis in nibh. Proin 
+sodales augue lectus. Maecenas a lorem a mi congue pharetra. Sed sed 
+risus in nisi venenatis condimentum. Donec ac consectetur arcu.</p>
+    <p class="accnav"><a href="#acc4">next ➧</a></p>
+  </section>
+  <section id="acc4">
+    <h2><a href="#acc4">Title Four</a></h2>
+    <p>This content appears on page 4.</p>
+    <p>Fusce ullamcorper orci vel turpis vestibulum eu congue nisl 
+euismod. Maecenas euismod, orci non tempus fermentum, leo metus lacinia 
+lacus, nec ultrices quam ligula ac leo.</p>
+    <p class="accnav"><a href="#acc5">next ➧</a></p>
+  </section>
+  <section id="acc5">
+    <h2><a href="#acc5">Title Five</a></h2>
+    <p>This content appears on page 5.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+ lacinia elit nec mi ornare et viverra massa pharetra. Phasellus mollis,
+ massa sed suscipit pharetra.</p>
+    <p class="accnav"><a href="#acc1">next ➧</a></p>
+  </section>
+</article>
+<!-- oi -->
 <div class="page-header" align='center'>
   <h1>Iteração</h1>
 </div>
@@ -19,7 +62,9 @@
       <td><%= @iteracao.nome %></td>
       <td><%= @iteracao.created_at.strftime("%d/%m/%y às %H:%M") %></td>
       <td><%= @iteracao.status %></td>
-      <td><a data-toggle="collapse" data-parent="#accordion" href="#sanfonaum"><span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span> Expandir</a></td>
+      <td>
+        <a data-toggle="collapse" data-parent="#accordion" href="#sanfonaum"><span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span> oi</a>
+        <a data-toggle="collapse" data-parent="#accordion" href="#sanfonaum"><span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span> Expandir</a></td>
     </tbody>
   </table>
   <div class="panel panel-default">

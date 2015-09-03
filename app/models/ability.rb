@@ -23,7 +23,7 @@ class Ability
     elsif usuario.role? :funcionario
       can :read, Noticia
       can :read, Evento
-      can :read, Solicitacao
+      #can :read, Solicitacao
     elsif usuario.role? :aluno
       can [:read, :create, :destroy ], Solicitacao
       can :read, Noticia

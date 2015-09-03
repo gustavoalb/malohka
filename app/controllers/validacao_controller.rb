@@ -15,7 +15,6 @@ class ValidacaoController < ApplicationController
     elsif @pessoa.status == 'pendente'
       render_wizard
     end
-
   end
 
   def update
@@ -75,7 +74,4 @@ class ValidacaoController < ApplicationController
   #     self.steps = [:ask_facebook, :ask_email]
   #   end
   # end
-
-
-
 end

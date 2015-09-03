@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.5'
+gem 'rails', '4.2.1'
 gem 'simple_form'
 # Use postgresql as the database for Active Record
 
@@ -10,11 +10,12 @@ gem 'pg'
 
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'less-rails'
-gem 'devise'
+gem 'devise', git: 'https://github.com/plataformatec/devise.git'
 gem 'brazilian-rails'
 gem 'therubyracer'
 
-gem "paperclip", "~> 3.5.1"
+#gem "paperclip", "~> 3.5.1"
+gem 'paperclip', github: 'thoughtbot/paperclip'
 gem "mini_magick"
 gem "refile", require: ["refile/rails", "refile/image_processing"]
 

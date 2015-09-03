@@ -1,0 +1,18 @@
+<div><%= f.input :nome, label: 'Nome da atividade' %>
+  <%#= f.input :qnt_horas, label: 'Total de horas' %>
+  <%= f.input :descricao, label: 'Ementa' %>
+  <%= f.input :ministrante_id, :collection=>Ministrante.all.collect {|z|[z.nome,z.id]},:prompt=>"Selecione o Ministrante", label: 'Ministrante' %>
+  <%= f.input :vagas, label: 'Vagas' %>
+  <%#= f.input :publico,:collection=>Componente.publicos.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o Público Alvo", label: 'Público Alvo' %>
+  <%#= f.input :tipo_componente,:collection=>Componente.tipo_componentes.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o tipo de atividade", label: 'Natureza da atividade' %>
+  <%=f.association :publicos,  collection: Publico.all.map {|r|[r.nome,r.id]}, input_html:{label_class: "checkbox"},as: :check_boxes, label: "Público Alvo" %>
+  <%=f.association :ministrantes,  collection: Ministrante.all.map {|r|[r.nome,r.id]}, input_html:{label_class: "checkbox"},as: :check_boxes, label: "Público Alvo" %>
+  <%= f.input :local,:collection=>Componente.locais.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o Local", label: 'Local' %>
+  <%= f.link_to_remove "Remover atividade?", :class => 'btn btn-danger btn-xs' %>
+</div>
+<div>
+  <%= f.simple_fields_for :periodos do |builder|%>
+    <%= render 'periodos', :f => builder %>
+  <% end %>
+  <%= f.link_to_add "Adicionar Período", :periodos, :class => 'btn btn-info btn-xs' %>
+</div>

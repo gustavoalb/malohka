@@ -26,7 +26,7 @@
           <td><%= link_to aluno.matricula, aluno_path(aluno) %></td>
           <td><%= ver_form_nil(aluno.curso) %></td>
           <td><%= ver_form_nil(aluno.semestre_atual) %></td>
-          <td><%= ver_form_nil(aluno.turma_id) %></td>
+          <td><%= ver_form_nil(aluno.turma) %></td>
         <% else %>
           <% if aluno.pessoa.foto.present? %>
             <td><%= image_tag(aluno.pessoa.foto(:thumb)) %></td>
@@ -37,7 +37,7 @@
           <td><%= link_to aluno.matricula, aluno_path(aluno) %></td>
           <td><%= ver_form_nil(aluno.curso) %></td>
           <td><%= ver_form_nil(aluno.semestre_atual) %></td>
-          <td><%= ver_form_nil(aluno.turma_id) %></td>
+          <td><%= ver_form_nil(aluno.turma) %></td>
         <% end %>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.editar")),

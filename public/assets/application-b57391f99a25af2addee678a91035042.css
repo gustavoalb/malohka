@@ -6167,6 +6167,17 @@ fieldset[disabled] .btn-link:focus {
   text-decoration: none;
 }
 
+/* novo*/
+.btn-xlarge {
+    padding: 18px 28px;
+    font-size: 22px;
+    line-height: normal;
+    -webkit-border-radius: 8px;
+       -moz-border-radius: 8px;
+            border-radius: 8px;
+    }
+
+
 /* line 3046, /home/corsariof/malohka/app/assets/stylesheets/bootstrap.css.scss */
 .btn-lg,
 .btn-group-lg > .btn {

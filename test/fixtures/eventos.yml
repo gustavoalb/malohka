@@ -2,6 +2,14 @@
 
 one:
   nome: MyString
+  descricao: MyText
+  status: MyString
+  responsavel_id: 1
+  pessoa_id: 1
 
 two:
   nome: MyString
+  descricao: MyText
+  status: MyString
+  responsavel_id: 1
+  pessoa_id: 1

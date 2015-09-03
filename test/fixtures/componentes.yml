@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  evento_id: 1
+  nome: MyString
+  qnt_horas: MyString
+  descricao: MyText
+  status: MyString
+  ministrante_id: 1
+
+two:
+  evento_id: 1
+  nome: MyString
+  qnt_horas: MyString
+  descricao: MyText
+  status: MyString
+  ministrante_id: 1

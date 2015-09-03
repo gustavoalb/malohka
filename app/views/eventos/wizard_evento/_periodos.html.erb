@@ -1,0 +1,22 @@
+<%#= abre_estilo_12_well %>
+<div class="col-sm-12 col-md-12, row, well">
+  <div class="col-sm-7 col-md-7, thumbnail, center">
+    <div class="container">
+      <div class="form-group, row">
+        <div class="form-inline">
+          <strong>Início:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= f.input :inicio, label: false %>
+        </div>
+        <div class="form-inline">
+          <strong>Término:</strong>&nbsp;&nbsp;<%= f.input :termino, label: false %>
+        </div>
+        <div class="form-inline">
+          <%= f.input :qnt_horas, label: 'Carga Horária: ' %>
+        </div>
+        <%= f.link_to_remove "Remover este item", :class => 'btn btn-danger btn-xs' %>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3 col-md-7, center">
+  </div>
+</div>
+<%#= fecha_estilo_12_well %>

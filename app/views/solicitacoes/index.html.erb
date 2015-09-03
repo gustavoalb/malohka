@@ -4,6 +4,6 @@
 </div>
 <% if can? :manage, Solicitacao %>
   <%= render "admin" %>
-<% else %>
+<% elsif can? :create, Solicitacao %>
   <%= render 'padrao' %>
 <% end %>

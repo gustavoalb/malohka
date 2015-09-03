@@ -1,0 +1,246 @@
+<div class="container, row">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel">
+        <ul id="myTab1" class="nav nav-tabs nav-justified">
+          <li class="active"><a href="#sobre" data-toggle="tab">Sobre o Evento</a></li>
+          <li><a href="#programacao" data-toggle="tab">Programação</a></li>
+          <%# if @evento.status == 'evento_finalizado' %>
+          <li><a href="#organizacao" data-toggle="tab">Organização</a></li>
+          <%# end %>
+          <li><a href="#minhas_atividades" data-toggle="tab">Minhas Atividades</a></li>
+        </ul>
+      </li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+      <div class="tab-pane fade active in" id="sobre">
+        <div class="col-sm-12 col-md-12, row">
+          <br>
+          <% if @evento.descricao.present? %>
+            <div><%= @evento.descricao.html_safe %></div>
+          <% else %>
+            <div>oi</div>
+          <% end %>
+          <br>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="programacao">
+        <div class="col-sm-12 col-md-12, row">
+          <table class="table table-striped table-hover table-bordered table-condensed">
+            <tr>
+              <th>Data</th>
+              <th>Atividade</th>
+              <th>Ministrante</th>
+              <th>Informações e inscrição</th>
+            </tr>
+            <% if @evento.componentes.present? %>
+              <% for componente in @evento.componentes.joins(:periodos).order("periodos.inicio") %>
+              <tr>
+                <% if !componente.periodos.nil? %>
+                  <% for periodo in componente.periodos %>
+                  <td><% if periodo.inicio.present? %><%= h periodo.inicio.strftime("%d/%m/%y às %H:%M") %><% end %></td>
+                <% end %>
+              <% end %>
+              <td><%=  componente.tipo_componente %>: <%= componente.nome %></td>
+              <td align='center'>
+                <% if componente.ministrante.present? %>
+                  <% if componente.ministrante.foto.present? %>
+                    <%#= image_tag(componente.ministrante.foto.url(:thumb)) %>
+                    <a data-toggle="tooltip" data-placement="left" title="<% if componente.ministrante.present? %><%= componente.ministrante.titulo %> <%= componente.ministrante.nome %>/<%= componente.ministrante.organizacao %><% end %>"><% if componente.ministrante.present? %><%= image_tag(componente.ministrante.foto.url(:thumb)) %><%#= componente.ministrante.nome %><% end %></a><br>
+                  <% else %>
+                    <%= image_tag("anonimo.jpg", size: "100") %>
+                  <% end %>
+                <% end %>
+                <!--             <a data-toggle="popover" title="Sobre o (a) ministrante" data-placement="left" data-content="<% if componente.ministrante.present? %><%= truncate(componente.ministrante.biografia, :length => 100, :omission => "" , :escape => false) %>...<% end %>"><% if componente.ministrante.present? %><%= image_tag(componente.ministrante.foto.url(:thumb)) %><% end %></a> -->
+                <p class="btn-default btn-xs" data-toggle="modal" data-target="#ministrante-<%= componente.id %>-notes"><% if componente.ministrante.present? %><%= componente.ministrante.titulo %> <%= componente.ministrante.nome %><% end %></p>
+                <!-- Modal ministrante -->
+                <div class="modal fade" id="ministrante-<%= componente.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="ministrante-<%= componente.id %>-label" aria-hidden="true">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="ministrante-<%= componente.id %>-label" align='center'><% if componente.ministrante.present? %><%= componente.ministrante.titulo %> <%= h componente.ministrante.nome %> <br>
+                            <%= componente.ministrante.organizacao %><% end %></h4>
+                      </div>
+                      <div class="modal-body">
+                        <dl class="dl-horizontal">
+                          <% if componente.ministrante.present? %>
+                            <% if componente.ministrante.foto.present? %>
+                              <dt><%= image_tag(componente.ministrante.foto.url(:thumb)) %></dt>
+                            <% else %>
+                              <dt><%= image_tag("anonimo.jpg", size: "100") %></dt>
+                            <% end %>
+                          <% end %>
+                          <dd><% if componente.ministrante.present? %><%= componente.ministrante.biografia %><% end %>
+                          </dd>
+                        </dl>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Modal -->
+                  </td>
+                  <td>
+                    <button class="btn-primary btn-xs" data-toggle="modal" data-target="#evento-<%= componente.id %>-notes">Quero saber mais!</button>
+                  </td>
+                  <!-- Modal Incrição -->
+                  <div class="modal fade" id="evento-<%= componente.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="evento-<%= componente.id %>-label" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title" id="evento-<%= componente.id %>-label" align='center'><%=  componente.tipo_componente %>: <%= componente.nome %></h4>
+                        </div>
+                        <div class="modal-body">
+                          <% if componente.descricao.present? %>
+                            <p align='center'><strong>Ementa:</strong><br>
+                              <%#= @componente.descricao.html_safe %></p>
+                          <% else %>
+                          <% end %>
+                          <dl class="dl-horizontal">
+                            <dt><strong>Ministrante:</strong></dt>
+                            <dd><% if componente.ministrante.present? %>
+                                <%# if componente.ministrante.foto.present? %>
+                                <%#= image_tag(componente.ministrante.foto.url(:thumb)) %>
+                                <%# else %>
+                                <%#= image_tag("anonimo.jpg", size: "100") %>
+                                <%# end %>
+                                <%= componente.ministrante.titulo %> <%= h componente.ministrante.nome %><% end %></dd>
+                            <dt><strong>Período:</strong></dt>
+                            <dd><% if periodo.inicio.present? %>Dia <%= h periodo.inicio.strftime("%d/%m/%y") %>, de <%= h periodo.inicio.strftime("%H:%M") %> às <%= h periodo.termino.strftime("%H:%M") %>, perfazendo <%= duracao_periodo(periodo).to_i %> minutos de carga horária.<% end %></dd>
+                            <dt><strong>Público Alvo:</strong></dt>
+                            <dd><%=  componente.publico %></dd>
+                            <dt><strong>Vagas:</strong></dt>
+                            <dd><%=  componente.vagas %> de <%=  componente.vagas %></dd>
+                            <dt><strong>Local:</strong></dt>
+                            <dd><%=  componente.local %></dd>
+                          </dl>
+                          <hr>
+                          <div>
+                            <dl class="dl-horizontal">
+                              <%= simple_nested_form_for @evento, url: evento_registrar_participacao_url(@evento), method: :post,:html => { :class => 'form-horizontal' } do |f| %>
+                                <%= f.input :componente_id, input_html: {value: componente.id}, as: :hidden %>
+                                <%= f.input :pessoa_id, input_html: {value: current_usuario.pessoa.id}, as: :hidden %>
+                                <dd><%= f.submit "Fazer minha inscrição imediatamente!",:class => 'btn btn-primary btn-xs', :onclick=>"return confirm('Confirmar sua participação nesta atividade?')" %></dd>
+                              <% end %>
+                            </dl>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Modal -->
+                    </tr>
+                  <% end %>    <% end %>
+              </table>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="organizacao">
+            <div class="col-sm-12 col-md-12, row">
+              <table class="table table-striped table-hover table-bordered table-condensed">
+                <tr>
+                  <th>Data</th>
+                  <th>Atividade</th>
+                  <th>Informações e inscrição</th>
+                </tr>
+                <% for componente in @evento.componentes %>
+                <tr>
+                  <% for periodo in componente.periodos %>
+                  <td><% if periodo.inicio.present? %><%= h periodo.inicio.strftime("%d/%m/%y às %H:%M") %><% end %></td>
+                <% end %>
+                <td><%=  componente.tipo_componente %>: <%= componente.nome %></td>
+                <td>
+                  <button class="btn-primary btn-xs" data-toggle="modal" data-target="#evento-<%= componente.id %>-notes">Quero saber mais!</button>
+                </td>
+                <!-- Modal Incrição -->
+                <div class="modal fade" id="evento-<%= componente.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="evento-<%= componente.id %>-label" aria-hidden="true">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="evento-<%= componente.id %>-label" align='center'><%=  componente.tipo_componente %>: <%= componente.nome %></h4>
+                      </div>
+                      <div class="modal-body">
+                        <% if componente.descricao.present? %>
+                          <p align='center'><strong>Ementa:</strong><br>
+                            <%#= @componente.descricao.html_safe %></p>
+                        <% else %>
+                        <% end %>
+                        <dl class="dl-horizontal">
+                          <dt><strong>Ministrante:</strong></dt>
+                          <dd><% if componente.ministrante.present? %>
+                              <%= componente.ministrante.titulo %> <%= h componente.ministrante.nome %><% end %></dd>
+                          <dt><strong>Período:</strong></dt>
+                          <dd>Dia <% if periodo.present? %>
+                              <%= h periodo.inicio.strftime("%d/%m/%y") %>, de <%= h periodo.inicio.strftime("%H:%M") %> às <%= h periodo.termino.strftime("%H:%M") %>, perfazendo <%= duracao_periodo(periodo).to_i %> minutos de carga horária.<% end %></dd>
+                          <dt><strong>Público Alvo:</strong></dt>
+                          <dt><strong>Vagas:</strong></dt>
+                          <dd><%=  componente.vagas %> de <%=  componente.vagas %></dd>
+                          <dt><strong>Local:</strong></dt>
+                          <dd><%=  componente.local %></dd>
+                        </dl>
+                        <hr>
+                        <div>
+                          <dl class="dl-horizontal">
+                            <%= simple_nested_form_for @evento, url: evento_registrar_participacao_url(@evento), method: :post,:html => { :class => 'form-horizontal' } do |f| %>
+                              <%= f.input :componente_id, input_html: {value: componente.id}, as: :hidden %>
+                              <%= f.input :pessoa_id, input_html: {value: current_usuario.pessoa.id}, as: :hidden %>
+                              <dd><%= f.submit "Fazer minha inscrição imediatamente!",:class => 'btn btn-primary btn-xs', :onclick=>"return confirm('Confirmar sua participação nesta atividade?')" %></dd>
+                            <% end %>
+                          </dl>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Modal -->
+                  </tr>
+                <% end %>
+              </table>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="minhas_atividades">
+            <div class="col-sm-12 col-md-12, row">
+              <%- model_class = Participacao -%>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Data</th>
+                    <th>Atividade</th>
+                    <th>Data de inscrição</th>
+                    <th>Status</th>
+                    <th><%=t '.actions', :default => t("helpers.ações") %></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @participacoes.each do |participacao| %>
+                    <tr>
+                      <%# if componente.periodos.present? %>
+                      <%# for periodo in componente.periodos %>
+                      <td><%#= h periodo.inicio.strftime("%d/%m/%y às %H:%M") %></td>
+                      <%# end %>
+                      <%# end %>
+                      <td><%= participacao.componente.nome %></td>
+                      <td><%= participacao.created_at.strftime("%d/%m/%y às %H:%M") %></td>
+                      <td><%= participacao.componente.status %></td>
+                      <td>
+                        <%= link_to 'Algum lugar', root_path, :class => 'btn btn-default btn-xs' %>
+                        <%#= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      funcionario_path(funcionario),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+              <%# end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+    <!-- </div>
+</div> -->

@@ -1,12 +1,43 @@
 Rails.application.routes.draw do
 
+  resources :publicos
+  namespace :eventos do
+    get 'wizard_evento/show'
+  end
+
+  namespace :eventos do
+    get 'wizard_evento/update'
+  end
+
+  # namespace :evento do
+  # get 'wizard_evento/show'
+  # end
+
+  # namespace :evento do
+  # get 'wizard_evento/update'
+  # end
+
+  resources :ministrantes
+  # resources :eventos do
+  #   post :registrar_participacao
+  # end
+
+  resources :eventos, only: [:new, :create, :show, :update, :edit, :index] do
+    post :registrar_participacao
+    resources :wizard_evento, only: [:show, :update], controller: 'eventos/wizard_evento'
+  end
+
+  resources :evento_wizard#, only: [:edit,:show, :update], controller: 'eventos_wizard'
+
   resources :iteracoes do
     put "alterar_status/:iteracao_id/:status"=>'iteracoes#alterar_status', as: :alterar_status
   end
 
   resources :usuarios
   resources :grupos
-  resources :funcionarios
+  resources :funcionarios do
+    get 'cracha_funcional/:funcionario_id'=>'funcionarios#cracha_funcional', as: :cracha_funcional, on: :collection
+  end
   resources :noticias do
     put "alterar_status/:noticia_id/:status"=>'noticias#alterar_status', as: :alterar_status
   end
@@ -36,7 +67,6 @@ Rails.application.routes.draw do
   # end
 
   resources :validacao
-  resources :eventos
   resources :pesquisas
   resources :pessoas do
     #    post 'upload', :on => :collection
@@ -83,6 +113,5 @@ Rails.application.routes.draw do
   end
 
   #este aqui libera o permalink - fim
-
   root :to => "home#principal"
 end

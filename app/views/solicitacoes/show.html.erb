@@ -51,6 +51,9 @@
     <p><strong>Matrícula:&nbsp;</strong><%= @solicitacao.solicitavel.aluno.matricula %></p>
     <p><strong>Status geral do processo:&nbsp;</strong><%= status_solicitavel(@solicitacao.status) %></p>
   </div>
+  <% if can? :manage, @solicitacao %>
+    <div align='center'><%= @solicitacao.solicitavel.aluno.turma.nome %></div>
+  <% end -%>
 </div>
 <%= link_to t('.back', :default => t("helpers.links.voltar")),
               solicitacoes_path, :class => 'btn btn-default'  %>

@@ -1,0 +1,20 @@
+<%= simple_form_for(@ministrante) do |f| %>
+  <%#= f.error_notification %>
+  <% if @ministrante.foto.present? %>
+    <%= image_tag(@ministrante.foto.url(:medium)) %><%= f.input :foto, as: :file, label: 'Atualizar foto' %>
+  <% else %>
+    <%= image_tag("anonimo.jpg", size: "250x230") %><%= f.input :foto, as: :file, label: 'Atualizar foto' %>
+  <% end %>
+  <div class="form-inputs">
+    <%= f.input :pessoa_id %>
+    <%= f.input :titulo %>
+    <%= f.input :nome %>
+    <%= f.input :organizacao %>
+    <%= f.input :sigla_organizacao %>
+    <%= f.input :contato %>
+    <%= f.input :biografia %>
+  </div>
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

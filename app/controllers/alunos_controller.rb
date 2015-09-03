@@ -5,28 +5,25 @@ class AlunosController < ApplicationController
   respond_to :html
 
   def index
-    #@alunos = Aluno.all#.order("ano_ingresso DESC")
     @q = Aluno.ransack(params[:q])
-    #alunos = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 20).order("ano_ingresso ASC")#.paginate(:page => params[:page], :per_page => 5)
-    #respond_with(@alunos)
-    #@alunos = meus_alunos
+
     @alunos = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 10).order("id ASC")
 
     require 'barby' #sou aqui mesmo se vou servir ao resto so sistema?
     require 'barby/barcode/code_39' #sou aqui mesmo se vou servir ao resto so sistema?
     require 'barby/outputter/png_outputter' #sou aqui mesmo se vou servir ao resto so sistema?
 
+
     respond_to do |format|
       format.html # show.html.erb
+      #      if !aluno.turma.nil?
       format.pdf do
         # Thin ReportsでPDFを作成
         # 先ほどEditorで作ったtlfファイルを読み込む
         report = ThinReports::Report.new(layout: "#{Rails.root}/app/reports/iestudantil_m2015.tlf")
-
         @alunos.each do |aluno|
-
+          #if !aluno.turma.nil?
           barcode = Barby::Code39.new(aluno.matricula)
-
           blob = Barby::PngOutputter.new(barcode).to_png(:xdim => 3) #Raw PNG data
           #    xdim: (default: 1)
           #ydim: (default: same as xdim)
@@ -42,8 +39,7 @@ class AlunosController < ApplicationController
           report.page.item(:rg).value(aluno.pessoa.rg)
           #report.page.item(:curso).value(@aluno.curso) #inserir cursos
           report.page.item(:matricula).value(aluno.matricula)
-          #report.page.item(:validade).value(@aluno.validade) # inserir validade
-
+          report.page.item(:validade).value(view_context.validade_aluno(aluno))
 
           if aluno.pessoa.nil?
             #image_tag("anonimo.jpg")
@@ -63,12 +59,9 @@ class AlunosController < ApplicationController
           type: 'application/pdf',
           disposition: 'inline' # para visualização no navegador
         #disposition: 'attachment' # para download
+        #end
       end
     end
-  end
-
-  def calcular_validade
-
   end
 
   def new
@@ -105,30 +98,6 @@ class AlunosController < ApplicationController
     respond_with(@aluno)
   end
 
-  def validade_aluno
-    duracao = @aluno.turma.curso.duracao
-    periodo_atual = @aluno.periodo_atual
-    a_cursar = (duracao - periodo_atual)
-    semestres_restantes = Time.now + (a_cursar*6).month
-    if semestres_restantes.month >= 7
-      return "dez"
-    elsif semestres_restantes.month <= 5
-      return "jun"
-    end
-  end
-
-  def validade_alunos
-    duracao = @aluno.turma.curso.duracao
-    periodo_atual = @aluno.periodo_atual
-    a_cursar = (duracao - periodo_atual)
-    semestres_restantes = Time.now + (a_cursar*6).month
-    if semestres_restantes.month >= 7
-      return "dez"
-    elsif semestres_restantes.month <= 5
-      return "jun"
-    end
-  end
-
   #def idestudantil
   def show
     if  current_usuario.roles_mask == 1
@@ -157,8 +126,7 @@ class AlunosController < ApplicationController
           report.page.item(:rg).value(@aluno.pessoa.rg)
           report.page.item(:curso).value(@aluno.curso) #inserir cursos
           report.page.item(:matricula).value(@aluno.matricula)
-          report.page.item(:mes_validade).value(validade) # inserir validade
-          report.page.item(:ano_validade).value("8888")
+          report.page.item(:validade).value(view_context.validade_aluno(@aluno))
 
           #f = File.open (@aluno.pessoa.foto.path)
           #report.page.item(:foto).value(open(f))
