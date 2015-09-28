@@ -1,15 +1,13 @@
 class Evento < ActiveRecord::Base
 
-
-
-
   cattr_accessor :form_steps do
-    %w(inicio midias atividades organizacao)
+    %w(inicio midias atividades periodos organizacao)
   end
 
   attr_accessor :form_step
 
   validates :nome, :descricao, presence: true, if: -> { required_for_step?(:inicio) }
+  # validates :nome, :descricao, presence: true, if: -> { required_for_step?(:atividades) }
   # validates :identifying_characteristics, :colour, presence: true, if: -> { required_for_step?(:characteristics) }
   # validates :special_instructions, presence: true, if: -> { required_for_step?(:instructions) }
 
@@ -19,12 +17,12 @@ class Evento < ActiveRecord::Base
   end
 
 
-
   belongs_to :pessoa
   belongs_to :responsavel, class_name: "Pessoa"
   has_many :componentes, :dependent => :destroy
-  has_many :periodos, through: :componentes
   accepts_nested_attributes_for :componentes, :reject_if => lambda { |a| a[:nome].blank? }, :allow_destroy => true
+  has_many :periodos, through: :componentes
+  has_many :participacoes, through: :componentes
 
   #logo
   has_attached_file :logo,
@@ -68,19 +66,27 @@ class Evento < ActiveRecord::Base
     :content_type => { :content_type => /^image\/(jpeg|png|gif|tiff)$/ }
   #banner
 
-  scope :ativos, -> {where("status = 'criado'",true)}
+  scope :em_customizacao, -> {where("status = 'em_customizacao'",true)}
+  scope :ativos, -> {where("status = 'inscricoes_iniciadas' or status = 'acesso_liberado'",true)}
+  scope :inscricoes_iniciadas, -> {where("status = 'inscricoes_iniciadas'",true)}
+  scope :inscricoes_finalizadas, -> {where("status = 'inscricoes_finalizadas'",true)}
+  scope :finalizados, -> {where("status = 'evento_finalizado'",true)}
 
   state_machine :status, :initial => :criado do
-    event :configurar do
-      transition :criado => :em_configuracao
+    event :customizar do
+      transition :criado => :em_customizacao
+    end
+
+    event :liberar_acesso do
+      transition :em_customizacao => :acesso_liberado
     end
 
     event :abrir_incricoes do
-      transition :em_configuracao => :inscricoes_iniciadas
+      transition :acesso_liberado => :inscricoes_iniciadas
     end
 
     event :fechar_incricoes do
-      transition :em_configuracao => :inscricoes_finalizadas
+      transition :inscricoes_iniciadas => :inscricoes_finalizadas
     end
 
     event :finalizar do

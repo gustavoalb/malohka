@@ -1,0 +1,62 @@
+<div class="col-sm-12 col-md-12, row">
+  <table class="table table-striped table-hover table-bordered table-condensed">
+    <tr>
+      <th>Data</th>
+      <th>Atividade</th>
+      <th>Informações e inscrição</th>
+    </tr>
+    <% for componente in @evento.componentes %>
+    <tr>
+      <% for periodo in componente.periodos %>
+      <td><% if periodo.inicio.present? %><%= h periodo.inicio.strftime("%d/%m/%y às %H:%M") %><% end %></td>
+    <% end %>
+    <td><%=  componente.tipo_componente %>: <%= componente.nome %></td>
+    <td>
+      <button class="btn-primary btn-xs" data-toggle="modal" data-target="#evento-<%= componente.id %>-notes">Quero saber mais!</button>
+    </td>
+    <!-- Modal Incrição -->
+    <div class="modal fade" id="evento-<%= componente.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="evento-<%= componente.id %>-label" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="evento-<%= componente.id %>-label" align='center'><%=  componente.tipo_componente %>: <%= componente.nome %></h4>
+          </div>
+          <div class="modal-body">
+            <% if componente.descricao.present? %>
+              <p align='center'><strong>Ementa:</strong><br>
+                <%#= @componente.descricao.html_safe %></p>
+            <% else %>
+            <% end %>
+            <dl class="dl-horizontal">
+              <dt><strong>Ministrante:</strong></dt>
+              <dd><% if componente.ministrante.present? %>
+                  <%= componente.ministrante.titulo %> <%= h componente.ministrante.nome %><% end %></dd>
+              <dt><strong>Período:</strong></dt>
+              <dd>Dia <% if periodo.present? %>
+                  <%= h periodo.inicio.strftime("%d/%m/%y") %>, de <%= h periodo.inicio.strftime("%H:%M") %> às <%= h periodo.termino.strftime("%H:%M") %>, perfazendo <%= duracao_periodo(periodo).to_i %> minutos de carga horária.<% end %></dd>
+              <dt><strong>Público Alvo:</strong></dt>
+              <dt><strong>Vagas:</strong></dt>
+              <dd><%=  componente.vagas %> de <%=  componente.vagas %></dd>
+              <dt><strong>Local:</strong></dt>
+              <dd><%=  componente.local %></dd>
+            </dl>
+            <hr>
+            <div>
+              <dl class="dl-horizontal">
+                <%= simple_nested_form_for @evento, url: evento_registrar_participacao_url(@evento), method: :post,:html => { :class => 'form-horizontal' } do |f| %>
+                  <%= f.input :componente_id, input_html: {value: componente.id}, as: :hidden %>
+                  <%= f.input :pessoa_id, input_html: {value: current_usuario.pessoa.id}, as: :hidden %>
+                  <dd><%= f.submit "Fazer minha inscrição imediatamente!",:class => 'btn btn-primary btn-xs', :onclick=>"return confirm('Confirmar sua participação nesta atividade?')" %></dd>
+                <% end %>
+              </dl>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+            </div>
+          </div>
+        </div>
+        <!-- Modal -->
+      </tr>
+    <% end %>
+  </table>
+</div>

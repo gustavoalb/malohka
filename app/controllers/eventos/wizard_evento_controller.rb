@@ -7,6 +7,15 @@ class Eventos::WizardEventoController < ApplicationController
 
   def show
     @evento = Evento.find(params[:evento_id])
+    @componentes = Componente.where('componentes.evento_id=?',@evento.id)#.order("publicado_em DESC").all
+    @publicos = Publico.all.order(:nome)
+    @ministrantes = Ministrante.all.order(:nome)
+    x = 1.times do
+      componentes = @evento.componentes.build
+      1.times { componentes.periodos.build }
+    end
+    # @periodos_por_dia = @evento.periodos.group_by { |t| t.inicio.strftime("%d/%m/%y") }
+
     render_wizard
   end
 
@@ -30,7 +39,19 @@ class Eventos::WizardEventoController < ApplicationController
     when "midias"
       [:banner, :logo]
     when "atividades"
-      [ componentes_attributes: [ :id, :evento_id, :nome, :tipo_componente, :descricao, :vagas, :local, :status, {:publico_ids => []}, {:ministrante_ids => []}, :_destroy] ]
+      [
+        componentes_attributes:
+        [ :id, :evento_id, :nome, :tipo_componente, :descricao, :vagas, :local, :status, {:publico_ids => []}, {:ministrante_ids => []}, :_destroy]
+      ]
+
+    when "periodos"
+      [
+        periodos_attributes:
+        [ :id, :componente_id, :inicio, :termino, :_destroy]
+      ]
+
+      # [ componentes_attributes: [ :id, :evento_id, :nome, :tipo_componente, :descricao, :vagas, :local, :status, {:publico_ids => []}, {:ministrantes_ids => []}, :_destroy], periodos_attributes: [ :id, :componente_id, :inicio, :termino, :_destroy ] ]
+
     when "organizacao"
       [:organizacao, :parceiros, :apoio]
     end

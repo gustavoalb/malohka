@@ -27,7 +27,8 @@ class Ability
     elsif usuario.role? :aluno
       can [:read, :create, :destroy ], Solicitacao
       can :read, Noticia
-      #can [:read, :update], Pagina
+      can :read, Evento
+      #can :read, Participacao
       can :access, :ckeditor
       can [:read, :create, :destroy], Ckeditor::Picture, assetable_id: usuario.id
       can [:read, :create, :destroy], Ckeditor::AttachmentFile, assetable_id: usuario.id

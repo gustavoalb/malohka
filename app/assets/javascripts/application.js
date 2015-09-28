@@ -23,6 +23,10 @@
 //= require jquery.purr
 //= require_tree .
 
+//teste
+
+//teste
+
 jQuery(function($){
  $(".data").mask("99/99/9999");
  $(".datatime").mask("99/99/9999 99:99:99");

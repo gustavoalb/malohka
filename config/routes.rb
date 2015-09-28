@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  resources :eventos, only: [:new, :create, :show, :update, :edit, :index] do
+    post :registrar_participacao
+    get 'certificado'
+    resources :wizard_evento, only: [:show, :update], controller: 'eventos/wizard_evento'
+  end
+
   resources :publicos
   namespace :eventos do
     get 'wizard_evento/show'
@@ -9,23 +15,12 @@ Rails.application.routes.draw do
     get 'wizard_evento/update'
   end
 
-  # namespace :evento do
-  # get 'wizard_evento/show'
-  # end
-
-  # namespace :evento do
-  # get 'wizard_evento/update'
-  # end
-
   resources :ministrantes
   # resources :eventos do
   #   post :registrar_participacao
   # end
 
-  resources :eventos, only: [:new, :create, :show, :update, :edit, :index] do
-    post :registrar_participacao
-    resources :wizard_evento, only: [:show, :update], controller: 'eventos/wizard_evento'
-  end
+
 
   resources :evento_wizard#, only: [:edit,:show, :update], controller: 'eventos_wizard'
 
@@ -55,7 +50,10 @@ Rails.application.routes.draw do
   scope "/servicos" do
     resources :solicitacoes do
       get 'solicitar_ie/:aluno_id'=>'solicitacoes#solicitar_ie', as: :solicitar_ie, on: :collection
+      #get 'iestudantil_do_aluno'
+      get "iestudantil_do_aluno"=>'solicitacoes#iestudantil_do_aluno', as: :iestudantil_do_aluno
       put "cancelar_solicitacao/:iestudantil_id/:status"=>'solicitacoes#cancelar_solicitacao', as: :cancelar_solicitacao
+      put "alterar_status/:iestudantil_id/:status"=>'solicitacoes#alterar_status', as: :alterar_status
     end
   end
 
@@ -69,7 +67,6 @@ Rails.application.routes.draw do
   resources :validacao
   resources :pesquisas
   resources :pessoas do
-    #    post 'upload', :on => :collection
     get :foto
     post :upload_foto
   end
@@ -91,8 +88,10 @@ Rails.application.routes.draw do
     post 'turmas', on: :collection
     post 'turnos', on: :collection
     post 'cursos_turno', on: :collection
-    get 'iestudantil_do_aluno/:aluno_id'=>'alunos#iestudantil_do_aluno', as: :iestudantil_do_aluno, on: :collection
+    #get 'iestudantil_do_aluno/:aluno_id'=>'alunos#iestudantil_do_aluno', as: :iestudantil_do_aluno, on: :collection
+    get 'iestudantil_do_aluno'
   end
+
   resources :turmas do
     post 'cursos', on: :collection
   end

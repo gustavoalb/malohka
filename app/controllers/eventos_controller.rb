@@ -6,10 +6,13 @@ class EventosController < ApplicationController
   def index
     @eventos = Evento.all
     @componentes = Componente.all
+
     respond_with(@eventos)
   end
 
   def show
+    @periodos = @evento.periodos
+    @periodos_por_dia = @evento.periodos.group_by { |t| t.inicio.strftime("%d/%m/%y") }
     @participacoes = Participacao.all
     respond_with(@evento)
   end
@@ -47,6 +50,46 @@ class EventosController < ApplicationController
       redirect_to evento_url(@evento), alert: 'Você já possui uma inscrição ativa para esta atividade. :~('
     end
   end
+
+  def certificado
+    @evento = Evento.find(params[:evento_id])
+
+    # For Rails 3 or latest replace #{RAILS_ROOT} to #{Rails.root}
+    iestudantil_do_evento = ODFReport::Report.new("#{Rails.root}/app/reports/oi.odt") do |r|
+
+      r.add_field "EVENTO", @evento.nome
+      r.add_field "NOME", @evento.pessoa.nome
+      r.add_field "ID", @evento.id
+      r.add_field "DATA", Time.now.strftime("%d de %B de %Y")
+
+      r.add_table("COMPONENTES", @evento.componentes) do |t|
+        t.add_column("TIPO", :tipo_componente)
+        t.add_column("COMPONENTE", :nome)
+        # t.add_column("C", :tipo_componente)
+        # t.add_column("COMPONENTE", :nome)
+        # if field.is_a?(String)
+        # row["FIELD_NAME"] = 'Materials'
+        # row["FIELD_VALUE"] = field
+        # else
+        # row["FIELD_NAME"] = :field_id
+        # row["FIELD_VALUE"] = field.nome || ''
+        # end
+      end
+
+    end
+
+    # send_data iestudantil_do_evento.generate,
+    #   type: 'application/vnd.oasis.opendocument.text',
+    #   disposition: 'attachment',
+    #   filename: 'report.odt'
+
+    arquivo_evento = iestudantil_do_evento.generate("/tmp/iestudantil_do_evento-#{@evento.id}.odt")
+    system "unoconv -f pdf /tmp/iestudantil_do_evento-#{@evento.id}.odt"
+    f = File.open("/tmp/iestudantil_do_evento-#{@evento.id}.pdf",'r')
+    send_file(f,:filename=>"Certificado - #{@evento.id}.pdf",:content_type=>"application/pdf")
+  end
+
+
 
   def update
     @evento.update(evento_params)

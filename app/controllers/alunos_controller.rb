@@ -9,9 +9,9 @@ class AlunosController < ApplicationController
 
     @alunos = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 10).order("id ASC")
 
-    require 'barby' #sou aqui mesmo se vou servir ao resto so sistema?
-    require 'barby/barcode/code_39' #sou aqui mesmo se vou servir ao resto so sistema?
-    require 'barby/outputter/png_outputter' #sou aqui mesmo se vou servir ao resto so sistema?
+    # require 'barby' #sou aqui mesmo se vou servir ao resto so sistema?
+    # require 'barby/barcode/code_39' #sou aqui mesmo se vou servir ao resto so sistema?
+    # require 'barby/outputter/png_outputter' #sou aqui mesmo se vou servir ao resto so sistema?
 
 
     respond_to do |format|
@@ -20,40 +20,41 @@ class AlunosController < ApplicationController
       format.pdf do
         # Thin ReportsでPDFを作成
         # 先ほどEditorで作ったtlfファイルを読み込む
-        report = ThinReports::Report.new(layout: "#{Rails.root}/app/reports/iestudantil_m2015.tlf")
+        iestudantil_do_aluno = ODFReport::Report.new("#{Rails.root}/app/reports/IEstudantil_modelo_2015-2.odt")
+        # report = ThinReports::Report.new(layout: "#{Rails.root}/app/reports/iestudantil_m2015.tlf")
         @alunos.each do |aluno|
-          #if !aluno.turma.nil?
-          barcode = Barby::Code39.new(aluno.matricula)
-          blob = Barby::PngOutputter.new(barcode).to_png(:xdim => 3) #Raw PNG data
-          #    xdim: (default: 1)
-          #ydim: (default: same as xdim)
-          #height: (default: 100)
-          #margin: (default: 10)
-          b = File.open("/tmp/codigo_barras_#{barcode}.png",'w')
-          b.write blob
-          b.close
+          # #if !aluno.turma.nil?
+          # barcode = Barby::Code39.new(aluno.matricula)
+          # blob = Barby::PngOutputter.new(barcode).to_png(:xdim => 3) #Raw PNG data
+          # #    xdim: (default: 1)
+          # #ydim: (default: same as xdim)
+          # #height: (default: 100)
+          # #margin: (default: 10)
+          # b = File.open("/tmp/codigo_barras_#{barcode}.png",'w')
+          # b.write blob
+          # b.close
 
-          report.start_new_page
-          report.page.item(:nome).value(aluno.pessoa.nome)
-          report.page.item(:nascimento).value(aluno.pessoa.nascimento.to_s_br)
-          report.page.item(:rg).value(aluno.pessoa.rg)
-          #report.page.item(:curso).value(@aluno.curso) #inserir cursos
-          report.page.item(:matricula).value(aluno.matricula)
-          report.page.item(:validade).value(view_context.validade_aluno(aluno))
+          # report.start_new_page
+          # report.page.item(:nome).value(aluno.pessoa.nome)
+          # report.page.item(:nascimento).value(aluno.pessoa.nascimento.to_s_br)
+          # report.page.item(:rg).value(aluno.pessoa.rg)
+          # #report.page.item(:curso).value(@aluno.curso) #inserir cursos
+          # report.page.item(:matricula).value(aluno.matricula)
+          # report.page.item(:validade).value(view_context.validade_aluno(aluno))
 
-          if aluno.pessoa.nil?
-            #image_tag("anonimo.jpg")
-          elsif aluno.pessoa.foto.present?
-            f = File.open (aluno.pessoa.foto.path)
-            report.page.item(:foto).value(open(f))
-            f.close
-          end
+          # if aluno.pessoa.nil?
+          #   #image_tag("anonimo.jpg")
+          # elsif aluno.pessoa.foto.present?
+          #   f = File.open (aluno.pessoa.foto.path)
+          #   report.page.item(:foto).value(open(f))
+          #   f.close
+          # end
 
-          # f = File.open (aluno.pessoa.foto.path)
-          # report.page.item(:foto).value(open(f))
-          # f.close
+          # # f = File.open (aluno.pessoa.foto.path)
+          # # report.page.item(:foto).value(open(f))
+          # # f.close
 
-          report.page.item(:barra).value(b.path)
+          # report.page.item(:barra).value(b.path)
         end
         send_data report.generate, filename: "Identidade Estudantil.pdf",
           type: 'application/pdf',
@@ -101,16 +102,37 @@ class AlunosController < ApplicationController
   #def idestudantil
   def show
     if  current_usuario.roles_mask == 1
-      require 'barby'
-      require 'barby/barcode/code_39'
-      require 'barby/outputter/png_outputter'
-      barcode = Barby::Code39.new("#{@aluno.matricula}")
 
-      blob = Barby::PngOutputter.new(barcode).to_png(:xdim => 3) #Raw PNG data
+      require 'barby'
+      require 'barby/barcode'
+      require 'barby/barcode/qr_code'
+      require 'barby/outputter/png_outputter'
+
+      # require 'barby'
+      # require 'barby/barcode/code_39'
+      # require 'barby/outputter/png_outputter'
+      #barcode = Barby::Code39.new("#{@aluno.matricula}")
+      #barcode = Barby::QrCode.new("#{@aluno.matricula}", level: :q, size: 10)
+      barcode = Barby::QrCode.new("#{@aluno.matricula}", level: :q, size: 1)
+
+      blob = Barby::PngOutputter.new(barcode).to_png #Raw PNG data##(barcode).to_png(:xdim => 3) #Raw PNG data
       b = File.open("/tmp/codigo_barras_#{barcode}.png",'w')
       b.write blob
       b.close
 
+      # require 'barby'
+      # require 'barby/barcode'
+      # require 'barby/barcode/qr_code'
+      # require 'barby/outputter/png_outputter'
+
+      # str = 'Hello QrCode!! Using Gem for Barby, Barby-pngOutputter and Chunky-PNG.'
+
+      # b = Barby::QrCode.new(str, level: :q, size: 10)
+      # # File.open('qr.png', 'w') do |f|
+      # #   f.write b.to_png
+      # #   f.close
+      # # end
+      # puts b.to_s
 
 
       respond_to do |format|
@@ -157,7 +179,7 @@ class AlunosController < ApplicationController
     end
   end
 
-  def iestudantil_do_aluno
+  def iestudantil_do_alunod
     @aluno = Aluno.find(params[:aluno_id])
     if  current_usuario.roles_mask == 1
       require 'barby'
@@ -209,6 +231,98 @@ class AlunosController < ApplicationController
       render :file => "#{Rails.root}/public/403.html", :status => 403, :layout => false
     end
   end
+
+
+  def iestudantil_do_aluno
+    @aluno = Aluno.find(params[:aluno_id])
+
+    # For Rails 3 or latest replace #{RAILS_ROOT} to #{Rails.root}
+    iestudantil_do_aluno = ODFReport::Report.new("#{Rails.root}/app/reports/IEstudantil_modelo_2015-2.odt") do |r|
+
+      r.add_field "NOME", @aluno.pessoa.nome
+      r.add_field "NASCIMENTO", @aluno.pessoa.nascimento.to_s_br
+      r.add_field "CPF", @aluno.pessoa.cpf
+      r.add_field "CURSO", @aluno.curso
+      r.add_field "MATRICULA", @aluno.matricula
+      r.add_field "VALIDADE", view_context.validade_aluno(@aluno)
+      f = File.open (@aluno.pessoa.foto.path)
+      r.add_image "FOTO", f
+      f.close
+    end
+
+    # send_data iestudantil_do_aluno.generate,
+    #   type: 'application/vnd.oasis.opendocument.text',
+    #   disposition: 'attachment',
+    #   filename: 'report.odt'
+
+    arquivo_carta = iestudantil_do_aluno.generate("/tmp/iestudantil_do_aluno-#{@aluno.matricula}.odt")
+    system "unoconv -f pdf /tmp/iestudantil_do_aluno-#{@aluno.matricula}.odt"
+    f = File.open("/tmp/iestudantil_do_aluno-#{@aluno.matricula}.pdf",'r')
+    send_file(f,:filename=>"Identidade Estudantil - #{@aluno.matricula}.pdf",:content_type=>"application/pdf")
+  end
+
+
+  def iestudantis
+
+    @alunos = Aluno.all
+
+    #report = ODFReport::Report.new("reports/invoice.odt") do |r|
+    iestudantil_do_aluno = ODFReport::Report.new("#{Rails.root}/app/reports/IEstudantil_modelo_2015-2.odt") do |r|
+
+
+      #r.add_field(:title, "INVOICES REPORT")
+      #r.add_field(:date, Date.today)
+      r.add_field "NOME", aluno.pessoa.nome
+      r.add_field "NASCIMENTO", aluno.pessoa.nascimento.to_s_br
+      r.add_field "CPF", aluno.pessoa.cpf
+      r.add_field "CURSO", aluno.curso
+      r.add_field "MATRICULA", aluno.matricula
+      #r.add_field "VALIDADE", view_context.validade_aluno(aluno)
+      #f = File.open (aluno.pessoa.foto.path)
+      #r.add_image "FOTO", f
+      #f.close
+
+
+    end
+
+    send_data iestudantil_do_aluno.generate,
+      type: 'application/vnd.oasis.opendocument.text',
+      disposition: 'attachment',
+      filename: 'report.odt'
+
+
+    # iestudantil_do_aluno = ODFReport::Report.new("#{Rails.root}/app/reports/IEstudantil_modelo_2015-2.odt")
+    # @alunos.each do |r|
+    #   r.add_field "NOME", aluno.pessoa.nome
+    #   r.add_field "NASCIMENTO", aluno.pessoa.nascimento.to_s_br
+    #   r.add_field "CPF", aluno.pessoa.cpf
+    #   r.add_field "CURSO", aluno.curso
+    #   r.add_field "MATRICULA", aluno.matricula
+    #   r.add_field "VALIDADE", view_context.validade_aluno(aluno)
+    #   f = File.open (aluno.pessoa.foto.path)
+    #   r.add_image "FOTO", f
+    #   f.close
+
+
+    #   send_data report.generate, filename: "Identidade Estudantil.pdf",
+    #     type: 'application/pdf',
+    #     disposition: 'inline' # para visualização no navegador
+
+
+
+    #   # send_data iestudantil_do_aluno.generate,
+    #   #   type: 'application/vnd.oasis.opendocument.text',
+    #   #   disposition: 'attachment',
+    #   #   filename: 'report.odt'
+
+    #   #send_data report.generate, filename: "#{@aluno.pessoa.nome}.pdf",
+    #   # type: 'application/pdf',
+    #   #disposition: 'attachment' # para download ##disposition: 'inline' # para visualização no navegador
+
+    # end
+  end
+
+
 
   def cursos_turno
     @nivel = Nivel.find(params[:nivel]) if !params[:nivel].blank?

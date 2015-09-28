@@ -5,7 +5,7 @@
 </div>
 <%= simple_form_for @pessoa, :html => { :class => 'form-horizontal' } do |f| %>
   <%= f.error_notification %>
-  <%= abre_estilo_5a12_well %>
+  <%= abre_estilo_5a12_well_1 %>
   <div align="CENTER">
     <% if @pessoa.foto.present? %>
       <%= image_tag(@pessoa.foto.url(:medium)) %><%= f.input :foto, as: :file, label: 'Atualizar foto' %>
@@ -53,7 +53,7 @@
       </div>
     </div>
   <% end %>
-  <%= fecha_estilo_5a12_well %>
+  <%= fecha_estilo_5a12_well_1_e_2 %>
   <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 pessoas_path, :class => 'btn btn-default' %>

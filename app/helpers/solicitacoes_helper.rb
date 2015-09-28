@@ -40,14 +40,42 @@ module SolicitacoesHelper
   end
 
   # def progresso
-  #   divo << "<div class="progress">"
-  #   divo << "<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%">25% (#{ status_iestudantil(@solicitacao.solicitavel.status) })"
-  #   divo << "</div>"
-  #   divo << "</div>"
-  #   }
+  def progresso_iestudantil (objeto)
+    html = ""
+    html+="<div>"
+    html+="<p style='text-align: center'><strong>Status atual do processo:&nbsp;</strong>#{status_solicitavel(objeto)}</p>"
 
-  #   html = divo
-  #   raw(html)
+    html+="<div class='progress'>"
+    html+="<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100' style='width:"
+    if objeto=="solicitado"
+      html+="20%'> 20% #{status_solicitacao(objeto)}"
+    elsif objeto=="em_lote"
+      html+="40%'> 40% #{status_solicitacao(objeto)}"
+    elsif objeto=="para_impressao"
+      html+="60%'> 60% #{status_solicitacao(objeto)}"
+    elsif objeto=="impresso"
+      html+="80%'> 80% #{status_solicitacao(objeto)}"
+    elsif objeto=="entregue"
+      html+="100%'> 100% #{status_solicitacao(objeto)}"
+    end
+    html+="</div>"
+    html+="</div>"
+    return raw(html)
+  end
+
+  def fecha_acordeao (objeto_principal)
+    html = ""
+    # <%# for componente in @evento.componentes %>
+
+    html+="</div>"
+    html+="</div>"
+    html+="</div>"
+    html+="</div>"
+    html+="</h4>"
+    # <% end %>
+    html+="</div>"
+    return raw(html)
+  end
   # end
 
   def status_solicitavel(objeto)
@@ -59,8 +87,10 @@ module SolicitacoesHelper
       # Em Iestudantil
     elsif objeto=="solicitado"
       return "A espera de seleção em arquivo de lote para impressão."
-    elsif objeto=="para_impressao"
+    elsif objeto=="em_lote"
       return "Selecionado em arquivo de lote e a espera de impressão."
+    elsif objeto=="para_impressao"
+      return "Arquivo gerado, separado em lote e a espera de impressão."
     elsif objeto=="impresso"
       return "Objeto impresso a ser separado para entrega."
     elsif objeto=="entregue"
@@ -72,13 +102,16 @@ module SolicitacoesHelper
 
 
 
-  def status_iestudantil(objeto)
+  def status_solicitacao(objeto)
     if objeto=="entregue"
       return "finalizado"
     else #if objeto=="impresso"
       return "em andamento"
     end
   end
+
+
+
 
 
 end

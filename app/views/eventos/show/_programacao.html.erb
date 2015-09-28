@@ -1,0 +1,92 @@
+<!--First tooltip-->
+<a href="#" class="tooltip">
+  Tooltip
+    <span>
+    <img class="callout" src="<%= image_tag('/public/1.jpg') %>" />
+    <%#= image_tag('/assets/image.png') %>
+    <strong>Most Light-weight Tooltip</strong><br />
+    This is the easy-to-use Tooltip driven purely by CSS.
+    </span>
+</a>
+<!--Second tooltip-->
+<a href="#" class="tooltip">
+  <!-- <img src="/tooltip/css-tooltip-image.gif" /> -->
+  <span>
+    <!-- <img class="callout" src="cssttp/callout.gif" /> -->
+    <!-- <img src="/tooltip/src/tooltips-cd2.jpg" style="float:right;" /> -->
+    <strong>CSS only Tooltip</strong><br />
+    Pure CSS popup tooltips with clean semantic XHTML.
+    </span>
+</a>
+<br>
+<% @periodos_por_dia.each do |data, periodos| %>
+  <div class='well'>
+    <h4 class='panel-title' align='center'>
+      <strong><%= data.to_date.strftime("%A, %d de %B de %Y") %></strong>
+    </h4>
+    <hr>
+    <% periodos.each do |periodo| %>
+      <div class="panel panel-default">
+        <p align='left' data-toggle="collapse" data-parent="#accordion" href="#evento-<%= periodo.id %>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;<%= periodo.inicio.strftime("%H:%M") %> - <%= periodo.componente.tipo_componente%>: <b><%= periodo.componente.nome %></b></p>
+      </div>
+      <div id="evento-<%= periodo.id %>" class="panel-collapse collapse">
+        <% if periodo.componente.descricao.present? %>
+          <p align='center'><strong>Ementa:</strong><br>
+            <%= periodo.componente.descricao.html_safe %></p>
+        <% end %>
+        <dl class="dl-horizontal">
+          <dt><strong>Vagas</strong>:</dt>
+          <dd><%= periodo.componente.vagas %></dd>
+          <dt><strong>Público Alvo</strong>:</dt>
+          <% if periodo.componente.publicos.present? %>
+            <dd class="btn-default btn-xs"><%= periodo.componente.publicos.collect{|p|p.nome}.to_sentence %></dd>
+          <% else %>
+            <dd>Em definição ;)</dd>
+          <% end %>
+          <dt><strong>Ministrante</strong>:</dt>
+          <dd><% for ministrante in periodo.componente.ministrantes %><%= ministrante.titulo %> <%= ministrante.nome %><%= ministrante.organizacao %><%= ministrante.biografia %><% end %></dd>
+        <dt><strong>Local</strong>:</dt>
+        <dd><%=  periodo.componente.local %></dd>
+      </dl>
+    </div>
+  <% end %>
+</div>
+<% end %>
+<% @periodos_por_dia.each do |data, periodos| %>
+  <!-- <div  class="well"> -->
+  <h3 align='center'><strong><%= data %></strong></h3>
+  <hr>
+  <% periodos.each do |periodo| %>
+    <p align='left' data-toggle="collapse" data-parent="#accordion" href="#evento-<%= periodo.id %>"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> <b><%= periodo.inicio.strftime("%H:%M") %></b> - <%= periodo.componente.tipo_componente%>: <%= periodo.componente.nome %></p>
+    <!-- <div class="panel panel-default"> -->
+    <div id="evento-<%= periodo.id %>" class="panel-collapse collapse">
+      <%#= render :partial => 'eventos/show/componente' %>
+      <!-- <div class="col-sm-12 col-md-12, row, well"> -->
+      <%# if periodo.componente.descricao.present? %>
+      <!-- <p align='center'><strong>Ementa:</strong><br> -->
+      <%#= periodo.componente.descricao.html_safe %></p>
+    <%# else %>
+    <!-- <p></p> -->
+    <%# end %>
+    <dl class="dl-horizontal">
+      <dt><strong>Vagas</strong>:</dt>
+      <dd><%= periodo.componente.vagas %></dd>
+      <!-- <dt><strong>Público Alvo</strong>:</dt> -->
+      <%# if periodo.componente.publicos.present? %>
+      <%# for publico in periodo.componente.publicos %>
+      <!-- <dd class="btn-default btn-xs"> <%#= h publico.nome %></dd> -->
+      <%# end %>
+      <%# else %>
+      <!-- <dd>Nada</dd> -->
+      <%# end %>
+      <!-- <dt><strong>Ministrante</strong>:</dt> -->
+      <!-- <dd><%# for ministrante in periodo.componente.ministrantes %><%#= ministrante.titulo %> <%#= ministrante.nome %><%#= ministrante.organizacao %><%#= ministrante.biografia %><%# end %></dd> -->
+      <!-- <dt><strong>Local</strong>:</dt> -->
+      <!-- <dd><%#=  periodo.componente.local %></dd> -->
+    </dl>
+    <!-- </div> -->
+  </div>
+  <!-- </div> -->
+<% end %>
+<!-- </div> -->
+<% end %>

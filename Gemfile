@@ -65,6 +65,8 @@ gem 'barby'
 # Para saída de códigos de barra em extensão 'png'
 gem 'chunky_png'
 
+# Para qpcode
+gem 'rqrcode'
 
 # para conteúdo estático
 gem 'high_voltage', '~> 2.2.1'
@@ -93,6 +95,9 @@ gem 'will_paginate-bootstrap'
 gem 'wicked'
 
 gem 'owlcarousel-rails'
+
+# para criação de pdf's
+gem 'odf-report'
 
 # Para tags em Notícias
 gem 'acts-as-taggable-on', '~> 3.4'

@@ -1,0 +1,83 @@
+<%- model_class = Iestudantil -%>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Solicitante</th>
+      <th>Foto</th>
+      <th>Matrícula</th>
+      <th>Status</th>
+      <th align='center'><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% Iestudantil.em_lote.each do |em_lote| %>
+      <tr>
+        <td><%= link_to em_lote.solicitacao.id, solicitacao_path(em_lote.solicitacao.id) %></td>
+        <td><%= em_lote.aluno.pessoa.nome %></td>
+        <td><%= image_tag(em_lote.aluno.pessoa.foto(:thumb)) %></td>
+        <td><%= em_lote.aluno.matricula %></td>
+        <td><%= em_lote.status %></td>
+        <td  align='left'>
+          <td  align='right'>
+            <%= link_to "Identidade Estudantil", solicitacao_iestudantil_do_aluno_path(em_lote,em_lote, format: "pdf" ), :class  => 'btn btn-primary btn-xs' %>
+            <button class="btn-default btn-xs" data-toggle="modal" data-target="#solicitacao-<%= em_lote.id %>-notes">Detalhes</button></td>
+          <!-- Modal -->
+          <div class="modal fade" id="solicitacao-<%= em_lote.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="solicitacao-<%= em_lote.id %>-label" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="solicitacao-<%= em_lote.id %>-label" align='center'>
+                    Solicitação - <%= tipo_solicitavel(em_lote.solicitacao.solicitavel_type) %>
+                  </h4>
+                </div>
+                <div class="modal-body">
+                  <%= progresso_iestudantil(em_lote.status) %>
+                  <div class="col-sm-12 col-md-12, row, well">
+                    <div class="col-sm-5 col-md-7, thumbnail, center">
+                      <div align="CENTER">
+                      </div>
+                      <div>
+                        <% if can? :manage, Solicitacao %>
+                          <p><strong>Id do Solicitante:&nbsp;</strong><%= em_lote.aluno_id %></p>
+                          <p><strong>Id da Solicitação:&nbsp;</strong><%= em_lote.solicitacao.id %></p>
+                          <p><strong>Id da <%= tipo_solicitavel(em_lote.solicitacao.solicitavel_type) %>:&nbsp;</strong><%= em_lote.id %></p>
+                        <% end -%>
+                        <p><strong>Criação:&nbsp;</strong><%= ver_form_nil(em_lote.created_at.strftime("%d/%m/%y às %H:%M")) %></p>
+                        <% if em_lote.data_lote.present? %>
+                          <p><strong>Envio para lote:&nbsp;</strong><%= em_lote.data_lote.strftime("%d/%m/%y às %H:%M") %></p>
+                        <% end %>
+                        <p><strong>Impressão:&nbsp;</strong><%= ver_form_nil(em_lote.data_impressao) %></p>
+                        <p><strong>Entrega:&nbsp;</strong><%= ver_form_nil(em_lote.data_entrega) %></p>
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-md-7">
+                      <p><strong>Aluno:&nbsp;</strong><%= em_lote.aluno.pessoa.nome %></p>
+                      <p><strong>Matrícula:&nbsp;</strong><%= em_lote.aluno.matricula %></p>
+                      <p><strong>Status geral do processo:&nbsp;</strong><%= status_solicitavel(em_lote.status) %></p>
+                    </div>
+                  </div>
+                  <hr>
+                  <dl class="dl-horizontal">
+                    <% if can? :update, Solicitacao %>
+                      <dt><strong>Ações:</strong></dt>
+                      <dd>
+                        <% if can? :manage, Solicitacao %>
+                        <% end %>
+                      <% end %>
+                      <% if can? :destroy, Solicitacao %>
+                        <%= link_to t('.destroy', :default => t("helpers.links.Deletar")), solicitacao_path(em_lote), :method => 'delete',  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger btn-xs' %>
+                      <% end %></dd>
+                  </dl>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modal -->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

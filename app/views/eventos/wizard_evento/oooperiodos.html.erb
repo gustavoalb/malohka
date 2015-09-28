@@ -1,0 +1,70 @@
+<ds="page-header">
+  <% if @evento.banner_file_name.present? %>
+    <%= image_tag(@evento.banner(:banner)) %>
+  <% end -%>
+</div>
+<h1 class="btn-default btn-xlarge" align='center' data-toggle="modal" data-target="#evento-<%= @evento.id %>-notes">Períodos</h1>
+<!-- Modal evento -->
+<div class="modal fade" id="evento-<%= @evento.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="evento-<%= @evento.id %>-label" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="evento-<%= @evento.id %>-label" align='center'>Atividades<br>
+        </h3>
+      </div>
+      <div class="modal-body" align='justify'>
+        <p >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Neste parte, conforme o planejamento global, será possível inserir uma ou várias atividades de natureza distintas (e isso sequer é um problema). Assim, é possível oferecer componentes como <strong>palestras</strong>, <strong>minicursos</strong> ou mesmo uma <strong>atividade cultural</strong> sem maiores dificuldades.</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Se pensarmos bem, é aqui que uma ideia se torna de fato em um item de divulgação efetiva. Essa infraestrutura oferece múltiplas possibilidades reaproveitamento dos registros gravados.</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Não tenha dúvida, estamos chegando a algum lugar!!!</strong></p>
+        <br>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<%- model_class = Componente -%>
+<% @componentes.each do |componente| %>
+<% end %>
+<%# for componente in @evento.componentes#.joins(:periodos).order("periodos.inicio") %>
+<%= simple_nested_form_for @evento, :url => wizard_path do |f| %>
+  <%#= abre_acordeao(componente) %>
+  <!-- <div class='panel-heading'> -->
+  <% for componente in @evento.componentes %>
+  <h4 class='panel-title'>
+    <div class='panel-group' id='accordion' role='tablist' aria-multiselectable='true'>
+      <div class='panel panel-default'>
+        <div class='panel-heading' role='tab' id='#evento- <%= componente.id %>-label'>
+          <h4 class='panel-title'>
+            <a role='button' data-toggle='collapse' data-parent='#accordion' href='#evento- <%= componente.id %>' aria-expanded='true' aria-controls='#evento- <%= componente.id %>'><%= componente.nome %></a>
+          </h4>
+        </div>
+        <div id='#evento- <%= componente.id %>' class='panel-collapse collapse' role='tabpanel' aria-labelledby='#evento- <%= componente.id %>-label'>
+          <div class='panel-body'>
+            <p><%= componente.id %></p>
+            <%# end %>
+            <%# for componente in @evento.componentes %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </h4>
+<% end %>
+</div>
+<!-- aqui pode comecar o arcodeon -->
+<%= f.simple_fields_for :componentes do |f|%>
+  <div><%= f.input :nome, label: 'Nome da atividade' %></div>
+  <%= f.simple_fields_for :periodos do |builder|%>
+    <%= render 'periodos', :f => builder %>
+  <% end %>
+  <%= f.link_to_add "Adicionar Período", :periodos, :class => 'btn btn-info btn-xs' %>
+  <!-- aqui pode terminar o arcodeon -->
+  <div>
+    <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
+    <%= f.submit 'Next Step' %>
+  </div>
+<% end %>
+<%#= fecha_acordeao(componente) %>
+<% end %>

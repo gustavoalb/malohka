@@ -1,0 +1,172 @@
+<div class="container, row">
+  <div >
+    <div class="col-md-12">
+      <div class="panel">
+        <ul id="myTab1" class="nav nav-tabs nav-justified">
+          <li class="active"><a href="#com_foto" data-toggle="tab">Com foto</a></li>
+          <li><a href="#sem_foto" data-toggle="tab">Sem foto</a></li>
+        </ul>
+      </li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+      <div class="tab-pane fade active in" id="com_foto">
+        <%- model_class = Iestudantil -%>
+        <br>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Solicitante</th>
+              <th>Foto</th>
+              <th>Matrícula</th>
+              <th>Status</th>
+              <th align='center'><%=t '.actions', :default => t("helpers.ações") %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% Iestudantil.solicitadas.each do |ie| %>
+              <tr>
+                <td><%= link_to ie.solicitacao.id, solicitacao_path(ie.solicitacao.id) %></td>
+                <td><%= ie.aluno.pessoa.nome %></td>
+                <% if ie.aluno.pessoa.foto_file_name.present?  %>
+                  <td><%= image_tag(ie.aluno.pessoa.foto(:thumb)) %></td>
+                <% else %>
+                  <td><%= image_tag("anonimo.jpg", size: "60x50") %></td>
+                <% end -%>
+                <td><%= ie.aluno.matricula %></td>
+                <td><%= ie.status %></td>
+                <td  align='left'>
+                  <% if can? :manage, Solicitacao %>
+                    <%= link_to 'Enviar para lote', solicitacao_alterar_status_path(ie,ie,'em_lote'), method: :put, :class => 'btn btn-primary btn-xs' %>
+                  <% end %>
+                  <%= link_to 'Cancelar', solicitacao_cancelar_solicitacao_path(ie.id,ie.id,'cancelado'), method: :put, :class => 'btn btn-primary btn-xs' %>
+                  <button class="btn-default btn-xs" data-toggle="modal" data-target="#solicitacao-<%= ie.id %>-notes">Detalhes</button></td>
+                <!-- Modal -->
+                <div class="modal fade" id="solicitacao-<%= ie.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="solicitacao-<%= ie.id %>-label" aria-hidden="true">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="solicitacao-<%= ie.id %>-label" align='center'>
+                          Solicitação - <%= tipo_solicitavel(ie.solicitacao.solicitavel_type) %>
+                        </h4>
+                      </div>
+                      <div class="modal-body">
+                        <%= progresso_iestudantil(ie.status) %>
+                        <div class="col-sm-12 col-md-12, row, well">
+                          <div class="col-sm-5 col-md-7, thumbnail, center">
+                            <div align="CENTER">
+                            </div>
+                            <div>
+                              <% if can? :manage, Solicitacao %>
+                                <p><strong>Id do Solicitante:&nbsp;</strong><%= ie.aluno_id %></p>
+                                <p><strong>Id da Solicitação:&nbsp;</strong><%= ie.solicitacao.id %></p>
+                                <p><strong>Id da <%= tipo_solicitavel(ie.solicitacao.solicitavel_type) %>:&nbsp;</strong><%= ie.id %></p>
+                              <% end -%>
+                              <p><strong>Criação:&nbsp;</strong><%= ver_form_nil(ie.created_at.strftime("%d/%m/%y às %H:%M ")) %></p>
+                              <p><strong>Envio para lote:&nbsp;</strong><%= ver_form_nil(ie.data_lote) %></p>
+                              <p><strong>Impressão:&nbsp;</strong><%= ver_form_nil(ie.data_impressao) %></p>
+                              <p><strong>Entrega:&nbsp;</strong><%= ver_form_nil(ie.data_entrega) %></p>
+                            </div>
+                          </div>
+                          <div class="col-sm-4 col-md-7">
+                            <p><strong>Aluno:&nbsp;</strong><%= ie.aluno.pessoa.nome %></p>
+                            <p><strong>Matrícula:&nbsp;</strong><%= ie.aluno.matricula %></p>
+                            <p><strong>Status geral do processo:&nbsp;</strong><%= status_solicitavel(ie.solicitacao.status) %></p>
+                          </div>
+                        </div>
+                        <hr>
+                        <dl class="dl-horizontal">
+                          <% if can? :update, Solicitacao %>
+                            <dt><strong>Ações:</strong></dt>
+                            <dd>
+                              <% if can? :manage, Solicitacao %>
+                              <% end %>
+                            <% end %>
+                            <% if can? :destroy, Solicitacao %>
+                              <%= link_to t('.destroy', :default => t("helpers.links.Deletar")), solicitacao_path(ie), :method => 'delete',  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger btn-xs' %>
+                            <% end %></dd>
+                        </dl>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Modal -->
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="sem_foto">
+          <%- model_class = Noticia -%>
+          <br>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Solicitante</th>
+                <th>Matrícula</th>
+                <th>Status</th>
+                <th align='center'><%=t '.actions', :default => t("helpers.actions") %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% Iestudantil.sem_foto.each do |ie| %>
+                <%# @solicitacoes.each do |solicitacao| %>
+                  <tr>
+                    <td><%= link_to ie.id, solicitacao_path(ie) %></td>
+                    <td><%= ie.aluno.pessoa.nome %></td>
+                    <td><%= ie.aluno.matricula %></td>
+                    <td><%= ie.status %></td>
+                    <td  align='left'>
+                      <td  align='right'>
+                        <button class="btn-default btn-xs" data-toggle="modal" data-target="#noticia-<%#= destaque.id %>-notes">Detalhes</button></td>
+                      <!-- Modal -->
+                      <div class="modal fade" id="noticia-<%#= destaque.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="noticia-<%#= destaque.id %>-label" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title" id="noticia-<%#= destaque.id %>-label" align='center'><%#= destaque.titulo %></h4>
+                            </div>
+                            <div class="modal-body">
+                              <div class='container'><%#= truncate(destaque.conteudo.html_safe, :length => 180, :omission => "" , :escape => false) %>...</div>
+                              <hr>
+                              <dl class="dl-horizontal">
+                                <dt><strong>Redigida em:</strong></dt>
+                                <dd><%#= destaque.created_at.strftime("%d/%m/%y às %H:%M") %></dd>
+                                <dt><strong>Publicada em:</strong></dt>
+                                <dd><%#= destaque.publicado_em.strftime("%d/%m/%y às %H:%M") %></dd>
+                                <% if can? :update, Noticia %>
+                                  <dt><strong>Ações:</strong></dt>
+                                  <dd>
+                                    <% if can? :manage, Noticia %>
+                                      <%#= link_to 'Colocar em Pauta', noticia_alterar_status_path(destaque,'pauta'), method: :put, :class => 'btn btn-primary btn-xs' %>
+                                      <%#= link_to 'Arquivar', noticia_alterar_status_path(destaque,'arquivo'), method: :put, :class => 'btn btn-info btn-xs' %>
+                                      <%#= link_to 'Corrigir', noticia_alterar_status_path(destaque,'reavaliacao'), method: :put, :class => 'btn btn-warning btn-xs' %>
+                                    <% end %>
+                                    <%#= link_to t('.edit', :default => t("helpers.links.Editar")), edit_noticia_path(destaque), :class => 'btn btn-default btn-xs' %>
+                                  <% end %>
+                                  <% if can? :destroy, Noticia %>
+                                    <%#= link_to t('.destroy', :default => t("helpers.links.Deletar")), noticia_path(destaque), :method => 'delete',  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger btn-xs' %>
+                                  </dd>
+                                <% end %>
+                              </dl>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Modal -->
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

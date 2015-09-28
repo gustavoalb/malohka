@@ -48,6 +48,16 @@ module ApplicationHelper
   end
 
 
+  def ver_form_nil_temp(objeto)
+    if objeto
+      return objeto
+    elsif objeto.nil?
+      return "Nada Cadastrado"
+    else
+      return "Nada Cadastrado"
+    end
+  end
+
 
   def tipo_solicitavel(solicitacao)
     if solicitacao=='Iestudantil'  #and objeto="Iestudantil"
@@ -134,7 +144,13 @@ module ApplicationHelper
     html+="<div class='panel panel-default'>"
     html+="<div class='panel-heading' role='tab' id='evento-#{objeto_principal.id}-label'>"
     html+="<h4 class='panel-title'>"
-    html+="<a role='button' data-toggle='collapse' data-parent='#accordion' href='#evento-#{objeto_principal.id}' aria-expanded='true' aria-controls='evento-#{objeto_principal.id}'> componente.periodo.inicio - #{objeto_principal.nome}"
+    # original
+    # html+="<a role='button' data-toggle='collapse' data-parent='#accordion' href='#evento-#{objeto_principal.id}' aria-expanded='true' aria-controls='evento-#{objeto_principal.id}'> componente.periodo.inicio - #{objeto_principal.nome}"
+    # original
+    # derivado
+    html+="<a role='button' data-toggle='collapse' data-parent='#accordion' href='#evento-#{objeto_principal.id}' aria-expanded='true' aria-controls='evento-#{objeto_principal.id}'>#{objeto_principal.nome}"
+    # derivado
+
     html+="</a>"
     html+="</h4>"
     html+="</div>"
@@ -148,7 +164,7 @@ module ApplicationHelper
 
   def fecha_acordeao (objeto_principal)
     html = ""
-    # <% for componente in @evento.componentes %>
+    # <%# for componente in @evento.componentes %>
 
     html+="</div>"
     html+="</div>"

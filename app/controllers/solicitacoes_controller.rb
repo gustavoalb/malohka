@@ -8,22 +8,28 @@ class SolicitacoesController < ApplicationController
   def index
     @pessoa = current_usuario.pessoa
     @solicitacao = Solicitacao.new
-    @iestudantis = Iestudantil.all
 
     #if @pessoa.status == 'pendente' and @pessoa.alunos.first.status == 'pendente'
-    if current_usuario.roles_mask == 10
-      redirect_to :back, :alert => "Esta área ainda será liberada para sua classe de usuário. :~("
-    elsif @pessoa.alunos.first.status == 'pendente'
+    if @pessoa.alunos.first.status == 'pendente'
       #if current_usuario.roles_mask == 4 #and @pessoa.alunos.first.status == 'pendente'
       redirect_to validacao_index_path
       #render "#{Rails.root}/public/ops.html" # false/gte/pesquisadores"
     elsif @pessoa.alunos.first.status == 'atualizado'# and @pessoa.alunos.first.status == 'atualizado'
-      respond_with(@solicitacoes)
+      #redirect_to solicitacoes_path
+      #respond_with(@solicitacoes)
+    else
+      redirect_to :back, :alert => "Esta área ainda será liberada para sua classe de usuário. :~("
     end
+
+
+
+
   end
 
   def show
     respond_with(@solicitacao)
+
+
   end
 
   def new
@@ -63,6 +69,35 @@ class SolicitacoesController < ApplicationController
     respond_with(@solicitacao)
   end
 
+  def iestudantil_do_aluno
+    @solicitacao = Iestudantil.find(params[:iestudantil_id])
+
+
+    # For Rails 3 or latest replace #{RAILS_ROOT} to #{Rails.root}
+    iestudantil_do_aluno = ODFReport::Report.new("#{Rails.root}/app/reports/IEstudantil_modelo_2015-2.odt") do |r|
+
+      # r.add_field "NOME", @aluno.pessoa.nome
+      # r.add_field "NASCIMENTO", @aluno.pessoa.nascimento.to_s_br
+      # r.add_field "CPF", @aluno.pessoa.cpf
+      # r.add_field "CURSO", @aluno.curso
+      # r.add_field "MATRICULA", @aluno.matricula
+      # r.add_field "VALIDADE", view_context.validade_aluno(@aluno)
+      # f = File.open (@aluno.pessoa.foto.path)
+      # r.add_image "FOTO", f
+      # f.close
+    end
+
+    # send_data iestudantil_do_aluno.generate,
+    #   type: 'application/vnd.oasis.opendocument.text',
+    #   disposition: 'attachment',
+    #   filename: 'report.odt'
+
+    arquivo_carta = iestudantil_do_aluno.generate("/tmp/iestudantil_do_aluno-#{@aluno.pessoa.nome}.odt")
+    system "unoconv -f pdf /tmp/iestudantil_do_aluno-#{@aluno.pessoa.nome}.odt"
+    f = File.open("/tmp/iestudantil_do_aluno-#{@aluno.pessoa.nome}.pdf",'r')
+    send_file(f,:filename=>"Identidade Estudantil - #{@aluno.pessoa.nome}.pdf",:content_type=>"application/pdf")
+
+  end
 
 
   def cancelar_solicitacao
@@ -75,6 +110,23 @@ class SolicitacoesController < ApplicationController
     #    @solicitacao.save
     redirect_to solicitacoes_url
   end
+
+
+  def alterar_status
+    @iestudantil = Iestudantil.find(params[:iestudantil_id])
+    if params[:status]=='em_lote'
+      @iestudantil.em_lote
+    elsif params[:status]=='imprimir'
+      @iestudantil.imprimir
+    elsif params[:status]=='entregar'
+      @iestudantil.entregar
+    elsif params[:status]=='cancelar'
+      @iestudantil.cancelar
+    end
+    @iestudantil.save
+    redirect_to solicitacoes_url
+  end
+
 
   # def alterar_status
   #   @noticia = Noticia.find(params[:noticia_id])

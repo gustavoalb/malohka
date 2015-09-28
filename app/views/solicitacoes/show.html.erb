@@ -2,41 +2,18 @@
 <div class="page-header">
   <h1 align='center'>Solicitação - <%= tipo_solicitavel(@solicitacao.solicitavel_type) %></h1>
 </div>
-<div>
-  <p style="text-align: center"><strong>Status atual do processo:&nbsp;</strong><%= status_solicitavel(@solicitacao.solicitavel.status) %></p>
-  <% if @solicitacao.solicitavel.status=='solicitado' %>
-    <div class="progress">
-      <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%">25% (<%= status_iestudantil(@solicitacao.solicitavel.status) %>)</div>
-    </div>
-  </div>
-<% elsif  @solicitacao.solicitavel.status=='para_impressao'%>
-  <div class="progress">
-    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">50% (<%= status_iestudantil(@solicitacao.solicitavel.status) %>)</div>
-  </div>
-</div>
-<% elsif  @solicitacao.solicitavel.status=='impresso'%>
-  <div class="progress">
-    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">75% (<%= status_iestudantil(@solicitacao.solicitavel.status) %>)</div>
-  </div>
-</div>
-<% elsif  @solicitacao.solicitavel.status=='entregue'%>
-  <div class="progress">
-    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">100% (<%= status_iestudantil(@solicitacao.solicitavel.status) %>)</div>
-  </div>
-</div>
-<% elsif  @solicitacao.solicitavel.status=='cancelado'%>
-  <div class="progress" align='center'>
-    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
-    0%
-  </div>
-</div>
-<% end %>
+<%= progresso_iestudantil(@solicitacao.solicitavel.status) %>
 <hr>
 <div class="col-sm-12 col-md-12, row, well">
   <div class="col-sm-5 col-md-7, thumbnail, center">
     <div align="CENTER">
     </div>
     <div>
+      <% if can? :manage, @solicitacao %>
+        <p><strong>Id do Solicitante:&nbsp;</strong><%= @solicitacao.solicitante_id %></p>
+        <p><strong>Id da Solicitação:&nbsp;</strong><%= @solicitacao.id %></p>
+        <p><strong>Id da <%= tipo_solicitavel(@solicitacao.solicitavel_type) %>:&nbsp;</strong><%= @solicitacao.solicitavel.id %><%#= @solicitacao.aluno_id %></p>
+      <% end -%>
       <p><strong>Criação:&nbsp;</strong><%= ver_form_nil(@solicitacao.created_at.strftime("%d/%m/%y às %H:%M ")) %></p>
       <p><strong>Envio para lote:&nbsp;</strong><%= ver_form_nil(@solicitacao.solicitavel.data_lote) %></p>
       <p><strong>Impressão:&nbsp;</strong><%= ver_form_nil(@solicitacao.solicitavel.data_impressao) %></p>
@@ -44,16 +21,10 @@
     </div>
   </div>
   <div class="col-sm-4 col-md-7">
-    <% if can? :manage, @solicitacao %>
-      <p><strong>Id do Solicitante:&nbsp;</strong><%= @solicitacao.solicitante_id %></p>
-    <% end -%>
     <p><strong>Aluno:&nbsp;</strong><%= @solicitacao.solicitavel.aluno.pessoa.nome %></p>
     <p><strong>Matrícula:&nbsp;</strong><%= @solicitacao.solicitavel.aluno.matricula %></p>
     <p><strong>Status geral do processo:&nbsp;</strong><%= status_solicitavel(@solicitacao.status) %></p>
   </div>
-  <% if can? :manage, @solicitacao %>
-    <div align='center'><%= @solicitacao.solicitavel.aluno.turma.nome %></div>
-  <% end -%>
 </div>
 <%= link_to t('.back', :default => t("helpers.links.voltar")),
               solicitacoes_path, :class => 'btn btn-default'  %>

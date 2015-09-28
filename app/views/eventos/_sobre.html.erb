@@ -1,0 +1,9 @@
+<div class="col-sm-12 col-md-12, row">
+  <br>
+  <% if @evento.descricao.present? %>
+    <div><%= @evento.descricao.html_safe %></div>
+  <% else %>
+    <div>Em desenvolvimento :^)</div>
+  <% end %>
+  <br>
+</div>

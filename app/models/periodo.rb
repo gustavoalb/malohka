@@ -1,5 +1,5 @@
 class Periodo < ActiveRecord::Base
-  belongs_to :componente
+  belongs_to :componente, dependent: :destroy
 
   #belongs_to :componente#, :dependent => :destroy
   # has_many :participacoes

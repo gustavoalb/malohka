@@ -1,0 +1,67 @@
+<div class='panel-heading'>
+  <% @periodos_por_dia.each do |data, periodos| %>
+    <h4 class='panel-title'>
+      <div class='panel-group' id='accordion' role='tablist' aria-multiselectable='true'>
+        <div class='panel panel-default'>
+          <!-- <div class='panel-heading' role='tab' id='evento-#{objeto_principal.id}-label'> -->
+          <div class='panel-heading' role='tab' id='evento-<%= data.to_i %>-label'>
+            <h4 class='panel-title'><a role='button' data-toggle='collapse' data-parent='#accordion' href='#evento-<%= data.to_i %>' aria-expanded='true' aria-controls='evento-<%= data.to_i %>'>
+                <h4 align='center'><strong><%= data.to_date.strftime("%A, %d de %B de %y") %></strong>
+                </h4>
+              </a>
+            </h4>
+          </div>
+          <div id='evento-<%= data.to_i %>' class='panel-collapse collapse' role='tabpanel' aria-labelledby='evento-<%= data.to_i %>-label'>
+            <% periodos.each do |periodo| %>
+              <div class='panel-body'>
+                <!-- <p>#{objeto_principal.nome}</p> -->
+                <%= periodo.componente.nome %>
+                <!-- # <%# end %> -->
+                <!-- return raw(html) -->
+                <%# for componente in @evento.componentes %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </h4>
+  <% end %>
+</div>
+<% @periodos_por_dia.each do |data, periodos| %>
+  <h3 align='center'><strong><%= data %></strong></h3>
+  <%# for componente in @evento.componentes %>
+  <!-- <h4 class='panel-title'> -->
+  <% periodos.each do |periodo| %>
+    <div class='panel-group' id='accordion' role='tablist' aria-multiselectable='true'>
+      <div class='panel panel-default'>
+        <div class='panel-heading' role='tab' id='#evento-<%= periodo.id %>-label'>
+          <h4 class='panel-title'>
+            <a role='button' data-toggle='collapse' data-parent='#accordion' href='#evento-<%= periodo.id %>' aria-expanded='true' aria-controls='#evento-<%= periodo.id %>'>p<%= periodo.componente.nome %></a>
+          </h4>
+        </div>
+        <div id='#evento-<%= periodo.id %>' class='panel-collapse collapse' role='tabpanel' aria-labelledby='#evento-<%= periodo.id %>-label'>
+          <div class='panel-body'>
+            <p><%#= componente.id %>ff</p>
+            <%# end %>
+            <%# for componente in @evento.componentes %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- </h4> -->
+  <% end %>
+<% end %>
+<!--         
+<p>o</p>
+<%# for componente in @evento.componentes %>
+<%# for periodo in componente.periodos %>
+<h4><a data-toggle="collapse" data-parent="#accordion" href="#prog"><%# if periodo.inicio.present? %><%#= h periodo.inicio.strftime("%d/%m/%y às %H:%M") %><%# end %></td>
+<%# end %></a></h4>
+<div class="panel paenl-default">
+  <div id="prog" class="panel-collapse collapse">
+    <p><strong><%#=  componente.tipo_componente %>: <%#= componente.nome %></strong></p>
+  </div>
+</div>
+<%# end %>
+dd
+ -->
