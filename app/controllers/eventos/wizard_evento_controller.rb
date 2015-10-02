@@ -10,10 +10,10 @@ class Eventos::WizardEventoController < ApplicationController
     @componentes = Componente.where('componentes.evento_id=?',@evento.id)#.order("publicado_em DESC").all
     @publicos = Publico.all.order(:nome)
     @ministrantes = Ministrante.all.order(:nome)
-    x = 1.times do
-      componentes = @evento.componentes.build
-      1.times { componentes.periodos.build }
-    end
+    # x = 1.times do
+    #   componentes = @evento.componentes.build
+    #   1.times { componentes.periodos.build }
+    # end
     # @periodos_por_dia = @evento.periodos.group_by { |t| t.inicio.strftime("%d/%m/%y") }
 
     render_wizard

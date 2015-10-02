@@ -71,6 +71,9 @@ class Evento < ActiveRecord::Base
   scope :inscricoes_iniciadas, -> {where("status = 'inscricoes_iniciadas'",true)}
   scope :inscricoes_finalizadas, -> {where("status = 'inscricoes_finalizadas'",true)}
   scope :finalizados, -> {where("status = 'evento_finalizado'",true)}
+  #scope :pperiodos_por_dia,.group("date(created_at)")
+  #scope :periodos_por_dia, -> { joins(:periodo).where("periodo_id=?", @evento_id).group('inicio') }
+  # @periodos_por_dia = @evento.periodos.group_by { |t| t.inicio.strftime("%d/%m/%y") }
 
   state_machine :status, :initial => :criado do
     event :customizar do

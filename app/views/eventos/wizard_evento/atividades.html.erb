@@ -27,21 +27,15 @@
 <!-- Modal -->
 <br>
 <%= simple_nested_form_for @evento, :url => wizard_path do |f| %>
-  <% for componente in @evento.componentes %>
-  <tr>
-    <%# for periodo in componente.periodos %>
-    <td><%# if periodo.inicio.present? %><%#= h periodo.inicio.strftime("%d/%m/%y às %H:%M") %><%# end %><%=  componente.id %><%=  componente.nome %></td>
-  <% end %>
   <div>
     <%= f.simple_fields_for :componentes do |builder|%>
       <div class="col-sm-12 col-md-12, row, well">
-        <%= render 'componentes', :f => builder %>
+        <%= render 'eventos/wizard_evento/componentes', :f => builder %>
       <% end %>
       <%= f.link_to_add "Adicionar Componente", :componentes, :class => 'btn btn-info btn-xs' %>
     </div>
     <br>
-    <!-- <div> -->
     <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
     <%= f.submit 'Next Step' %>
-  <% end %>
-</div>
+  </div>
+<% end %>

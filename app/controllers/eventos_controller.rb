@@ -12,8 +12,12 @@ class EventosController < ApplicationController
 
   def show
     @periodos = @evento.periodos
-    @periodos_por_dia = @evento.periodos.group_by { |t| t.inicio.strftime("%d/%m/%y") }
+    # @periodos_por_dia = @evento.periodos.group_by { |t| t.inicio }
     @participacoes = Participacao.all
+    if !@evento.periodos.nil?
+      @periodos_por_dia = @evento.periodos.group_by { |t| t.inicio.strftime("%d/%m/%y") }
+    elsif !@evento.periodos.present?
+    end
     respond_with(@evento)
   end
 

@@ -32,7 +32,7 @@
               <dd><% if componente.ministrante.present? %>
                   <%= componente.ministrante.titulo %> <%= h componente.ministrante.nome %><% end %></dd>
               <dt><strong>Período:</strong></dt>
-              <dd>Dia <% if periodo.present? %>
+              <dd>Dia <% if !periodo.present? %>
                   <%= h periodo.inicio.strftime("%d/%m/%y") %>, de <%= h periodo.inicio.strftime("%H:%M") %> às <%= h periodo.termino.strftime("%H:%M") %>, perfazendo <%= duracao_periodo(periodo).to_i %> minutos de carga horária.<% end %></dd>
               <dt><strong>Público Alvo:</strong></dt>
               <dt><strong>Vagas:</strong></dt>
