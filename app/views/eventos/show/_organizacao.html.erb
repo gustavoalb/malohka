@@ -1,7 +1,7 @@
   <br>
-<% if @evento.descricao.present? %>
-  <div><%= @evento.descricao.html_safe %></div>
+<% if @evento.organizacao.present? %>
+  <div><%= @evento.organizacao.html_safe %></div>
 <% else %>
-  <div>Em desenvolvimento :^)</div>
+  <%=render :file => "#{Rails.root}/public/em_construcao.html" %>
 <% end %>
 <br>

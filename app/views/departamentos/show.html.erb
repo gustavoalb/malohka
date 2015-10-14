@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @departamento.nome %>
+</p>
+
+<p>
+  <strong>Sigla:</strong>
+  <%= @departamento.sigla %>
+</p>
+
+<p>
+  <strong>Reparticao:</strong>
+  <%= @departamento.reparticao_id %>
+</p>
+
+<p>
+  <strong>Data criacao:</strong>
+  <%= @departamento.data_criacao %>
+</p>
+
+<p>
+  <strong>Portaria criacao:</strong>
+  <%= @departamento.portaria_criacao %>
+</p>
+
+<%= link_to 'Edit', edit_departamento_path(@departamento) %> |
+<%= link_to 'Back', departamentos_path %>

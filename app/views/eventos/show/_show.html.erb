@@ -13,6 +13,9 @@
           <% if @evento.participacoes.present? %>
             <li><a href="#minhas_atividades" data-toggle="tab">Minhas Atividades</a></li>
           <% end %>
+          <% if can? :update, @evento %>
+            <li><a href="#administracao" data-toggle="tab">Administração</a></li>
+          <% end %>
         </ul>
       </li>
     </ul>
@@ -20,13 +23,13 @@
       <div class="tab-pane fade active in" id="sobre">
         <%= render :partial => 'eventos/show/sobre' %>
       </div>
-      <% if @evento.periodos.present? %>
+      <% if @evento.componentes.present? %>
         <div class="tab-pane fade" id="programacao">
-          <%= render :partial => 'eventos/show/programacao' %>
-        </div>
-      <% elsif !@evento.periodos.present? %>
-        <div class="tab-pane fade" id="programacao">
-          <%= render :partial => 'eventos/show/programacao_sem_periodos' %>
+          <% if @evento.periodos.present? %>
+            <%= render :partial => 'eventos/show/programacao_com_periodos' %>
+          <% else %>
+            <%= render :partial => 'eventos/show/programacao_sem_periodos' %>
+          <% end %>
         </div>
       <% end %>
       <% if @evento.organizacao.present? %>
@@ -37,6 +40,11 @@
       <% if @evento.participacoes.present? %>
         <div class="tab-pane fade" id="minhas_atividades">
           <%= render :partial => 'eventos/show/minhas_atividades' %>
+        </div>
+      <% end %>
+      <% if @evento.responsavel.present? %>
+        <div class="tab-pane fade" id="administracao">
+          <%= render :partial => 'eventos/show/administracao' %>
         </div>
       <% end %>
     </div>

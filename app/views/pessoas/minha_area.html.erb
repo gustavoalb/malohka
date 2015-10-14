@@ -1,0 +1,54 @@
+<div class="page-header" align='center'>
+  <h1>Minha Área</h1>
+</div>
+<div class="container, row, well">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel">
+        <ul id="myTab1" class="nav nav-tabs nav-justified">
+          <li class="active"><a href="#certificados" data-toggle="tab">Certificados</a></li>
+          <li><a href="#solicitacoes" data-toggle="tab">Solicitações</a></li>
+          <li><a href="#atividades_completares" data-toggle="tab">Atividades Complementares</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade active in" id="certificados">
+            <div class="col-sm-12 col-md-12, row">
+              <hr>
+              <table class="table table-striped table-hover table-bordered table-condensed">
+                <thead>
+                  <tr>
+                    <th>Atividade</th>
+                    <th>Data</th>
+                    <th><%=t '.actions', :default => t("helpers.opções") %></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @participacoes.da_pessoa(@pessoa.id).each do |participacao| %>
+                    <tr>
+                      <td><%= participacao.componente.nome  %></td>
+                      <% if can? :manage, :all %>
+                        <td><%= participacao.pessoa.nome  %></td>
+                      <% end %>
+                      <td><%= participacao.componente.periodos.minimum('inicio').strftime("%d de %B") %></td>
+                      <td align='center'>
+                        <% if participacao.componente.evento.status == 'inscricoes_iniciadas' or participacao.componente.evento.status == 'inscricoes_finalizadas' %>
+                          <fieldset disabled><button class="btn btn-default btn-xs">Certificado indisponível! :~(</button></fieldset>
+                        <% elsif participacao.componente.evento.status == 'finalizado' %>
+                          <%= link_to "Imprimir Certificado", pessoa_certificado_path(:evento_id => participacao.componente.evento.id, format: "pdf" ), :class  => 'btn btn-default btn-xs' %>
+                        <% end %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="solicitacoes">
+            <%=render :file => "#{Rails.root}/public/em_construcao.html" %>
+          </div>
+          <div class="tab-pane fade" id="atividades_completares">
+            <%=render :file => "#{Rails.root}/public/em_construcao.html" %>
+          </div>
+        </div>
+      </div>
+    </div>

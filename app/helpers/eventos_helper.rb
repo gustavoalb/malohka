@@ -1,2 +1,21 @@
 module EventosHelper
+
+  def status(objeto)
+    if objeto=='criado'
+      return 'Evento criado e a espera de customização'
+    elsif objeto=='em_customizacao'
+      return 'Evento em fase de customização a ter acesso liberado ao público'
+    elsif objeto=='acesso_liberado'
+      return 'Evento com acesso_liberado ao público'
+    elsif objeto=="inscricoes_iniciadas"
+      return 'Evento com inscrições liberadas'
+    elsif objeto=='inscricoes_finalizadas'
+      return 'Evento com Inscrições finalizadas'
+    elsif objeto=='finalizado'
+      return 'Evento com finalizado mas ainda em pauta'
+    elsif objeto=='arquivado'
+      return 'Evento arquivado'
+    end
+  end
+
 end

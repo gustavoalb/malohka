@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2220150507134193) do
+ActiveRecord::Schema.define(version: 2220150507134198) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,16 @@ ActiveRecord::Schema.define(version: 2220150507134193) do
     t.integer  "duracao"
   end
 
+  create_table "departamentos", force: :cascade do |t|
+    t.string   "nome"
+    t.string   "sigla"
+    t.integer  "reparticao_id"
+    t.date     "data_criacao"
+    t.string   "portaria_criacao"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
   create_table "eventos", force: :cascade do |t|
     t.string   "nome",                limit: 255
     t.datetime "created_at"
@@ -101,13 +111,15 @@ ActiveRecord::Schema.define(version: 2220150507134193) do
   end
 
   create_table "funcionarios", force: :cascade do |t|
-    t.string   "matricula",  limit: 255
-    t.string   "cargo",      limit: 255
+    t.string   "matricula",    limit: 255
+    t.string   "cargo",        limit: 255
     t.integer  "cargo_id"
     t.date     "data_posse"
     t.integer  "pessoa_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "departamento"
+    t.string   "decreto"
   end
 
   create_table "grupos", force: :cascade do |t|
@@ -187,6 +199,13 @@ ActiveRecord::Schema.define(version: 2220150507134193) do
     t.string   "status",       limit: 255
   end
 
+  create_table "orgoes", force: :cascade do |t|
+    t.string   "nome"
+    t.string   "sigla"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "paginas", force: :cascade do |t|
     t.string   "nome",       limit: 255
     t.string   "tipo",       limit: 255
@@ -264,13 +283,25 @@ ActiveRecord::Schema.define(version: 2220150507134193) do
   create_table "publicos", force: :cascade do |t|
     t.string   "nome"
     t.string   "descricao"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.decimal  "teste",      precision: 3, scale: 2
+    t.float    "teste1"
   end
 
   create_table "publicos_componentes", force: :cascade do |t|
     t.integer "publico_id"
     t.integer "componente_id"
+  end
+
+  create_table "reparticoes", force: :cascade do |t|
+    t.string   "nome"
+    t.string   "sigla"
+    t.integer  "orgao_id"
+    t.text     "descricao"
+    t.date     "data_criacao"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "respostas", force: :cascade do |t|

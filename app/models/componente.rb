@@ -14,28 +14,10 @@ class Componente < ActiveRecord::Base
   enum local: {'Auditório'=> 1, 'Hall do Auditório'=>2, 'Biblioteca'=> 3, 'Laboratório'=> 4, 'Sala de aula'=> 3}
   # validates :vagas, numericality: true#, :message=>"Apenas numeros!"
 
-  scope :do_evento, lambda{|evento_id|
-    joins(:componentes).where('componentes.evento_id=?',evento_id)
-  }
-
-  scope :do, lambda{|evento_id|
-    joins(:componente).where('componentes.evento_id=?',evento_id)
-  }
-
-  # def publico?(publico)
-  #   publicos = []
-  #   self.publicos.each do |p|
-  #     publicos << p.nome.downcase
-  #   end
-  #   publicos.include? publico.to_s.downcase
-  # end
-
-  # def ministrante?(ministrante)
-  #   ministrantes = []
-  #   self.ministrantes.each do |m|
-  #     ministrantes << m.nome.downcase
-  #   end
-  #   ministrantes.include? ministrante.to_s.downcase
-  # end
+  # scope :do_evento, lambda{|evento_id|
+  #   joins(:componentes).where('componentes.evento_id=?',evento_id)
+  # }
+  scope :destaques_do_evento, lambda{|evento_id| where("evento_id=?",evento_id).limit(3)}
+  scope :do_evento, lambda{|evento_id| where("@evento_id=?",evento_id)}
 
 end

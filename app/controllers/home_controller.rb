@@ -5,5 +5,6 @@ class HomeController < ApplicationController
     @pautas = Noticia.where(destaque: false, pauta: true)
     @eventos = Evento.all
     @participacoes = Participacao.all
+    @componentes = Componente.all
   end
 end

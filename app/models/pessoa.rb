@@ -6,7 +6,8 @@ class Pessoa < ActiveRecord::Base
 
   has_one :usuario
   has_many :alunos
-  has_many :funcionarios
+  has_one :funcionario
+  # has_many :funcionarios
   has_many :participacoes
   has_many :componentes, :through => :participacoes
   has_many :eventos

@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Nome:</strong>
+  <%= @reparticao.nome %>
+</p>
+<p>
+  <strong>Sigla:</strong>
+  <%= @reparticao.sigla %>
+</p>
+<p>
+  <strong>Orgão:</strong>
+  <%= @reparticao.orgao.nome %>
+</p>
+<p>
+  <strong>Descricao:</strong>
+  <%= @reparticao.descricao %>
+</p>
+<p>
+  <strong>Data criacao:</strong>
+  <%= @reparticao.data_criacao %>
+</p>
+<%= link_to 'Edit', edit_reparticao_path(@reparticao) %> |
+<%= link_to 'Back', reparticoes_path %>

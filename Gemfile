@@ -67,6 +67,7 @@ gem 'chunky_png'
 
 # Para qpcode
 gem 'rqrcode'
+# gem 'rqrcode-with-patches', '~> 0.5.4'
 
 # para conteúdo estático
 gem 'high_voltage', '~> 2.2.1'

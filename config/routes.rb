@@ -1,17 +1,20 @@
 Rails.application.routes.draw do
 
+  resources :departamentos
+  resources :reparticoes
+  resources :certificados
+
   resources :eventos, only: [:new, :create, :show, :update, :edit, :index] do
     post :registrar_participacao
     get 'certificado'
+    put "alterar_status/:evento_id/:status"=>'eventos#alterar_status', as: :alterar_status
     resources :wizard_evento, only: [:show, :update], controller: 'eventos/wizard_evento'
   end
 
   resources :publicos
-  namespace :eventos do
-    get 'wizard_evento/show'
-  end
 
   namespace :eventos do
+    get 'wizard_evento/show'
     get 'wizard_evento/update'
   end
 
@@ -19,7 +22,6 @@ Rails.application.routes.draw do
   # resources :eventos do
   #   post :registrar_participacao
   # end
-
 
 
   resources :evento_wizard#, only: [:edit,:show, :update], controller: 'eventos_wizard'
@@ -65,8 +67,12 @@ Rails.application.routes.draw do
   # end
 
   resources :validacao
+
   resources :pesquisas
+
   resources :pessoas do
+    get :minha_area
+    get 'certificado'
     get :foto
     post :upload_foto
   end
@@ -88,7 +94,6 @@ Rails.application.routes.draw do
     post 'turmas', on: :collection
     post 'turnos', on: :collection
     post 'cursos_turno', on: :collection
-    #get 'iestudantil_do_aluno/:aluno_id'=>'alunos#iestudantil_do_aluno', as: :iestudantil_do_aluno, on: :collection
     get 'iestudantil_do_aluno'
   end
 
@@ -112,5 +117,6 @@ Rails.application.routes.draw do
   end
 
   #este aqui libera o permalink - fim
+
   root :to => "home#principal"
 end

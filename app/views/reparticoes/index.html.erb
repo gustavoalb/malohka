@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+<h1>Listing Reparticoes</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Sigla</th>
+      <th>Órgão</th>
+      <th>Descricao</th>
+      <th>Data criacao</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reparticoes.each do |reparticao| %>
+      <tr>
+        <td><%= reparticao.nome %></td>
+        <td><%= reparticao.sigla %></td>
+        <td><%= reparticao.orgao.nome %></td>
+        <td><%= reparticao.descricao %></td>
+        <td><%= reparticao.data_criacao %></td>
+        <td><%= link_to 'Show', reparticao %></td>
+        <td><%= link_to 'Edit', edit_reparticao_path(reparticao) %></td>
+        <td><%= link_to 'Destroy', reparticao, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<%= link_to 'New Reparticao', new_reparticao_path %>

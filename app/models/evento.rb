@@ -6,7 +6,7 @@ class Evento < ActiveRecord::Base
 
   attr_accessor :form_step
 
-  validates :nome, :descricao, presence: true, if: -> { required_for_step?(:inicio) }
+  validates :nome, :descricao, :responsavel, presence: true, if: -> { required_for_step?(:inicio) }
   # validates :nome, :descricao, presence: true, if: -> { required_for_step?(:atividades) }
   # validates :identifying_characteristics, :colour, presence: true, if: -> { required_for_step?(:characteristics) }
   # validates :special_instructions, presence: true, if: -> { required_for_step?(:instructions) }
@@ -18,7 +18,7 @@ class Evento < ActiveRecord::Base
 
 
   belongs_to :pessoa
-  belongs_to :responsavel, class_name: "Pessoa"
+  belongs_to :responsavel, class_name: "Funcionario"
   has_many :componentes, :dependent => :destroy
   accepts_nested_attributes_for :componentes, :reject_if => lambda { |a| a[:nome].blank? }, :allow_destroy => true
   has_many :periodos, through: :componentes
@@ -66,14 +66,17 @@ class Evento < ActiveRecord::Base
     :content_type => { :content_type => /^image\/(jpeg|png|gif|tiff)$/ }
   #banner
 
+  scope :ativos, -> {where("status = 'inscricoes_iniciadas' or status = 'acesso_liberado' or status = 'inscricoes_finalizadas'")}
+  scope :finalizados, -> {where("status = 'evento_finalizado'",true)}
+  scope :disponiveis, -> {where("status = 'inscricoes_iniciadas' or status = 'acesso_liberado'")}
+  scope :anteriores, -> {where("status = 'inscricoes_iniciadas' or status = 'evento_finalizado'",true)}
   scope :em_customizacao, -> {where("status = 'em_customizacao'",true)}
-  scope :ativos, -> {where("status = 'inscricoes_iniciadas' or status = 'acesso_liberado'",true)}
   scope :inscricoes_iniciadas, -> {where("status = 'inscricoes_iniciadas'",true)}
   scope :inscricoes_finalizadas, -> {where("status = 'inscricoes_finalizadas'",true)}
-  scope :finalizados, -> {where("status = 'evento_finalizado'",true)}
-  #scope :pperiodos_por_dia,.group("date(created_at)")
-  #scope :periodos_por_dia, -> { joins(:periodo).where("periodo_id=?", @evento_id).group('inicio') }
-  # @periodos_por_dia = @evento.periodos.group_by { |t| t.inicio.strftime("%d/%m/%y") }
+
+  scope :da_pessoa, lambda{|pessoa_id| where("@pessoa_id=?",pessoa_id)}
+
+
 
   state_machine :status, :initial => :criado do
     event :customizar do
@@ -88,12 +91,16 @@ class Evento < ActiveRecord::Base
       transition :acesso_liberado => :inscricoes_iniciadas
     end
 
-    event :fechar_incricoes do
+    event :fechar_inscricoes do
       transition :inscricoes_iniciadas => :inscricoes_finalizadas
     end
 
     event :finalizar do
-      transition :inscricoes_finalizadas => :evento_finalizado
+      transition :inscricoes_finalizadas => :finalizado
+    end
+
+    event :arquivar do
+      transition :evento_finalizado => :arquivado
     end
   end
 

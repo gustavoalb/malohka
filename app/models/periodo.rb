@@ -18,4 +18,5 @@ class Periodo < ActiveRecord::Base
   # def nome
   #   self.evento.nome
   # end
+  scope :do_evento, lambda{|evento_id| where("@evento_id=?",evento_id)}
 end

@@ -6,6 +6,8 @@ class Ability
 
     if usuario.role? :admin
       can :manage, :all
+      #if usuario.grupo? :funcionario
+      # can :manage, :all
     elsif usuario.role? :ascom
       can :manage, Noticia
       can :manage, Pagina
@@ -18,11 +20,10 @@ class Ability
       can [:read, :create, :destroy], Ckeditor::AttachmentFile, assetable_id: usuario.id
     elsif usuario.role? :iestudantil
       can [ :read, :update ], Aluno
-      #can :read, Noticia
-      #can [:read, :create ], Solicitacao
     elsif usuario.role? :funcionario
       can :read, Noticia
-      can :read, Evento
+      can [:create, :edit, :update], Evento, responsavel_id: usuario.funcionario.id
+      cannot [:destroy], Evento
       #can :read, Solicitacao
     elsif usuario.role? :aluno
       can [:read, :create, :destroy ], Solicitacao
@@ -34,6 +35,8 @@ class Ability
       can [:read, :create, :destroy], Ckeditor::AttachmentFile, assetable_id: usuario.id
       can [:manage, :edit, :update], Aluno, pessoa_id: usuario.pessoa_id
       cannot [:destroy, :create], Aluno
+      can [:manage, :edit, :update], Pessoa, usuario: usuario.pessoa_id
+      cannot [:destroy, :create], Pessoa
       # can [:manage], Nivel
       # can [:manage], Turma
       # can [:manage], Curso

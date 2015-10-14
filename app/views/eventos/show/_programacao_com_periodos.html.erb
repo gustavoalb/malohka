@@ -1,0 +1,96 @@
+<% @periodos.group_by{|g|g.inicio.strftime("%A, %d de %B de %Y")}.each do |data, periodos|%>
+  <div class='well'>
+    <h4 class='panel-title' align='center'>
+      <strong><%= data %></strong>
+    </h4>
+    <hr>
+    <% periodos.each do |periodo| %>
+      <div class="panel panel-default">
+        <p align='left' data-toggle="collapse" data-parent="#accordion" href="#evento-<%= periodo.id %>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;<%= periodo.inicio.strftime("%H:%M") %> - <%= periodo.componente.tipo_componente%>: <b><%= periodo.componente.nome %></b></p>
+      </div>
+      <div id="evento-<%= periodo.id %>" class="panel-collapse collapse">
+        <% if periodo.componente.descricao.present? %>
+          <p align='center'><strong>Ementa:</strong><br>
+            <%= periodo.componente.descricao.html_safe %></p>
+        <% end %>
+        <dl class="dl-horizontal">
+          <dt><strong>Vagas</strong>:</dt>
+          <dd><%= periodo.componente.vagas %></dd>
+          <dt><strong>Público Alvo</strong>:</dt>
+          <% if periodo.componente.publicos.present? %>
+            <dd class="btn-default btn-xs"><%= periodo.componente.publicos.collect{|p|p.nome}.to_sentence %></dd>
+          <% else %>
+            <dd>Em definição ;)</dd>
+          <% end %>
+          <dt><strong>Ministrante</strong>:</dt>
+          <dd><% for ministrante in periodo.componente.ministrantes %><%= ministrante.titulo %> <%= ministrante.nome %><%= ministrante.organizacao %><%= ministrante.biografia %><% end %></dd>
+        <dt><strong>Local</strong>:</dt>
+        <dd><%=  periodo.componente.local %></dd>
+      </dl>
+      <dl class="dl-horizontal">
+        <dt><strong>Opções:</strong></dt>
+        <% if @evento.status == 'inscricoes_iniciadas' %>
+          <%= simple_nested_form_for @evento, url: evento_registrar_participacao_url(@evento), method: :post,:html => { :class => 'form-horizontal' } do |f| %>
+            <%= f.input :componente_id, input_html: {value: periodo.componente.id}, as: :hidden %>
+            <%= f.input :pessoa_id, input_html: {value: current_usuario.pessoa.id}, as: :hidden %>
+            <dd><%= f.submit "Fazer minha inscrição imediatamente!",:class => 'btn btn-primary btn-xs', :onclick=>"return confirm('Confirmar sua participação nesta atividade?')" %></dd>
+          <% end %>
+        <% elsif @evento.status == 'inscricoes_finalizadas' %>
+          <dd>
+            <fieldset disabled><button class="btn btn-primary btn-xs">Inscrições finalizadas! :~(</button></fieldset>
+            <!-- aqui -->
+            <button class="btn-default btn-xs" data-toggle="modal" data-target="#evento-<%= periodo.id %>-notes">Inscrições</button>
+            <!-- aqui -->
+          </dd>
+        <% else %>
+        <% end %>
+      </dl>
+      <!-- Modal -->
+      <div class="modal fade" id="evento-<%= periodo.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="evento-<%= periodo.id %>-label" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="evento-<%= periodo.id %>-label" align='center'>
+                <%= periodo.componente.nome %>
+              </h4>
+            </div>
+            <div class="modal-body">
+              <!-- mais -->
+              <table class="table table-striped table-hover table-bordered table-condensed">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Data de Inscrição</th>
+                    <th>Frequência</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @participacoes.do_componente(periodo.componente.id).each do |participacao| %>
+                    <tr>
+                      <td><%= participacao.pessoa.nome  %></td>
+                      <td><%= participacao.created_at.strftime("%d de %B") %></td>
+                      <td><%= participacao.frequencia  %></td>
+                      <!--        <td><%#= best_in_place participacao, :frequencia, as: :checkbox, collection: {false: "Nope", true: "Yep"} %>
+                        <%#= best_in_place participacao, :nome, :as => :input %>
+                        <%#= best_in_place participacao, :frequencia, as: :checkbox, collection: ["No, thanks", "Yes, of course!"] %>
+                        <td>
+                          <%#= best_in_place gut, :item,
+                              path: iteracao_path(iteracao.id), type: :input,
+                              param: "iteracao[guts_attributes][id]=#{gut.id}&iteracao[guts_attributes]" %></td> -->
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+  </div>
+<% end %>
+</div>
+<% end %>

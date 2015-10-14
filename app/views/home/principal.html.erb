@@ -65,7 +65,8 @@
     <div class="row">
       <!-- <div class="other_container"> -->
       <!-- <div class="div_flex"> -->
-      <%- model_class = Evento -%><% @eventos.each do |evento| %>
+      <%- model_class = Evento -%>
+      <% Evento.ativos.each do |evento| %>
         <div class="col-sm-4 col-md-6">
           <div class="thumbnail">
             <% if evento.logo.present? %>
@@ -76,9 +77,6 @@
               <div class="div_fixa">
                 <h4 align = 'center'><%= truncate(evento.nome, :length => 160) %></h4>
               </div>
-              <!--               <div>
-                <a data-toggle="tooltip" data-placement="left" title="<%= evento.nome %>"><%= image_tag(evento.logo(:logo)) %></a>
-              </div> -->
             <% end %>
             <div align='center'><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#evento-<%= evento.id %>-notes">
                 Detalhes
@@ -93,30 +91,31 @@
                   </div>
                   <div class="modal-body" >
                     <p><%= evento.descricao.html_safe %></p>
-                    <% if evento.componentes.count>1 %>
+                    <% if evento.componentes.present?%>
                       <hr>
-                      <h4>Destaques:</h4>
-                      <% for componente in evento.componentes %>
-                      <ul>
-                        <li><%=  componente.tipo_componente %>: <%= componente.nome %></li>
-                      </ul>
+                      <p><strong><% if evento.componentes.count == 1 %>Destaque:<% else %>Destaques:
+                          <% end %></strong></p>
+                      <% @componentes.destaques_do_evento(evento).each do |componente| %>
+                        <ul>
+                          <li><%=  componente.tipo_componente %>: <%=  componente.nome %></li>
+                        </ul>
+                      <% end %>
+                    <% else %>
                     <% end %>
-                  <% else %>
-                  <% end %>
-                </div>
-                <div class="modal-footer">
-                  <%= link_to 'Quero saber mais sobre isso!', evento, :class => 'btn btn-primary' %>
-                  <button type="button" class="btn btn-defaut btn-xs" data-dismiss="modal">Fechar</button>
+                  </div>
+                  <div class="modal-footer">
+                    <%= link_to 'Quero saber mais sobre isso!', evento, :class => 'btn btn-primary' %>
+                    <button type="button" class="btn btn-defaut btn-xs" data-dismiss="modal">Fechar</button>
+                  </div>
                 </div>
               </div>
             </div>
+            <!-- Modal -->
           </div>
-          <!-- Modal -->
         </div>
-      </div>
-      <!-- </div> -->
-    <% end %>
+        <!-- </div> -->
+      <% end %>
+    </div>
   </div>
-</div>
 </div>
 <!--fim container-->

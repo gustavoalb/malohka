@@ -5,8 +5,8 @@ class FuncionariosController < ApplicationController
   respond_to :html
 
   def index
-    @funcionarios = Funcionario.all
-    respond_with(@funcionarios)
+    @q = Funcionario.ransack(params[:q])
+    @funcionarios = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 10)#.order("nome ASC")
   end
 
   def cracha_funcional
@@ -151,9 +151,11 @@ class FuncionariosController < ApplicationController
       end
     end
     respond_with(@funcionario)
-    # @funcionario.update(funcionario_params)
-    # respond_with(@funcionario)
   end
+
+
+
+
 
   def destroy
     @funcionario.destroy
@@ -166,6 +168,8 @@ class FuncionariosController < ApplicationController
   end
 
   def funcionario_params
-    params.require(:funcionario).permit(:matricula, :cargo, :cargo_id, :data_posse, :pessoa_id, pessoa: [ :nome,:foto ])
+    params.require(:funcionario).permit(:matricula, :cargo, :cargo_id, :data_posse, :departamento, :decreto, pessoa: [ :nome,:foto ])
+    # params.require(:aluno).permit(:matricula, :ano_ingresso, :curso, :curso_id, :turma_id, :periodo_atual, :semestre_atual, :nivel_id, :status, :ativo, pessoa: [ :nome,:foto ])
+
   end
 end

@@ -4,6 +4,7 @@ class Usuario < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
   has_and_belongs_to_many :grupos
   belongs_to :pessoa
+  has_one :funcionario, :through => :pessoa
   scope :with_role, lambda { |role| {:conditions => "roles_mask & #{2**ROLES.index(role.to_s)} > 0"} }
   validates_presence_of [:pessoa_id], :message=>"Não pode ficar em branco!"
 

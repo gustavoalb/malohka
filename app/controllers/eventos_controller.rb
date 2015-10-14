@@ -6,18 +6,20 @@ class EventosController < ApplicationController
   def index
     @eventos = Evento.all
     @componentes = Componente.all
-
+    @qr = RQRCode::QRCode.new( "http://localhost:3000/certificados/reports/oi.odt", :size => 6, :level => :h )
+    #@qr = RQRCode::QRCode.new("http://codingricky.com").to_img.resize(200, 200).to_data_url
+    #@qr = RQRCode::QRCode.new( qr_code_params[:text], size: 4)
     respond_with(@eventos)
   end
 
   def show
-    @periodos = @evento.periodos
-    # @periodos_por_dia = @evento.periodos.group_by { |t| t.inicio }
-    @participacoes = Participacao.all
-    if !@evento.periodos.nil?
-      @periodos_por_dia = @evento.periodos.group_by { |t| t.inicio.strftime("%d/%m/%y") }
-    elsif !@evento.periodos.present?
-    end
+    @pessoa = current_usuario.pessoa_id
+    @periodos = @evento.periodos.do_evento(@evento).all
+    @componentes = @evento.componentes.do_evento(@evento).all
+    @participacoes = @evento.participacoes.do_evento(@evento).all
+
+
+
     respond_with(@evento)
   end
 
@@ -97,13 +99,43 @@ class EventosController < ApplicationController
 
   def update
     @evento.update(evento_params)
-    respond_with(@evento)
+
+    respond_to do |format|
+      if @evento.update_attributes(params[:evento])
+        format.html { redirect_to(@evento, :notice => 'O evento foi atualizado com successo.') }
+        format.json { respond_with_bip(@evento) }
+      else
+        format.html { render :action => "edit" }
+        format.json { respond_with_bip(@evento) }
+      end
+    end
+    # if current_usuario.roles_mask = 4
   end
 
   def destroy
     @evento.destroy
     respond_with(@evento)
   end
+
+  def alterar_status
+    @evento = Evento.find(params[:evento_id])
+    if params[:status]=='customizar'
+      @evento.customizar
+    elsif params[:status]=='liberar_acesso'
+      @evento.liberar_acesso
+    elsif params[:status]=='abrir_incricoes'
+      @evento.abrir_incricoes
+    elsif params[:status]=='fechar_inscricoes'
+      @evento.fechar_inscricoes
+    elsif params[:status]=='finalizar'
+      @evento.finalizar
+    elsif params[:status]=='arquivar'
+      @evento.arquivar
+    end
+    @evento.save
+    redirect_to eventos_url
+  end
+
 
   private
   def set_evento

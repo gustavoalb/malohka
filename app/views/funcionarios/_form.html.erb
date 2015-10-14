@@ -26,11 +26,16 @@
         </div>
       </div>
       <div class="col-sm-4 col-md-7">
+        <%= f.simple_fields_for @pessoa do |p| %>
+          <%= p.input :nome, label: 'Nome da pessoa' %>
+        <% end -%>
         <%= f.input :matricula %>
         <%= f.input :cargo %>
-        <%= f.input :cargo_id %>
+        <%#= f.input :cargo_id %>
         <%= f.input :data_posse %>
-        <%= f.input :pessoa_id %>
+        <%#= f.input :pessoa_id %>
+        <%= f.input :departamento %>
+        <%= f.input :decreto %>
         <%= f.button :submit, :class => 'btn-primary' %>
         <% if can? :create, Aluno %>
           <%#= render 'form_funcionarios', :f => f %>

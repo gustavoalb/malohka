@@ -1,0 +1,69 @@
+<br>
+<div class="well">
+  <h3 align='center'>Resumo</h3>
+  <dl class="dl-horizontal">
+    <dt>Evento:</dt>
+    <dd><%= @evento.nome %><%= best_in_place @evento, :nome, :as => :input %></dd>
+    <dt>Responsável:</dt>
+    <dd><%= @evento.responsavel.pessoa.nome %> - <%= @evento.responsavel.departamento %></dd>
+    <dt>Criação do evento:</dt>
+    <dd><%= @evento.created_at.strftime("%d de %B") %></dd>
+    <dt>Status:</dt>
+    <dd><%= status(@evento.status) %>
+      <%= @evento.status %><%#= best_in_place @evento, :status, :as => :select, :collection => { em_customizacao: 'em_customizacao', acesso_liberado: 'acesso_liberado', inscricoes_iniciadas: 'inscricoes_iniciadas', inscricoes_finalizadas: 'inscricoes_finalizadas', finalizado: 'finalizado', arquivado: 'arquivado'} %>
+      <%#= best_in_place @evento, :status, :data => {:status => @evento.status} %>
+    </dd>
+    <dt>Componentes:</dt>
+    <dd><%= @evento.componentes.count %></dd>
+    <dt>Inscrições:</dt>
+    <dd><%= @evento.participacoes.count %></dd>
+    <dt>Opções</dt>
+    <dd>
+      <% if can? :update, @evento %>
+        <% if @evento.status == 'criado' %>
+          <%= link_to 'Enviar para customização', evento_alterar_status_path(@evento,'customizar'), method: :put, :class => 'btn btn-primary btn-xs' %>
+        <% elsif @evento.status == 'em_customizacao' %>
+          <%= link_to 'Liberar acesso', evento_alterar_status_path(@evento,'liberar_acesso'), method: :put, :class => 'btn btn-primary btn-xs' %>
+        <% elsif @evento.status == 'acesso_liberado' %>
+          <%= link_to 'Liberar inscrições', evento_alterar_status_path(@evento,'abrir_incricoes'), method: :put, :class => 'btn btn-primary btn-xs' %>
+        <% elsif @evento.status == 'inscricoes_iniciadas' %>
+          <%= link_to 'Finalizar inscrições', evento_alterar_status_path(@evento,'fechar_inscricoes'), method: :put, :class => 'btn btn-primary btn-xs' %>
+        <% elsif @evento.status == 'inscricoes_finalizadas' %>
+          <%= link_to 'Concluir evento', evento_alterar_status_path(@evento,'finalizar'), method: :put, :class => 'btn btn-primary btn-xs' %>
+        <% elsif @evento.status == 'finalizado' %>
+          <%= link_to 'Arquivar', evento_alterar_status_path(@evento,'arquivar'), method: :put, :class => 'btn btn-primary btn-xs' %>
+        <% else %>
+          <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="Muita calma nessa hora... as inscrições ainda não foram liberadas ;~(">Indisponível</a>
+        <% end %>
+      <% end %>
+    </dd>
+  </dl>
+  <hr>
+  <h3 align='center'>Frequência</h3>
+  <table class="table table-striped table-hover table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Inscritos</th>
+        <th>Frequência</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @componentes.each do |componente| %>
+        <tr>
+          <td><%= componente.nome  %></td>
+          <td><%= componente.participacoes.count %></td>
+          <td><a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="Muita calma nessa hora... as inscrições ainda não foram liberadas ;~(">Inscrições</a><%#= componente.frequencia  %></td>
+          <!--        <td><%#= best_in_place participacao, :frequencia, as: :checkbox, collection: {false: "Nope", true: "Yep"} %>
+                        <%#= best_in_place participacao, :nome, :as => :input %>
+                        <%#= best_in_place participacao, :frequencia, as: :checkbox, collection: ["No, thanks", "Yes, of course!"] %>
+                        <td>
+                          <%#= best_in_place gut, :item,
+                              path: iteracao_path(iteracao.id), type: :input,
+                              param: "iteracao[guts_attributes][id]=#{gut.id}&iteracao[guts_attributes]" %></td> -->
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

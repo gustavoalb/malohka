@@ -1,22 +1,51 @@
-<div class="container, row">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="panel">
-        <ul id="myTab1" class="nav nav-tabs nav-justified">
-          <li class="active"><a href="#inscricoes_abertas" data-toggle="tab">Inscrições abertas</a></li>
-          <li><a href="#inscricoes_finalizadas" data-toggle="tab">Inscrições finalizadas</a></li>
-        </ul>
-      </li>
-    </ul>
-    <div id="myTabContent" class="tab-content">
-      <div class="tab-pane fade active in" id="inscricoes_abertas">
-        <%= render :partial => 'eventos/index/inscricoes_abertas' %>
-      </div>
-      <div class="tab-pane fade" id="inscricoes_finalizadas">
-        <%= render :partial => 'eventos/index/inscricoes_finalizadas' %>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
+<%#= render :partial => 'eventos/index/inscricoes_abertas' %>
+<%- model_class = Evento -%>
+<table class="table table-striped">
+  <tbody>
+    <% Evento.ativos.each do |evento| %>
+      <tr>
+        <% if evento.descricao.present? %>
+          <td>
+            <p align='justify'><span><%= image_tag "calendario.png" %></span>&nbsp;<%#= publicavel.publicado_em.strftime("%d/%m/%Y") %>&nbsp;&nbsp;&nbsp;<strong><%= link_to evento.nome, evento_path(evento) %></strong></p>
+            <%= evento.descricao.html_safe %></td>
+        <% else %>
+          <td>em desenvolvimento</td>
+        <% end %>
+        <td  align='left'>
+          <button class="btn-default btn-xs" data-toggle="modal" data-target="#evento-<%= evento.id %>-notes">
+            <% if evento.status == 'inscricoes_iniciadas' %>Informações e Inscrição<% elsif evento.status == 'acesso_liberado' %>Informações<% elsif evento.status == 'inscricoes_finalizadas' %>Certificados<% end %></button></td>
+        <!-- Modal -->
+        <div class="modal fade" id="evento-<%= evento.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="evento-<%= evento.id %>-label" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="evento-<%= evento.id %>-label" align='center'>
+                  <%= evento.nome %>
+                </h4>
+              </div>
+              <div class="modal-body">
+                <p><%= evento.descricao.html_safe %></p>
+                <% if evento.componentes.present?%>
+                  <hr>
+                  <p><strong><% if evento.componentes.count == 1 %>Destaque:<% else %>Destaques:
+                          <% end %></strong></p>
+                  <% @componentes.destaques_do_evento(evento).each do |componente| %>
+                    <ul>
+                      <li><%=  componente.tipo_componente %>: <%=  componente.nome %></li>
+                      <li>E outros mais...</li>
+                    </ul>
+                  <% end %>
+                <% else %>
+                <% end %>
+              </div>
+              <div class="modal-footer">
+                <%= link_to 'Quero saber mais sobre isso!', evento, :class => 'btn btn-primary' %>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal -->
+      <% end %>
+    </tbody>
+  </table>

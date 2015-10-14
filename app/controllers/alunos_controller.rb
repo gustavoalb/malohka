@@ -6,9 +6,7 @@ class AlunosController < ApplicationController
 
   def index
     @q = Aluno.ransack(params[:q])
-
     @alunos = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 10).order("id ASC")
-
     # require 'barby' #sou aqui mesmo se vou servir ao resto so sistema?
     # require 'barby/barcode/code_39' #sou aqui mesmo se vou servir ao resto so sistema?
     # require 'barby/outputter/png_outputter' #sou aqui mesmo se vou servir ao resto so sistema?
@@ -105,34 +103,16 @@ class AlunosController < ApplicationController
 
       require 'barby'
       require 'barby/barcode'
-      require 'barby/barcode/qr_code'
+      require 'barby/barcode/code_39'
       require 'barby/outputter/png_outputter'
 
-      # require 'barby'
-      # require 'barby/barcode/code_39'
-      # require 'barby/outputter/png_outputter'
-      #barcode = Barby::Code39.new("#{@aluno.matricula}")
-      #barcode = Barby::QrCode.new("#{@aluno.matricula}", level: :q, size: 10)
-      barcode = Barby::QrCode.new("#{@aluno.matricula}", level: :q, size: 1)
+
+      barcode = Barby::Code39.new("#{@aluno.matricula}")
 
       blob = Barby::PngOutputter.new(barcode).to_png #Raw PNG data##(barcode).to_png(:xdim => 3) #Raw PNG data
       b = File.open("/tmp/codigo_barras_#{barcode}.png",'w')
       b.write blob
       b.close
-
-      # require 'barby'
-      # require 'barby/barcode'
-      # require 'barby/barcode/qr_code'
-      # require 'barby/outputter/png_outputter'
-
-      # str = 'Hello QrCode!! Using Gem for Barby, Barby-pngOutputter and Chunky-PNG.'
-
-      # b = Barby::QrCode.new(str, level: :q, size: 10)
-      # # File.open('qr.png', 'w') do |f|
-      # #   f.write b.to_png
-      # #   f.close
-      # # end
-      # puts b.to_s
 
 
       respond_to do |format|
