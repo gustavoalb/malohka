@@ -1,15 +1,28 @@
-<div><%= f.input :nome, label: 'Nome da atividade' %>
-  <%#= f.input :qnt_horas, label: 'Total de horas' %>
-  <%= f.input :descricao, label: 'Ementa' %>
-  <%#= f.input :ministrante_id, :collection=>Ministrante.all.collect {|z|[z.nome,z.id]},:prompt=>"Selecione o Ministrante", label: 'Ministrante' %>
-  <%= f.input :vagas, label: 'Vagas' %>
-  <%#= f.input :publico,:collection=>Componente.publicos.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o Público Alvo", label: 'Público Alvo' %>
-  <%= f.input :tipo_componente,:collection=>Componente.tipo_componentes.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o tipo de atividade", label: 'Natureza da atividade' %>
-  <%=f.association :publicos,  collection: Publico.all.map {|r|[r.nome,r.id]}, input_html:{label_class: "checkbox"},as: :check_boxes, label: "Público Alvo" %>
-  <%=f.association :ministrantes,  collection: Ministrante.all.map {|r|[r.nome,r.id]}, input_html:{label_class: "checkbox"},as: :check_boxes, label: "Público Alvo" %>
-  <%= f.input :local,:collection=>Componente.locais.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o Local", label: 'Local' %>
-  <%= f.link_to_remove "Remover atividade?", :class => 'btn btn-danger btn-xs' %>
+<!-- <div><%#= f.input :nome, label: 'Nome da atividade' %> -->
+<%#= f.link_to_remove "Remover atividade?", :class => 'btn btn-danger btn-xs' %>
+<!-- </div> -->
+<h3 align='center'><strong>Componentes</strong></h3>
+<div class="col-sm-12 col-md-12, row">
+  <div>
+    <h3 align='center'>Informações essenciais</h3>
+    <%= f.input :nome, label: 'Nome da atividade' %>
+    <%= f.input :descricao, label: 'Ementa' %>
+  </div>
+  <hr>
+  <h3 align='center'>Informações complementares</h3>
+  <div class="col-sm-5 col-md-7, thumbnail, center">
+    <div >
+      <%= f.input :tipo_componente,:collection=>Componente.tipo_componentes.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o tipo de atividade", label: 'Natureza da atividade' %>
+      <%= f.input :local,:collection=>Componente.locais.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o Local", label: 'Local' %>
+      <%=f.association :publicos,  collection: Publico.all.map {|r|[r.nome,r.id]}, input_html:{label_class: "checkbox"},as: :check_boxes, label: "Público Alvo" %>
+    </div>
+  </div>
+  <div class="col-sm-5 col-md-7">
+    <%= f.input :vagas, label: 'Vagas' %>
+    <%=f.association :ministrantes,  collection: Ministrante.all.map {|r|[r.nome,r.id]}, input_html:{label_class: "checkbox"},as: :check_boxes, label: "Público Alvo" %>
+  </div>
 </div>
+<%= f.link_to_remove "Remover atividade?", :class => 'btn btn-danger btn-xs' %>
 <div>
   <%= f.simple_fields_for :periodos do |builder|%>
     <%= render 'periodos', :f => builder %>

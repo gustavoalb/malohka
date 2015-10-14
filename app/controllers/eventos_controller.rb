@@ -12,7 +12,7 @@ class EventosController < ApplicationController
   def show
     @pessoa = current_usuario.pessoa_id
     @periodos = @evento.periodos.do_evento(@evento).all
-    @componentes = @evento.componentes.do_evento(@evento).all
+    componentes_evento = @evento.componentes.do_evento(@evento).all
     @participacoes = @evento.participacoes.do_evento(@evento).all
 
 
@@ -22,17 +22,18 @@ class EventosController < ApplicationController
 
   def new
     @evento = Evento.new
-    responsavel_id = current_usuario.pessoa
+    responsavel_id = current_usuario.funcionario
     1.times do
       componentes = @evento.componentes.build
       1.times { componentes.periodos.build }
     end
-    #respond_with(@evento)
   end
 
   def edit
-    responsavel_id = current_usuario.pessoa
-
+    1.times do
+      componentes = @evento.componentes.build
+      1.times { componentes.periodos.build }
+    end
   end
 
   def create
@@ -92,22 +93,23 @@ class EventosController < ApplicationController
     send_file(f,:filename=>"Certificado - #{@evento.id}.pdf",:content_type=>"application/pdf")
   end
 
-
-
   def update
     @evento.update(evento_params)
-
-    respond_to do |format|
-      if @evento.update_attributes(params[:evento])
-        format.html { redirect_to(@evento, :notice => 'O evento foi atualizado com successo.') }
-        format.json { respond_with_bip(@evento) }
-      else
-        format.html { render :action => "edit" }
-        format.json { respond_with_bip(@evento) }
-      end
-    end
-    # if current_usuario.roles_mask = 4
+    respond_with(@evento)
   end
+
+  # def update
+  #   @evento.update(evento_params)
+  #   respond_to do |format|
+  #     if @evento.update_attributes(params[:evento])
+  #       format.html { redirect_to(@evento, :notice => 'O evento foi atualizado com successo.') }
+  #       format.json { respond_with_bip(@evento) }
+  #     else
+  #       format.html { render :action => "edit" }
+  #       format.json { respond_with_bip(@evento) }
+  #     end
+  #   end
+  # end
 
   def destroy
     @evento.destroy
@@ -140,6 +142,15 @@ class EventosController < ApplicationController
   end
 
   def evento_params
-    params.require(:evento).permit(:nome, :descricao, :status, :responsavel_id, :pessoa_id, :componente_id, :logo, :banner, :organizacao, :parceiros, :apoio, componentes_attributes: [ :id, :evento_id, :nome, :qnt_horas, :descricao, :vagas, {:publico_ids => []}, {:ministrantes_ids => []}, :publico, :tipo_componente, :local, :status, :ministrante_id, :_destroy, periodos_attributes: [ :id, :componente_id, :inicio, :termino, :_destroy]])
+    params.require(:evento).permit(
+      :nome, :descricao, :status, :responsavel_id, :pessoa_id,
+      # :componente_id,
+      :logo, :banner, :organizacao, :parceiros, :apoio,
+      componentes_attributes:
+      [ :id, :evento_id, :nome, :descricao, :vagas, {:publico_ids => []}, {:ministrante_ids => []}, :publico, :tipo_componente, :local, :status, :_destroy,
+        periodos_attributes:
+        [ :id, :componente_id, :inicio, :qnt_horas, :_destroy]
+        ]
+    )
   end
 end

@@ -36,7 +36,7 @@
                     <div>
                       <p><strong>Responsável:&nbsp;</strong>
                         <% if evento.responsavel.present? %>
-                          <%= evento.responsavel.nome %>
+                          <%= evento.responsavel.pessoa.nome %>
                         <% else %>
                           oi<% end %>
                         <%#= ver_form_nil(ie.created_at.strftime("%d/%m/%y às %H:%M ")) %></p>

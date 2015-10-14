@@ -24,6 +24,7 @@ class Evento < ActiveRecord::Base
   has_many :periodos, through: :componentes
   has_many :participacoes, through: :componentes
 
+
   #logo
   has_attached_file :logo,
     :path => ":rails_root/public/system/:attachment/:id/:basename_:style.:extension",
@@ -78,9 +79,9 @@ class Evento < ActiveRecord::Base
 
 
 
-  state_machine :status, :initial => :criado do
+  state_machine :status, :initial => :em_customizacao do
     event :customizar do
-      transition :criado => :em_customizacao
+      transition :any => :em_customizacao
     end
 
     event :liberar_acesso do

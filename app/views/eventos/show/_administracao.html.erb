@@ -35,41 +35,43 @@
       <% end %>
     </dd>
   </dl>
-  <hr>
-  <h3 align='center'>Frequência</h3>
-  <table class="table table-striped table-hover table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Nome</th>
-        <th>Inscritos</th>
-        <th>Frequência</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% for componente in @evento.componentes %>
-      <tr>
-        <td><%= componente.nome  %></td>
-        <td><%= componente.participacoes.count %></td>
-        <td>
-          <% if @evento.status == 'acesso_liberado' %>
-            <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="Muita calma nessa hora... as inscrições ainda não foram liberadas ;~(">A ser registrado</a><%#= componente.frequencia  %>
-          <% elsif @evento.status == 'inscricoes_iniciadas' %>
-            <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="Muita calma nessa hora... as inscrições ainda não foram liberadas ;~(">Registrar frequência</a><%#= componente.frequencia  %>
-          <% elsif @evento.status == 'inscricoes_finalizadas' %>
-            <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="É uma pena... a frequência já terminou ;~(">Ação desabilitada</a><%#= componente.frequencia  %>
-          <% else %>
-            <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="É uma pena... não há nada aqui para ser visto ;~(">Ação desabilitada</a><%#= componente.frequencia  %>
-          <% end %>
-        </td>
-        <!--        <td><%#= best_in_place participacao, :frequencia, as: :checkbox, collection: {false: "Nope", true: "Yep"} %>
+  <% if @evento.status == 'inscricoes_iniciadas' or @evento.status == 'inscricoes_finalizadas' %>
+    <hr>
+    <h3 align='center'>Frequência</h3>
+    <table class="table table-striped table-hover table-bordered table-condensed">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Inscritos</th>
+          <th>Frequência</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for componente in @evento.componentes %>
+        <tr>
+          <td><%= componente.nome  %></td>
+          <td><%= componente.participacoes.count %></td>
+          <td>
+            <% if @evento.status == 'acesso_liberado' %>
+              <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="Muita calma nessa hora... as inscrições ainda não foram liberadas ;~(">A ser registrado</a><%#= componente.frequencia  %>
+            <% elsif @evento.status == 'inscricoes_iniciadas' %>
+              <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="Muita calma nessa hora... as inscrições ainda não foram liberadas ;~(">Registrar frequência</a><%#= componente.frequencia  %>
+            <% elsif @evento.status == 'inscricoes_finalizadas' %>
+              <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="É uma pena... a frequência já terminou ;~(">Ação desabilitada</a><%#= componente.frequencia  %>
+            <% else %>
+              <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="É uma pena... não há nada aqui para ser visto ;~(">Ação desabilitada</a><%#= componente.frequencia  %>
+            <% end %>
+          </td>
+          <!--        <td><%#= best_in_place participacao, :frequencia, as: :checkbox, collection: {false: "Nope", true: "Yep"} %>
                         <%#= best_in_place participacao, :nome, :as => :input %>
                         <%#= best_in_place participacao, :frequencia, as: :checkbox, collection: ["No, thanks", "Yes, of course!"] %>
                         <td>
                           <%#= best_in_place gut, :item,
                               path: iteracao_path(iteracao.id), type: :input,
                               param: "iteracao[guts_attributes][id]=#{gut.id}&iteracao[guts_attributes]" %></td> -->
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 </div>
