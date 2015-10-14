@@ -1,5 +1,6 @@
 <div class='well'>
-  <% @componentes.each do |componente| %>
+  <%# @componentes.each do |componente| %>
+    <% for componente in @evento.componentes %>
     <div class="panel panel-default">
       <p align='left' data-toggle="collapse" data-parent="#accordion" href="#evento-<%= componente.id %>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;<% if componente.tipo_componente.present? %><%= componente.tipo_componente%>: <% end %><b><%= componente.nome %></b></p>
     </div>
