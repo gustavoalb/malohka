@@ -12,7 +12,7 @@ class EventosController < ApplicationController
   def show
     @pessoa = current_usuario.pessoa_id
     @periodos = @evento.periodos.do_evento(@evento).all
-    componentes_evento = @evento.componentes.do_evento(@evento).all
+    @componentes_evento = @evento.componentes.do_evento(@evento).all
     @participacoes = @evento.participacoes.do_evento(@evento).all
 
 
