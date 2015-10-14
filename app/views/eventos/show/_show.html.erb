@@ -42,7 +42,8 @@
           <%= render :partial => 'eventos/show/minhas_atividades' %>
         </div>
       <% end %>
-      <% if @evento.responsavel.present? %>
+      <%# if @evento.responsavel.present? %>
+      <% if can? :update, @evento %>
         <div class="tab-pane fade" id="administracao">
           <%= render :partial => 'eventos/show/administracao' %>
         </div>

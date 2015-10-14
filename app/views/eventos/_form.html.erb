@@ -4,8 +4,8 @@
   <%#= f.input :descricao %>
   <%= f.input :descricao, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }, label: 'Descrição' %>
   <%#= f.input :responsavel_id, input_html: {value: responsavel_id },as: :hidden%>
-  <%= f.input :pessoa_id, input_html: {value: current_usuario.pessoa.id}, as: :hidden%>
-  <%= f.input :responsavel_id, input_html: {value: current_usuario.pessoa.id}, as: :hidden%>
+  <%= f.input :pessoa_id, input_html: {value: current_usuario.funcionario.id}, as: :hidden%>
+  <%= f.input :responsavel_id, input_html: {value: current_usuario.funcionario.id}, as: :hidden%>
   <%= f.simple_fields_for :componentes do |builder|%>
     <hr>
     <%= render 'componentes', :f => builder %>

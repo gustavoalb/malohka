@@ -6,9 +6,6 @@ class EventosController < ApplicationController
   def index
     @eventos = Evento.all
     @componentes = Componente.all
-    @qr = RQRCode::QRCode.new( "http://localhost:3000/certificados/reports/oi.odt", :size => 6, :level => :h )
-    #@qr = RQRCode::QRCode.new("http://codingricky.com").to_img.resize(200, 200).to_data_url
-    #@qr = RQRCode::QRCode.new( qr_code_params[:text], size: 4)
     respond_with(@eventos)
   end
 

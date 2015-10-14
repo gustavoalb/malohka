@@ -3,21 +3,18 @@
   <h3 align='center'>Resumo</h3>
   <dl class="dl-horizontal">
     <dt>Evento:</dt>
-    <dd><%= @evento.nome %><%= best_in_place @evento, :nome, :as => :input %></dd>
+    <dd><%= @evento.nome %></dd>
     <dt>Responsável:</dt>
     <dd><%= @evento.responsavel.pessoa.nome %> - <%= @evento.responsavel.departamento %></dd>
     <dt>Criação do evento:</dt>
     <dd><%= @evento.created_at.strftime("%d de %B") %></dd>
     <dt>Status:</dt>
-    <dd><%= status(@evento.status) %>
-      <%= @evento.status %><%#= best_in_place @evento, :status, :as => :select, :collection => { em_customizacao: 'em_customizacao', acesso_liberado: 'acesso_liberado', inscricoes_iniciadas: 'inscricoes_iniciadas', inscricoes_finalizadas: 'inscricoes_finalizadas', finalizado: 'finalizado', arquivado: 'arquivado'} %>
-      <%#= best_in_place @evento, :status, :data => {:status => @evento.status} %>
-    </dd>
+    <dd><%= status(@evento.status) %>    </dd>
     <dt>Componentes:</dt>
     <dd><%= @evento.componentes.count %></dd>
     <dt>Inscrições:</dt>
     <dd><%= @evento.participacoes.count %></dd>
-    <dt>Opções</dt>
+    <dt>Opções:</dt>
     <dd>
       <% if can? :update, @evento %>
         <% if @evento.status == 'criado' %>
@@ -49,19 +46,28 @@
       </tr>
     </thead>
     <tbody>
-      <% @componentes.each do |componente| %>
-        <tr>
-          <td><%= componente.nome  %></td>
-          <td><%= componente.participacoes.count %></td>
-          <td><a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="Muita calma nessa hora... as inscrições ainda não foram liberadas ;~(">Inscrições</a><%#= componente.frequencia  %></td>
-          <!--        <td><%#= best_in_place participacao, :frequencia, as: :checkbox, collection: {false: "Nope", true: "Yep"} %>
+      <% for componente in @evento.componentes %>
+      <tr>
+        <td><%= componente.nome  %></td>
+        <td><%= componente.participacoes.count %></td>
+        <td>
+          <% if @evento.status == 'acesso_liberado' %>
+            <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="Muita calma nessa hora... as inscrições ainda não foram liberadas ;~(">A ser registrado</a><%#= componente.frequencia  %>
+          <% elsif @evento.status == 'inscricoes_iniciadas' %>
+            <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="Muita calma nessa hora... as inscrições ainda não foram liberadas ;~(">Registrar frequência</a><%#= componente.frequencia  %>
+          <% elsif @evento.status == 'inscricoes_finalizadas' %>
+            <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="É uma pena... a frequência já terminou ;~(">Ação desabilitada</a><%#= componente.frequencia  %>
+          <% else %>
+            <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="É uma pena... não há nada aqui para ser visto ;~(">Ação desabilitada</a><%#= componente.frequencia  %>
+          <% end %>
+        </td>
+        <!--        <td><%#= best_in_place participacao, :frequencia, as: :checkbox, collection: {false: "Nope", true: "Yep"} %>
                         <%#= best_in_place participacao, :nome, :as => :input %>
                         <%#= best_in_place participacao, :frequencia, as: :checkbox, collection: ["No, thanks", "Yes, of course!"] %>
                         <td>
                           <%#= best_in_place gut, :item,
                               path: iteracao_path(iteracao.id), type: :input,
                               param: "iteracao[guts_attributes][id]=#{gut.id}&iteracao[guts_attributes]" %></td> -->
-        </td>
       </tr>
     <% end %>
   </tbody>
