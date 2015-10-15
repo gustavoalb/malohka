@@ -3,46 +3,54 @@
     <h4 class='panel-title' align='center'>
       <strong><%= data %></strong>
     </h4>
-    <hr>
+    <br>
     <% periodos.each do |periodo| %>
       <div class="panel panel-default">
-        <p align='left' data-toggle="collapse" data-parent="#accordion" href="#evento-<%= periodo.id %>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;<%= periodo.inicio.strftime("%H:%M") %> - <%= periodo.componente.tipo_componente%>: <b><%= periodo.componente.nome %></b></p>
+        <p align='left' data-toggle="collapse" data-parent="#accordion" href="#evento-<%= periodo.id %>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;<%= periodo.inicio.strftime("%H:%M") %> - <% if periodo.componente.tipo_componente.present? %><%= periodo.componente.tipo_componente %>:<% end %> <b><%= periodo.componente.nome %></b></p>
       </div>
       <div id="evento-<%= periodo.id %>" class="panel-collapse collapse">
-        <% if periodo.componente.descricao.present? %>
-          <p align='center'><strong>Ementa:</strong><br>
-            <%= periodo.componente.descricao.html_safe %></p>
-        <% end %>
         <dl class="dl-horizontal">
-          <dt><strong>Vagas</strong>:</dt>
-          <dd><%= periodo.componente.vagas %></dd>
-          <dt><strong>Público Alvo</strong>:</dt>
+          <% if periodo.componente.descricao.present? %>
+            <dt><strong>Descrição:</strong></dt>
+            <dd><%= periodo.componente.descricao.html_safe %></dd>
+          <% end %>
+          <% if periodo.componente.vagas.present? %>
+            <dt><strong>Vagas</strong>:</dt>
+            <dd><%= periodo.componente.vagas %></dd>
+          <% end %>
           <% if periodo.componente.publicos.present? %>
-            <dd class="btn-default btn-xs"><%= periodo.componente.publicos.collect{|p|p.nome}.to_sentence %></dd>
+            <dt><strong>Público Alvo</strong>:</dt>
+            <dd><%= periodo.componente.publicos.collect{|p|p.nome}.to_sentence %></dd>
+          <% end %>
+          <% if periodo.componente.ministrantes.present? %>
+            <dt><strong>Ministrante</strong>:</dt>
+            <% for ministrante in periodo.componente.ministrantes %>
+            <dd><%= ministrante.titulo %> <strong><%= ministrante.nome %> </strong> / <%= ministrante.organizacao %>-<%= ministrante.sigla_organizacao %>
+            </dd>
+          <% end %>
+        <% end %>
+        <% if periodo.componente.local.present? %>
+          <dt><strong>Local</strong>:</dt>
+          <dd><%=  periodo.componente.local %></dd>
+        <% end %>
+        <% if periodo.qnt_horas.present? %>
+          <dt><strong>Opções:</strong></dt>
+          <% if @evento.status == 'inscricoes_iniciadas' and periodo.qnt_horas.present? %>
+            <%= simple_nested_form_for @evento, url: evento_registrar_participacao_url(@evento), method: :post,:html => { :class => 'form-horizontal' } do |f| %>
+              <%= f.input :componente_id, input_html: {value: periodo.componente.id}, as: :hidden %>
+              <%= f.input :pessoa_id, input_html: {value: current_usuario.pessoa.id}, as: :hidden %>
+              <dd><%= f.submit "Fazer minha inscrição imediatamente!",:class => 'btn btn-primary btn-xs', :onclick=>"return confirm('Confirmar sua participação nesta atividade?')" %></dd>
+            <% end %>
+          <% elsif @evento.status == 'inscricoes_finalizadas' %>
+            <dd>
+              <fieldset disabled><button class="btn btn-primary btn-xs">Inscrições finalizadas! :~(</button></fieldset>
+              <!-- aqui -->
+              <button class="btn-default btn-xs" data-toggle="modal" data-target="#evento-<%= periodo.id %>-notes">Participantes</button>
+              <!-- aqui -->
+            </dd>
           <% else %>
-            <dd>Em definição ;)</dd>
+            <dd></dd>
           <% end %>
-          <dt><strong>Ministrante</strong>:</dt>
-          <dd><% for ministrante in periodo.componente.ministrantes %><%= ministrante.titulo %> <%= ministrante.nome %><%= ministrante.organizacao %><%= ministrante.biografia %><% end %></dd>
-        <dt><strong>Local</strong>:</dt>
-        <dd><%=  periodo.componente.local %></dd>
-      </dl>
-      <dl class="dl-horizontal">
-        <dt><strong>Opções:</strong></dt>
-        <% if @evento.status == 'inscricoes_iniciadas' %>
-          <%= simple_nested_form_for @evento, url: evento_registrar_participacao_url(@evento), method: :post,:html => { :class => 'form-horizontal' } do |f| %>
-            <%= f.input :componente_id, input_html: {value: periodo.componente.id}, as: :hidden %>
-            <%= f.input :pessoa_id, input_html: {value: current_usuario.pessoa.id}, as: :hidden %>
-            <dd><%= f.submit "Fazer minha inscrição imediatamente!",:class => 'btn btn-primary btn-xs', :onclick=>"return confirm('Confirmar sua participação nesta atividade?')" %></dd>
-          <% end %>
-        <% elsif @evento.status == 'inscricoes_finalizadas' %>
-          <dd>
-            <fieldset disabled><button class="btn btn-primary btn-xs">Inscrições finalizadas! :~(</button></fieldset>
-            <!-- aqui -->
-            <button class="btn-default btn-xs" data-toggle="modal" data-target="#evento-<%= periodo.id %>-notes">Inscrições</button>
-            <!-- aqui -->
-          </dd>
-        <% else %>
         <% end %>
       </dl>
       <!-- Modal -->

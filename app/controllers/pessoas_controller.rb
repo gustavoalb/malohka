@@ -50,6 +50,7 @@ class PessoasController < ApplicationController
       r.add_field "FUNCIONARIO_RESPONSAVEL", @evento.responsavel.pessoa.nome
       r.add_field "DIRECAO_GERAL_PESSOA", @evento.responsavel.pessoa.nome
       r.add_field "DATA_REGISTRO", @evento.periodos.maximum('created_at').strftime("%d de %B de %Y às %H:%M")
+      r.add_field "CH_TOTAL", @evento.somar_ch_total
 
       f = File.open (b.path)
       r.add_image "FOTO", b
@@ -58,6 +59,8 @@ class PessoasController < ApplicationController
       r.add_table("COMPONENTES", @participacoes) do |t|
         t.add_column("TIPO") {|t|t.componente.tipo_componente}
         t.add_column("COMPONENTE") {|t|t.componente.nome}
+        t.add_column("CH") {|t|t.somar_ch_parcial}
+
         # t.add_column("C", :tipo_componente)
         # t.add_column("COMPONENTE", :nome)
         # if field.is_a?(String)

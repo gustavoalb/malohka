@@ -30,28 +30,24 @@
                   <%= evento.descricao.html_safe %>
                 </p>
               <% end %>
-              <p>
-                <% if evento.componentes.present?%>
-                  <hr>
-                  <p>
-                    <strong>
-                      <% if evento.componentes.count == 1 %>
-                        Destaque:
+              <% if evento.componentes.present?%>
+                <hr>
+                <p><strong>
+                    <% if evento.componentes.count == 1 %>
+                      Destaque:
                       <% else %>
-                        Destaques:
+                      Destaques:
                           <% end %>
-                    </strong>
-                  </p>
-                  <ul>
-                    <% evento.componentes.destaques_do_evento(evento).each do |componente| %>
-                      <li><%=  componente.tipo_componente %>: <%=  componente.nome %></li>
-                    <% end %>
-                    <% if evento.componentes.count > 1 %>
-                      <li>E outros mais...</li>
-                    <% end %>
-                  </ul>
-                <% end %>
-              </p>
+                  </strong></p>
+                <ul>
+                  <% evento.componentes.destaques_do_evento(evento).each do |componente| %>
+                    <li><%=  componente.tipo_componente %>: <%=  componente.nome %></li>
+                  <% end %>
+                  <% if evento.componentes.count > 1 %>
+                    <li>E outros mais...</li>
+                  <% end %>
+                </ul>
+              <% end %>
               <div>
                 <p class="btn-default btn-xs" align='center'><%= link_to '... há mais para saber aqui.', evento_path(evento) %></p>
               </div>

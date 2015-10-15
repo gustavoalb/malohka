@@ -46,9 +46,8 @@
       <%- model_class = Noticia -%><% Noticia.destaque.each do |noticia| %>
         <div class="col-sm-12 col-md-12, row, thumbnail">
           <p align="CENTER"><strong><%= link_to noticia.titulo, noticia_path(noticia) %></strong></p>
-          <p align="left"><span><%= image_tag "calendario.png" %></span>&nbsp;publicado em <%= noticia.publicado_em.strftime("%d/%m/%Y às %H:%M") %> </p>
+          <p align="left"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;publicado em <%= noticia.publicado_em.strftime("%d/%m/%Y às %H:%M") %> </p>
           <div><%= truncate(noticia.conteudo.html_safe, :length => 800, :omission => "" , :escape => false) %>...&nbsp;<%= link_to 'Leia mais...', noticia_path(noticia) %></div>
-          <p><%#= noticia.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></p>
         </div>
       <% end %>
     </div>
@@ -63,8 +62,6 @@
   <h3>Eventos</h3>
   <div class="container, row">
     <div class="row">
-      <!-- <div class="other_container"> -->
-      <!-- <div class="div_flex"> -->
       <%- model_class = Evento -%>
       <% Evento.ativos.each do |evento| %>
         <div class="col-sm-4 col-md-6">

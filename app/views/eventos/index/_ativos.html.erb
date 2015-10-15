@@ -6,14 +6,14 @@
       <p align='left'>
         &nbsp;&nbsp;<span class="glyphicon glyphicon-calendar" aria-hidden="true">
         </span>&nbsp;
-              <strong><%= link_to evento.nome, evento_path(evento) %></strong>
+              <strong><%= link_to evento.nome, evento_path(evento) %>&nbsp;&nbsp;<% if can? :create, Evento %><%= status(evento.status) %><% end %></strong>
       </p>
       <%= image_tag(evento.banner(:banner)) %>
     <% else %>
       <p align='left'>
         &nbsp;&nbsp;<span class="glyphicon glyphicon-calendar" aria-hidden="true">
         </span>&nbsp;
-              <strong><%= link_to evento.nome, evento_path(evento) %></strong>
+              <strong><%= link_to evento.nome, evento_path(evento) %>&nbsp;&nbsp;<%= status(evento.status) %></strong>
         <%= evento.descricao.html_safe %>
       </p>
     <% end %>

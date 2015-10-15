@@ -25,10 +25,12 @@
       </div>
       <% if @evento.componentes.present? %>
         <div class="tab-pane fade" id="programacao">
-          <% if @evento.periodos.present? %>
-            <%= render :partial => 'eventos/show/programacao_com_periodos' %>
+          <% if @evento.status == 'acesso_liberado' %>
+            <%= render :partial => 'eventos/show/programacao_com_acesso' %>
+          <% elsif @evento.status == 'inscricoes_iniciadas' or @evento.status == 'finalizado' %>
+            <%= render :partial => 'eventos/show/programacao_com_inscricao' %>
           <% else %>
-            <%= render :partial => 'eventos/show/programacao_sem_periodos' %>
+            <%=render :file => "#{Rails.root}/public/em_construcao.html" %>
           <% end %>
         </div>
       <% end %>

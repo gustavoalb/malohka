@@ -12,7 +12,7 @@ class EventosController < ApplicationController
 
   def show
     @pessoa = current_usuario.pessoa_id
-    @periodos = @evento.periodos.do_evento(@evento).all
+    @periodos = @evento.periodos.do_evento(@evento).all.order("inicio ASC")
     @componentes_evento = @evento.componentes.do_evento(@evento).all
     @participacoes = @evento.participacoes.do_evento(@evento).all
 
@@ -31,10 +31,10 @@ class EventosController < ApplicationController
   end
 
   def edit
-    1.times do
-      componentes = @evento.componentes.build
-      1.times { componentes.periodos.build }
-    end
+    # 1.times do
+    #   componentes = @evento.componentes.build
+    #   1.times { componentes.periodos.build }
+    # end
   end
 
   def create

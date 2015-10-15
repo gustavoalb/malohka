@@ -16,6 +16,13 @@ class Evento < ActiveRecord::Base
     return true if self.form_steps.index(step.to_s) <= self.form_steps.index(form_step)
   end
 
+  def somar_ch_total
+    ch = 0
+    self.periodos.each do |p|
+      ch+= p.qnt_horas.to_i
+    end
+    return ch
+  end
 
   belongs_to :pessoa
   belongs_to :responsavel, class_name: "Funcionario"
@@ -68,7 +75,7 @@ class Evento < ActiveRecord::Base
   #banner
 
   scope :ativos, -> {where("status = 'inscricoes_iniciadas' or status = 'acesso_liberado' or status = 'inscricoes_finalizadas'")}
-  scope :finalizados, -> {where("status = 'evento_finalizado'",true)}
+  scope :finalizados, -> {where("status = 'finalizado'",true)}
   scope :disponiveis, -> {where("status = 'inscricoes_iniciadas' or status = 'acesso_liberado'")}
   scope :anteriores, -> {where("status = 'inscricoes_iniciadas' or status = 'evento_finalizado'",true)}
   scope :em_customizacao, -> {where("status = 'em_customizacao'",true)}

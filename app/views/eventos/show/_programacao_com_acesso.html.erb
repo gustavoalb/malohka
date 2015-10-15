@@ -1,0 +1,41 @@
+<div class='well'>
+  <% @evento.componentes.do_evento(@evento).each do |componente| %>
+    <div class="panel panel-default">
+      <p align='left' data-toggle="collapse" data-parent="#accordion" href="#evento-<%= componente.id %>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;<% if componente.tipo_componente.present? %><%= componente.tipo_componente%>: <% end %><b><%= componente.nome %></b></p>
+    </div>
+    <div id="evento-<%= componente.id %>" class="panel-collapse collapse">
+      <dl class="dl-horizontal">
+        <% if componente.descricao.present? %>
+          <dt><strong>Descrição:</strong></dt>
+          <dd><%= componente.descricao.html_safe %></dd>
+        <% end %>
+        <% if componente.vagas.present? %>
+          <dt><strong>Vagas</strong>:</dt>
+          <dd><%= componente.vagas %></dd>
+        <% end %>
+        <% if componente.publicos.present? %>
+          <dt><strong>Público Alvo</strong>:</dt>
+          <dd><%= componente.publicos.collect{|p|p.nome}.to_sentence %></dd>
+        <% end %>
+        <% if componente.ministrantes.present? %>
+          <dt><strong>Ministrante</strong>:</dt>
+          <% for ministrante in componente.ministrantes %>
+          <dd><%= ministrante.titulo %> <strong><%= ministrante.nome %> </strong> / <%= ministrante.organizacao %>-<%= ministrante.sigla_organizacao %>
+          </dd>
+        <% end %>
+      <% end %>
+      <% if componente.local.present? %>
+        <dt><strong>Local</strong>:</dt>
+        <dd><%=  componente.local %></dd>
+      <% end %>
+      <% for periodo in componente.periodos %>
+      <% if periodo.qnt_horas.present? %>
+        <dt><strong>Opções:</strong></dt>
+        <dd><a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="Muita calma nessa hora... as inscrições ainda não foram liberadas ;~(">Inscrições</a>
+        </dd>
+      <% end %>
+    <% end %>
+  </dl>
+</div>
+<% end %>
+</div>
