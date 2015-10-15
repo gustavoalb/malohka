@@ -95,7 +95,7 @@
                       <hr>
                       <p><strong><% if evento.componentes.count == 1 %>Destaque:<% else %>Destaques:
                           <% end %></strong></p>
-                      <% @componentes.destaques_do_evento(evento).each do |componente| %>
+                      <% evento.componentes.destaques_do_evento(evento).each do |componente| %>
                         <ul>
                           <li><%=  componente.tipo_componente %>: <%=  componente.nome %></li>
                         </ul>
