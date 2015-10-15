@@ -6,6 +6,7 @@ class EventosController < ApplicationController
   def index
     @eventos = Evento.all
     @componentes = Componente.all
+    @componentes_evento = @evento#.componentes#.all
     respond_with(@eventos)
   end
 

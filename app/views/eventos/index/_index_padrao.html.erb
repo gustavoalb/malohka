@@ -12,30 +12,57 @@
       <div id="myTabContent" class="tab-content">
         <div class="tab-pane fade active in" id="disponiveis">
           <%- model_class = Evento -%>
-          <table class="table table-striped">
-            <tbody>
-              <% Evento.ativos.each do |evento| %>
-                <tr>
-                  <% if evento.descricao.present? %>
-                    <td>
-                      <p align='justify'><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;<strong><%= link_to evento.nome, evento_path(evento) %></strong></p>
-                      <div>
-                        <%= truncate(evento.descricao.html_safe, :length => 1000, :omission => "" , :escape => false) %>
-                        <%= link_to '... há mais para saber aqui.', evento_path(evento) %></div>
-                    </td>
-                  <% else %>
-                    <td>em desenvolvimento</td>
+          <br>
+          <% Evento.ativos.each do |evento| %>
+            <div class="thumbnail">
+              <% if evento.banner_file_name.present? %>
+                <p align='left'>
+                  &nbsp;&nbsp;<span class="glyphicon glyphicon-calendar" aria-hidden="true">
+                  </span>&nbsp;<strong><%= link_to evento.nome, evento_path(evento) %></strong>
+                </p>
+                <%= image_tag(evento.banner(:banner)) %>
+                <%= evento.descricao.html_safe %>
+              <% else %>
+                <p align='left'>
+                  &nbsp;&nbsp;<span class="glyphicon glyphicon-calendar" aria-hidden="true">
+                  </span>&nbsp;
+              <strong><%= link_to evento.nome, evento_path(evento) %></strong>
+                  <%= evento.descricao.html_safe %>
+                </p>
+              <% end %>
+              <p>
+                <% if evento.componentes.present?%>
+                  <hr>
+                  <p>
+                    <strong>
+                      <% if evento.componentes.count == 1 %>
+                        Destaque:
+                      <% else %>
+                        Destaques:
+                          <% end %>
+                    </strong>
+                  </p>
+                  <% @componentes.destaques_do_evento(evento).each do |componente| %>
+                    <ul>
+                      <li><%=  componente.tipo_componente %>: <%=  componente.nome %></li>
+                      <% if evento.componentes.count > 1 %>
+                        <li>E outros mais...</li>
+                      <% end %>
+                    </ul>
                   <% end %>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-          <div class="tab-pane fade" id="anteriores">
-            <%=render :file => "#{Rails.root}/public/em_construcao.html" %>
-          </div>
+                <% end %></p>
+              <div>
+                <p class="btn-default btn-xs" align='center'><%= link_to '... há mais para saber aqui.', evento_path(evento) %></p>
+              </div>
+            </div>
+          <% end %>
+          <!-- oiioooi -->
+        </div>
+        <div class="tab-pane fade" id="anteriores">
+          <%=render :file => "#{Rails.root}/public/em_construcao.html" %>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
