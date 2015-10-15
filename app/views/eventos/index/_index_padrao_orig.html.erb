@@ -46,12 +46,12 @@
                     <ul>
                       <li><%=  componente.tipo_componente %>: <%=  componente.nome %></li>
                     </ul>
-                  <% end %>
-                  <ul>
-                    <% if evento.componentes.count > 1 %>
+                  <% end %>oi
+                  <% if evento.componentes.count > 1 %>
+                    <ul>
                       <li>E outros mais...</li>
-                    <% end %>
-                  </ul>
+                    </ul>
+                  <% end %>
                 <% end %></p>
               <div>
                 <p class="btn-default btn-xs" align='center'><%= link_to '... há mais para saber aqui.', evento_path(evento) %></p>
