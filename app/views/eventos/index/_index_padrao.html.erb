@@ -11,52 +11,7 @@
       </ul>
       <div id="myTabContent" class="tab-content">
         <div class="tab-pane fade active in" id="disponiveis">
-          <%- model_class = Evento -%>
-          <br>
-          <% Evento.ativos.each do |evento| %>
-            <div class="thumbnail">
-              <% if evento.banner_file_name.present? %>
-                <p align='left'>
-                  &nbsp;&nbsp;<span class="glyphicon glyphicon-calendar" aria-hidden="true">
-                  </span>&nbsp;<strong><%= link_to evento.nome, evento_path(evento) %></strong>
-                </p>
-                <%= image_tag(evento.banner(:banner)) %>
-                <%= evento.descricao.html_safe %>
-              <% else %>
-                <p align='left'>
-                  &nbsp;&nbsp;<span class="glyphicon glyphicon-calendar" aria-hidden="true">
-                  </span>&nbsp;
-              <strong><%= link_to evento.nome, evento_path(evento) %></strong>
-                  <%= evento.descricao.html_safe %>
-                </p>
-              <% end %>
-              <p>
-                <% if evento.componentes.present?%>
-                  <hr>
-                  <p>
-                    <strong>
-                      <% if evento.componentes.count == 1 %>
-                        Destaque:
-                      <% else %>
-                        Destaques:
-                          <% end %>
-                    </strong>
-                  </p>
-                  <% @componentes.destaques_do_evento(evento).each do |componente| %>
-                    <ul>
-                      <li><%=  componente.tipo_componente %>: <%=  componente.nome %></li>
-                      <% if evento.componentes.count > 1 %>
-                        <li>E outros mais...</li>
-                      <% end %>
-                    </ul>
-                  <% end %>
-                <% end %></p>
-              <div>
-                <p class="btn-default btn-xs" align='center'><%= link_to '... há mais para saber aqui.', evento_path(evento) %></p>
-              </div>
-            </div>
-          <% end %>
-          <!-- oiioooi -->
+          <%= render :partial => 'eventos/index/padrao' %>
         </div>
         <div class="tab-pane fade" id="anteriores">
           <%=render :file => "#{Rails.root}/public/em_construcao.html" %>
