@@ -1,6 +1,7 @@
 class UsuariosController < ApplicationController
-  load_and_authorize_resource
-
+  # load_and_authorize_resource,  except: [:show]
+  # before_filter :authenticate_usuario!,  :except => :show
+  # load_and_authorize_resource, :except => [:show]
   respond_to :html
 
   def index

@@ -1,4 +1,5 @@
 class EventosController < ApplicationController
+  before_filter :authenticate_usuario!,  :except => :show
   before_action :set_evento, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
@@ -11,6 +12,9 @@ class EventosController < ApplicationController
   end
 
   def show
+    #if current_usuario.status == 'criado' or current_usuario.status == nil
+    # redirect_to validacao_usuario_pessoa_path
+    #end
     @pessoa = current_usuario.pessoa_id
     @periodos = @evento.periodos.do_evento(@evento).all.order("inicio ASC")
     @componentes_evento = @evento.componentes.do_evento(@evento).all

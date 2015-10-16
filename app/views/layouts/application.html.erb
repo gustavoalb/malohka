@@ -76,17 +76,17 @@
             </ul>
             <p class="navbar-text pull-right">
               <% if usuario_signed_in? %>
-                <strong><%#= current_usuario.email %>&nbsp;<%= current_usuario.pessoa.nome.split(/ /)[0].titleize %> </strong>
-                <% if current_usuario.pessoa.foto.present? %>
-                  <%= link_to image_tag(current_usuario.pessoa.foto.url, :size=>'35x35', :alt=>'attendence', :class=>"img-circle"), edit_usuario_registration_path %>
-                <% else %>
-                  <%= link_to image_tag("anonimo.jpg", :size=>'40x30', :alt=>'attendence', :class=>"img-circle"), edit_usuario_registration_path %></li>
-              <% end -%>
+                <strong><%#= current_usuario.email %>&nbsp;<%#= current_usuario.pessoa.nome.split(/ /)[0].titleize %> </strong>
+                <%# if current_usuario.pessoa.foto.present? %>
+                <%#= link_to image_tag(current_usuario.pessoa.foto.url, :size=>'35x35', :alt=>'attendence', :class=>"img-circle"), edit_usuario_registration_path %>
+                <%# else %>
+                <%= link_to image_tag("anonimo.jpg", :size=>'40x30', :alt=>'attendence', :class=>"img-circle"), edit_usuario_registration_path %></li>
+              <%# end -%>
               | <%= link_to "Sair", destroy_usuario_session_path, method: :delete, :class => 'navbar-link'  %>
             <% else %>
-              <% if can? :manage, :all %>
-                <%= link_to "Registrar", new_usuario_registration_path, :class => 'navbar-link'  %> |
-              <% end %>
+              <%# if can? :manage, :all %>
+              <%= link_to "Registrar", new_usuario_registration_path, :class => 'navbar-link'  %> |
+              <%# end %>
               <%= link_to "Entrar", new_usuario_session_path, :class => 'navbar-link'  %>
             <% end %>
           </div>

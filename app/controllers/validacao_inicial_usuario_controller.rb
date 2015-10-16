@@ -1,0 +1,2 @@
+class ValidacaoInicialUsuarioController < ApplicationController
+end

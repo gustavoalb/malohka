@@ -35,7 +35,7 @@
         <% end %>
         <% if periodo.qnt_horas.present? %>
           <% if @evento.status == 'inscricoes_iniciadas' %>
-            <% if periodo.componente.tipo == 'Atividade' %>
+            <% if periodo.componente.tipo == 'Atividade com credenciamento' %>
               <dt><strong>Opções:</strong></dt>
               <%= simple_nested_form_for @evento, url: evento_registrar_participacao_url(@evento), method: :post,:html => { :class => 'form-horizontal' } do |f| %>
                 <%= f.input :componente_id, input_html: {value: periodo.componente.id}, as: :hidden %>

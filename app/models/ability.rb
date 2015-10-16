@@ -42,6 +42,9 @@ class Ability
       # can [:manage], Curso
       #Evento ainda não liberado :~(
       #can :read, Evento
+    elsif usuario.role? :comum
+      can :read, Noticia
+      can :read, Evento
     end
   end
 

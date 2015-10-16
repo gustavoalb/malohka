@@ -67,6 +67,7 @@ Rails.application.routes.draw do
   # end
 
   resources :validacao
+  resources :validacao_inicial_usuario
 
   resources :pesquisas
 
@@ -88,7 +89,10 @@ Rails.application.routes.draw do
   post 'validar_usuario/salvar_aluno'
 
   mount Ckeditor::Engine => '/ckeditor'
+
+  # assert_routing({ path: 'photos', method: :post }, { controller: 'photos', action: 'create' })
   devise_for :usuarios , path_prefix: 'perfil',:controllers => { :sessions => "sessions"}
+  # devise_for :usuarios, :controllers => { :registrations => "usuario/registrations" }
 
   resources :alunos   do
     post 'turmas', on: :collection
