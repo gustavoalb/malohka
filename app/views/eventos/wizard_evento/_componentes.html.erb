@@ -3,6 +3,7 @@
     <h3 align='center'>Informações essenciais</h3>
     <%= f.input :nome, label: 'Nome da atividade' %>
     <%= f.input :descricao, label: 'Ementa' %>
+    <%= f.input :tipo, :collection=>Componente.tipos.collect { |t| [t[0].humanize, t[0]] }, :prompt=>"Selecione o tipo", label: 'Tipo de componente' %>
   </div>
   <hr>
   <h3 align='center'>Informações complementares</h3>
@@ -15,7 +16,7 @@
   </div>
   <div class="col-sm-5 col-md-7">
     <%= f.input :vagas, label: 'Vagas' %>
-    <%=f.association :ministrantes,  collection: Ministrante.all.map {|r|[r.nome,r.id]}, input_html:{label_class: "checkbox"},as: :check_boxes, label: "Público Alvo" %>
+    <%=f.association :ministrantes,  collection: Ministrante.all.map {|r|[r.nome,r.id]}, input_html:{label_class: "checkbox"},as: :check_boxes, label: "Ministrantes" %>
   </div>
 </div>
 <%= f.link_to_remove "Remover atividade?", :class => 'btn btn-danger btn-xs' %>
