@@ -2,7 +2,8 @@
 <div class="page-header">
   <h1 align='center'><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
-<% if can? :create, Evento %>
+<%# if can? :create, Evento %>
+<% if can? :update, @evento %>
   <%= render "eventos/index/index_admin" %>
 <% elsif can? :read, Evento %>
   <%= render 'eventos/index/index_padrao' %>
