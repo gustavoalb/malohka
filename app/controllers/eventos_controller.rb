@@ -24,10 +24,10 @@ class EventosController < ApplicationController
   def new
     @evento = Evento.new
     responsavel_id = current_usuario.funcionario
-    1.times do
-      componentes = @evento.componentes.build
-      1.times { componentes.periodos.build }
-    end
+    # 1.times do
+    #   componentes = @evento.componentes.build
+    #   1.times { componentes.periodos.build }
+    # end
   end
 
   def edit
