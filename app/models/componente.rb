@@ -4,7 +4,7 @@ class Componente < ActiveRecord::Base
   has_and_belongs_to_many :publicos
   has_and_belongs_to_many :ministrantes
   has_many :periodos, :dependent => :destroy
-  accepts_nested_attributes_for :periodos, :allow_destroy => true#, :reject_if => lambda { |a| a[:qnt_horas].blank? }
+  accepts_nested_attributes_for :periodos, :reject_if => lambda { |a| a[:qnt_horas].blank? }, :allow_destroy => true
   validates_presence_of [:nome], :message=>"Não pode ficar em branco!"
   # accepts_nested_attributes_for :periodos, :allow_destroy => true, :reject_if => lambda { |a| a[:inicio].blank? }
 
