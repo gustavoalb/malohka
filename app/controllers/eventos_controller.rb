@@ -1,5 +1,4 @@
 class EventosController < ApplicationController
-  before_filter :authenticate_usuario!,  :except => :show
   before_action :set_evento, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
