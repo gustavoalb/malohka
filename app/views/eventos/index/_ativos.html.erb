@@ -48,7 +48,7 @@
               </p>
               <% evento.componentes.destaques_do_evento(evento).each do |componente| %>
                 <ul>
-                  <li><%=  componente.tipo_componente %>: <%=  componente.nome %></li>
+                  <li><% if  componente.tipo_componente.present? %><%=  componente.tipo_componente %>:<% end %> <%=  componente.nome %></li>
                   <% if evento.componentes.count > 1 %>
                     <li>E outros mais...</li>
                   <% end %>
