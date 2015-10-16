@@ -34,19 +34,20 @@
           <dd><%=  periodo.componente.local %></dd>
         <% end %>
         <% if periodo.qnt_horas.present? %>
-          <dt><strong>Opções:</strong></dt>
-          <% if @evento.status == 'inscricoes_iniciadas' and periodo.qnt_horas.present? %>
-            <%= simple_nested_form_for @evento, url: evento_registrar_participacao_url(@evento), method: :post,:html => { :class => 'form-horizontal' } do |f| %>
-              <%= f.input :componente_id, input_html: {value: periodo.componente.id}, as: :hidden %>
-              <%= f.input :pessoa_id, input_html: {value: current_usuario.pessoa.id}, as: :hidden %>
-              <dd><%= f.submit "Fazer minha inscrição imediatamente!",:class => 'btn btn-primary btn-xs', :onclick=>"return confirm('Confirmar sua participação nesta atividade?')" %></dd>
+          <% if @evento.status == 'inscricoes_iniciadas' %>
+            <% if periodo.componente.tipo == 'Atividade' %>
+              <dt><strong>Opções:</strong></dt>
+              <%= simple_nested_form_for @evento, url: evento_registrar_participacao_url(@evento), method: :post,:html => { :class => 'form-horizontal' } do |f| %>
+                <%= f.input :componente_id, input_html: {value: periodo.componente.id}, as: :hidden %>
+                <%= f.input :pessoa_id, input_html: {value: current_usuario.pessoa.id}, as: :hidden %>
+                <dd><%= f.submit "Fazer minha inscrição imediatamente!",:class => 'btn btn-primary btn-xs', :onclick=>"return confirm('Confirmar sua participação nesta atividade?')" %></dd>
+              <% end %>
             <% end %>
           <% elsif @evento.status == 'inscricoes_finalizadas' %>
+            <dt><strong>Opções:</strong></dt>
             <dd>
               <fieldset disabled><button class="btn btn-primary btn-xs">Inscrições finalizadas! :~(</button></fieldset>
-              <!-- aqui -->
               <button class="btn-default btn-xs" data-toggle="modal" data-target="#evento-<%= periodo.id %>-notes">Participantes</button>
-              <!-- aqui -->
             </dd>
           <% else %>
             <dd></dd>

@@ -7,12 +7,13 @@
     <h3 align='center'>Informações essenciais</h3>
     <%= f.input :nome, label: 'Nome da atividade' %>
     <%= f.input :descricao, label: 'Ementa' %>
+    <%= f.input :tipo, :collection=>Componente.tipos.collect { |t| [t[0].humanize, t[0]] }, :prompt=>"Selecione o tipo", label: 'Tipo de componente' %>
   </div>
   <hr>
   <h3 align='center'>Informações complementares</h3>
   <div class="col-sm-5 col-md-7, thumbnail, center">
     <div >
-      <%= f.input :tipo_componente,:collection=>Componente.tipo_componentes.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o tipo de atividade", label: 'Natureza da atividade' %>
+      <%= f.input :tipo_componente,:collection=>Componente.tipo_componentes.collect { |s| [s[0].humanize, s[0]] }, :include_blank => true, label: 'Natureza da atividade' %>
       <%= f.input :local,:collection=>Componente.locais.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o Local", label: 'Local' %>
       <%=f.association :publicos,  collection: Publico.all.map {|r|[r.nome,r.id]}, input_html:{label_class: "checkbox"},as: :check_boxes, label: "Público Alvo" %>
     </div>

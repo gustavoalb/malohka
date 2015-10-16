@@ -1,0 +1,9 @@
+<% @evento.componentes.do_evento(@evento).group_by{|g|g.tipo}.each do |tipo, componentes|%>
+  <div class='well'>
+    <h4 class='panel-title' align='center'>
+      <strong><%= tipo %></strong>
+    </h4>
+    <% componentes.each do |componentes| %>
+    <% end %>
+  </div>
+<% end %>

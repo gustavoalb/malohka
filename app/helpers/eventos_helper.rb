@@ -18,4 +18,12 @@ module EventosHelper
     end
   end
 
+  def tipo_plural(objeto)
+    if objeto=='Atividade'
+      return 'Atividades'
+    elsif objeto=='Protocolo de cerimonial'
+      return 'Protocolos de cerimonial'
+    end
+  end
+
 end
