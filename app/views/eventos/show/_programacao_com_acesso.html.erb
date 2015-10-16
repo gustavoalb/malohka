@@ -2,7 +2,7 @@
 <% @evento.componentes.do_evento(@evento).group_by{|g|g.tipo}.each do |tipo, componentes|%>
   <div class='well'>
     <h4 class='panel-title' align='center'>
-      <strong><%= tipo_plural(tipo) %></strong>
+      <strong><%= tipo %></strong>
     </h4>
     <hr>
     <% componentes.each do |componente| %>
@@ -38,7 +38,7 @@
         <dt><strong>Data prevista</strong>:</dt>
         <dd><%= componente.periodos.minimum('inicio').strftime("%d de %B de %Y") %> (a ser confirmada)</dd>
         <% if periodo.qnt_horas.present? %>
-          <% if periodo.componente.tipo == 'Atividade' %>
+          <% if periodo.componente.tipo == 'Atividade com credenciamento' %>
             <dt><strong>Opções:</strong></dt>
             <dd><a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="Muita calma nessa hora... as inscrições ainda não foram liberadas ;~(">Inscrições</a>
             </dd>
