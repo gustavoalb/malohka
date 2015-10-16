@@ -11,7 +11,7 @@ module CriarUsuario
     #para aluno
 
     #para funcionario
-    self.build_usuario(login:self.email,email:self.email,password:self.cpf.first(8),password_confirmation:self.cpf.first(8),roles_mask:"8",pessoa_id:self.id,validado:true)
+    # self.build_usuario(login:self.email,email:self.email,password:self.cpf.first(8),password_confirmation:self.cpf.first(8),roles_mask:"8",pessoa_id:self.id,validado:true)
     #para funcionario
   end
 end

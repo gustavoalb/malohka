@@ -3,50 +3,24 @@
     <tr>
       <th>Data</th>
       <th>Atividade</th>
-      <th>CH</th>
+      <th>Carga Horária</th>
       <th><%=t '.actions', :default => t("helpers.opções") %></th>
     </tr>
   </thead>
   <tbody>
-    <%# @participacoes.da_pessoa(@pessoa).each do |participacao| %>
-      <% @evento.participacoes.da_pessoa(@pessoa).each do |participacao| %>
-        <tr>
-          <td><%= participacao.componente.periodos.minimum('inicio').strftime("%d de %B às %H:%M") %></td>
-          <td><%= participacao.componente.nome  %></td>
-          <td><%= participacao.somar_ch_parcial  %></td>
-          <td><%= participacao.componente.evento.somar_ch_total  %></td>
-          <td align='center'>
-            <% if participacao.componente.evento.status == 'inscricoes_iniciadas' or participacao.componente.evento.status == 'inscricoes_finalizadas' %>
-              <fieldset disabled><button class="btn btn-default btn-xs">Certificado indisponível! :~(</button></fieldset>
-            <% elsif participacao.componente.evento.status == 'finalizado' %>
-              <%= link_to 'Certificado disponível', pessoa_minha_area_path(participacao.pessoa_id), :class => 'btn btn-default btn-xs' %>
-            <% end %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <table class="table table-striped table-hover table-bordered table-condensed">
-    <thead>
+    <% @evento.participacoes.da_pessoa(@pessoa).each do |participacao| %>
       <tr>
-        <th>Data</th>
-        <th>Atividade</th>
-        <th>CH</th>
-        <th><%=t '.actions', :default => t("helpers.opções") %></th>
+        <td><%= participacao.componente.periodos.minimum('inicio').strftime("%d de %B às %H:%M") %></td>
+        <td><%= participacao.componente.nome  %></td>
+        <td>
+          <% if participacao.frequencia == true %><%= participacao.somar_ch_parcial %><% else %>Frequência não confirmada<% end %></td>
+        <td align='center'>
+          <% if participacao.componente.evento.status == 'inscricoes_iniciadas' or participacao.componente.evento.status == 'inscricoes_finalizadas' %>
+            <fieldset disabled><button class="btn btn-default btn-xs">Certificado indisponível! :~(</button></fieldset>
+          <% elsif participacao.componente.evento.status == 'finalizado' %>
+            <%= link_to 'Certificado disponível', pessoa_minha_area_path(participacao.pessoa_id), :class => 'btn btn-default btn-xs' %>
+          <% end %></td>
       </tr>
-    </thead>
-    <tbody>
-      <% @participacoes.da_pessoa(@pessoa).each do |participacao| %>
-        <tr>
-          <td><%= participacao.componente.periodos.minimum('inicio').strftime("%d de %B às %H:%M") %></td>
-          <td><%= participacao.componente.nome  %></td>
-          <td><%#= participacao.componente.somar_ch  %></td>
-          <td align='center'>
-            <% if participacao.componente.evento.status == 'inscricoes_iniciadas' or participacao.componente.evento.status == 'inscricoes_finalizadas' %>
-              <fieldset disabled><button class="btn btn-default btn-xs">Certificado indisponível! :~(</button></fieldset>
-            <% elsif participacao.componente.evento.status == 'finalizado' %>
-              <%= link_to 'Certificado disponível', pessoa_minha_area_path(participacao.pessoa_id), :class => 'btn btn-default btn-xs' %>
-            <% end %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+    <% end %>
+  </tbody>
+</table>

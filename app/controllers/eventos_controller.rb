@@ -56,6 +56,18 @@ class EventosController < ApplicationController
     end
   end
 
+  # def registrar_participacao
+  #   @evento = Evento.find(params[:evento_id])
+  #   @componente = Componente.find(params[:evento][:componente_id])
+  #   @pessoa = Pessoa.find(params[:evento][:pessoa_id])
+  #   @participacao = @pessoa.participacoes.new(:componente_id=>@componente.id)
+  #   if @participacao.save
+  #     redirect_to evento_url(@evento), notice: 'Inscrição feita com sucesso!'
+  #   else
+  #     redirect_to evento_url(@evento), alert: 'Você já possui uma inscrição ativa para esta atividade. :~('
+  #   end
+  # end
+
   def certificado
     @evento = Evento.find(params[:evento_id])
 
@@ -133,7 +145,7 @@ class EventosController < ApplicationController
       @evento.arquivar
     end
     @evento.save
-    redirect_to eventos_url
+    respond_with(@evento)
   end
 
 
@@ -145,7 +157,7 @@ class EventosController < ApplicationController
   def evento_params
     params.require(:evento).permit(
       :nome, :descricao, :status, :responsavel_id, :pessoa_id,
-      # :componente_id,
+      :componente_id,
       :logo, :banner, :organizacao, :parceiros, :apoio,
       componentes_attributes:
       [ :id, :evento_id, :tipo, :nome, :descricao, :vagas, {:publico_ids => []}, {:ministrante_ids => []}, :publico, :tipo_componente, :local, :status, :_destroy,

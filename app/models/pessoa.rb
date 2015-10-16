@@ -1,7 +1,7 @@
 require 'tempfile'
 class Pessoa < ActiveRecord::Base
   #desabilitado por já existir todos os alunos
-  include CriarUsuario
+  # include CriarUsuario
   #desabilitado por já existir todos os alunos
 
   has_one :usuario
