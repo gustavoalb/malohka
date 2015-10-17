@@ -15,9 +15,9 @@ class EventosController < ApplicationController
     # redirect_to validacao_usuario_pessoa_path
     #end
     @pessoa = current_usuario.pessoa_id
-    @periodos = @evento.periodos.do_evento(@evento).all.order("inicio ASC")
-    @componentes_evento = @evento.componentes.do_evento(@evento).all
-    @participacoes = @evento.participacoes.do_evento(@evento).all
+    @periodos = @evento.periodos.order("periodos.inicio asc")
+    @componentes_evento = @evento.componentes.all
+    @participacoes = @evento.participacoes.all
 
 
 
