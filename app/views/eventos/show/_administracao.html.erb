@@ -44,7 +44,6 @@
           <th>Id</th>
           <th>Nome</th>
           <th>Inscritos</th>
-          <th>Frequência</th>
         </tr>
       </thead>
       <tbody>
@@ -52,7 +51,7 @@
         <tr>
           <td><%= componente.id  %></td>
           <td><%= componente.nome  %></td>
-          <td><%= componente.inicio %></td>
+          <td><%= componente.inicio.strftime("%A, %d de %B de %Y") %></td>
         </tr>
       <% end %>
     </tbody>

@@ -16,6 +16,7 @@ class EventosController < ApplicationController
     #end
     @pessoa = current_usuario.pessoa_id
     @periodos = @evento.periodos.order("periodos.inicio asc")
+    @com = @evento.componentes.order("componentes.inicio asc")
     @componentes_evento = @evento.componentes.all
     @participacoes = @evento.participacoes.all
 
