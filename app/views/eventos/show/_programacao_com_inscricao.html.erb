@@ -43,7 +43,8 @@
             <dt><strong>Cronograma</strong>:</dt>
             <% if periodo.present? %>
               <dd><%= periodo.inicio.strftime("%A, %d de %B de %Y")  %></dd>
-              <!-- <dd><%#= periodo.inicio.collect{|p|p.inicio}.to_sentence %></dd> -->
+            <% else %>
+              <dd></dd>
             <% end %><%#= componente.publicos.collect{|p|p.nome}.to_sentence %>
           <% end %>
           <%# if componente.qnt_horas.present? %>
