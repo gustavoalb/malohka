@@ -47,8 +47,8 @@
             <% end %><%#= componente.publicos.collect{|p|p.nome}.to_sentence %>
           <% end %>
           <%# if componente.qnt_horas.present? %>
-          <%# if @evento.status == 'inscricoes_iniciadas' %>
-          <% if componente.tipo == 'Atividade com credenciamento' %>
+          <% if @evento.status == 'inscricoes_iniciadas' %>
+            <%# if componente.tipo == 'Atividade com credenciamento' %>
             <dt><strong>Opções:</strong></dt>
             <%= simple_nested_form_for @evento, url: evento_registrar_participacao_url(@evento), method: :post,:html => { :class => 'form-horizontal' } do |f| %>
               <%= f.input :componente_id, input_html: {value: componente.id}, as: :hidden %>
