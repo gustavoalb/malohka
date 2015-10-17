@@ -48,13 +48,13 @@
         </tr>
       </thead>
       <tbody>
+        <% for componente in @evento.componentes %>
         <tr>
-          <% for componente in @evento.componentes %>
           <td><%= componente.id  %></td>
           <td><%= componente.nome  %></td>
-          <td><%#= componente.count %></td>
-        <% end %>
-      </tr>
+          <td><%= componente.inicio %></td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 <% end %>
