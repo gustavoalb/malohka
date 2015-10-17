@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2220150507134202) do
+ActiveRecord::Schema.define(version: 2220150507134203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2220150507134202) do
     t.integer  "tipo_componente"
     t.integer  "local"
     t.integer  "tipo"
+    t.string   "objetivos"
   end
 
   create_table "componentes_ministrantes", force: :cascade do |t|
