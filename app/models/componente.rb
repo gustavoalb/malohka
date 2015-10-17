@@ -40,6 +40,24 @@ class Componente < ActiveRecord::Base
   #   joins(:componentes).where('componentes.evento_id=?',evento_id)
   # }
   scope :destaques_do_evento, lambda{|evento_id| where("evento_id=?",evento_id).limit(3)}
+  scope :componentes_em_destaque, lambda {
+    select("componentes.*").joins(:periodos).group("componentes.id").having("count(periodos.id) > ?", 1)
+  }
+  scope :count_likes, lambda {
+    select("(SELECT count(*) from another_model) AS count, users.*")
+  }
+  # ->(componentes).joins(:periodos).group("componentes.id").having("count(periodos.id) > ?", 1)#.do_evento
+
+  # scope :uniques, lambda {
+  #   max_rows = select("order_ridden, MAX(version) AS max_version").group(:order_ridden)
+  #   joins("INNER JOIN (#{max_rows.to_sql}) AS m
+  #   ON coasters.order_ridden = m.order_ridden
+  #  AND COALESCE(coasters.version,0) = COALESCE(m.max_version,0)")
+  # }
+
+  #   scope :da_pessoa, -> (pessoa) {
+  #   where(:pessoa_id => pessoa.id)
+  # }
   scope :do_evento, lambda{|evento_id| where("@evento_id=?",evento_id)}
 
 end

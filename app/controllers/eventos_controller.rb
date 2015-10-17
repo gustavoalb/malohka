@@ -163,7 +163,7 @@ class EventosController < ApplicationController
       :componente_id,
       :logo, :banner, :organizacao, :parceiros, :apoio,
       componentes_attributes:
-      [ :id, :evento_id, :tipo, :objetivos, :nome, :descricao, :vagas, {:publico_ids => []}, {:ministrante_ids => []}, :publico, :tipo_componente, :local, :status, :_destroy,
+      [ :id, :evento_id, :tipo, :objetivos, :inicio, :nome, :descricao, :vagas, {:publico_ids => []}, {:ministrante_ids => []}, :publico, :tipo_componente, :local, :status, :_destroy,
         periodos_attributes:
         [ :id, :componente_id, :inicio, :qnt_horas, :_destroy]
         ]
