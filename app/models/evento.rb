@@ -95,8 +95,12 @@ class Evento < ActiveRecord::Base
       transition :em_customizacao => :acesso_liberado
     end
 
+    event :consolidar_componentes do
+      transition :acesso_liberado => :componentes_consolidados
+    end
+
     event :abrir_incricoes do
-      transition :acesso_liberado => :inscricoes_iniciadas
+      transition :componentes_consolidados => :inscricoes_iniciadas
     end
 
     event :fechar_inscricoes do
