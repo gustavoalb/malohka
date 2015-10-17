@@ -1,3 +1,4 @@
+<br>
 <% @periodos.group_by{|g|g.inicio.strftime("%A, %d de %B de %Y")}.each do |data, periodos|%>
   <%# @evento.componentes.do_evento(@evento).group_by{|g|g.inicio.strftime("%A, %d de %B de %Y")}.each do |data, periodos|%>
     <div class='well'>
@@ -12,7 +13,7 @@
         <div id="evento-<%= periodo.id %>" class="panel-collapse collapse">
           <dl class="dl-horizontal">
             <% if periodo.componente.descricao.present? %>
-              <dt><strong>Descrição:</strong></dt>
+              <dt><strong>Objetivos:</strong></dt>
               <dd><%= periodo.componente.descricao.html_safe %></dd>
             <% end %>
             <% if periodo.componente.vagas.present? %>
@@ -44,6 +45,10 @@
                   <dd><%= f.submit "Fazer minha inscrição imediatamente!",:class => 'btn btn-primary btn-xs', :onclick=>"return confirm('Confirmar sua participação nesta atividade?')" %></dd>
                 <% end %>
               <% end %>
+            <% elsif @evento.status == 'componentes_consolidados'  %>
+              <dt><strong>Opções:</strong></dt>
+              <dd><a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="Muita calma nessa hora... as inscrições ainda não foram liberadas ;~(">Inscrições</a>
+              </dd>
             <% elsif @evento.status == 'inscricoes_finalizadas' %>
               <dt><strong>Opções:</strong></dt>
               <dd>

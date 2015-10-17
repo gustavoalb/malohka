@@ -28,7 +28,7 @@
           <% if @evento.status == 'acesso_liberado' %>
             <%= render :partial => 'eventos/show/programacao_com_acesso' %>
             <%#= render :partial => 'eventos/show/programacao_teste' %>
-          <% elsif @evento.status == 'inscricoes_iniciadas' or @evento.status == 'finalizado' %>
+          <% elsif @evento.status == 'inscricoes_iniciadas' or @evento.status == 'finalizado' or @evento.status == 'componentes_consolidados' %>
             <%= render :partial => 'eventos/show/programacao_com_inscricao' %>
           <% else %>
             <%=render :file => "#{Rails.root}/public/em_construcao.html" %>
