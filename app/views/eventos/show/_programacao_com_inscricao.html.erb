@@ -39,8 +39,8 @@
               <dt><strong>Local</strong>:</dt>
               <dd><%=  componente.local %></dd>
             <% end %>
-            <% for periodo in componente.periodos %>
             <dt><strong>Cronograma</strong>:</dt>
+            <% for periodo in componente.periodos %>
             <% if periodo.present? %>
               <dd><%= periodo.inicio.strftime("%A, %d de %B de %Y")  %></dd>
             <% else %>
