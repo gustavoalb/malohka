@@ -10,14 +10,7 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
       <div class="item active">
-        <%= link_to (image_tag "ii_feamat.png"), root_path %>
-        <div class="carousel-caption">
-          <h3 style="color:black"></h3>
-          <p style="color:black"></p>
-        </div>
-      </div>
-      <div class="item">
-        <%= link_to (image_tag "2-feamat.png"), root_path %>
+        <%= link_to (image_tag "snct_ifap.png"), evento_path(2) %>
         <div class="carousel-caption">
           <h3 style="color:black"></h3>
           <p style="color:black"></p>
@@ -25,6 +18,13 @@
       </div>
       <div class="item">
         <%= link_to (image_tag "iestudantil.png"), solicitacoes_path %>
+        <div class="carousel-caption">
+          <h3 style="color:black"></h3>
+          <p style="color:black"></p>
+        </div>
+      </div>
+      <div class="item">
+        <%= link_to (image_tag "ii_feamat.png"), root_path %>
         <div class="carousel-caption">
           <h3 style="color:black"></h3>
           <p style="color:black"></p>
@@ -55,7 +55,7 @@
   <h4>Outras notícias</h4>
   <%- model_class = Noticia -%>
   <% Noticia.pauta.each do |r| %>
-    <p><span><%= image_tag "calendario.png" %></span>&nbsp;<%= r.created_at.strftime("%d/%m/%Y") %>&nbsp;&nbsp;<%= link_to r.titulo, noticia_path(r) %></p>
+    <p><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;<%= r.created_at.strftime("%d/%m/%Y") %>&nbsp;&nbsp;<%= link_to r.titulo, noticia_path(r) %></p>
   <% end %>
 </div>
 <div class="col-md-12, well">
