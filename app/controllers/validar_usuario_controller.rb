@@ -26,6 +26,7 @@ class ValidarUsuarioController < ApplicationController
       @retorno = root_url
       @mensagem = "Usuário validado com sucesso!"
       # redirect_to @retorno, :notice=> @mensagem
+      redirect_to root_url
     else
       @retorno = validar_usuario_index_url
       @mensagem = "Você precisa confirmar sua data de nascimento!"
