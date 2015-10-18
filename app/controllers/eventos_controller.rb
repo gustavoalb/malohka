@@ -58,6 +58,7 @@ class EventosController < ApplicationController
     @evento = Evento.find(params[:evento_id])
     @componente = Componente.find(params[:evento][:componente_id])
     @pessoa = Pessoa.find(params[:evento][:pessoa_id])
+    # @pessoa = current_usuario.pessoa_id#Pessoa.find(params[:evento][:pessoa_id])
     @participacao = @pessoa.participacoes.new(:componente_id=>@componente.id)
     if @participacao.save
       redirect_to evento_url(@evento), notice: 'Inscrição feita com sucesso!'
@@ -182,7 +183,7 @@ class EventosController < ApplicationController
   def evento_params
     params.require(:evento).permit(
       :nome, :descricao, :status, :responsavel_id,
-      # :pessoa_id,
+      :pessoa_id,
       :componente_id,
       :logo, :banner, :organizacao, :parceiros, :apoio,
 
