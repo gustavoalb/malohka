@@ -11,8 +11,6 @@ class ApplicationController < ActionController::Base
     redirect_to main_app.root_url, :alert => "Você não tem autorização para acessar esta área"
   end
 
-  before_filter :configure_permitted_parameters, if: :devise_controller?
-
   before_action do
     resource = controller_name.singularize.to_sym
     method = "#{resource}_params"

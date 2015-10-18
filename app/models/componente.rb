@@ -4,6 +4,17 @@ class Componente < ActiveRecord::Base
   has_and_belongs_to_many :publicos
   has_and_belongs_to_many :ministrantes
   has_many :periodos,:dependent => :destroy
+
+  has_many :prepostos
+  # has_many :gerenciadores, :through => :prepostos#, :source => :gerenciador
+  has_many :gerenciadores, through: :prepostos, class_name: "Pessoa", foreign_key: "gerenciador_id"
+  accepts_nested_attributes_for :prepostos#, reject_if: :all_blank, allow_destroy: true
+
+
+
+  # accepts_nested_attributes_for :prepostos
+  # has_many :prepostos, inverse_of: :componente
+
   accepts_nested_attributes_for :periodos,
     :reject_if => :tipo_componente_blank,#lambda { |a| a[:qnt_horas].blank? },
     :allow_destroy => true
@@ -26,10 +37,8 @@ class Componente < ActiveRecord::Base
     end
   end
 
-
-
   has_many :participacoes
-  has_many :pessoas,     :through => :participacoes
+  has_many :pessoas, :through => :participacoes
 
   enum tipo: {'Atividade com credenciamento'=> 1, 'Atividade comum'=> 2, 'Protocolo de cerimonial'=>3 }
   enum tipo_componente: {'Palestra'=> 1, 'Seminário'=>2, 'Minicurso'=> 3, 'Mesa redonda'=> 4, 'Mostra Técnica'=> 5, 'Atividade Cultural'=> 6, 'Apresentação'=> 7, 'Concurso'=> 8, 'Anúncio'=> 9, 'Curso'=> 10, 'Experimento didático'=> 11 }

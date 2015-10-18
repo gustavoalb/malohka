@@ -1,0 +1,16 @@
+<div class="page-header">
+  <h3>Bem vindo ao Wizard de Eventos da Malohka,</h3>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aqui será possível configurar seu evento, desde a descrição global até os detalhes como data e hora de uma atividade específica.</p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Você tem duas opções:</p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inserir o nome e a descrição do Evento, no caso de criação;</p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Corrigir ou atualizar essas informações, no case de edição.</p>
+</div>
+<%= simple_form_for @usuario, :url => wizard_path do |f|  %>
+  <div class="col-sm-12 col-md-12, row, well">
+    <%= f.input :nome, label: 'Qual o nome deste evento?' %>
+    <%#= f.input :descricao, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }, label: 'Como você poderia descrevê-lo?' %>
+    <%#= f.input :responsavel_id, input_html: {value: current_usuario.funcionario.id}, as: :hidden%>
+  </div>
+  <%= f.submit "Confirmar",:class => 'btn btn-primary' %>
+  <%= link_to 'Tudo está ok aqui. :)', next_wizard_path,:class => 'btn btn-default btn-xs' %>
+<% end %>

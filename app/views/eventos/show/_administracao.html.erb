@@ -3,7 +3,7 @@
   <h3 align='center'>Resumo</h3>
   <dl class="dl-horizontal">
     <dt>Evento:</dt>
-    <dd><%= @evento.nome %></dd>
+    <dd><%= @evento.nome %><%= best_in_place @evento, :nome, :as => :input %></dd>
     <dt>Responsável:</dt>
     <dd><%= @evento.responsavel.pessoa.nome %> - <%= @evento.responsavel.departamento %></dd>
     <dt>Criação do evento:</dt>
@@ -35,27 +35,49 @@
       <% end %>
     </dd>
   </dl>
-  <% if @evento.status == 'inscricoes_iniciadas' or @evento.status == 'inscricoes_finalizadas' %>
-    <hr>
-    <h3 align='center'>Componentes</h3>
-    <table class="table table-striped table-hover table-bordered table-condensed">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Nome</th>
-          <th>Inscritos</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for componente in @evento.componentes %>
-        <tr>
-          <td><%= componente.id  %></td>
-          <td><%= componente.nome  %></td>
-          <td><%= componente.inicio.strftime("%A, %d de %B de %Y") %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <hr>
+  <h3 align='center'>Prepostos</h3>
+  <table class="table table-striped table-hover table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Inscritos</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for componente in @evento.componentes %>
+      <% for preposto in componente.prepostos %>
+      <tr>
+        <td><%= preposto.id  %></td>
+        <td><%= preposto.gerenciador.pessoa.nome  %></td>
+        <td><%= preposto.atividade.nome %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</tbody>
+</table>
+<% if @evento.status == 'inscricoes_iniciadas' or @evento.status == 'inscricoes_finalizadas' %>
+  <hr>
+  <h3 align='center'>Componentes</h3>
+  <table class="table table-striped table-hover table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Inscritos</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for componente in @evento.componentes %>
+      <tr>
+        <td><%= componente.id  %></td>
+        <td><%= componente.nome  %></td>
+        <td><%= componente.inicio.strftime("%A, %d de %B de %Y") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 <% end %>
 </div>
 <hr>
@@ -64,52 +86,40 @@
   <thead>
     <tr>
       <th>Nome</th>
-      <th>Inscritos</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% for componente in @evento.componentes %>
-    <tr>
-      <td><%= componente.id  %></td>
-      <td><%= componente.nome  %></td>
-    </tr>
-  <% end %>
-</tbody>
-</table>
-<hr>
-<h3 align='center'>Frequência</h3>
-<table class="table table-striped table-hover table-bordered table-condensed">
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Inscritos</th>
+      <th>Componente</th>
       <th>Frequência</th>
     </tr>
   </thead>
   <tbody>
-    <% for componente in @evento.componentes %>
+    <% for participacao in @evento.participacoes %>
     <tr>
-      <td><%= componente.nome  %></td>
-      <td><%= componente.participacoes.count %></td>
+      <td><%= participacao.pessoa.nome  %></td>
+      <td><%= participacao.componente.nome %></td>
       <td>
         <% if @evento.status == 'acesso_liberado' %>
           <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="Muita calma nessa hora... as inscrições ainda não foram liberadas ;~(">A ser registrado</a><%#= componente.frequencia  %>
         <% elsif @evento.status == 'inscricoes_iniciadas' %>
-          <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="Muita calma nessa hora... as inscrições ainda não foram liberadas ;~(">Registrar frequência</a><%#= componente.frequencia  %>
+          <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="Muita calma nessa hora... as inscrições ainda não foram liberadas ;~(">Regisdddtrar frequência</a><%#= componente.frequencia  %>
         <% elsif @evento.status == 'inscricoes_finalizadas' %>
           <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="É uma pena... a frequência já terminou ;~(">Ação desabilitada</a><%#= componente.frequencia  %>
         <% else %>
           <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="É uma pena... não há nada aqui para ser visto ;~(">Ação desabilitada</a><%#= componente.frequencia  %>
         <% end %>
       </td>
-      <!--        <td><%#= best_in_place participacao, :frequencia, as: :checkbox, collection: {false: "Nope", true: "Yep"} %>
-                        <%#= best_in_place participacao, :nome, :as => :input %>
-                        <%#= best_in_place participacao, :frequencia, as: :checkbox, collection: ["No, thanks", "Yes, of course!"] %>
-                        <td>
-                          <%#= best_in_place gut, :item,
+      <td><%#= best_in_place participacao, :frequencia, as: :checkbox, collection: {false: "Nope", true: "Yep"} %>
+        <%= best_in_place participacao, :frequencia, as: :checkbox, collection: {false: "Nope", true: "Yep"},  path: evento_path(@evento.id), param: "evento[participacoes_attributes][id]=#{participacao.id}&evento[participacoes_attributes]" %>
+        <%#= best_in_place participacao, :frequencia, as: :checkbox, collection: {false: "Nope", true: "Yep"},
+        # <%#= best_in_place participacao, :frequencia, as: :checkbox, collection: {false: "Nope", true: "Yep"},
+                             
+        <td>
+          <%= best_in_place componente, :nome,
+                              path: evento_path(@evento.id), type: :input,
+                              param: "evento[componentes_attributes][id]=#{componente.id}&evento[componentes_attributes]" %></td>
+      <%#= best_in_place gut, :item,
                               path: iteracao_path(iteracao.id), type: :input,
-                              param: "iteracao[guts_attributes][id]=#{gut.id}&iteracao[guts_attributes]" %></td> -->
+                              param: "iteracao[guts_attributes][id]=#{gut.id}&iteracao[guts_attributes]" %></td>
+    -->
     </tr>
-  <% end %>
+<% end %>
 </tbody>
 </table>

@@ -1,0 +1,19 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%#= render @accessories %>
+  </tbody>
+</table>
+<%= form_for( @user ) do |f| %>
+  <%= f.collection_select( 
+    # :pessoa_ids, 
+    Pessoa.all, 
+    :id, 
+    :nome, { include_hidden: false }, { multiple: true } ) 
+  %>
+  <%= f.button "Add Equipment" %>
+<% end %>

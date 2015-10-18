@@ -16,7 +16,8 @@ class EventosController < ApplicationController
     #end
     @pessoa = current_usuario.pessoa_id
     @periodos = @evento.periodos.order("periodos.inicio asc")
-    @com = @evento.componentes.order("componentes.inicio asc")
+    @componentes = @evento.componentes.order("componentes.inicio asc")
+    @componentis = @componentes.order("componentes.inicio asc")
     @componentes_evento = @evento.componentes.all
     @participacoes = @evento.participacoes.all
 
@@ -35,6 +36,7 @@ class EventosController < ApplicationController
   end
 
   def edit
+
     # 1.times do
     #   componentes = @evento.componentes.build
     #   1.times { componentes.periodos.build }
@@ -47,6 +49,10 @@ class EventosController < ApplicationController
     redirect_to evento_wizard_evento_path(@evento, :inicio)
   end
 
+  def delegacoes
+    @user = Evento.find( params[:id] )
+    @accessories = @user.componentes
+  end
 
   def registrar_participacao
     @evento = Evento.find(params[:evento_id])
@@ -110,23 +116,38 @@ class EventosController < ApplicationController
     send_file(f,:filename=>"Certificado - #{@evento.id}.pdf",:content_type=>"application/pdf")
   end
 
-  def update
-    @evento.update(evento_params)
-    respond_with(@evento)
-  end
-
   # def update
   #   @evento.update(evento_params)
-  #   respond_to do |format|
-  #     if @evento.update_attributes(params[:evento])
-  #       format.html { redirect_to(@evento, :notice => 'O evento foi atualizado com successo.') }
-  #       format.json { respond_with_bip(@evento) }
-  #     else
-  #       format.html { render :action => "edit" }
-  #       format.json { respond_with_bip(@evento) }
-  #     end
+  #   respond_with(@evento)
+  # end
+
+  # @user = User.find params[:id]
+
+  # respond_to do |format|
+  #   if @user.update_attributes(params[:user])
+  #     format.html { redirect_to(@user, :notice => 'User was successfully updated.') }
+  #     format.json { respond_with_bip(@user) }
+  #   else
+  #     format.html { render :action => "edit" }
+  #     format.json { respond_with_bip(@user) }
   #   end
   # end
+
+
+  def update
+    @evento = Evento.find(params[:id])
+
+    @evento.update(evento_params)
+    respond_to do |format|
+      if @evento.update_attributes(params[:evento])
+        format.html { redirect_to(@evento, :notice => 'O evento foi atualizado com successo.') }
+        format.json { respond_with_bip(@evento) }
+      else
+        format.html { render :action => "edit" }
+        format.json { respond_with_bip(@evento) }
+      end
+    end
+  end
 
   def destroy
     @evento.destroy
@@ -160,14 +181,28 @@ class EventosController < ApplicationController
 
   def evento_params
     params.require(:evento).permit(
-      :nome, :descricao, :status, :responsavel_id, :pessoa_id,
+      :nome, :descricao, :status, :responsavel_id,
+      # :pessoa_id,
       :componente_id,
       :logo, :banner, :organizacao, :parceiros, :apoio,
+
+      participacoes_attributes:
+      [ :id, :evento_id, :pessoa_id, :componente_id, :frequencia, :_destroy],
+
       componentes_attributes:
-      [ :id, :evento_id, :tipo, :objetivos, :inicio, :nome, :descricao, :vagas, {:publico_ids => []}, {:ministrante_ids => []}, :publico, :tipo_componente, :local, :status, :_destroy,
+      [
+        :id, :evento_id, :tipo, :objetivos, :inicio, :nome, :descricao, :vagas, {:publico_ids => []}, {:ministrante_ids => []}, {:ministrante_ids => []}, :publico, :tipo_componente, :local, :status, :_destroy,
+
+        prepostos_attributes:
+        [ :id, :evento_id, :pessoa_id, {:responsaveis_delegado_ids => []}, :componente_id, :_destroy],
+
+
         periodos_attributes:
-        [ :id, :componente_id, :inicio, :qnt_horas, :_destroy]
+        [
+          :id, :componente_id, :inicio, :qnt_horas, :_destroy
         ]
+      ]
     )
+
   end
 end

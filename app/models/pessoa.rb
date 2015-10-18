@@ -11,6 +11,16 @@ class Pessoa < ActiveRecord::Base
   has_many :participacoes
   has_many :componentes, :through => :participacoes
   has_many :eventos
+  # has_and_belongs_to_many :atividades, class_name: "Componete"
+
+  has_many :prepostos, dependent: :destroy
+  has_many :componentes, through: :prepostos
+  # has_many :users, through: :prepostos
+  # has_many :atividades, :through => :prepostos, :source => :componente
+
+
+
+
   validates_presence_of [:nome, :cpf], :message=>"Não pode ficar em branco!"
   validates_uniqueness_of :cpf
   # validates :fator_rh, :presence => true, :on => :update
