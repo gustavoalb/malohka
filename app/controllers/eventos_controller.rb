@@ -60,7 +60,7 @@ class EventosController < ApplicationController
     @pessoa = Pessoa.find(params[:evento][:pessoa_id])
     # @pessoa = current_usuario.pessoa_id#Pessoa.find(params[:evento][:pessoa_id])
     @participacao = @pessoa.participacoes.new(:componente_id=>@componente.id)
-    if @componente.participacoes.count == @componente.vagas
+    if @componente.participacoes.count >= @componente.vagas
       redirect_to evento_url(@evento), alert: "O número de vagas foi preenchido. :~("
     else
       if @participacao.save
