@@ -1,18 +1,19 @@
-class Usuarios::WizardUsuarioController < ApplicationController
+class Usuario::WizardUsuarioController < ApplicationController
   include Wicked::Wizard
 
-  steps :inico, :dados_pessoais, :finalizacao
+  before_action :setup_wizard
 
+  steps *Usuario.form_steps
 
   def show
-    @usuario = current_usuario
+    # @usuario = current_usuario
     render_wizard
   end
 
   def update
-    @user = current_user
-    @user.attributes = params[:user]
-    render_wizard @user
+    @usuario = current_usuario
+    @usuario.attributes = params[:usuario]
+    render_wizard @usuario
   end
 
 

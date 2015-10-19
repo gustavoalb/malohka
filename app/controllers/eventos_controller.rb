@@ -1,4 +1,5 @@
 class EventosController < ApplicationController
+  load_and_authorize_resource
   before_action :set_evento, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
@@ -11,19 +12,17 @@ class EventosController < ApplicationController
   end
 
   def show
-    #if current_usuario.status == 'criado' or current_usuario.status == nil
-    # redirect_to validacao_usuario_pessoa_path
-    #end
     @pessoa = current_usuario.pessoa_id
     @periodos = @evento.periodos.order("periodos.inicio asc")
     @componentes = @evento.componentes.order("componentes.inicio asc")
     @componentis = @componentes.order("componentes.inicio asc")
     @componentes_evento = @evento.componentes.all
     @participacoes = @evento.participacoes.all
-
-
-
-    respond_with(@evento)
+    # if current_usuario.status == 'criado'
+    #   redirect_to wizard_usuario_path(current_usuario.id)#, notice: "Estamos contentes por ter você aqui! É importante saber mais sobre você :^)"
+    # else
+    #   respond_with(@evento)
+    # end
   end
 
   def new

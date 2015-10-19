@@ -38,6 +38,8 @@ class Ability
       cannot [:destroy, :create], Aluno
       can [:manage, :edit, :update], Pessoa, usuario: usuario.pessoa_id
       cannot [:destroy, :create], Pessoa
+      # can [:manage, :read, :edit, :update], Usuario, :usuario_id => usuario.id
+      # cannot [:destroy, :create], Usuario
       # can [:manage], Nivel
       # can [:manage], Turma
       # can [:manage], Curso

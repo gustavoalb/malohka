@@ -2,6 +2,25 @@ class Usuario < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   # include CriarPessoa
+
+  cattr_accessor :form_steps do
+    %w(inicio midias atividades periodos organizacao)
+  end
+
+  attr_accessor :form_step
+
+  # validates :nome, :descricao, :responsavel, presence: true, if: -> { required_for_step?(:inicio) }
+  # validates :nome, :descricao, presence: true, if: -> { required_for_step?(:atividades) }
+  # validates :identifying_characteristics, :colour, presence: true, if: -> { required_for_step?(:characteristics) }
+  # validates :special_instructions, presence: true, if: -> { required_for_step?(:instructions) }
+
+  def required_for_step?(step)
+    return true if form_step.nil?
+    return true if self.form_steps.index(step.to_s) <= self.form_steps.index(form_step)
+  end
+
+
+
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
   has_and_belongs_to_many :grupos
   belongs_to :pessoa

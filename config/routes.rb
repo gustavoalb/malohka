@@ -26,7 +26,8 @@ Rails.application.routes.draw do
   #   post :registrar_participacao
   # end
 
-  resources :wizard_usuario#, only: [:edit,:show, :update], controller: 'eventos_wizard'
+  # resources :wizard_usuario#, only: [:edit,:show, :update], controller: 'eventos_wizard'
+  resources :wizard_usuario, only: [:show, :update], controller: 'usuarios/wizard_usuario'
 
   resources :evento_wizard#, only: [:edit,:show, :update], controller: 'eventos_wizard'
 
@@ -70,14 +71,6 @@ Rails.application.routes.draw do
   #   end
   # end
 
-  # unauthenticated :usuario do
-  #   devise_scope :usuario do
-  #     # get "/" => "devise/sessions#new"
-  #     get 'sessao' => "sessions/sessions", as: :sessao
-  #     # :controllers => { :sessions => "sessions"}, as: :sessao
-  #   end
-  # end
-
   resources :validacao
   resources :validacao_inicial_usuario
 
@@ -103,16 +96,7 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
 
   # assert_routing({ path: 'photos', method: :post }, { controller: 'photos', action: 'create' })
-
-
-
-  # devise_for :usuarios, :controllers => { :sessions => "sessions"}
   devise_for :usuarios , path_prefix: 'perfil',:controllers => { :sessions => "sessions"}
-
-
-
-
-  # devise_for :usuarios, :controllers => { :registrations => "usuario/registrations" }
 
   resources :alunos   do
     post 'turmas', on: :collection
