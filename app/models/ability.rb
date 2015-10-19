@@ -25,6 +25,8 @@ class Ability
       can :read, Evento
       can [:create, :edit, :update], Evento, responsavel_id: usuario.funcionario.id
       cannot [:destroy], Evento
+      can [:create, :edit, :update], Componente, responsavel_id: usuario.funcionario.id
+      cannot [:destroy], Componente
       #can :read, Solicitacao
     elsif usuario.role? :aluno
       can [:read, :create, :destroy ], Solicitacao
@@ -38,6 +40,7 @@ class Ability
       cannot [:destroy, :create], Aluno
       can [:manage, :edit, :update], Pessoa, usuario: usuario.pessoa_id
       cannot [:destroy, :create], Pessoa
+      can :registrar_participacao, Evento
       # can [:manage, :read, :edit, :update], Usuario, :usuario_id => usuario.id
       # cannot [:destroy, :create], Usuario
       # can [:manage], Nivel

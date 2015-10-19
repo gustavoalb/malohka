@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :eventos, only: [:new, :create, :show, :update, :edit, :index] do
     post :registrar_participacao
     get 'certificado'
+    get 'lista_frequencia'
     put "alterar_status/:evento_id/:status"=>'eventos#alterar_status', as: :alterar_status
     resources :wizard_evento, only: [:show, :update], controller: 'eventos/wizard_evento'
     member do
