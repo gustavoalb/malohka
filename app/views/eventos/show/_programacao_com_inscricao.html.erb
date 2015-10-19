@@ -23,9 +23,9 @@
               <dt><strong>Vagas</strong>:</dt>
               <dd>
                 <% if componente.participacoes.present? %>
-                  <%= componente.vagas %>
+                  <%= componente.vagas_disponiveis %> disponíveis de <%= componente.vagas %> vagas
                 <% else %>
-                  <%= componente.vagas %>
+                  <%= componente.vagas %> disponíveis de <%= componente.vagas %> vagas
                 <% end %>
               </dd>
             <% end %>

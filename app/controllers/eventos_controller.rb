@@ -60,10 +60,14 @@ class EventosController < ApplicationController
     @pessoa = Pessoa.find(params[:evento][:pessoa_id])
     # @pessoa = current_usuario.pessoa_id#Pessoa.find(params[:evento][:pessoa_id])
     @participacao = @pessoa.participacoes.new(:componente_id=>@componente.id)
-    if @participacao.save
-      redirect_to evento_url(@evento), notice: 'Inscrição feita com sucesso!'
+    if @componente.participacoes.count == @componente.vagas
+      redirect_to evento_url(@evento), alert: "O número de vagas foi preenchido. :~("
     else
-      redirect_to evento_url(@evento), alert: 'Você já possui uma inscrição ativa para esta atividade. :~('
+      if @participacao.save
+        redirect_to evento_url(@evento), notice: 'Inscrição feita com sucesso!'
+      else
+        redirect_to evento_url(@evento), alert: "Você já possui uma inscrição ativa para esta atividade. :~("
+      end
     end
   end
 
@@ -201,18 +205,13 @@ class EventosController < ApplicationController
       [ :id, :evento_id, :pessoa_id, :componente_id, :frequencia, :_destroy],
 
       componentes_attributes:
-      [
-        :id, :evento_id, :tipo, :objetivos, :inicio, :nome, :descricao, :vagas, {:publico_ids => []}, {:ministrante_ids => []}, {:ministrante_ids => []}, :publico, :tipo_componente, :local, :status, :_destroy,
-
-        prepostos_attributes:
-        [ :id, :evento_id, :pessoa_id, {:responsaveis_delegado_ids => []}, :componente_id, :_destroy],
+      [:id, :evento_id, :tipo, :objetivos, :inicio, :nome, :descricao, :vagas, {:publico_ids => []}, {:ministrante_ids => []}, {:ministrante_ids => []}, :publico, :tipo_componente, :local, :status, :_destroy,
 
 
-        periodos_attributes:
-        [
-          :id, :componente_id, :inicio, :qnt_horas, :_destroy
+       periodos_attributes:
+       [:id, :componente_id, :inicio, :qnt_horas, :_destroy
         ]
-      ]
+       ]
     )
 
   end

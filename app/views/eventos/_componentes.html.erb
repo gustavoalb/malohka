@@ -13,15 +13,6 @@
   <h3 align='center'>Informações complementares</h3>
   <div class="col-sm-5 col-md-7, thumbnail, center">
     <div >
-      <%= f.simple_fields_for :prepostos do |p|%>
-        <%#= p.input :atividade %>
-        <%#=p.association :gerenciador,  collection: Pessoa.all.map {|r|[r.nome,r.id]}, input_html:{label_class: "checkbox"},as: :check_boxes, label: "Gerenciadores" %>
-        <%#= p.input :atividade,  collection: Pessoa.all.map {|r|[r.nome,r.id]}, input_html:{label_class: "checkbox"},as: :check_boxes %>
-        <%#= p.association :gerenciador,  collection: Pessoa.all.map {|r|[r.nome,r.id]}, input_html:{label_class: "checkbox"},as: :check_boxes %>
-        <%#= p.input :pessoa,:collection=>Pessoa.all.map {|r|[r.nome,r.id]},:prompt=>"Selecione o Preposto", label: 'Prepostos' %>
-        <%#= p.input :gerenciador,:collection=>Componente.tipo_componentes.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o tipo de atividade", label: 'Prepostos' %>
-      <% end %>
-      <!-- <hr> -->
       <%= f.input :local,:collection=>Componente.locais.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o Local", label: 'Local' %>
       <%= f.input :tipo_componente,:collection=>Componente.tipo_componentes.collect { |s| [s[0].humanize, s[0]] }, :include_blank => true, label: 'Natureza da atividade' %>
       <%= f.input :local,:collection=>Componente.locais.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o Local", label: 'Local' %>

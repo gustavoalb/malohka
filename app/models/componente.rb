@@ -3,17 +3,8 @@ class Componente < ActiveRecord::Base
   belongs_to :ministrante
   has_and_belongs_to_many :publicos
   has_and_belongs_to_many :ministrantes
+  has_and_belongs_to_many :gerenciadores, class_name: "Pessoa"
   has_many :periodos,:dependent => :destroy
-
-  has_many :prepostos
-  # has_many :gerenciadores, :through => :prepostos#, :source => :gerenciador
-  has_many :gerenciadores, through: :prepostos, class_name: "Pessoa", foreign_key: "gerenciador_id"
-  accepts_nested_attributes_for :prepostos#, reject_if: :all_blank, allow_destroy: true
-
-
-
-  # accepts_nested_attributes_for :prepostos
-  # has_many :prepostos, inverse_of: :componente
 
   accepts_nested_attributes_for :periodos,
     :reject_if => :tipo_componente_blank,#lambda { |a| a[:qnt_horas].blank? },
@@ -34,6 +25,13 @@ class Componente < ActiveRecord::Base
       parametro[:qnt_horas].blank?
     elsif parametro[:qnt_horas].blank? and self.tipo = 3
       parametro[:qnt_horas].blank?
+    end
+  end
+
+
+  def vagas_disponiveis
+    if self.vagas
+      self.vagas - self.participacoes.count
     end
   end
 

@@ -25,7 +25,7 @@
           <%= link_to 'Liberar inscrições', evento_alterar_status_path(@evento,'abrir_incricoes'), method: :put, :class => 'btn btn-primary btn-xs' %>
         <% elsif @evento.status == 'inscricoes_iniciadas' %>
           <%= link_to 'Finalizar inscrições', evento_alterar_status_path(@evento,'fechar_inscricoes'), method: :put, :class => 'btn btn-primary btn-xs' %>
-          <%= link_to 'Registrar frequência', evento_alterar_status_path(@evento,'finalizar'), method: :put, :class => 'btn btn-primary btn-xs' %>
+          <%= link_to 'Registrar frequência', frequencia_evento_path, :class => 'btn btn-primary btn-xs' %>
         <% elsif @evento.status == 'inscricoes_finalizadas' %>
           <%= link_to 'Concluir evento', evento_alterar_status_path(@evento,'finalizar'), method: :put, :class => 'btn btn-primary btn-xs' %>
           <%= link_to 'Registrar frequência', evento_alterar_status_path(@evento,'finalizar'), method: :put, :class => 'btn btn-primary btn-xs' %>
