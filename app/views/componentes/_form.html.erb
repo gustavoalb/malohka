@@ -1,0 +1,21 @@
+<%= simple_nested_form_for @componente, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= abre_estilo_12_well %>
+  <%= f.input :nome %>
+  <%#= f.input :descricao %>
+  <%= f.input :descricao, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }, label: 'Descrição' %>
+  <%#= f.input :responsavel_id, input_html: {value: responsavel_id },as: :hidden%>
+  <%= f.input :pessoa_id, input_html: {value: current_usuario.funcionario.id}, as: :hidden%>
+  <%= f.input :responsavel_id, input_html: {value: current_usuario.funcionario.id}, as: :hidden%>
+  <%= f.simple_fields_for :componentes do |builder|%>
+    <hr>
+    <%= render 'componentes', :f => builder %>
+  <% end %>
+  <%= f.link_to_add "Adicionar Componente", :componentes, :class => 'btn btn-info btn-xs' %>
+  <%= fecha_estilo_12_well %>
+  <br>
+  <div>
+    <%= f.button :submit, :class => 'btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                eventos_path, :class => 'btn btn-default' %>
+  <% end %>
+</div>

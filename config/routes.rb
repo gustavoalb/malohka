@@ -14,6 +14,12 @@ Rails.application.routes.draw do
     end
   end
 
+
+  scope "/forja" do
+    resources :componentes
+  end
+
+
   resources :publicos
 
   namespace :eventos do
