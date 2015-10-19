@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     put "alterar_status/:evento_id/:status"=>'eventos#alterar_status', as: :alterar_status
     resources :wizard_evento, only: [:show, :update], controller: 'eventos/wizard_evento'
     member do
-      get 'delegacoes'
+      get 'frequencia'
     end
   end
 

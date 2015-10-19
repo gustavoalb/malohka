@@ -48,10 +48,11 @@ class EventosController < ApplicationController
     redirect_to evento_wizard_evento_path(@evento, :inicio)
   end
 
-  def delegacoes
-    @user = Evento.find( params[:id] )
-    @accessories = @user.componentes
-  end
+  # def componentes
+  #   @evento = Evento.find( params[:id] )
+  #   @componentes = @evento.componentes.order("componentes.inicio asc")
+  #   # @accessories = @user.componentes
+  # end
 
   def registrar_participacao
     @evento = Evento.find(params[:evento_id])
@@ -132,7 +133,17 @@ class EventosController < ApplicationController
   #     format.json { respond_with_bip(@user) }
   #   end
   # end
+  def frequencia
+    # @evento = Evento.find(params[:evento_id])
+    @componentes = @evento.componentes.order("componentes.inicio asc")
+    @participacoes = @evento.participacoes.all
+    # @pessoa = Pessoa.find(params[:pessoa_id])
+    # @componentes = @evento.componentes.order("componentes.inicio asc")
 
+    if !can? [:edit, :update], Evento
+      redirect_to evento_path(@evento), :alert => "Esta área ainda será liberada para sua classe de usuário. :~("
+    end
+  end
 
   def update
     @evento = Evento.find(params[:id])
