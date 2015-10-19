@@ -9,8 +9,8 @@ class Iestudantil < ActiveRecord::Base
   scope :solicitadas, -> {where("status = 'solicitado'",true)}
   #scope :solicitadas, -> {joins(:pessoa).where("pessoas.foto_file_name is not null and status = solicitado",true)}
 
-  scope :com_foto, -> {joins(:pessoa).where("pessoas.foto_file_name is not null")}
-  scope :sem_foto, -> {joins(:pessoa).where("pessoas.foto_file_name is null")}
+  scope :com_foto, -> {joins(:pessoa).where("pessoas.foto_file_name is not null and iestudantis.status = 'solicitado'")}
+  scope :sem_foto, -> {joins(:pessoa).where("pessoas.foto_file_name is null and iestudantis.status = 'solicitado'")}
   # joins(:periodos).where("inicio BETWEEN ? and ?",Time.parse("11/08/2015 00:00 UTC -3"),Time.parse("11/08/2015 23:59 UTC -3")).order("periodos.inicio").count
 
   scope :em_lote, -> {where("status = 'em_lote'",true)}

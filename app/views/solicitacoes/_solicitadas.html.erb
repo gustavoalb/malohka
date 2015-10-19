@@ -24,7 +24,7 @@
             </tr>
           </thead>
           <tbody>
-            <% Iestudantil.solicitadas.each do |ie| %>
+            <% Iestudantil.com_foto.each do |ie| %>
               <tr>
                 <td><%= link_to ie.solicitacao.id, solicitacao_path(ie.solicitacao.id) %></td>
                 <td><%= ie.aluno.pessoa.nome %></td>
