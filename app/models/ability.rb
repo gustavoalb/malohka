@@ -23,7 +23,8 @@ class Ability
     elsif usuario.role? :funcionario
       can :read, Noticia
       can :read, Evento
-      can [:create, :edit, :update], Evento, responsavel_id: usuario.funcionario.id
+      can :registrar_participacao, Evento
+      can [:create, :read, :edit, :update, :lista_frequencia], Evento, responsavel_id: usuario.funcionario.id
       cannot [:destroy], Evento
       can [:create, :edit, :update], Componente, responsavel_id: usuario.funcionario.id
       cannot [:destroy], Componente

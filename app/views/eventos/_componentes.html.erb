@@ -8,7 +8,7 @@
     <%= f.input :nome, label: 'Nome da atividade' %>
     <%= f.input :descricao, label: 'Ementa' %>
     <%= f.input :tipo, :collection=>Componente.tipos.collect { |t| [t[0].humanize, t[0]] }, :prompt=>"Selecione o tipo", label: 'Tipo de componente' %>
-    <%= f.input :gerenciadores, :collection=>Pessoa.all.collect { |t|[t.nome,t.id] }, :prompt=>"Selecione o tipo", label: 'Tipo de componente' %>
+    <%#= f.input :responsavel_id, :collection=>Pessoa.all.collect { |t|[t.nome,t.id] }, :prompt=>"Selecione o tipo", label: 'Tipo de componente' %>
   </div>
   <hr>
   <h3 align='center'>Informações complementares</h3>
