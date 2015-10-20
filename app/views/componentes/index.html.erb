@@ -1,6 +1,8 @@
 <table class="table table-striped table-hover table-bordered table-condensed">
   <thead>
     <tr>
+      <th>Id</th>
+      <th>Evento</th>
       <th>Nome</th>
       <th>Tipo</th>
       <th>Local</th>
@@ -13,8 +15,12 @@
   <tbody>
     <% @componentes.each do |componente| %>
       <tr>
+        <td><%= componente.id %></td>
+        <td><%= componente.evento.id %></td>
         <td><%= best_in_place componente, :nome, :as => :input %></td>
-        <td><%= componente.tipo %></td>
+        <td><%= componente.tipo %>
+          <%= best_in_place componente, :tipo,:as => :select, :collection => [[1, 'Atividade com credenciamento'], [2, 'Atividade comum'], [3, 'Protocolo de cerimonial']]%>
+        </td>
         <td><%= best_in_place componente, :local, :as => :select, :collection => [['Auditório','Auditório'],['Hall do Auditório','Hall do Auditório'],['Biblioteca','Biblioteca'],['Laboratório','Laboratório'],['Hall de entrada do IFAP','Hall de entrada do IFAP'],['Sala de aula 1','Sala de aula 1'],['Sala de aula 2','Sala de aula 2'],['Sala de aula 3','Sala de aula 3'],['Sala de aula 4','Sala de aula 4'],['Sala de aula 5','Sala de aula 5'],['Sala de aula 6','Sala de aula 6'],['Sala de aula 7','Sala de aula 7'],['Sala de aula 8','Sala de aula 8'],['Sala de aula 9','Sala de aula 9'],['Sala de aula 10','Sala de aula 10'],['Sala de aula 11','Sala de aula 11'],['Sala de aula 12','Sala de aula 12'],['Sala de aula 13','Sala de aula 13'],['Sala de aula 14','Sala de aula 14'],['Sala de aula 15','Sala de aula 15'],['Sala de aula 16','Sala de aula 16'],['Sala de aula 17','Sala de aula 17'],['Sala de aula 18','Sala de aula 18'],['Sala de aula 19','Sala de aula 19'],['Sala de aula 20','Sala de aula 20'],['Sala de aula 21','Sala de aula 21'],['Sala de aula 22','Sala de aula 22'],['Sala de aula 23','Sala de aula 23'],['Sala de aula 24','Sala de aula 24']] %></td>
         <td><%= best_in_place componente, :tipo_componente, :as => :select, :collection => [['Palestra','Palestra'],['Seminário','Seminário'],['Minicurso','Minicurso'],['Mesa redonda','Mesa redonda'],['Mostra Técnica','Mostra Técnica'],['Atividade Cultural','Atividade Cultural'],['Apresentação','Apresentação'],['Concurso','Concurso'],['Anúncio','Anúncio'],['Curso','Curso'],['Experimento didático','Experimento didático']] %></td>
         <td><%= best_in_place componente, :vagas, :as => :input %></td>
