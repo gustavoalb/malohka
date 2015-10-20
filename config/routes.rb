@@ -17,7 +17,9 @@ Rails.application.routes.draw do
 
 
   scope "/forja" do
-    resources :componentes
+    resources :componentes do
+      get 'lista_frequencia'
+    end
   end
 
 

@@ -35,6 +35,12 @@ class Componente < ActiveRecord::Base
     end
   end
 
+  def vagas_disponiveis
+    if self.vagas
+      self.vagas - self.participacoes.count
+    end
+  end
+
   has_many :participacoes
   has_many :pessoas, :through => :participacoes
 

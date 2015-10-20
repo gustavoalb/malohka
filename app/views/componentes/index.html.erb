@@ -45,9 +45,14 @@
         <td><%= best_in_place componente, :tipo_componente, :as => :select, :collection => [['Palestra','Palestra'],['Seminário','Seminário'],['Minicurso','Minicurso'],['Mesa redonda','Mesa redonda'],['Mostra Técnica','Mostra Técnica'],['Atividade Cultural','Atividade Cultural'],['Apresentação','Apresentação'],['Concurso','Concurso'],['Anúncio','Anúncio'],['Curso','Curso'],['Experimento didático','Experimento didático']] %></td>
         <td><%= best_in_place componente, :vagas, :as => :input %></td>
         <td><%= best_in_place componente, :responsavel_id, :as => :input %></td>
-        <td><%= link_to t('.edit', :default => t("helpers.links.Editar")), edit_componente_path(componente.id), :class => 'btn btn-default btn-xs' %>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.Editar")), edit_componente_path(componente.id), :class => 'btn btn-default btn-xs' %>
+          <%#= link_to 'frequência', componente_frequencia_path(componente.id), :class => 'btn btn-default btn-xs' %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<%= link_to t('.new', :default => t("helpers.links.novo")),
+            new_componente_path,
+            :class => 'btn btn-primary' %>

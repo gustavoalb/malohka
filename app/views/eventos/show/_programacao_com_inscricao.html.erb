@@ -44,13 +44,15 @@
             <dt><strong>Local</strong>:</dt>
             <dd><%=  componente.local %></dd>
           <% end %>
-          <dt><strong>Cronograma</strong>:</dt>
           <% for periodo in componente.periodos %>
+          <dt><strong>Cronograma</strong>:</dt>
           <% if periodo.present? %>
-            <dd><%= periodo.inicio.strftime("%A, %d de %B de %Y")  %></dd>
-          <% else %>
-            <dd></dd>
-          <% end %><%#= componente.publicos.collect{|p|p.nome}.to_sentence %>
+            <dd>
+              <% if periodo.qnt_horas.present? %>
+                <%= duracao_periodo_qnt_horas(periodo) %>
+              <% end %>
+            </dd>
+          <% end %>
         <% end %>
         <%# if @evento.status == 'inscricoes_iniciadas' %>
         <% if componente.tipo == 'Atividade com credenciamento' %>

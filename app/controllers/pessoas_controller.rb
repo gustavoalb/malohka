@@ -23,7 +23,7 @@ class PessoasController < ApplicationController
   def lista_frequencia
     # @pessoa = Pessoa.find(params[:pessoa_id])
     @componente = Componente.find(params[:evento_id])
-    @participacoes = @componente.participacoes#.da_pessoa(@pessoa).all
+    @participacoes = @componente.participacoes.includes(:pessoa).order("pessoas.nome asc")#.da_pessoa(@pessoa).all
     # @evento = @evento.componentes#.order("componentes.inicio asc")
 
     # For Rails 3 or latest replace #{RAILS_ROOT} to #{Rails.root}
@@ -46,7 +46,6 @@ class PessoasController < ApplicationController
         # row["FIELD_VALUE"] = field.nome || ''
         # end
       end
-
     end
 
     # send_data lista_frequencia.generate,
