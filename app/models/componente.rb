@@ -66,5 +66,6 @@ class Componente < ActiveRecord::Base
   #   where(:pessoa_id => pessoa.id)
   # }
   scope :do_evento, lambda{|evento_id| where("@evento_id=?",evento_id)}
+  scope :do_responsavel, lambda{|responsavel_id| where("responsavel_id=?",responsavel_id)}
 
 end

@@ -22,6 +22,7 @@ class Ability
       can [ :read, :update ], Aluno
     elsif usuario.role? :funcionario
       can :read, Noticia
+      can [:minha_area, :lista_frequencia], Pessoa
       can [:read, :registrar_participacao], Evento
       can [:manage, :read, :edit, :update, :frequencia], Evento, responsavel_id: usuario.funcionario.id
       cannot [:destroy, :create], Evento

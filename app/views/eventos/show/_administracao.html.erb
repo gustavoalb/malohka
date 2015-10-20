@@ -25,10 +25,11 @@
           <%= link_to 'Liberar inscrições', evento_alterar_status_path(@evento,'abrir_incricoes'), method: :put, :class => 'btn btn-primary btn-xs' %>
         <% elsif @evento.status == 'inscricoes_iniciadas' %>
           <%= link_to 'Finalizar inscrições', evento_alterar_status_path(@evento,'fechar_inscricoes'), method: :put, :class => 'btn btn-primary btn-xs' %>
-          <%= link_to 'Registrar frequência', frequencia_evento_path, :class => 'btn btn-primary btn-xs' %>
+          <%= link_to 'Imprimir Listas de frequência', pessoa_minha_area_path(@pessoa), :class => 'btn btn-primary btn-xs' %>
+          <%#= link_to 'Registrar frequência', frequencia_evento_path, :class => 'btn btn-primary btn-xs' %>
         <% elsif @evento.status == 'inscricoes_finalizadas' %>
           <%= link_to 'Concluir evento', evento_alterar_status_path(@evento,'finalizar'), method: :put, :class => 'btn btn-primary btn-xs' %>
-          <%= link_to 'Registrar frequência', evento_alterar_status_path(@evento,'finalizar'), method: :put, :class => 'btn btn-primary btn-xs' %>
+          <%= link_to 'Imprimir Listas de frequência', pessoa_minha_area_path, :class => 'btn btn-primary btn-xs' %>
         <% elsif @evento.status == 'finalizado' %>
           <%= link_to 'Arquivar', evento_alterar_status_path(@evento,'arquivar'), method: :put, :class => 'btn btn-primary btn-xs' %>
         <% else %>
@@ -58,11 +59,12 @@
           <td><%= componente.id  %></td>
           <td><%#= best_in_place_if (can? :update, componente), componente, :nome, as: :input,  path: evento_path(@evento.id), param: "evento[componentes_attributes][id]=#{componente.id}&evento[componentes_attributes]" %><%= componente.nome  %></td>
           <td>
-            <% if componente.participacoes.present? %>
-              <%#= componente.vagas - componente.participacoes.count%> <!-- de --> <%#= best_in_place_if (can? :update, componente), componente, :vagas, as: :input,  path: evento_path(@evento.id), param: "evento[componentes_attributes][id]=#{componente.id}&evento[componentes_attributes]" %> <!-- vagas disponíveis  -->
-              <%= componente.vagas  %>
-            <% else %>
-              <%#= best_in_place_if (can? :update, componente), componente, :vagas, as: :input,  path: evento_path(@evento.id), param: "evento[componentes_attributes][id]=#{componente.id}&evento[componentes_attributes]" %>
+            <% if componente.vagas.present? %>
+              <% if componente.participacoes.present? %>
+                <%= componente.vagas_disponiveis %> disponíveis de <%= componente.vagas %> vagas
+                <% else %>
+                <%= componente.vagas %> disponíveis de <%= componente.vagas %> vagas
+                <% end %>
             <% end %>
           </td>
           <td><%= componente.inicio.strftime("%d de %B de %Y às %H:%M")  %><%#= best_in_place_if (can? :update, componente), componente, :inicio, as: :input,  path: evento_path(@evento.id), param: "evento[componentes_attributes][id]=#{componente.id}&evento[componentes_attributes]" %></td>

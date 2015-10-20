@@ -85,6 +85,7 @@ Rails.application.routes.draw do
 
   resources :pessoas do
     get :minha_area
+    get 'lista_frequencia'
     get 'certificado'
     get :foto
     post :upload_foto

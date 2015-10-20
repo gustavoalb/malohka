@@ -5,6 +5,8 @@ class ComponentesController < ApplicationController
   respond_to :html
   def index
     @componentes = Componente.order("inicio asc")
+    @componentess = Componente.order("inicio asc")
+    @responsavel_id = current_usuario.funcionario.id
   end
 
   def show
@@ -35,7 +37,7 @@ class ComponentesController < ApplicationController
   end
 
   def componente_params
-    params.require(:componente).permit(:tipo, :objetivos, :inicio, :responsal_id, :nome, :descricao, :vagas, {:publico_ids => []}, {:ministrante_ids => []}, {:ministrante_ids => []}, :publico, :tipo_componente, :local, :status, :_destroy, periodos_attributes: [:id, :componente_id, :inicio, :qnt_horas, :_destroy])
+    params.require(:componente).permit(:tipo, :objetivos, :inicio, :responsavel_id, :nome, :descricao, :vagas, {:publico_ids => []}, {:ministrante_ids => []}, {:ministrante_ids => []}, :publico, :tipo_componente, :local, :status, :_destroy, periodos_attributes: [:id, :componente_id, :inicio, :qnt_horas, :_destroy])
   end
   # prepostos_attributes: [ :id, :evento_id, :pessoa_id, {:responsaveis_delegado_ids => []}, :componente_id, :_destroy],
 end

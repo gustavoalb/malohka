@@ -58,7 +58,12 @@
           <%= simple_nested_form_for @evento, url: evento_registrar_participacao_url(@evento), method: :post,:html => { :class => 'form-horizontal' } do |f| %>
             <%= f.input :componente_id, input_html: {value: componente.id}, as: :hidden %>
             <%= f.input :pessoa_id, input_html: {value: current_usuario.pessoa.id}, as: :hidden %>
-            <dd><%= f.submit "Fazer minha inscrição imediatamente!",:class => 'btn btn-primary btn-xs', :onclick=>"return confirm('Confirmar sua participação nesta atividade?')" %>
+            <dd>
+              <% if componente.vagas.present? %>
+                <%= f.submit "Fazer minha inscrição imediatamente!",:class => 'btn btn-primary btn-xs', :onclick=>"return confirm('Confirmar sua participação nesta atividade?')" %>
+              <% else %>
+                <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="Muita calma nessa hora... que tal perguntar aos organizadores sobre as vagas desta atividade? ;~(">Inscrições</a>
+              <% end %>
             </dd>
           <% end %>
         <% end %>
