@@ -1,21 +1,38 @@
 <%= simple_nested_form_for @componente, :html => { :class => 'form-horizontal' } do |f| %>
   <%= abre_estilo_12_well %>
-  <%= f.input :nome %>
-  <%#= f.input :descricao %>
-  <%= f.input :descricao, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }, label: 'Descrição' %>
-  <%#= f.input :responsavel_id, input_html: {value: responsavel_id },as: :hidden%>
-  <%= f.input :pessoa_id, input_html: {value: current_usuario.funcionario.id}, as: :hidden%>
-  <%= f.input :responsavel_id, input_html: {value: current_usuario.funcionario.id}, as: :hidden%>
-  <%= f.simple_fields_for :componentes do |builder|%>
+  <div class="col-sm-12 col-md-12, row">
+    <div>
+      <h3 align='center'>Informações essenciais</h3>
+      <%= f.input :nome, label: 'Nome da atividade' %>
+      <%= f.input :descricao, label: 'Ementa' %>
+      <%= f.input :tipo, :collection=>Componente.tipos.collect { |t| [t[0].humanize, t[0]] }, :prompt=>"Selecione o tipo", label: 'Tipo de componente' %>
+    </div>
     <hr>
-    <%= render 'componentes', :f => builder %>
-  <% end %>
-  <%= f.link_to_add "Adicionar Componente", :componentes, :class => 'btn btn-info btn-xs' %>
-  <%= fecha_estilo_12_well %>
+    <h3 align='center'>Informações complementares</h3>
+    <div class="col-sm-5 col-md-7, thumbnail, center">
+      <div >
+        <%= f.input :local,:collection=>Componente.locais.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o Local", label: 'Local' %>
+        <%= f.input :tipo_componente,:collection=>Componente.tipo_componentes.collect { |s| [s[0].humanize, s[0]] }, :include_blank => true, label: 'Natureza da atividade' %>
+        <%= f.input :local,:collection=>Componente.locais.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o Local", label: 'Local' %>
+        <%=f.association :publicos,  collection: Publico.all.map {|r|[r.nome,r.id]}, input_html:{label_class: "checkbox"},as: :check_boxes, label: "Público Alvo" %>
+      </div>
+    </div>
+    <div class="col-sm-5 col-md-7">
+      <%= f.input :vagas, label: 'Vagas' %>
+      <%=f.association :ministrantes,  collection: Ministrante.all.map {|r|[r.nome,r.id]}, input_html:{label_class: "checkbox"},as: :check_boxes, label: "Público Alvo" %>
+    </div>
+  </div>
+  <div>
+    <%= f.simple_fields_for :periodos do |builder|%>
+      <%= render 'periodos', :f => builder %>
+    <% end %>
+    <%= f.link_to_add "Adicionar Período", :periodos, :class => 'btn btn-info btn-xs' %>
+  </div>
   <br>
   <div>
     <%= f.button :submit, :class => 'btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 eventos_path, :class => 'btn btn-default' %>
-  <% end %>
-</div>
+  </div>
+<% end %>
+<%= fecha_estilo_12_well %>

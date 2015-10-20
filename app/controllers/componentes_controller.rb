@@ -1,48 +1,41 @@
 class ComponentesController < ApplicationController
+  # load_and_authorize_resource
+  before_action :set_componente, only: [:show, :edit, :update, :destroy]
+
+  respond_to :html
   def index
-    # @evento = Evento.find(params[:evento_id])
     @componentes = Componente.order("inicio asc")
-    # @evento = Evento.find(params[:evento_id])
-    # @componentes = @evento.componentes.order("componentes.inicio asc")
-    # @pessoa = Pessoa.find(params[:pessoa_id])
-    # @componentes = @evento.componentes.order("componentes.inicio asc")
   end
 
   def show
+    respond_with(@componente)
   end
 
   def edit
   end
 
+  def update
+    @componente = Componente.find params[:id]
+
+    respond_to do |format|
+      if @componente.update_attributes(params[:componente])
+        format.html { redirect_to(@componente, :notice => 'User was successfully updated.') }
+        format.json { respond_with_bip(@componente) }
+      else
+        format.html { render :action => "edit" }
+        format.json { respond_with_bip(@componente) }
+      end
+    end
+  end
+
   private
-  def set_evento
+  def set_componente
     @componente = Componente.find(params[:id])
+    #@pagina = Pagina.find_by_permalink!(params[:id])
   end
 
-  def evento_params
-    params.require(:componente).permit(
-      :nome, :descricao, :status, :responsavel_id,
-      :pessoa_id,
-      :componente_id,
-      :logo, :banner, :organizacao, :parceiros, :apoio,
-
-      participacoes_attributes:
-      [ :id, :evento_id, :pessoa_id, :componente_id, :frequencia, :_destroy],
-
-      componentes_attributes:
-      [
-        :id, :evento_id, :tipo, :objetivos, :inicio, :nome, :descricao, :vagas, {:publico_ids => []}, {:ministrante_ids => []}, {:ministrante_ids => []}, :publico, :tipo_componente, :local, :status, :_destroy,
-
-        prepostos_attributes:
-        [ :id, :evento_id, :pessoa_id, {:responsaveis_delegado_ids => []}, :componente_id, :_destroy],
-
-
-        periodos_attributes:
-        [
-          :id, :componente_id, :inicio, :qnt_horas, :_destroy
-        ]
-      ]
-    )
-
+  def componente_params
+    params.require(:componente).permit(:tipo, :objetivos, :inicio, :responsal_id, :nome, :descricao, :vagas, {:publico_ids => []}, {:ministrante_ids => []}, {:ministrante_ids => []}, :publico, :tipo_componente, :local, :status, :_destroy, periodos_attributes: [:id, :componente_id, :inicio, :qnt_horas, :_destroy])
   end
+  # prepostos_attributes: [ :id, :evento_id, :pessoa_id, {:responsaveis_delegado_ids => []}, :componente_id, :_destroy],
 end

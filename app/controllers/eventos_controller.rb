@@ -184,9 +184,9 @@ class EventosController < ApplicationController
     # @pessoa = Pessoa.find(params[:pessoa_id])
     # @componentes = @evento.componentes.order("componentes.inicio asc")
 
-    if !can? [:edit, :update], Evento
-      redirect_to evento_path(@evento), :alert => "Esta área ainda será liberada para sua classe de usuário. :~("
-    end
+    # if !can? [:frequencia], Evento
+    #   redirect_to evento_path(@evento), :alert => "Esta área ainda será liberada para sua classe de usuário. :~("
+    # end
   end
 
   def update
