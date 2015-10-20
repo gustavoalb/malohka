@@ -19,11 +19,11 @@ class Componente < ActiveRecord::Base
   #   :allow_destroy => true
 
   def tipo_componente_blank(parametro)
-    if parametro[:qnt_horas].blank? and self.tipo = 2
-      parametro[:qnt_horas].blank? || self.tipo = 2
-    elsif parametro[:qnt_horas].blank? and self.tipo = 1
+    if parametro[:qnt_horas].blank? and self.tipo == 2
+      parametro[:qnt_horas].blank? || self.tipo == 2
+    elsif parametro[:qnt_horas].blank? and self.tipo == 1
       parametro[:qnt_horas].blank?
-    elsif parametro[:qnt_horas].blank? and self.tipo = 3
+    elsif parametro[:qnt_horas].blank? and self.tipo == 3
       parametro[:qnt_horas].blank?
     end
   end
