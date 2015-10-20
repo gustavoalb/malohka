@@ -1,21 +1,24 @@
-<br>
-<% @componentes.do_responsavel(@responsavel_id).group_by{|g|g.evento.nome}.each do |evento, componentes|%>
-  <div class='well'>
-    <h4 class='panel-title' align='center'>
-      <strong><%= evento %></strong>
-    </h4>
-    <br>
-    <% @componentes.do_responsavel(@responsavel_id).each do |componente| %>
-      <div class="panel panel-default">
-        <p align='left' data-toggle="collapse" data-parent="#accordion" href="#evento-<%= componente.id %>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;<%= componente.inicio %> -
+<div class="col-sm-12 col-md-12, row">
+  <hr>
+  <% @componentes.do_responsavel(@responsavel_id).group_by{|g|g.evento.nome}.each do |evento, componentes|%>
+    <div class='well'>
+      <h4 class='panel-title' align='center'>
+        <strong><%= evento %></strong>
+      </h4>
+      <br>
+      <% @componentes.do_responsavel(@responsavel_id).each do |componente| %>
+        <div class="panel panel-default">
+          <p align='left' data-toggle="collapse" data-parent="#accordion" href="#evento-<%= componente.id %>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;<%= componente.inicio.strftime("%d/%b/%Y às %H:%M") %> -
               <% if componente.tipo_componente.present? or !componente.tipo_componente.nil? %>
-            <%= componente.tipo_componente %>:
+              <%= componente.tipo_componente %>:
               <% end %> <b><%= componente.nome %></b></p>
-      </div>
-      <div id="evento-<%= componente.id %>" class="panel-collapse collapse">
-        <%#= link_to 'Registrar frequência', frequencia_evento_path(componente.id), :class => 'btn btn-primary btn-xs' %>
-        <%= link_to "Imprimir Lista de Frequência", pessoa_lista_frequencia_path(:evento_id => componente.id, format: "pdf" ), :class  => 'btn btn-primary btn-xs' %>
-      </div>
-    <% end %>
-  </div>
-<% end %>
+        </div>
+        <div id="evento-<%= componente.id %>" class="panel-collapse collapse">
+          <%#= link_to 'Registrar frequência', frequencia_evento_path(componente.id), :class => 'btn btn-primary btn-xs' %>
+          <%= link_to "Imprimir Lista de Frequência", pessoa_lista_frequencia_path(:evento_id => componente.id, format: "pdf" ), :class  => 'btn btn-primary btn-xs' %>
+        </div>
+        <br>
+      <% end %>
+    </div>
+  <% end %>
+</div>

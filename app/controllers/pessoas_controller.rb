@@ -27,6 +27,7 @@ class PessoasController < ApplicationController
     # @evento = @evento.componentes#.order("componentes.inicio asc")
 
     # For Rails 3 or latest replace #{RAILS_ROOT} to #{Rails.root}
+    n = 0
     lista_frequencia = ODFReport::Report.new("#{Rails.root}/app/reports/lista_frequencia.odt") do |r|
 
       r.add_field "EVENTO", @componente.evento.nome
@@ -35,7 +36,9 @@ class PessoasController < ApplicationController
       r.add_field "DATA", Time.now.strftime("%d de %B de %Y")
 
       r.add_table("COMPONENTES", @participacoes) do |t|
+        t.add_column("ORDEM"){|a|n && n+=1}
         t.add_column("PARTICIPANTE") {|t|t.pessoa.nome}
+
         # t.add_column("C", :tipo_componente)
         # t.add_column("COMPONENTE", :nome)
         # if field.is_a?(String)

@@ -35,7 +35,7 @@ class Componente < ActiveRecord::Base
     end
   end
 
-  def vagas_disponiveis
+  def vagas_disponiveis_total
     if self.vagas
       self.vagas - self.participacoes.count
     end
