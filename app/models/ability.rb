@@ -22,14 +22,17 @@ class Ability
       can [ :read, :update ], Aluno
     elsif usuario.role? :funcionario
       can :read, Noticia
-      can :read, Evento
-      can [:create, :edit, :update], Evento, responsavel_id: usuario.funcionario.id
-      cannot [:destroy], Evento
+      can [:minha_area, :lista_frequencia], Pessoa
+      can [:read, :registrar_participacao], Evento
+      can [:manage, :read, :edit, :update, :frequencia], Evento, responsavel_id: usuario.funcionario.id
+      cannot [:destroy, :create], Evento
+      can [:manage,:create, :edit, :update], Componente, responsavel_id: usuario.funcionario.id
+      cannot [:destroy], Componente
       #can :read, Solicitacao
     elsif usuario.role? :aluno
       can [:read, :create, :destroy ], Solicitacao
       can :read, Noticia
-      can :read, Evento
+      can [:read, :registrar_participacao], Evento
       #can :read, Participacao
       can :access, :ckeditor
       can [:read, :create, :destroy], Ckeditor::Picture, assetable_id: usuario.id
@@ -38,6 +41,8 @@ class Ability
       cannot [:destroy, :create], Aluno
       can [:manage, :edit, :update], Pessoa, usuario: usuario.pessoa_id
       cannot [:destroy, :create], Pessoa
+      # can [:manage, :read, :edit, :update], Usuario, :usuario_id => usuario.id
+      # cannot [:destroy, :create], Usuario
       # can [:manage], Nivel
       # can [:manage], Turma
       # can [:manage], Curso

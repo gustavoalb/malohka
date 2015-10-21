@@ -231,6 +231,15 @@ module ApplicationHelper
     end
   end
 
+  def duracao_periodo_qnt_horas(periodo)
+    inicio = periodo.inicio
+    termino = periodo.qnt_horas.to_i
+    duracao = inicio + termino.minute#- periodo.inicio) #/ 60
+    if duracao
+      return "#{inicio.strftime("%d/%B/%Y => de %H:%M")} às #{duracao.strftime("%H:%M")}"
+    end
+  end
+
   def tutorial_progress_bar
     content_tag(:section, class: "content") do
       content_tag(:div, class: "navigator") do

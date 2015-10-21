@@ -13,6 +13,7 @@
   <h3 align='center'>Informações complementares</h3>
   <div class="col-sm-5 col-md-7, thumbnail, center">
     <div >
+      <%= f.input :local,:collection=>Componente.locais.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o Local", label: 'Local' %>
       <%= f.input :tipo_componente,:collection=>Componente.tipo_componentes.collect { |s| [s[0].humanize, s[0]] }, :include_blank => true, label: 'Natureza da atividade' %>
       <%= f.input :local,:collection=>Componente.locais.collect { |s| [s[0].humanize, s[0]] },:prompt=>"Selecione o Local", label: 'Local' %>
       <%=f.association :publicos,  collection: Publico.all.map {|r|[r.nome,r.id]}, input_html:{label_class: "checkbox"},as: :check_boxes, label: "Público Alvo" %>

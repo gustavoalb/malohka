@@ -27,5 +27,4 @@ module EventosHelper
       return 'Atividades comuns'
     end
   end
-
 end

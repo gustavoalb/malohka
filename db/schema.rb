@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2220150507134203) do
+ActiveRecord::Schema.define(version: 2220150507134207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,11 +60,18 @@ ActiveRecord::Schema.define(version: 2220150507134203) do
     t.integer  "local"
     t.integer  "tipo"
     t.string   "objetivos"
+    t.datetime "inicio"
+    t.integer  "responsavel_id"
   end
 
   create_table "componentes_ministrantes", force: :cascade do |t|
     t.integer "ministrante_id"
     t.integer "componente_id"
+  end
+
+  create_table "componentes_pessoas", force: :cascade do |t|
+    t.integer "componente_id"
+    t.integer "pessoa_id"
   end
 
   create_table "componentes_publicos", force: :cascade do |t|
@@ -279,6 +286,13 @@ ActiveRecord::Schema.define(version: 2220150507134203) do
     t.integer  "image_file_size"
     t.string   "image_content_type", limit: 255
     t.datetime "image_updated_at"
+  end
+
+  create_table "prepostos", force: :cascade do |t|
+    t.integer  "pessoa_id"
+    t.integer  "componente_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "publicos", force: :cascade do |t|

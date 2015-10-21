@@ -30,6 +30,7 @@ class Evento < ActiveRecord::Base
   accepts_nested_attributes_for :componentes, :reject_if => lambda { |a| a[:nome].blank? }, :allow_destroy => true
   has_many :periodos, through: :componentes
   has_many :participacoes, through: :componentes
+  accepts_nested_attributes_for :participacoes,  :allow_destroy => true
 
 
   #logo
@@ -112,7 +113,19 @@ class Evento < ActiveRecord::Base
     end
 
     event :arquivar do
-      transition :evento_finalizado => :arquivado
+      transition :finalizado => :arquivado
+    end
+
+    event :desarquivar do
+      transition :arquivado => :finalizado
+    end
+
+    event :desfinalizar do
+      transition :finalizado => :inscricoes_finalizadas
+    end
+
+    event :reabrir_incricoes do
+      transition :inscricoes_finalizadas => :inscricoes_iniciadas
     end
   end
 

@@ -1,0 +1,92 @@
+<%- model_class = Componente -%>
+<h1 align='center'><%= @componente.nome %></h1>
+<h3 align='center'>Frequência
+ <% if can? [:manage], Componente %>
+    <%#= link_to "", componente_lista_frequencia_path(:componte_id => @componente.id, format: "pdf" ), :class  => 'glyphicon glyphicon-print' %>
+    <% if @componente.participacoes.present? %>
+      <%= link_to "Imprimir Lista de Frequência", componente_lista_frequencia_path(:componente_id => @componente.id, format: "pdf" ), :class  => 'btn btn-primary btn-xs' %>
+    <% end %>
+    <%#= link_to "Imprimir Certificado", pessoa_certificado_path(:evento_id => @componente.evento.id, format: "pdf" ), :class  => 'btn btn-default btn-xs' %>
+  <% end %>
+</h3>
+<dl class="dl-horizontal">
+  <% if @componente.evento_id.present? %>
+    <dt><strong>Evento:</strong></dt>
+    <dd><%= @componente.evento.nome %></dd>
+  <% end %>
+  <% if @componente.objetivos.present? %>
+    <dt><strong>Objetivos:</strong></dt>
+    <dd><%= @componente.descricao.html_safe %></dd>
+  <% end %>
+  <dt><strong>Vagas</strong>:</dt>
+  <dd>
+    <% if @componente.participacoes.present? %>
+      <%= @componente.vagas_disponiveis %> disponíveis de <%= @componente.vagas %> vagas
+                <% else %>
+      <%= @componente.vagas %> disponíveis de <%= @componente.vagas %> vagas
+                <% end %>
+  </dd>
+  <% if @componente.publicos.present? %>
+    <dt><strong>Público Alvo</strong>:</dt>
+    <dd><%= @componente.publicos.collect{|p|p.nome}.to_sentence %></dd>
+  <% end %>
+  <% if @componente.ministrantes.present? %>
+    <dt><strong>Ministrante</strong>:</dt>
+    <% for ministrante in @componente.ministrantes %>
+    <dd><%= ministrante.titulo %> <strong><%= ministrante.nome %> </strong> / <%= ministrante.organizacao %>-<%= ministrante.sigla_organizacao %>
+    </dd>
+  <% end %>
+  <% if @componente.local.present? %>
+    <dt><strong>Local</strong>:</dt>
+    <dd><%=  @componente.local %></dd>
+  <% end %>
+  <% for periodo in @componente.periodos %>
+  <dt><strong>Cronograma</strong>:</dt>
+  <% if periodo.present? %>
+    <dd>
+      <% if periodo.qnt_horas.present? %>
+        <%= duracao_periodo_qnt_horas(periodo) %>
+      <% end %>
+    </dd>
+  <% end %>
+<% end %>
+</dd>
+<% end %>
+</dl>
+<% if @componente.participacoes.present? %>
+  <div class='well'>
+    <br>
+    <table class="table table-striped table-hover table-bordered table-condensed">
+      <thead>
+        <tr>
+          <th>Nome &nbsp;
+                <% if can? [:manage], Componente %>
+              <%= link_to "", evento_lista_frequencia_path(:evento_id => @componente.id, format: "pdf" ), :class  => 'glyphicon glyphicon-print' %>
+            <% end %>
+          </th>
+          <th>Frequência</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for participacao in @componente.participacoes %>
+        <tr>
+          <td><%= participacao.pessoa.nome  %></td>
+          <td>
+            <% if @componente.evento.status == 'acesso_liberado' %>
+              <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="Muita calma nessa hora... o evento ainda nem começou ;~(">A ser registrado</a><%#= componente.frequencia  %>
+            <% elsif @componente.evento.status == 'inscricoes_iniciadas' or @componente.evento.status == 'inscricoes_finalizadas'%>
+              <%= best_in_place participacao, :frequencia, as: :checkbox, collection: {false: "Presença não confirmada :~(", true: "Presença confirmada :)"},  path: evento_path(@componente.evento.id), param: "evento[participacoes_attributes][id]=#{participacao.id}&evento[participacoes_attributes]" %>
+            <% elsif @componente.evento.status == 'finalizado' or @componente.evento.status == 'arquivado' %>
+              <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="É uma pena... a frequência já terminou ;~(">Ação desabilitada</a><%#= componente.frequencia  %>
+            <% else %>
+              <a data-toggle="tooltip" class="btn btn-primary btn-xs" data-placement="left" title="É uma pena... não há nada aqui para ser visto ;~(">Ação desabilitada</a><%#= componente.frequencia  %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% end %>
+<%= link_to 'Editar', edit_componente_path(@componente) %> |
+<%= link_to 'Voltar', componentes_path %>

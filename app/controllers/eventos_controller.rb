@@ -1,4 +1,5 @@
 class EventosController < ApplicationController
+  load_and_authorize_resource
   before_action :set_evento, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
@@ -11,17 +12,17 @@ class EventosController < ApplicationController
   end
 
   def show
-    #if current_usuario.status == 'criado' or current_usuario.status == nil
-    # redirect_to validacao_usuario_pessoa_path
-    #end
     @pessoa = current_usuario.pessoa_id
-    @periodos = @evento.periodos.do_evento(@evento).all.order("inicio ASC")
-    @componentes_evento = @evento.componentes.do_evento(@evento).all
-    @participacoes = @evento.participacoes.do_evento(@evento).all
-
-
-
-    respond_with(@evento)
+    @periodos = @evento.periodos.order("periodos.inicio asc")
+    @componentes = @evento.componentes.order("componentes.inicio asc")
+    @componentis = @componentes.order("componentes.inicio asc")
+    @componentes_evento = @evento.componentes.all
+    @participacoes = @evento.participacoes.all
+    # if current_usuario.status == 'criado'
+    #   redirect_to wizard_usuario_path(current_usuario.id)#, notice: "Estamos contentes por ter você aqui! É importante saber mais sobre você :^)"
+    # else
+    #   respond_with(@evento)
+    # end
   end
 
   def new
@@ -34,6 +35,7 @@ class EventosController < ApplicationController
   end
 
   def edit
+
     # 1.times do
     #   componentes = @evento.componentes.build
     #   1.times { componentes.periodos.build }
@@ -46,16 +48,26 @@ class EventosController < ApplicationController
     redirect_to evento_wizard_evento_path(@evento, :inicio)
   end
 
+  # def componentes
+  #   @evento = Evento.find( params[:id] )
+  #   @componentes = @evento.componentes.order("componentes.inicio asc")
+  #   # @accessories = @user.componentes
+  # end
 
   def registrar_participacao
     @evento = Evento.find(params[:evento_id])
     @componente = Componente.find(params[:evento][:componente_id])
     @pessoa = Pessoa.find(params[:evento][:pessoa_id])
+    # @pessoa = current_usuario.pessoa_id#Pessoa.find(params[:evento][:pessoa_id])
     @participacao = @pessoa.participacoes.new(:componente_id=>@componente.id)
-    if @participacao.save
-      redirect_to evento_url(@evento), notice: 'Inscrição feita com sucesso!'
+    if @componente.participacoes.count >= @componente.vagas
+      redirect_to evento_url(@evento), alert: "O número de vagas foi preenchido. :~("
     else
-      redirect_to evento_url(@evento), alert: 'Você já possui uma inscrição ativa para esta atividade. :~('
+      if @participacao.save
+        redirect_to evento_url(@evento), notice: 'Inscrição feita com sucesso!'
+      else
+        redirect_to evento_url(@evento), alert: "Você já possui uma inscrição ativa para esta atividade. :~("
+      end
     end
   end
 
@@ -109,23 +121,88 @@ class EventosController < ApplicationController
     send_file(f,:filename=>"Certificado - #{@evento.id}.pdf",:content_type=>"application/pdf")
   end
 
-  def update
-    @evento.update(evento_params)
-    respond_with(@evento)
+  def lista_frequencia
+    # @pessoa = Pessoa.find(params[:pessoa_id])
+    @componente = Componente.find(params[:evento_id])
+    @participacoes = @componente.participacoes#.da_pessoa(@pessoa).all
+    # @evento = @evento.componentes#.order("componentes.inicio asc")
+
+    # For Rails 3 or latest replace #{RAILS_ROOT} to #{Rails.root}
+    lista_frequencia = ODFReport::Report.new("#{Rails.root}/app/reports/lista_frequencia.odt") do |r|
+
+      r.add_field "EVENTO", @componente.evento.nome
+      r.add_field "ATIVIDADE", @componente.nome
+      r.add_field "ID", @componente.id
+      r.add_field "DATA", Time.now.strftime("%d de %B de %Y")
+
+      r.add_table("COMPONENTES", @participacoes) do |t|
+        t.add_column("PARTICIPANTE") {|t|t.pessoa.nome}
+        # t.add_column("C", :tipo_componente)
+        # t.add_column("COMPONENTE", :nome)
+        # if field.is_a?(String)
+        # row["FIELD_NAME"] = 'Materials'
+        # row["FIELD_VALUE"] = field
+        # else
+        # row["FIELD_NAME"] = :field_id
+        # row["FIELD_VALUE"] = field.nome || ''
+        # end
+      end
+
+    end
+
+    # send_data lista_frequencia.generate,
+    #   type: 'application/vnd.oasis.opendocument.text',
+    #   disposition: 'attachment',
+    #   filename: 'report.odt'
+
+    arquivo_evento = lista_frequencia.generate("/tmp/lista_frequencia-#{@componente.id}.odt")
+    system "unoconv -f pdf /tmp/lista_frequencia-#{@componente.id}.odt"
+    f = File.open("/tmp/lista_frequencia-#{@componente.id}.pdf",'r')
+    send_file(f,:filename=>"Frequencia - #{@componente.id}.pdf",:content_type=>"application/pdf")
   end
 
   # def update
   #   @evento.update(evento_params)
-  #   respond_to do |format|
-  #     if @evento.update_attributes(params[:evento])
-  #       format.html { redirect_to(@evento, :notice => 'O evento foi atualizado com successo.') }
-  #       format.json { respond_with_bip(@evento) }
-  #     else
-  #       format.html { render :action => "edit" }
-  #       format.json { respond_with_bip(@evento) }
-  #     end
+  #   respond_with(@evento)
+  # end
+
+  # @user = User.find params[:id]
+
+  # respond_to do |format|
+  #   if @user.update_attributes(params[:user])
+  #     format.html { redirect_to(@user, :notice => 'User was successfully updated.') }
+  #     format.json { respond_with_bip(@user) }
+  #   else
+  #     format.html { render :action => "edit" }
+  #     format.json { respond_with_bip(@user) }
   #   end
   # end
+  def frequencia
+    # @evento = Evento.find(params[:evento_id])
+    @componentes = @evento.componentes.order("componentes.inicio asc")
+    @participacoes = @evento.participacoes.all
+    # @pessoa = Pessoa.find(params[:pessoa_id])
+    # @componentes = @evento.componentes.order("componentes.inicio asc")
+
+    # if !can? [:frequencia], Evento
+    #   redirect_to evento_path(@evento), :alert => "Esta área ainda será liberada para sua classe de usuário. :~("
+    # end
+  end
+
+  def update
+    @evento = Evento.find(params[:id])
+
+    @evento.update(evento_params)
+    respond_to do |format|
+      if @evento.update_attributes(params[:evento])
+        format.html { redirect_to(@evento, :notice => 'O evento foi atualizado com successo.') }
+        format.json { respond_with_bip(@evento) }
+      else
+        format.html { render :action => "edit" }
+        format.json { respond_with_bip(@evento) }
+      end
+    end
+  end
 
   def destroy
     @evento.destroy
@@ -159,14 +236,23 @@ class EventosController < ApplicationController
 
   def evento_params
     params.require(:evento).permit(
-      :nome, :descricao, :status, :responsavel_id, :pessoa_id,
+      :nome, :descricao, :status, :responsavel_id,
+      :pessoa_id,
       :componente_id,
       :logo, :banner, :organizacao, :parceiros, :apoio,
+
+      participacoes_attributes:
+      [ :id, :evento_id, :pessoa_id, :componente_id, :frequencia, :_destroy],
+
       componentes_attributes:
-      [ :id, :evento_id, :tipo, :objetivos, :nome, :descricao, :vagas, {:publico_ids => []}, {:ministrante_ids => []}, :publico, :tipo_componente, :local, :status, :_destroy,
-        periodos_attributes:
-        [ :id, :componente_id, :inicio, :qnt_horas, :_destroy]
+      [:id, :evento_id, :tipo, :objetivos, :inicio, :nome, :descricao, :vagas, {:publico_ids => []}, {:ministrante_ids => []}, {:ministrante_ids => []}, {:gerenciador_ids => []}, :publico, :tipo_componente, :local, :status, :_destroy,
+
+
+       periodos_attributes:
+       [:id, :componente_id, :inicio, :qnt_horas, :_destroy
         ]
+       ]
     )
+
   end
 end

@@ -7,9 +7,21 @@ Rails.application.routes.draw do
   resources :eventos, only: [:new, :create, :show, :update, :edit, :index] do
     post :registrar_participacao
     get 'certificado'
+    get 'lista_frequencia'
     put "alterar_status/:evento_id/:status"=>'eventos#alterar_status', as: :alterar_status
     resources :wizard_evento, only: [:show, :update], controller: 'eventos/wizard_evento'
+    member do
+      get 'frequencia'
+    end
   end
+
+
+  scope "/forja" do
+    resources :componentes do
+      get 'lista_frequencia'
+    end
+  end
+
 
   resources :publicos
 
@@ -23,6 +35,8 @@ Rails.application.routes.draw do
   #   post :registrar_participacao
   # end
 
+  # resources :wizard_usuario#, only: [:edit,:show, :update], controller: 'eventos_wizard'
+  resources :wizard_usuario, only: [:show, :update], controller: 'usuarios/wizard_usuario'
 
   resources :evento_wizard#, only: [:edit,:show, :update], controller: 'eventos_wizard'
 
@@ -73,6 +87,7 @@ Rails.application.routes.draw do
 
   resources :pessoas do
     get :minha_area
+    get 'lista_frequencia'
     get 'certificado'
     get :foto
     post :upload_foto
@@ -92,7 +107,6 @@ Rails.application.routes.draw do
 
   # assert_routing({ path: 'photos', method: :post }, { controller: 'photos', action: 'create' })
   devise_for :usuarios , path_prefix: 'perfil',:controllers => { :sessions => "sessions"}
-  # devise_for :usuarios, :controllers => { :registrations => "usuario/registrations" }
 
   resources :alunos   do
     post 'turmas', on: :collection

@@ -5,6 +5,7 @@ class Participacao < ActiveRecord::Base
   has_many :periodos, through: :componente
 
   validates_uniqueness_of :componente_id,:scope=>[:componente_id, :pessoa_id]
+  # validate :validacao_customizada
 
   scope :da_pessoa, lambda{|pessoa_id| where("@pessoa_id=?",pessoa_id)}
   scope :do_evento, lambda{|evento_id| where("@evento_id=?",evento_id)}
@@ -16,6 +17,12 @@ class Participacao < ActiveRecord::Base
       ch+= p.qnt_horas.to_i
     end
     return ch
+  end
+
+  def validacao_customizada
+    if self.componente.participacoes.count == self.componente.vagas
+      errors.add(:componente_id, "Vagas Preenchidas")
+    end
   end
 
 end

@@ -65,13 +65,4 @@ class ValidacaoController < ApplicationController
   def finish_wizard_path
     solicitacoes_path
   end
-
-
-  # def set_steps
-  #   if params[:flow] == "twitter"
-  #     self.steps = [:ask_twitter, :ask_email]
-  #   elsif params[:flow] == "facebook"
-  #     self.steps = [:ask_facebook, :ask_email]
-  #   end
-  # end
 end

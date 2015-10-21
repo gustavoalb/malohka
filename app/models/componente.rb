@@ -3,7 +3,9 @@ class Componente < ActiveRecord::Base
   belongs_to :ministrante
   has_and_belongs_to_many :publicos
   has_and_belongs_to_many :ministrantes
+  has_and_belongs_to_many :gerenciadores, class_name: "Pessoa"
   has_many :periodos,:dependent => :destroy
+
   accepts_nested_attributes_for :periodos,
     :reject_if => :tipo_componente_blank,#lambda { |a| a[:qnt_horas].blank? },
     :allow_destroy => true
@@ -17,19 +19,30 @@ class Componente < ActiveRecord::Base
   #   :allow_destroy => true
 
   def tipo_componente_blank(parametro)
-    if parametro[:qnt_horas].blank? and self.tipo = 2
-      parametro[:qnt_horas].blank? || self.tipo = 2
-    elsif parametro[:qnt_horas].blank? and self.tipo = 1
+    if parametro[:qnt_horas].blank? and self.tipo == 2
+      parametro[:qnt_horas].blank? || self.tipo == 2
+    elsif parametro[:qnt_horas].blank? and self.tipo == 1
       parametro[:qnt_horas].blank?
-    elsif parametro[:qnt_horas].blank? and self.tipo = 3
+    elsif parametro[:qnt_horas].blank? and self.tipo == 3
       parametro[:qnt_horas].blank?
     end
   end
 
 
+  def vagas_disponiveis
+    if self.vagas
+      self.vagas - self.participacoes.count
+    end
+  end
+
+  def vagas_disponiveis_total
+    if self.vagas
+      self.vagas - self.participacoes.count
+    end
+  end
 
   has_many :participacoes
-  has_many :pessoas,     :through => :participacoes
+  has_many :pessoas, :through => :participacoes
 
   enum tipo: {'Atividade com credenciamento'=> 1, 'Atividade comum'=> 2, 'Protocolo de cerimonial'=>3 }
   enum tipo_componente: {'Palestra'=> 1, 'Seminário'=>2, 'Minicurso'=> 3, 'Mesa redonda'=> 4, 'Mostra Técnica'=> 5, 'Atividade Cultural'=> 6, 'Apresentação'=> 7, 'Concurso'=> 8, 'Anúncio'=> 9, 'Curso'=> 10, 'Experimento didático'=> 11 }
@@ -40,6 +53,25 @@ class Componente < ActiveRecord::Base
   #   joins(:componentes).where('componentes.evento_id=?',evento_id)
   # }
   scope :destaques_do_evento, lambda{|evento_id| where("evento_id=?",evento_id).limit(3)}
+  scope :componentes_em_destaque, lambda {
+    select("componentes.*").joins(:periodos).group("componentes.id").having("count(periodos.id) > ?", 1)
+  }
+  scope :count_likes, lambda {
+    select("(SELECT count(*) from another_model) AS count, users.*")
+  }
+  # ->(componentes).joins(:periodos).group("componentes.id").having("count(periodos.id) > ?", 1)#.do_evento
+
+  # scope :uniques, lambda {
+  #   max_rows = select("order_ridden, MAX(version) AS max_version").group(:order_ridden)
+  #   joins("INNER JOIN (#{max_rows.to_sql}) AS m
+  #   ON coasters.order_ridden = m.order_ridden
+  #  AND COALESCE(coasters.version,0) = COALESCE(m.max_version,0)")
+  # }
+
+  #   scope :da_pessoa, -> (pessoa) {
+  #   where(:pessoa_id => pessoa.id)
+  # }
   scope :do_evento, lambda{|evento_id| where("@evento_id=?",evento_id)}
+  scope :do_responsavel, lambda{|responsavel_id| where("responsavel_id=?",responsavel_id)}
 
 end

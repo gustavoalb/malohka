@@ -5,13 +5,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :authenticate_usuario!,  :except => :principal
   helper_method :meus_alunos
-  before_filter :validar_usuario
+  # before_filter :validar_usuario
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to main_app.root_url, :alert => "Você não tem autorização para acessar esta área"
   end
-
-  before_filter :configure_permitted_parameters, if: :devise_controller?
 
   before_action do
     resource = controller_name.singularize.to_sym

@@ -1,4 +1,5 @@
 class PublicosController < ApplicationController
+  load_and_authorize_resource
   before_action :set_publico, only: [:show, :edit, :update, :destroy]
 
   # GET /publicos
@@ -62,13 +63,13 @@ class PublicosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_publico
-      @publico = Publico.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_publico
+    @publico = Publico.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def publico_params
-      params.require(:publico).permit(:nome, :descricao)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def publico_params
+    params.require(:publico).permit(:nome, :descricao)
+  end
 end
