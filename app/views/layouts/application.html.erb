@@ -58,7 +58,7 @@
                 </ul>
               </li>
               <li><%= link_to "Notícias", noticias_path %></li>
-              <% if can? :create, Eventos %>
+              <% if can? :read, Eventos %>
                 <li><%= link_to "Eventos", eventos_path %></li>
               <% end %>
               <li class="dropdown">
@@ -140,7 +140,7 @@
                       </div>
                       <div id="Atividades" class="panel-collapse collapse">
                         <div class="panel-body"><%= link_to "Notícias", noticias_path %></div>
-                        <% if can? :create, Eventos %>
+                        <% if can? :read, Eventos %>
                           <div class="panel-body"><%= link_to "Eventos", eventos_path %></div>
                         <% end %>
                       </div>
