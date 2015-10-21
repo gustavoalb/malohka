@@ -50,9 +50,9 @@ ActiveRecord::Schema.define(version: 2220150507134207) do
 
   create_table "componentes", force: :cascade do |t|
     t.integer  "evento_id"
-    t.string   "nome",            limit: 255
+    t.string   "nome"
     t.text     "descricao"
-    t.string   "status",          limit: 255
+    t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "vagas"
@@ -102,8 +102,10 @@ ActiveRecord::Schema.define(version: 2220150507134207) do
     t.string   "nome",                limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "I"
+    t.datetime "t"
     t.text     "descricao"
-    t.string   "status",              limit: 255
+    t.string   "status"
     t.integer  "responsavel_id"
     t.integer  "pessoa_id"
     t.string   "banner_file_name"
@@ -175,11 +177,11 @@ ActiveRecord::Schema.define(version: 2220150507134207) do
 
   create_table "ministrantes", force: :cascade do |t|
     t.integer  "pessoa_id"
-    t.string   "nome",              limit: 255
-    t.string   "organizacao",       limit: 255
-    t.text     "biografia"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "nome"
+    t.string   "organizacao"
+    t.string   "biografia"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "titulo"
     t.string   "foto_file_name"
     t.string   "foto_content_type"
@@ -322,11 +324,6 @@ ActiveRecord::Schema.define(version: 2220150507134207) do
   create_table "respostas", force: :cascade do |t|
     t.integer  "pergunta_id"
     t.string   "conteudo",    limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "semi_estaticas", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end

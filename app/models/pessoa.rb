@@ -4,14 +4,14 @@ class Pessoa < ActiveRecord::Base
   # include CriarUsuario
   #desabilitado por já existir todos os alunos
 
-  has_one :usuario
+  has_one :usuario,:dependent=>:destroy
   has_many :alunos
   has_one :funcionario
   # has_many :funcionarios
 
-  has_and_belongs_to_many :atividades, class_name: "Componete"
+  has_and_belongs_to_many :atividades, class_name: "Componente"
 
-  has_many :participacoes
+  has_many :participacoes,:dependent=>:destroy
   has_many :componentes, :through => :participacoes
   has_many :eventos
   # has_and_belongs_to_many :atividades, class_name: "Componete"
