@@ -1,0 +1,20 @@
+<% @frequencias.do_responsavel(@responsavel_id).group_by{|g|g.evento.nome}.each do |evento, componentes|%>
+  <div class='well'>
+    <h4 class='panel-title' align='center'>
+      <strong><%= evento %></strong>
+    </h4>
+    <br>
+    <% @frequencias.do_responsavel(@responsavel_id).each do |componente| %>
+      <div class="panel panel-default">
+        <p align='left' data-toggle="collapse" data-parent="#accordion" href="#evento-<%= componente.id %>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;<%= componente.inicio %> -
+              <% if componente.tipo_componente.present? or !componente.tipo_componente.nil? %>
+            <%= componente.tipo_componente %>:
+              <% end %> <b><%= componente.nome %></b></p>
+      </div>
+      <div id="evento-<%= componente.id %>" class="panel-collapse collapse">
+        <%= link_to 'Registrar frequência', frequencia_path(componente.id), :class => 'btn btn-primary btn-xs' %>
+      </div>
+      <br>
+    <% end %>
+  </div>
+<% end %>

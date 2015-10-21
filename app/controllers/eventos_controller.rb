@@ -177,16 +177,17 @@ class EventosController < ApplicationController
   #     format.json { respond_with_bip(@user) }
   #   end
   # end
-  def frequencia
-    # @evento = Evento.find(params[:evento_id])
+  def frequencias
     @componentes = @evento.componentes.order("componentes.inicio asc")
     @participacoes = @evento.participacoes.all
-    # @pessoa = Pessoa.find(params[:pessoa_id])
-    # @componentes = @evento.componentes.order("componentes.inicio asc")
+  end
 
-    # if !can? [:frequencia], Evento
-    #   redirect_to evento_path(@evento), :alert => "Esta área ainda será liberada para sua classe de usuário. :~("
-    # end
+  def freq
+    @evento_id = @evento.componentes.find params[:id]
+    # @componentes = @evento.componentes.order("componentes.inicio asc")
+    # @componente = @evento.componentes.find params[:id]
+    # @componentes = @evento.componentes.order("componentes.inicio asc")
+    # @participacoes = @evento.participacoes.all
   end
 
   def update

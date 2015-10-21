@@ -24,6 +24,7 @@ class PessoasController < ApplicationController
     # @pessoa = Pessoa.find(params[:pessoa_id])
     @componente = Componente.find(params[:evento_id])
     @participacoes = @componente.participacoes.includes(:pessoa).order("pessoas.nome asc")#.da_pessoa(@pessoa).all
+    @responsavel = current_usuario.pessoa.nome.split(/ /)[0].titleize
     # @evento = @evento.componentes#.order("componentes.inicio asc")
 
     # For Rails 3 or latest replace #{RAILS_ROOT} to #{Rails.root}
@@ -34,20 +35,12 @@ class PessoasController < ApplicationController
       r.add_field "ATIVIDADE", @componente.nome
       r.add_field "ID", @componente.id
       r.add_field "DATA", Time.now.strftime("%d de %B de %Y")
+      r.add_field "EMISSOR", @responsavel
 
       r.add_table("COMPONENTES", @participacoes) do |t|
         t.add_column("ORDEM"){|a|n && n+=1}
-        t.add_column("PARTICIPANTE") {|t|t.pessoa.nome}
+        t.add_column("PARTICIPANTE"){|t|t.pessoa.nome}
 
-        # t.add_column("C", :tipo_componente)
-        # t.add_column("COMPONENTE", :nome)
-        # if field.is_a?(String)
-        # row["FIELD_NAME"] = 'Materials'
-        # row["FIELD_VALUE"] = field
-        # else
-        # row["FIELD_NAME"] = :field_id
-        # row["FIELD_VALUE"] = field.nome || ''
-        # end
       end
     end
 
