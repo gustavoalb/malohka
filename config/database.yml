@@ -4,7 +4,7 @@ development:
   database: malohka_development
   pool: 5
   username: postgres
-  password: malocasoft
+  password: postgres
   host: localhost
 
 test:
@@ -13,7 +13,7 @@ test:
   database: malohka_test
   pool: 5
   username: postgres
-  password: malocasoft
+  password: postgres
   host: localhost
 
 production:
