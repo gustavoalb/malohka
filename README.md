@@ -1,7 +1,7 @@
 # Malohka
 [![Logo Malohka](https://i.imgur.com/kqkP7Sq.jpg "Logo Malohka")](https://i.imgur.com/kqkP7Sq.jpg "Logo Malohka")
 
-[Leia isto em inglês](README.md) 
+[Read this in Brazilian Portuguese](README-PT-br.md) 
 
 This personal project was an excercise of how technology could improve the students
 life in a Technical School. It was applied in the Federal Institute of Amapá. 
@@ -11,7 +11,7 @@ school/study group/minicourses attendance control and reporting about all those 
 Its biggest use case was in the National Science and Technology Week 2015.
 Deactivated for lack of personel/time to mantain and operate.
 
-## Tecnologias utilizadas
+## Stack
 
 - Ruby 2.3.6
 - Rails 4.2.1
